@@ -14,7 +14,7 @@
 <script>
 window.CRC = (function () {
     // Lucknow pakka bigha = 3,025 gaj = 27,225 sq ft = 2,529.285 sq m (same as the site's area converter); 1 bigha = 20 biswa
-    var SQFT = 10.7639, GAJ = 0.836127, BIGHA = 2529.285264, BISWA = BIGHA / 20, WOMAN_LIMIT = 1e7;
+    var SQFT = 1 / 0.09290304, GAJ = 0.83612736, BIGHA = 2529.285264, BISWA = BIGHA / 20, WOMAN_LIMIT = 1e7;
 
     function toSqm(v, unit) {
         return unit === 'sqft' ? v / SQFT : unit === 'gaj' ? v * GAJ : unit === 'bigha' ? v * BIGHA : unit === 'biswa' ? v * BISWA : v;

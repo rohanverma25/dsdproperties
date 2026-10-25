@@ -225,6 +225,21 @@ Route::get('/sitemap-services.xml', function () {
 Route::get('/lda-schemes', [LdaSchemesController::class, 'index'])->name('lda.schemes');
 Route::view('/lda-plot-calculator', 'pages.lda-plot-calculator')->name('lda.plot.calculator');
 Route::view('/lucknow-circle-rate', 'pages.lucknow-circle-rate')->name('lucknow.circle.rate');
+// Every mohalla page. NOT yet listed in /sitemap.xml: add it there when the noindex on the circle-rate page is lifted.
+Route::get('/sitemap-circle-rate.xml', function () {
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+    foreach (\App\Support\CircleRates::all() as $sro => $l) {
+        foreach ($l['rows'] as $r) $xml .= '  <url><loc>' . e(\App\Support\CircleRates::url($sro, $r)) . "</loc></url>\n";
+    }
+    return response($xml . '</urlset>', 200, ['Content-Type' => 'application/xml']);
+})->name('sitemap.circle-rate');
+
+// One page per mohalla / village, e.g. /lucknow-circle-rate/mohanlalganj/mastemau: same page, opened on that mohalla
+Route::get('/lucknow-circle-rate/{sro}/{mohalla}', function (string $sro, string $mohalla) {
+    $row = \App\Support\CircleRates::find($sro, $mohalla);
+    abort_unless($row, 404);
+    return view('pages.lucknow-circle-rate', ['mSro' => $sro, 'mRow' => $row]);
+})->where(['sro' => '[a-z-]+', 'mohalla' => '[a-z0-9-]+'])->name('lucknow.circle.rate.mohalla');
 Route::get('/awas-vikas-schemes', [AwasVikasSchemesController::class, 'index'])->name('awas.vikas.schemes');
 Route::get('/lda-demolition-tracker', function () {
     $genericUrls = [

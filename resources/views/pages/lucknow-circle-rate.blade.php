@@ -10,14 +10,12 @@
     Every figure is copied from the official list. Do not round or "fix" numbers here; change the TSVs and rebuild.
 --}}
 @php
-    $all = [];
-    foreach (glob(resource_path('data/circle-rates/*.json')) as $file) {
-        $l = json_decode(file_get_contents($file), true);
-        $all[$l['slug']] = $l;
-    }
-    uasort($all, fn ($a, $b) => strcmp($a['sro_code'], $b['sro_code']));   // SRO number order: Sadar Pratham 227 first
+    use App\Support\CircleRates as CRS;
+    $all = CRS::all();                                   // SRO number order: Sadar Pratham 227 first
     $defaultSro = array_key_first($all);
-    $sel = isset($all[request('sro')]) ? request('sro') : $defaultSro;
+    // /lucknow-circle-rate/{sro}/{mohalla} passes $mSro + $mRow: the same page, opened on that mohalla
+    $mSro = $mSro ?? null; $mRow = $mRow ?? null;
+    $sel = $mSro ?? (isset($all[request('sro')]) ? request('sro') : $defaultSro);
     $L = $all[$sel];
     $lists = [[
         'sro' => $L['sro'], 'sro_hi' => $L['sro_hi'], 'effective' => $L['effective'], 'order' => $L['order'],
@@ -26,7 +24,7 @@
     ]];
     $fmt = fn ($v) => $v === null ? '–' : number_format($v);
     // Search placeholder and the mohalla the calculator opens with, per SRO
-    $rows = array_map(fn ($r) => $r + ['list' => 0, 'id' => $r['sr']], $L['rows']);
+    $rows = array_map(fn ($r) => $r + ['list' => 0, 'id' => $r['sr'], 'slug' => CRS::slug($r['en'])], $L['rows']);
     $examples = ['sadar-pratham' => ['Alambagh, Charbagh, Park Road, आलमबाग', 'Alambagh'],
                  'sadar-dwitiya' => ['Vibhuti Khand, Aminabad, Hazratganj, गोमतीनगर', 'Vibhuti Khand'],
                  'sadar-tritiya' => ['Indira Nagar, Mahanagar, Vikas Nagar, इन्दिरा नगर', 'Mahanagar Gol Market'],
@@ -38,7 +36,39 @@
     $cr = ['lists' => $lists, 'rows' => $rows];
     $effLabel = \Carbon\Carbon::parse($L['effective'])->format('j F Y');
     $sroName = $L['sro'] . ' (' . $L['sro_hi'] . ')';
-    $pageUrl = url('/lucknow-circle-rate') . ($sel === $defaultSro ? '' : '?sro=' . $sel);
+    $pageUrl = $mRow ? CRS::url($sel, $mRow) : url('/lucknow-circle-rate') . ($sel === $defaultSro ? '' : '?sro=' . $sel);
+    $sroUrl = url('/lucknow-circle-rate') . ($sel === $defaultSro ? '' : '?sro=' . $sel);
+    if ($mRow) {
+        $M = $mRow; $p = $M['plot']; $a = $M['agri'] ?? null;
+        $isVillage = $a || collect($M['roads'])->contains(fn ($x) => !empty($x['agri']));
+        $place = ($M['vcode'] === '-' && preg_match('/^1\d\d$/', $M['ward']) ? 'Pargana ' : 'Ward ') . $M['ward'] . ' (' . $M['ward_name'] . ')';
+        $plotRates = array_values(array_filter([$p['lt9'], $p['9_12'], $p['12_18'], $p['gt18']], fn ($v) => $v !== null));
+        $bigha = fn ($lakh) => $lakh * 1e5 * CRS::BIGHA_SQM / 1e4;
+        // Worked examples (same arithmetic as the calculator; checked against it by the test in _deploy)
+        $ex = [];
+        $ex[] = ['100 gaj (83.61 sq m) plot on a road under 9 m wide', CRS::plotValue($M, 100 * CRS::GAJ_SQM)];
+        $ex[] = ['1,000 sq ft (92.90 sq m) plot on a road under 9 m wide', CRS::plotValue($M, 1000 * CRS::SQFT_SQM)];
+        if (($g = CRS::agriGeneralValue($M, CRS::BIGHA_SQM)) !== null) $ex[] = ['1 bigha (2,529 sq m) of agricultural land, सामान्य भूमि', $g];
+        // Other mohallas of the same ward / pargana first, then alphabetical neighbours
+        $same = array_values(array_filter($rows, fn ($r) => $r['ward_name'] === $M['ward_name'] && $r['sr'] !== $M['sr']));
+        if (count($same) < 12) {
+            $alpha = $rows; usort($alpha, fn ($x, $y) => strcmp($x['en'], $y['en']));
+            $i = array_search($M['sr'], array_column($alpha, 'sr'));
+            foreach (array_slice($alpha, max(0, $i - 8), 17) as $r) if ($r['sr'] !== $M['sr'] && !in_array($r, $same, true)) $same[] = $r;
+        }
+        $nearby = array_slice($same, 0, 16);
+        $exText = fn ($e) => $e[0] . ': ' . CRS::money($e[1]) . ', stamp duty ' . CRS::money(CRS::duty($e[1])['sd']) . ' (7%) + registration ' . CRS::money(CRS::duty($e[1])['reg']) . ' (1%)';
+        $mFaqs = [
+            ['What is the circle rate of ' . $M['en'] . ', Lucknow?', 'The DM circle rate for residential plots in ' . $M['en'] . ' (' . $M['hi'] . ') is ₹' . CRS::inr($p['lt9']) . ' per sq m on roads under 9 m wide'
+                . ($p['gt18'] !== null ? ', rising to ₹' . CRS::inr($p['gt18']) . ' per sq m on roads above 18 m' : '') . '. It is in the ' . $L['sro'] . ' sub-registrar office list in force from ' . $effLabel . '.'],
+            ['How much stamp duty is payable in ' . $M['en'] . '?', implode('. ', array_map($exText, $ex)) . '. A woman buyer pays 6% instead of 7% when the value is up to ₹1 crore. Stamp duty is charged on the circle-rate value or the sale price, whichever is higher.'],
+        ];
+        if ($a) $mFaqs[] = ['What is the circle rate of agricultural land in ' . $M['en'] . '?', 'Agricultural land in ' . $M['en'] . ' is ₹' . $a['general'] . ' lakh per hectare (about ' . CRS::money($bigha($a['general'])) . ' per bigha) for ordinary fields, ₹' . $a['district_road'] . ' lakh on a district road, ₹' . $a['link_road'] . ' lakh on a link road and ₹' . $a['near_abadi'] . ' lakh next to abadi.'];
+        $mTitle = $M['en'] . ' Circle Rate 2025-26 (' . $M['hi'] . ' सर्किल रेट) – ' . $L['sro'] . ', Lucknow';
+        $mDesc = $M['en'] . ' (' . $M['hi'] . '), Lucknow circle rate: residential plot ₹' . CRS::inr(min($plotRates)) . (count($plotRates) > 1 ? '–₹' . CRS::inr(max($plotRates)) : '') . ' per sq m by road width'
+            . ($a ? ', agricultural land ₹' . $a['general'] . '–₹' . max($a) . ' lakh per hectare (₹' . CRS::inr($bigha($a['general'])) . '+ per bigha)' : '')
+            . '. Official DM list, ' . $L['sro'] . ' SRO, with stamp duty examples.';
+    }
     // Names in the other SRO lists, so a search that finds nothing here can point to the right SRO
     $elsewhere = [];
     foreach ($all as $slug => $l) {
@@ -56,8 +86,8 @@
     ];
 @endphp
 
-@section('title', 'Lucknow Circle Rate ' . $L['sro'] . ': Mohalla-wise DM Rate List and Stamp Duty Calculator')
-@section('meta_description', 'Official Lucknow circle rates for ' . $count . ' mohallas of ' . $L['sro'] . ' SRO: plot rate by road width, flat, shop and office rates per sq m, plus a stamp duty calculator. Copied from the DM Lucknow valuation list.')
+@section('title', $mRow ? $mTitle : 'Lucknow Circle Rate ' . $L['sro'] . ': Mohalla-wise DM Rate List and Stamp Duty Calculator')
+@section('meta_description', $mRow ? $mDesc : 'Official Lucknow circle rates for ' . $count . ' mohallas of ' . $L['sro'] . ' SRO: plot rate by road width, flat, shop and office rates per sq m, plus a stamp duty calculator. Copied from the DM Lucknow valuation list.')
 @section('meta_keywords', 'Lucknow circle rate, circle rate Lucknow 2025, DM rate Lucknow, Lucknow circle rate list, circle rate Hazratganj, circle rate Alambagh, Charbagh circle rate, Gomti Nagar circle rate, Vibhuti Khand circle rate, Aminabad circle rate, Indira Nagar circle rate, Mahanagar circle rate, Vikas Nagar circle rate, Mohanlalganj circle rate, Nigohan circle rate, Sarojini Nagar circle rate, Telibagh circle rate, Ashiyana circle rate, Transport Nagar circle rate, Lucknow mulyankan suchi, stamp duty Lucknow')
 
 @section('canonical', $pageUrl)
@@ -76,13 +106,13 @@
             'url' => $pageUrl,
             'temporalCoverage' => '2025-08-01/..',
             'spatialCoverage' => ['@type' => 'Place', 'name' => 'Lucknow, Uttar Pradesh, India'],
-            'isBasedOn' => 'Office of the District Magistrate, Lucknow: मूल्यांकन सूची, उप निबंधक कार्यालय सदर प्रथम, order no. 971 dated 01.08.2025',
+            'isBasedOn' => 'Office of the District Magistrate, Lucknow: मूल्यांकन सूची, उप निबंधक कार्यालय ' . $L['sro_hi'] . ', order no. 971 dated 01.08.2025',
             'creator' => ['@type' => 'Organization', 'name' => 'DSD Properties', 'url' => 'https://dsdproperties.in'],
             'distribution' => array_map(fn ($l) => ['@type' => 'DataDownload', 'encodingFormat' => 'application/pdf', 'contentUrl' => $l['pdf']], $lists),
         ],
         [
             '@type' => 'FAQPage',
-            'mainEntity' => array_map(fn ($f) => ['@type' => 'Question', 'name' => $f[0], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f[1]]], $faqs),
+            'mainEntity' => array_map(fn ($f) => ['@type' => 'Question', 'name' => $f[0], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f[1]]], $mRow ? $mFaqs : $faqs),
         ],
     ],
 ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}
@@ -141,6 +171,19 @@
 .lcr-row.tot{border-top:2px solid var(--n);border-bottom:0;margin-top:4px;padding-top:12px;font-size:15.5px}
 .lcr-row.tot span:last-child{color:var(--o)}
 .lcr-how{font-size:12.5px;color:var(--g);line-height:1.6;margin:10px 0 0}
+.lcr-crumb{font-size:13px;color:var(--g);margin:0 0 8px}.lcr-crumb a{color:var(--t);font-weight:600}
+.lcr-m{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:18px;margin:0 0 26px}
+@media(max-width:860px){.lcr-m{grid-template-columns:1fr}}
+.lcr-m h2{font-size:17px;margin:0 0 10px}
+.lcr-m .lcr-rates td:first-child{color:#334155}
+.lcr-ex{list-style:none;margin:0;padding:0}
+.lcr-ex li{border-bottom:1px dashed var(--line);padding:10px 0;font-size:14px;line-height:1.55}
+.lcr-ex li:last-child{border-bottom:0}
+.lcr-ex b{color:var(--n)}
+.lcr-near{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.lcr-near a{padding:6px 10px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--n);text-decoration:none;background:#fff}
+.lcr-near a:hover{border-color:var(--t)}
+.lcr-report{font-size:13px;color:var(--g);margin:12px 0 0}.lcr-report a{color:var(--t);font-weight:700}
 .lcr-agri-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
 .lcr-agri{width:100%;border-collapse:collapse;font-size:13.5px;min-width:430px}
 .lcr-agri th{background:var(--soft);color:var(--g);font-size:11.5px;font-weight:700;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
@@ -186,7 +229,14 @@
         <noscript><button type="submit">Show</button></noscript>
         <span>Choose the sub-registrar office your property is registered in. More SROs are being added.</span>
     </form>
+    @if($mRow)
+    <nav class="lcr-crumb"><a href="{{ $sroUrl }}">Lucknow circle rate · {{ $L['sro'] }}</a> › {{ $M['en'] }}</nav>
+    <h1>{{ $M['en'] }} Circle Rate ({{ $M['hi'] }} सर्किल रेट)</h1>
+    <p class="sub">{{ $M['category'] ?? '' }}{{ !empty($M['category']) ? ' · ' : '' }}{{ $place }} · {{ $L['sro'] }} sub-registrar office, Lucknow. Every figure below is copied from the District Magistrate's valuation list, without rounding.</p>
+    @include('pages.partials.circle-rate-mohalla')
+    @else
     <h1>Lucknow Circle Rate: {{ $L['sro'] }}</h1>
+    @endif
     <p class="sub">Search your mohalla to see the official minimum value per square metre for plots, flats, shops and offices, then calculate the circle-rate value and stamp duty for your property. Every rate below is copied from the District Magistrate's valuation list, without any rounding or changes.</p>
 
     <div class="lcr-src">
@@ -361,7 +411,7 @@
             <tbody>
             @foreach($rows as $r)
                 <tr>
-                    <td>{{ $r['id'] }}</td><td>{{ $r['en'] }}</td><td>{{ $r['hi'] }}</td><td>{{ $r['ward'] }} {{ $r['ward_name'] }}</td>
+                    <td>{{ $r['id'] }}</td><td><a href="{{ CRS::url($sel, $r) }}">{{ $r['en'] }}</a></td><td>{{ $r['hi'] }}</td><td>{{ $r['ward'] }} {{ $r['ward_name'] }}</td>
                     <td class="r">{{ $fmt($r['plot']['lt9']) }}</td><td class="r">{{ $fmt($r['plot']['9_12']) }}</td><td class="r">{{ $fmt($r['plot']['12_18']) }}</td><td class="r">{{ $fmt($r['plot']['gt18']) }}</td>
                     <td class="r">{{ $fmt($r['flat']['ordinary']) }}</td><td class="r">{{ $fmt($r['flat']['premium']) }}</td>
                     <td class="r">{{ $fmt($r['commercial']['shop'] ?? null) }}</td><td class="r">{{ $fmt($r['commercial']['office'] ?? null) }}</td><td class="r">{{ $fmt($r['commercial']['godown'] ?? null) }}</td>
@@ -429,7 +479,7 @@
 (function () {
     var DATA = @json($cr);
     var ELSEWHERE = @json($elsewhere);
-    var ROWS = DATA.rows, SQFT = 10.7639, GAJ = 0.836127;
+    var ROWS = DATA.rows, SQFT = CRC.SQFT, GAJ = CRC.GAJ;   // exact: 1 sq ft = 0.09290304 sq m, 1 gaj = 0.83612736 sq m
     var $ = function (id) { return document.getElementById(id); };
     function inr(n) { return Math.round(n).toLocaleString('en-IN'); }
     function money(n) {
@@ -501,7 +551,7 @@
     q.addEventListener('input', search);
     out.addEventListener('click', function (e) {
         var b = e.target.closest('button[data-sr]'); if (!b) return;
-        moh.value = b.getAttribute('data-sr'); fillRoads(); autoType(); calc();
+        moh.value = b.getAttribute('data-sr'); fillRoads(); autoType(); calc(); syncUrl();
         document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
     });
 
@@ -510,7 +560,10 @@
     ROWS.slice().sort(function (a, b) { return a.en.localeCompare(b.en); }).forEach(function (r) {
         var o = document.createElement('option'); o.value = r.id; o.textContent = r.en + ' · ' + r.hi; moh.appendChild(o);
     });
-    var first = ROWS.filter(function (r) { return r.en === @json($examples[1]); })[0] || ROWS[0];
+    var first = ROWS.filter(function (r) { return @json($mRow ? $mRow['en'] : $examples[1]) === r.en; })[0] || ROWS[0];
+    var SRO = @json($sel), BASE = @json(url('/lucknow-circle-rate'));
+    // The address bar follows the chosen mohalla, so the page can be shared or bookmarked for that mohalla
+    function syncUrl() { try { history.replaceState(null, '', BASE + '/' + SRO + '/' + row().slug); } catch (e) {} }
     moh.value = first.id;
 
     function row() { var id = +moh.value; return ROWS.filter(function (r) { return r.id === id; })[0]; }
@@ -648,7 +701,7 @@
     ['c-road', 'c-area', 'c-unit', 'c-floor', 'c-built', 'c-ctype', 'c-age', 'c-sfloor', 'c-ac', 'c-park', 'c-corner', 'c-deal', 'c-aadj'].forEach(function (id) {
         $(id).addEventListener('input', calc); $(id).addEventListener('change', calc);
     });
-    moh.addEventListener('change', function () { fillRoads(); autoType(); calc(); track('circle_rate_calc', { mohalla: row().en }); });
+    moh.addEventListener('change', function () { fillRoads(); autoType(); calc(); syncUrl(); track('circle_rate_calc', { mohalla: row().en }); });
     $('c-apos-tbl').addEventListener('click', function (e) {
         var tr = e.target.closest('tr[data-v]'); if (!tr) return;
         aposSel = tr.getAttribute('data-v'); calc();
