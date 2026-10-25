@@ -141,6 +141,16 @@
 .lcr-row.tot{border-top:2px solid var(--n);border-bottom:0;margin-top:4px;padding-top:12px;font-size:15.5px}
 .lcr-row.tot span:last-child{color:var(--o)}
 .lcr-how{font-size:12.5px;color:var(--g);line-height:1.6;margin:10px 0 0}
+.lcr-agri-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.lcr-agri{width:100%;border-collapse:collapse;font-size:13.5px;min-width:430px}
+.lcr-agri th{background:var(--soft);color:var(--g);font-size:11.5px;font-weight:700;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+.lcr-agri td{padding:9px 10px;border-bottom:1px dashed var(--line);vertical-align:middle;cursor:pointer}
+.lcr-agri td.r,.lcr-agri th.r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.lcr-agri tr:last-child td{border-bottom:0}
+.lcr-agri tr.on td{background:#effaf9}
+.lcr-agri tr.on td:last-child{font-weight:800;color:var(--n)}
+.lcr-agri input{accent-color:var(--t);margin:0 6px 0 0;vertical-align:-2px}
+.lcr-agri small{display:block;color:var(--g);font-size:11.5px}
 .lcr-cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 @media(max-width:560px){.lcr-cta{grid-template-columns:1fr}}
 .lcr-cta a{display:flex;align-items:center;justify-content:center;padding:13px;border-radius:12px;font-weight:700;font-size:14.5px;text-decoration:none;text-align:center}
@@ -288,9 +298,9 @@
             {{-- agricultural land only --}}
             <div id="g-agri" hidden>
                 <div class="lcr-field">
-                    <label class="lcr-label" for="c-apos">Where is the land?</label>
-                    <select id="c-apos"></select>
-                    <p class="lcr-hint">Agricultural rates are in ₹ lakh per hectare, by where the field lies. Abadi = houses or a settlement within 50 m.</p>
+                    <span class="lcr-label">Agricultural rates of this village · tick where your field lies</span>
+                    <div class="lcr-agri-wrap"><table class="lcr-agri" id="c-apos-tbl"></table></div>
+                    <p class="lcr-hint">All rates of the DM list for this village, for the area you entered. Most fields are "सामान्य भूमि"; choose a road or abadi rate only if the field itself touches that road or the abadi (houses within 50 m).</p>
                 </div>
                 <div class="lcr-field">
                     <label class="lcr-label" for="c-aadj">Next to both a road and abadi?</label>
@@ -491,7 +501,7 @@
     q.addEventListener('input', search);
     out.addEventListener('click', function (e) {
         var b = e.target.closest('button[data-sr]'); if (!b) return;
-        moh.value = b.getAttribute('data-sr'); fillRoads(); calc();
+        moh.value = b.getAttribute('data-sr'); fillRoads(); autoType(); calc();
         document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
     });
 
@@ -524,17 +534,34 @@
         $('c-unit').innerHTML = UNITS[want].map(function (u) { return '<option value="' + u[0] + '">' + u[1] + '</option>'; }).join('');
         $('c-area').value = want === 'agri' ? 1 : 100;
     }
-    var APOS_TXT = { district_road: 'On a district road (जनपदीय मार्ग)', link_road: 'On a link road (सम्पर्क मार्ग)', near_abadi: 'Next to abadi (आबादी से सटी)', general: 'Other land (सामान्य)' };
+    var APOS_TXT = { district_road: ['जनपदीय मार्ग से सटी', 'On a district road'], link_road: ['सम्पर्क मार्ग से सटी', 'On a link road'],
+                     near_abadi: ['आबादी से सटी', 'Next to abadi (houses within 50 m)'], general: ['सामान्य भूमि', 'Other fields, not touching a road or abadi'] };
+    var aposSel = 'general';
+    function setType(v) { [].forEach.call($('c-type').querySelectorAll('button'), function (x) { x.classList.toggle('on', x.getAttribute('data-v') === v); }); }
+    // A village with agricultural rates opens on "Agricultural land"; villages that are not urban have no flats (user's request, 26 Oct 2026)
+    function villageMode(r) { return CRC.agriOptions(r).length > 0; }
+    function autoType() {
+        var r = row(), village = villageMode(r);
+        $('c-type').querySelector('button[data-v="flat"]').hidden = village && r.category !== 'Urban';
+        setType(village ? 'agri' : 'plot'); aposSel = 'general';
+    }
     function fillAgri() {
-        var r = row(), prev = $('c-apos').value, opts = CRC.agriOptions(r);
+        var r = row(), opts = CRC.agriOptions(r);
         $('c-type-agri').hidden = !opts.length;
-        $('c-apos').innerHTML = opts.map(function (o) {
-            return '<option value="' + o.v + '">' + (o.name ? 'On main road: ' + esc(o.name) : APOS_TXT[o.v]) + ' (₹' + inr(o.lakh) + ' lakh/ha)</option>';
-        }).join('');
-        if ([].some.call($('c-apos').options, function (o) { return o.value === prev; })) $('c-apos').value = prev;
-        if (!opts.length && pick('c-type') === 'agri') {            // this village has no agricultural rates: fall back to plot
-            [].forEach.call($('c-type').querySelectorAll('button'), function (x) { x.classList.toggle('on', x.getAttribute('data-v') === 'plot'); });
-        }
+        $('c-type').querySelector('button[data-v="flat"]').hidden = opts.length > 0 && r.category !== 'Urban';
+        if ((!opts.length && pick('c-type') === 'agri') || (pick('c-type') === 'flat' && $('c-type').querySelector('button[data-v="flat"]').hidden)) setType(opts.length ? 'agri' : 'plot');
+        if (!opts.some(function (o) { return o.v === aposSel; })) aposSel = opts.some(function (o) { return o.v === 'general'; }) ? 'general' : (opts[0] || {}).v;
+        return opts;
+    }
+    function agriTable(r, area, opts, base) {
+        var h = '<thead><tr><th>Where the field lies</th><th class="r">₹ lakh / ha</th><th class="r">1 bigha</th><th class="r">Your land</th></tr></thead><tbody>';
+        opts.forEach(function (o) {
+            var v = CRC.value(Object.assign({}, base, { apos: o.v })).value;
+            var name = o.name ? ['मुख्य मार्ग पर: ' + esc(o.name), 'Field on this main road'] : APOS_TXT[o.v];
+            h += '<tr data-v="' + o.v + '"' + (o.v === aposSel ? ' class="on"' : '') + '><td><label><input type="radio" name="apos" value="' + o.v + '"' + (o.v === aposSel ? ' checked' : '') + '>' + name[0] + '</label><small>' + name[1] + '</small></td>' +
+                 '<td class="r">' + inr(o.lakh) + '</td><td class="r">' + money(o.lakh * 1e5 * CRC.BIGHA / 1e4) + '</td><td class="r">' + money(v) + '</td></tr>';
+        });
+        $('c-apos-tbl').innerHTML = h + '</tbody>';
     }
     function toSqm(v) { return CRC.toSqm(v, $('c-unit').value); }
     function sqmTxt(v) {
@@ -563,7 +590,7 @@
     }
 
     function calc() {
-        fillAgri(); setUnits(pick('c-type'));
+        var agriOpts = fillAgri(); setUnits(pick('c-type'));
         var r = row(), type = pick('c-type'), area = toSqm(parseFloat($('c-area').value) || 0), how = '';
         $('g-agri').hidden = type !== 'agri'; $('f-road').hidden = type === 'agri';
         $('g-flat').hidden = type !== 'flat'; $('g-house').hidden = type !== 'house'; $('g-shop').hidden = type !== 'shop';
@@ -577,8 +604,10 @@
             built: toSqm(parseFloat($('c-built').value) || 0), ctype: $('c-ctype').value, cls: +pick('c-class'),
             age: parseInt($('c-age').value, 10) || 0,
             use: pick('c-use'), sfloor: $('c-sfloor').value, ac: $('c-ac').checked,
-            apos: $('c-apos').value || 'general', aadj: $('c-aadj').value
+            apos: aposSel || 'general', aadj: $('c-aadj').value
         });
+        if (type === 'agri') agriTable(r, area, agriOpts, {
+            type: 'agri', row: r, list: DATA.lists[r.list], road: road.value, area: area, aadj: $('c-aadj').value });
         var value = res.value, lines = res.lines.map(lineTxt);
         if (res.flags.over1000) how = 'Area above 1,000 sq m is valued at 30% less. ';
         if (res.flags.landShare) how = 'Land share is taken at the minimum 30% of covered area; if the deed gives a larger undivided share, the value is higher. ';
@@ -616,14 +645,18 @@
             calc();
         });
     });
-    ['c-road', 'c-area', 'c-unit', 'c-floor', 'c-built', 'c-ctype', 'c-age', 'c-sfloor', 'c-ac', 'c-park', 'c-corner', 'c-deal', 'c-apos', 'c-aadj'].forEach(function (id) {
+    ['c-road', 'c-area', 'c-unit', 'c-floor', 'c-built', 'c-ctype', 'c-age', 'c-sfloor', 'c-ac', 'c-park', 'c-corner', 'c-deal', 'c-aadj'].forEach(function (id) {
         $(id).addEventListener('input', calc); $(id).addEventListener('change', calc);
     });
-    moh.addEventListener('change', function () { fillRoads(); calc(); track('circle_rate_calc', { mohalla: row().en }); });
+    moh.addEventListener('change', function () { fillRoads(); autoType(); calc(); track('circle_rate_calc', { mohalla: row().en }); });
+    $('c-apos-tbl').addEventListener('click', function (e) {
+        var tr = e.target.closest('tr[data-v]'); if (!tr) return;
+        aposSel = tr.getAttribute('data-v'); calc();
+    });
     // partials/ga4 already sends whatsapp_click + generate_lead for every wa.me link; only mark the verification intent here
     $('r-verify').addEventListener('click', function () { track('verify_click', { source: 'circle_rate' }); });
 
-    fillRoads(); calc();
+    fillRoads(); autoType(); calc();
 })();
 </script>
 @endpush
