@@ -13,9 +13,12 @@
 --}}
 <script>
 window.CRC = (function () {
-    var SQFT = 10.7639, GAJ = 0.836127, WOMAN_LIMIT = 1e7;
+    // Lucknow pakka bigha = 3,025 gaj = 27,225 sq ft = 2,529.285 sq m (same as the site's area converter); 1 bigha = 20 biswa
+    var SQFT = 10.7639, GAJ = 0.836127, BIGHA = 2529.285264, BISWA = BIGHA / 20, WOMAN_LIMIT = 1e7;
 
-    function toSqm(v, unit) { return unit === 'sqft' ? v / SQFT : unit === 'gaj' ? v * GAJ : v; }
+    function toSqm(v, unit) {
+        return unit === 'sqft' ? v / SQFT : unit === 'gaj' ? v * GAJ : unit === 'bigha' ? v * BIGHA : unit === 'biswa' ? v * BISWA : v;
+    }
 
     // Rule 17: plot rate applies up to 1,000 sq m; the area above that at 30% less
     function landValue(area, rate) { return area <= 1000 ? area * rate : 1000 * rate + (area - 1000) * rate * 0.7; }
@@ -96,7 +99,7 @@ window.CRC = (function () {
         };
     }
 
-    return { SQFT: SQFT, GAJ: GAJ, WOMAN_LIMIT: WOMAN_LIMIT, toSqm: toSqm, roads: roads, roadEntry: roadEntry,
+    return { SQFT: SQFT, GAJ: GAJ, BIGHA: BIGHA, BISWA: BISWA, WOMAN_LIMIT: WOMAN_LIMIT, toSqm: toSqm, roads: roads, roadEntry: roadEntry,
              landRate: landRate, value: value, duty: duty };
 })();
 </script>

@@ -27,6 +27,8 @@
     $fmt = fn ($v) => $v === null ? '–' : number_format($v);
     // Search placeholder and the mohalla the calculator opens with, per SRO
     $rows = array_map(fn ($r) => $r + ['list' => 0, 'id' => $r['sr']], $L['rows']);
+    // Mostly rural SROs, where land is bought by the bigha: offer bigha / biswa as area units (user's request, 26 Oct 2026)
+    $bighaSro = in_array($sel, ['mohanlalganj', 'sarojini-nagar', 'sarojini-nagar-dwitiya'], true);
     $examples = ['sadar-pratham' => ['Alambagh, Charbagh, Park Road, आलमबाग', 'Alambagh'],
                  'sadar-dwitiya' => ['Vibhuti Khand, Aminabad, Hazratganj, गोमतीनगर', 'Vibhuti Khand'],
                  'sadar-tritiya' => ['Indira Nagar, Mahanagar, Vikas Nagar, इन्दिरा नगर', 'Mahanagar Gol Market'],
@@ -221,7 +223,7 @@
                 <label class="lcr-label" for="c-area" id="c-area-l">Plot area</label>
                 <div class="lcr-two">
                     <input id="c-area" class="num" type="number" inputmode="decimal" min="0" step="any" value="100">
-                    <select id="c-unit"><option value="sqm">sq m</option><option value="sqft">sq ft</option><option value="gaj">gaj (sq yd)</option></select>
+                    <select id="c-unit"><option value="sqm">sq m</option><option value="sqft">sq ft</option><option value="gaj">gaj (sq yd)</option>@if($bighaSro)<option value="bigha">bigha</option><option value="biswa">biswa</option>@endif</select>
                 </div>
             </div>
 
@@ -501,7 +503,11 @@
         if ([].some.call(road.options, function (o) { return o.value === prev; })) road.value = prev;
     }
     function toSqm(v) { return CRC.toSqm(v, $('c-unit').value); }
-    function sqmTxt(v) { return (Math.round(v * 100) / 100).toLocaleString('en-IN') + ' sq m'; }
+    function sqmTxt(v) {
+        var t = (Math.round(v * 100) / 100).toLocaleString('en-IN') + ' sq m', u = $('c-unit').value;
+        if (u === 'bigha' || u === 'biswa') t += ' (' + (Math.round(v / (u === 'bigha' ? CRC.BIGHA : CRC.BISWA) * 1000) / 1000).toLocaleString('en-IN') + ' ' + u + ')';
+        return t;
+    }
 
     // Engine line kinds → the English text this page has always shown
     function lineTxt(l) {
