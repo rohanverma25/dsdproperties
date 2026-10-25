@@ -198,7 +198,7 @@
     <div class="lpc-notes">
         <h2>How the numbers are worked out</h2>
         <ul>
-            <li><strong>Plot price</strong> = size in sq m × the scheme rate per sq m. Example: a 112.5 sq m plot in Varun Vihar at ₹30,139/sq m comes to about ₹33.9 L.</li>
+            <li><strong>Plot price</strong> = size in sq m × the scheme rate per sq m. Example: a 112.5 sq m (1,211 sq ft) plot in Varun Vihar at ₹30,139/sq m (₹2,800/sq ft) comes to about ₹33.9 L. Sq ft figures use 1 sq m = 10.7639 sq ft.</li>
             <li><strong>Anant Nagar Phase 5</strong> uses ₹44,731/sq m, the latest rate LDA published for the scheme (Phase 4). <strong>Wellness City</strong> and <strong>IT City</strong> are not open to the public yet: Wellness City uses the rate reported by Amar Ujala and IT City uses our expected rate, so treat both as planning figures.</li>
             <li><strong>Registration deposit</strong> is 5% of the plot price, or 2.5% for reserved categories. The booklet costs ₹1,100.</li>
             <li><strong>Pay in full</strong>: 6% off within 45 days of allotment, 5% within 60 days and 4% within 90 days. We apply the discount to the plot price.</li>
@@ -254,6 +254,10 @@
         return '₹' + inr(n);
     }
     function sqm(v) { return (v % 1 ? v.toFixed(1) : v) + ' sq m'; }
+    // sq ft is shown alongside for readers who think in sq ft; all data stays in sq m
+    var SQFT = 10.7639;
+    function perSqft(rate) { return '₹' + inr(rate / SQFT) + '/sq ft'; }
+    function sqft(v) { return inr(v * SQFT) + ' sq ft'; }
     function pick(groupId) { var b = document.querySelector('#' + groupId + ' button.on'); return parseFloat(b.getAttribute('data-v')); }
 
     var schemeSel = $('lpc-scheme'), sizeSel = $('lpc-size');
@@ -267,10 +271,10 @@
         sizeSel.innerHTML = '';
         s.sizes.forEach(function (z, i) {
             var o = document.createElement('option'); o.value = i;
-            o.textContent = sqm(z) + '  ·  ' + money(z * s.rate);
+            o.textContent = sqm(z) + ' (' + sqft(z) + ')  ·  ' + money(z * s.rate);
             sizeSel.appendChild(o);
         });
-        $('lpc-meta').innerHTML = '<div><strong>₹' + inr(s.rate) + '/sq m</strong>rate</div><div><strong>' + s.area + '</strong>location</div>';
+        $('lpc-meta').innerHTML = '<div><strong>₹' + inr(s.rate) + '/sq m</strong>rate · ' + perSqft(s.rate) + '</div><div><strong>' + s.area + '</strong>location</div>';
         renderTable();
         calc();
     }
@@ -280,7 +284,7 @@
         var h = '<thead><tr><th>Plot size</th><th>Price (approx.)</th><th>5% deposit</th></tr></thead><tbody>';
         s.sizes.forEach(function (z, i) {
             var p = z * s.rate;
-            h += '<tr data-i="' + i + '" title="Tap to calculate this size"><td>' + sqm(z) + '</td><td>' + money(p) + '</td><td>' + money(p * 0.05) + '</td></tr>';
+            h += '<tr data-i="' + i + '" title="Tap to calculate this size"><td>' + sqm(z) + ' <small style="color:#64748b">(' + sqft(z) + ')</small></td><td>' + money(p) + '</td><td>' + money(p * 0.05) + '</td></tr>';
         });
         $('lpc-tbl').innerHTML = h + '</tbody>';
         $('lpc-tbl').querySelectorAll('tbody tr').forEach(function (tr) {
@@ -304,7 +308,7 @@
         var dep = price * depPct, fh = price * 0.12;
 
         $('r-price').textContent = money(price);
-        $('r-line').textContent = sqm(z) + ' × ₹' + inr(s.rate) + '/sq m · ' + s.name;
+        $('r-line').textContent = sqm(z) + ' (' + sqft(z) + ') × ₹' + inr(s.rate) + '/sq m (' + perSqft(s.rate) + ') · ' + s.name;
         $('r-basis').textContent = s.basis || '';
         $('r-basis').hidden = !s.basis;
         $('r-deplbl').textContent = 'Registration deposit (' + (depPct * 100) + '%)';
