@@ -31,7 +31,8 @@
                  'sadar-dwitiya' => ['Vibhuti Khand, Aminabad, Hazratganj, गोमतीनगर', 'Vibhuti Khand'],
                  'sadar-tritiya' => ['Indira Nagar, Mahanagar, Vikas Nagar, इन्दिरा नगर', 'Mahanagar Gol Market'],
                  'mohanlalganj' => ['Nigohan, Purseni, Sisendi, नगराम', 'Purseni'],
-                 'sarojini-nagar' => ['Telibagh, Vrindavan Yojana, Sushant City, शारदा नगर', 'Telibagh']][$sel]
+                 'sarojini-nagar' => ['Telibagh, Vrindavan Yojana, Sushant City, शारदा नगर', 'Telibagh'],
+                 'sarojini-nagar-dwitiya' => ['Ashiyana, Transport Nagar, Amausi, आशियाना', 'Ashiyana']][$sel]
                 ?? [implode(', ', array_slice(array_column($rows, 'en'), 0, 3)), $rows[0]['en']];
     $count = count($rows);
     $cr = ['lists' => $lists, 'rows' => $rows];
@@ -57,7 +58,7 @@
 
 @section('title', 'Lucknow Circle Rate ' . $L['sro'] . ': Mohalla-wise DM Rate List and Stamp Duty Calculator')
 @section('meta_description', 'Official Lucknow circle rates for ' . $count . ' mohallas of ' . $L['sro'] . ' SRO: plot rate by road width, flat, shop and office rates per sq m, plus a stamp duty calculator. Copied from the DM Lucknow valuation list.')
-@section('meta_keywords', 'Lucknow circle rate, circle rate Lucknow 2025, DM rate Lucknow, Lucknow circle rate list, circle rate Hazratganj, circle rate Alambagh, Charbagh circle rate, Gomti Nagar circle rate, Vibhuti Khand circle rate, Aminabad circle rate, Indira Nagar circle rate, Mahanagar circle rate, Vikas Nagar circle rate, Mohanlalganj circle rate, Nigohan circle rate, Sarojini Nagar circle rate, Telibagh circle rate, Lucknow mulyankan suchi, stamp duty Lucknow')
+@section('meta_keywords', 'Lucknow circle rate, circle rate Lucknow 2025, DM rate Lucknow, Lucknow circle rate list, circle rate Hazratganj, circle rate Alambagh, Charbagh circle rate, Gomti Nagar circle rate, Vibhuti Khand circle rate, Aminabad circle rate, Indira Nagar circle rate, Mahanagar circle rate, Vikas Nagar circle rate, Mohanlalganj circle rate, Nigohan circle rate, Sarojini Nagar circle rate, Telibagh circle rate, Ashiyana circle rate, Transport Nagar circle rate, Lucknow mulyankan suchi, stamp duty Lucknow')
 
 @section('canonical', $pageUrl)
 
