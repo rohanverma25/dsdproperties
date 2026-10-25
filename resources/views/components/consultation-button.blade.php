@@ -20,8 +20,19 @@
 <div class="text-center">
     @php
         $message = urlencode("Hello, I would like to request a consultation. Page: " . $url);
+        // Verification / ₹5,000 buttons open the verification page instead of WhatsApp (user request 26 Oct 2026: too
+        // many casual WhatsApp chats). Buttons whose label promises WhatsApp, or that sell a different service
+        // (transfer, regularisation, RERA complaints, selling, verified listings), keep WhatsApp.
+        $isVerify = preg_match('~verif|वेरिफ|सत्यापन|₹\s?5,?000|rs\.?\s?5,?000|जाँच|जांच|legal (status )?check|property check|plot check|khasra|check my colony|audit~iu', $text)
+            && !preg_match('~whatsapp|find a verified|verified (property shortlist|site visit|price)|market value|sky-limit|ट्रांसफर|पूरी प्रक्रिया|नियमितीकरण|देरी~iu', $text);
     @endphp
 
+    @if($isVerify)
+    <a href="{{ url('/services/property-verification-lucknow') }}" data-cta-kind="verify"
+       class="consultationBtn not-prose inline-flex items-center gap-3 bg-accent hover:bg-orange-600 text-white font-semibold py-2 px-8 rounded-lg transition duration-300 no-underline text-[18px] !no-underline">
+        {{ $text }}
+    </a>
+    @else
     <a href="https://wa.me/{{ $phone }}?text={{ $message }}"
        target="_blank"
        class="consultationBtn not-prose inline-flex items-center gap-3 bg-accent hover:bg-orange-600 text-white font-semibold py-2 px-8 rounded-lg transition duration-300 no-underline text-[18px] !no-underline">
@@ -33,4 +44,5 @@
 
         {{ $text }}
     </a>
+    @endif
 </div>

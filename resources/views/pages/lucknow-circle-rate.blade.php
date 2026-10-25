@@ -389,7 +389,7 @@
                 <p class="lcr-how" id="r-how"></p>
                 <p class="lcr-how">This follows the rules printed in the DM list. The sub-registrar's calculation on the IGRSUP portal is final, and some cases (agricultural land, industrial units, hotels, plots above 0.1 ha, roof rights) have extra rules listed below.</p>
                 <div class="lcr-cta">
-                    <a class="vf" id="r-verify" href="https://wa.me/918595002933" target="_blank" rel="noopener">Check the papers first (₹5,000)</a>
+                    <a class="vf" id="r-verify" href="{{ url('/services/property-verification-lucknow') }}">Check the papers first (₹5,000)</a>
                     <a class="wa" id="r-wa" href="https://wa.me/918595002933" target="_blank" rel="noopener">Ask us on WhatsApp</a>
                 </div>
                 <a class="lcr-sample" href="{{ $sampleUrl }}" target="_blank" rel="noopener">See a sample verification report →</a>
@@ -466,7 +466,6 @@
         <p>The circle rate tells you the minimum value, not whether the seller really owns the land. We check the khatauni (CH-41, CH-45), the encumbrance certificate (भार मुक्त), court cases and the LDA approval, and send you a report in 48 hours for ₹5,000.</p>
         <div class="lcr-cta" style="margin-top:0">
             <a class="vf" href="{{ url('/services/property-verification-lucknow') }}">See what we check</a>
-            <a class="wa" href="https://wa.me/918595002933?text={{ rawurlencode('Hi, I checked the circle rate on your website. I want to get a property verified before registry.') }}" target="_blank" rel="noopener">WhatsApp us</a>
         </div>
         <a class="lcr-sample" href="{{ $sampleUrl }}" target="_blank" rel="noopener">रिपोर्ट देखें →</a>
     </div>
@@ -688,7 +687,6 @@
 
         var msg = 'Hi, I calculated the circle rate for a ' + type + ' in ' + r.en + ', Lucknow (' + sqmTxt(area) + '): ' + money(value) + '. ';
         $('r-wa').href = 'https://wa.me/918595002933?text=' + encodeURIComponent(msg + 'I have a question about the registry.');
-        $('r-verify').href = 'https://wa.me/918595002933?text=' + encodeURIComponent(msg + 'I want to get the papers verified (₹5,000) before buying.');
     }
 
     ['c-type', 'c-fcat', 'c-class', 'c-use', 'c-buyer'].forEach(function (id) {
@@ -706,7 +704,7 @@
         var tr = e.target.closest('tr[data-v]'); if (!tr) return;
         aposSel = tr.getAttribute('data-v'); calc();
     });
-    // partials/ga4 already sends whatsapp_click + generate_lead for every wa.me link; only mark the verification intent here
+    // verification buttons open the verification page (not WhatsApp, user request 26 Oct 2026); mark the intent here
     $('r-verify').addEventListener('click', function () { track('verify_click', { source: 'circle_rate' }); });
 
     fillRoads(); autoType(); calc();

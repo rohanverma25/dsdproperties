@@ -2,13 +2,14 @@
 
 {{--
     LDA plot cost calculator (built 22 Oct 2026).
-    Only schemes with plots open for registration get sizes in the dropdown. Anant Nagar's Phase 5 was fully
-    allotted by lottery on 5–6 Oct 2026 and its rate was never published, so it shows as "no plots open".
+    All rates are ₹ per sq m. Anant Nagar Phase 5 (allotted 5–6 Oct 2026) uses the Phase 4 rate, because LDA
+    never published a separate Phase 5 rate. Wellness City (₹5,100/sq ft, Amar Ujala) and IT City (₹4,500/sq ft,
+    the user's expected rate) were added 26 Oct 2026 before public registration opened.
     Figures and terms come from news reports of the LDA booklets. Update SCHEMES below when a new phase opens.
 --}}
-@section('title', 'LDA Plot Cost Calculator 2026 — Varun Vihar, Naimish Nagar, Anant Nagar')
-@section('meta_description', 'Calculate the full cost of an LDA plot in Lucknow: price by size in sq m, 5% registration deposit, lump-sum discount (6% / 5% / 4%), 36-instalment EMI at 9.7% and 12% freehold charge. Varun Vihar and Naimish Nagar 2026.')
-@section('meta_keywords', 'LDA plot calculator, LDA plot price calculator, Varun Vihar plot price, Naimish Nagar plot price, LDA registration amount, LDA installment calculator, Anant Nagar plot price, LDA plot cost Lucknow 2026')
+@section('title', 'LDA Plot Cost Calculator 2026 — Varun Vihar, Naimish Nagar, Anant Nagar, Wellness City, IT City')
+@section('meta_description', 'Calculate the full cost of an LDA plot in Lucknow: price by size in sq m, 5% registration deposit, lump-sum discount (6% / 5% / 4%), 36-instalment EMI at 9.7% and 12% freehold charge. Varun Vihar, Naimish Nagar, Anant Nagar, Wellness City and IT City.')
+@section('meta_keywords', 'LDA plot calculator, LDA plot price calculator, Varun Vihar plot price, Naimish Nagar plot price, LDA registration amount, LDA installment calculator, Anant Nagar plot price, Wellness City plot price, IT City plot price, LDA plot cost Lucknow 2026')
 
 @push('head')
 <script type="application/ld+json">
@@ -94,7 +95,7 @@
 @section('content')
 <div class="lpc">
     <h1>LDA Plot Cost Calculator</h1>
-    <p class="sub">Pick a scheme and a plot size to see the full cost: plot price, registration deposit, lump-sum discount, instalment EMI and freehold charge. Only plot sizes that are open for registration right now are listed. Prices are in lakh (L) and crore (Cr).</p>
+    <p class="sub">Pick a scheme and a plot size to see the full cost: plot price, registration deposit, lump-sum discount, instalment EMI and freehold charge. Sizes and rates are in square metres. Prices are in lakh (L) and crore (Cr).</p>
 
     <div class="lpc-grid">
         {{-- Inputs --}}
@@ -136,6 +137,7 @@
                 <small>Estimated plot price</small>
                 <div class="big" id="r-price">—</div>
                 <p id="r-line">—</p>
+                <p id="r-basis" style="margin-top:6px;font-size:12.5px;opacity:.8" hidden></p>
                 <span class="lpc-badge" id="r-badge"></span>
             </div>
 
@@ -165,7 +167,7 @@
             </div>
 
             <div class="lpc-cta">
-                <a class="wa" id="r-wa" href="https://wa.me/918595002933" target="_blank" rel="noopener">WhatsApp: help me register</a>
+                <a class="vf" id="r-wa" href="{{ url('/services/property-verification-lucknow') }}" data-cta-kind="verify">Get the papers checked (₹5,000)</a>
                 <button type="button" class="fb" id="fb-open">💬 Give feedback</button>
             </div>
 
@@ -201,7 +203,8 @@
     <div class="lpc-notes">
         <h2>How the numbers are worked out</h2>
         <ul>
-            <li><strong>Plot price</strong> = size in sq m × 10.764 (sq ft per sq m) × the scheme rate per sq ft. Example: a 112.5 sq m plot in Varun Vihar at ₹2,800/sq ft comes to about ₹33.9 L.</li>
+            <li><strong>Plot price</strong> = size in sq m × the scheme rate per sq m. Example: a 112.5 sq m plot in Varun Vihar at ₹30,139/sq m comes to about ₹33.9 L.</li>
+            <li><strong>Anant Nagar Phase 5</strong> uses ₹44,731/sq m, the latest rate LDA published for the scheme (Phase 4). <strong>Wellness City</strong> and <strong>IT City</strong> are not open to the public yet: Wellness City uses the rate reported by Amar Ujala and IT City uses our expected rate, so treat both as planning figures.</li>
             <li><strong>Registration deposit</strong> is 5% of the plot price, or 2.5% for reserved categories. The booklet costs ₹1,100.</li>
             <li><strong>Pay in full</strong>: 6% off within 45 days of allotment, 5% within 60 days and 4% within 90 days. We apply the discount to the plot price.</li>
             <li><strong>Instalments</strong>: 36 monthly instalments at 9.7% interest. The EMI shown is a standard reducing-balance estimate; LDA's allotment letter gives the exact schedule.</li>
@@ -210,13 +213,15 @@
             <li>Eligibility: 18 or older, with no earlier LDA allotment. Apply only on <a href="https://registration.ldalucknow.in" target="_blank" rel="noopener" style="color:#008080;font-weight:600;">registration.ldalucknow.in</a>.</li>
         </ul>
 
-        <h2>Plot sizes open now</h2>
+        <h2>Plot sizes and prices</h2>
         <div style="overflow-x:auto;margin-bottom:14px"><table class="lpc-tbl" id="lpc-tbl"></table></div>
 
-        <p>Sources: Amar Ujala (24 Sep and 19 Oct 2026), ETV Bharat (25 Sep 2026) and Zee Business, reporting the LDA registration booklets for Varun Vihar and Naimish Nagar; Amar Ujala and ETV Bharat (Aug–Oct 2026) on Anant Nagar Phase 5. These are estimates for planning. Always check the final figures in the LDA booklet and allotment letter. Scheme guides:
+        <p>Sources: Amar Ujala (24 Sep and 19 Oct 2026), ETV Bharat (25 Sep 2026) and Zee Business, reporting the LDA registration booklets for Varun Vihar and Naimish Nagar; Amar Ujala and ETV Bharat (Aug–Oct 2026) on Anant Nagar Phase 5; Amar Ujala on the Wellness City rate. These are estimates for planning. Always check the final figures in the LDA booklet and allotment letter. Scheme guides:
             <a href="{{ url('/blog/varun-vihar-yojana-lucknow-lda-plots-guide-2026') }}" style="color:#008080;font-weight:600;">Varun Vihar</a> ·
             <a href="{{ url('/blog/naimish-nagar-yojana-lucknow-lda-plots-guide-2026') }}" style="color:#008080;font-weight:600;">Naimish Nagar</a> ·
             <a href="{{ url('/blog/anant-nagar-yojana-lucknow-lda-2026') }}" style="color:#008080;font-weight:600;">Anant Nagar</a> ·
+            <a href="{{ url('/blog/wellness-city-lucknow-lda-plots-guide-2026') }}" style="color:#008080;font-weight:600;">Wellness City</a> ·
+            <a href="{{ url('/blog/it-city-lucknow-lda-plots-guide-2026') }}" style="color:#008080;font-weight:600;">IT City</a> ·
             <a href="{{ url('/lda-schemes') }}" style="color:#008080;font-weight:600;">all LDA schemes</a>.
         </p>
     </div>
@@ -226,17 +231,32 @@
 @push('scripts')
 <script>
 (function () {
-    var SQFT = 10.7639;
+    // Rates are ₹ per sq m. Varun Vihar (₹2,800), Naimish Nagar (₹3,800), Wellness City (₹5,100) and IT City (₹4,500)
+    // were reported per sq ft and are converted at 10.7639 sq ft per sq m, rounded to the rupee.
+    // sizes: [plot size in sq m, number of plots or null when LDA has not published counts].
+    // Schemes without `closes` are not open for registration; `status` and `basis` explain where the rate comes from.
     var SCHEMES = [
-        { key: 'varun', name: 'Varun Vihar Yojana (Agra Expressway)', rate: 2800, closes: '2026-10-24',
+        { key: 'varun', name: 'Varun Vihar Yojana (Agra Expressway)', rate: 30139, closes: '2026-10-24',
           guide: '/blog/varun-vihar-yojana-lucknow-lda-plots-guide-2026',
           sizes: [[112.5, 1517], [162, 460], [200, 612], [288, 68], [300, 81], [450, 109]] },
-        { key: 'naimish', name: 'Naimish Nagar Yojana (Sitapur Road)', rate: 3800, closes: '2026-10-24',
+        { key: 'naimish', name: 'Naimish Nagar Yojana (Sitapur Road)', rate: 40903, closes: '2026-10-24',
           guide: '/blog/naimish-nagar-yojana-lucknow-lda-plots-guide-2026',
           sizes: [[72, 197], [112.5, 524], [162, 520], [200, 299], [288, 103], [450, 30]] },
-        { key: 'anant', name: 'Anant Nagar Yojana (Mohan Road)', rate: null, sizes: [],
+        { key: 'anant', name: 'Anant Nagar Yojana Phase 5 (Mohan Road)', rate: 44731, tag: 'allotted',
           guide: '/blog/anant-nagar-yojana-lucknow-lda-2026',
-          none: 'No plots are open in Anant Nagar right now. All of Phase 5 (Ashish Khand: 112.5, 162 and 200 sq m plots, registration 9 Aug – 9 Sep 2026) was allotted by lottery on 5–6 October 2026. We will add the next phase here as soon as LDA opens it.' }
+          sizes: [[112.5, 425], [162, 12], [200, 23]],
+          status: 'Phase 5 (Aashish Khand) allotted by lottery on 5–6 Oct 2026',
+          basis: '₹44,731/sq m is LDA’s latest published Anant Nagar rate (Phase 4). LDA did not publish the Phase 5 rate separately, so check your allotment letter.' },
+        { key: 'wellness', name: 'Wellness City (Sultanpur Road)', rate: 54896, tag: 'not open yet',
+          guide: '/blog/wellness-city-lucknow-lda-plots-guide-2026',
+          sizes: [[35, null], [45, null], [72, null], [128, null], [162, null], [200, null], [288, null]],
+          status: 'Public registration not open yet',
+          basis: 'Rate as reported by Amar Ujala. Plot sizes are LDA’s announced categories; the final price, plot count and terms will be in the LDA booklet.' },
+        { key: 'itcity', name: 'IT City (Sultanpur Road)', rate: 48438, tag: 'not open yet',
+          guide: '/blog/it-city-lucknow-lda-plots-guide-2026',
+          sizes: [[35, null], [72, null], [128, null], [162, null], [200, null], [288, null]],
+          status: 'Public registration not open yet',
+          basis: 'Expected rate (DSD estimate): LDA has not published a public-sale rate yet. Plot sizes are those LDA gave landowners in land pooling.' }
     ];
 
     var $ = function (id) { return document.getElementById(id); };
@@ -253,7 +273,7 @@
     var schemeSel = $('lpc-scheme'), sizeSel = $('lpc-size');
     SCHEMES.forEach(function (s, i) {
         var o = document.createElement('option'); o.value = i;
-        o.textContent = s.name + (s.sizes.length ? '' : ' — no plots open');
+        o.textContent = s.name + (!s.sizes.length ? ' — no plots open' : s.tag ? ' — ' + s.tag : closed(s) ? ' — registration closed' : '');
         schemeSel.appendChild(o);
     });
 
@@ -262,16 +282,14 @@
         sizeSel.innerHTML = '';
         s.sizes.forEach(function (z, i) {
             var o = document.createElement('option'); o.value = i;
-            o.textContent = sqm(z[0]) + '  ·  ' + money(z[0] * SQFT * s.rate) + '  ·  ' + z[1].toLocaleString('en-IN') + ' plots';
+            o.textContent = sqm(z[0]) + '  ·  ' + money(z[0] * s.rate) + (z[1] ? '  ·  ' + z[1].toLocaleString('en-IN') + ' plots' : '');
             sizeSel.appendChild(o);
         });
         $('lpc-open').hidden = !s.sizes.length;
         $('lpc-results').hidden = !s.sizes.length;
         $('lpc-none').hidden = !!s.sizes.length;
         if (!s.sizes.length) {
-            $('lpc-none').innerHTML = s.none + '<br><br><a href="https://wa.me/918595002933?text=' +
-                encodeURIComponent('Hi, please tell me when the next Anant Nagar (LDA) plot phase opens.') +
-                '" target="_blank" rel="noopener" style="color:#008080;font-weight:700;">Get notified on WhatsApp →</a>';
+            $('lpc-none').innerHTML = s.none + '<br><br><a href="' + s.guide + '" style="color:#008080;font-weight:700;">Read the scheme guide →</a>';
         }
         renderTable();
         calc();
@@ -282,8 +300,8 @@
         if (!s.sizes.length) { $('lpc-tbl').innerHTML = '<tr><td>' + s.none + '</td></tr>'; return; }
         var h = '<thead><tr><th>Plot size</th><th>Plots</th><th>Price (approx.)</th><th>5% deposit</th></tr></thead><tbody>';
         s.sizes.forEach(function (z, i) {
-            var p = z[0] * SQFT * s.rate;
-            h += '<tr data-i="' + i + '" title="Tap to calculate this size"><td>' + sqm(z[0]) + '</td><td>' + z[1].toLocaleString('en-IN') + '</td><td>' + money(p) + '</td><td>' + money(p * 0.05) + '</td></tr>';
+            var p = z[0] * s.rate;
+            h += '<tr data-i="' + i + '" title="Tap to calculate this size"><td>' + sqm(z[0]) + '</td><td>' + (z[1] ? z[1].toLocaleString('en-IN') : '—') + '</td><td>' + money(p) + '</td><td>' + money(p * 0.05) + '</td></tr>';
         });
         $('lpc-tbl').innerHTML = h + '</tbody>';
         $('lpc-tbl').querySelectorAll('tbody tr').forEach(function (tr) {
@@ -303,13 +321,15 @@
         var s = SCHEMES[schemeSel.value];
         if (!s.sizes.length) return;
         var z = s.sizes[sizeSel.value] || s.sizes[0];
-        var price = z[0] * SQFT * s.rate;
+        var price = z[0] * s.rate;
         var depPct = pick('lpc-cat'), discPct = pick('lpc-days');
         var dep = price * depPct, fh = price * 0.12;
 
         $('r-price').textContent = money(price);
-        $('r-line').textContent = sqm(z[0]) + ' (' + inr(z[0] * SQFT) + ' sq ft) × ₹' + inr(s.rate) + '/sq ft' +
-            (closed(s) ? ' · registration closed on 24 Oct 2026' : ' · registration closes 24 Oct 2026');
+        $('r-line').textContent = sqm(z[0]) + ' × ₹' + inr(s.rate) + '/sq m' +
+            (!s.closes ? ' · ' + s.status : closed(s) ? ' · registration closed on 24 Oct 2026' : ' · registration closes 24 Oct 2026');
+        $('r-basis').textContent = s.basis || '';
+        $('r-basis').hidden = !s.basis;
         $('r-deplbl').textContent = 'Registration deposit (' + (depPct * 100) + '%)';
         $('r-dep').textContent = money(dep);
         $('r-fh').textContent = money(fh);
@@ -329,14 +349,13 @@
         var lsTotal = price - disc + fh + 1100, instTotal = price + interest + fh + 1100;
         $('r-save').innerHTML = '💰 <span>Paying in full within ' + { 0.06: 45, 0.05: 60, 0.04: 90 }[discPct] +
             ' days saves about <strong>' + money(instTotal - lsTotal) + '</strong> compared with 36 instalments.</span>';
-        var days = Math.ceil((new Date(s.closes + 'T23:59:59+05:30') - new Date()) / 864e5);
-        $('r-badge').textContent = closed(s) ? 'Registration closed · for allottees planning payment'
+        var days = s.closes ? Math.ceil((new Date(s.closes + 'T23:59:59+05:30') - new Date()) / 864e5) : 0;
+        $('r-badge').textContent = s.tag === 'allotted' ? 'Allotted · for allottees planning payment'
+            : !s.closes ? 'Registration not open yet · for planning'
+            : closed(s) ? 'Registration closed · for allottees planning payment'
             : (days <= 1 ? '⏰ Last day to register' : '⏰ ' + days + ' days left to register');
         markRow();
 
-        $('r-wa').href = 'https://wa.me/918595002933?text=' + encodeURIComponent(
-            'Hi, I used the LDA plot calculator. I am interested in a ' + sqm(z[0]) + ' plot in ' + s.name +
-            ' (about ' + money(price) + '). Please help me with registration.');
     }
 
     ['lpc-cat', 'lpc-days'].forEach(function (g) {
@@ -354,9 +373,10 @@
     function meta() {
         var s = SCHEMES[schemeSel.value];
         if (!s.sizes.length) return;
-        var total = s.sizes.reduce(function (a, z) { return a + z[1]; }, 0);
-        $('lpc-meta').innerHTML = '<div><strong>₹' + inr(s.rate) + '/sq ft</strong>rate</div><div><strong>' +
-            total.toLocaleString('en-IN') + ' plots</strong>' + (closed(s) ? 'registration closed 24 Oct' : 'open till 24 Oct 2026') + '</div>';
+        var total = s.sizes.reduce(function (a, z) { return a + (z[1] || 0); }, 0);
+        $('lpc-meta').innerHTML = '<div><strong>₹' + inr(s.rate) + '/sq m</strong>rate</div><div><strong>' +
+            (total ? total.toLocaleString('en-IN') + ' plots' : s.sizes.length + ' plot sizes') + '</strong>' +
+            (s.tag === 'allotted' ? 'allotted 5–6 Oct 2026' : !s.closes ? 'registration not open yet' : closed(s) ? 'registration closed 24 Oct' : 'open till 24 Oct 2026') + '</div>';
     }
     schemeSel.addEventListener('change', meta);
     fillSizes(); meta();

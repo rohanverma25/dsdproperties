@@ -376,7 +376,7 @@
         <div class="sd-note" id="r-note" hidden></div>
         <p class="sd-how">{{ $T['devfee'] }} {{ $T['final'] }}</p>
         <div class="sd-cta">
-          <a class="vf" id="r-verify" href="https://wa.me/{{ $wa }}" target="_blank" rel="noopener">{{ $T['cta_v'] }}</a>
+          <a class="vf" id="r-verify" href="{{ url('/services/property-verification-lucknow') }}">{{ $T['cta_v'] }}</a>
           <a class="wa" id="r-wa" href="https://wa.me/{{ $wa }}" target="_blank" rel="noopener">{{ $T['cta_w'] }}</a>
         </div>
         <a class="sd-sample" href="{{ $sampleUrl }}" target="_blank" rel="noopener">{{ $T['sample'] }}</a>
@@ -420,7 +420,6 @@
         <p>{{ $T['verify_p'] }}</p>
         <div class="sd-cta" style="margin-top:0">
           <a class="vf" href="{{ url('/services/property-verification-lucknow') }}">{{ $T['see'] }}</a>
-          <a class="wa" href="https://wa.me/{{ $wa }}?text={{ rawurlencode($hi ? 'नमस्ते, मैंने आपकी वेबसाइट पर स्टांप ड्यूटी निकाली। रजिस्ट्री से पहले प्रॉपर्टी वेरिफ़िकेशन कराना है।' : 'Hi, I used your stamp duty calculator. I want to get a property verified before the registry.') }}" target="_blank" rel="noopener">WhatsApp</a>
         </div>
         <a class="sd-sample" href="{{ $sampleUrl }}" target="_blank" rel="noopener">{{ $T['sample'] }}</a>
       </div>
@@ -553,7 +552,6 @@
         var msg = HI ? 'नमस्ते, मैंने ' + where + ' की प्रॉपर्टी (मूल्य ' + money(basis) + ') पर स्टांप ड्यूटी ' + money(D.sd) + ' निकाली। '
                      : 'Hi, I worked out stamp duty of ' + money(D.sd) + ' on a property in ' + where + ' (value ' + money(basis) + '). ';
         $('r-wa').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg + (HI ? 'रजिस्ट्री के बारे में सवाल है।' : 'I have a question about the registry.'));
-        $('r-verify').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(msg + (HI ? 'रजिस्ट्री से पहले काग़ज़ जंचवाने हैं (₹5,000)।' : 'I want the papers verified (₹5,000) before the registry.'));
     }
 
     ['s-buyer', 's-mode', 's-type', 's-fcat', 's-class', 's-use'].forEach(function (id) {

@@ -83,7 +83,6 @@ body{font-family:'Plus Jakarta Sans','Mukta',sans-serif}
         <div class="row">
             <a href="{{ url('/news') }}" style="background:#011f4b;color:#fff">All news</a>
             <a href="{{ url('/services/property-verification-lucknow') }}" style="background:#FF5C00;color:#fff">₹5,000 verification</a>
-            <a href="https://wa.me/918595002933?text={{ rawurlencode('Hi, I read your weekly report. I would like to talk about a property.') }}" target="_blank" rel="noopener" style="background:#25D366;color:#fff">Chat on WhatsApp</a>
         </div>
     </div>
 </div>

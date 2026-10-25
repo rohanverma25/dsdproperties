@@ -718,10 +718,6 @@
                 <a href="/services/property-verification-lucknow" class="hero-btn-primary">
                     <i class="fas fa-check-double" aria-hidden="true"></i> Verify a Project (₹5,000)
                 </a>
-                <a href="https://wa.me/918595002933?text=Hi%2C+I+want+to+verify+a+RERA+project+in+Lucknow"
-                   target="_blank" rel="noopener noreferrer" class="hero-btn-wa">
-                    <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp Us
-                </a>
                 <a href="https://www.up-rera.in/projects" target="_blank" rel="noopener noreferrer" class="hero-btn-outline">
                     <i class="fas fa-external-link-alt" style="font-size:.7rem;" aria-hidden="true"></i> UP RERA Portal
                 </a>
@@ -1115,10 +1111,6 @@
             <div class="about-cta-row">
                 <a href="/services/property-verification-lucknow" class="about-btn-primary">
                     <i class="fas fa-check-double" aria-hidden="true"></i> Verify a Property (₹5,000)
-                </a>
-                <a href="https://wa.me/918595002933?text=Hi%2C+I+need+help+with+RERA+project+verification+in+Lucknow"
-                   target="_blank" rel="noopener noreferrer" class="about-btn-wa">
-                    <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp: 8595002933
                 </a>
             </div>
         </div>
