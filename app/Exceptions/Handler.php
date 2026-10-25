@@ -43,8 +43,10 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
+        // Every reported error is also kept in app_error_logs (one row per distinct error, with a count), so it can
+        // be reviewed from the database. The normal log still runs too.
         $this->reportable(function (Throwable $e) {
-            //
+            \App\Support\ErrorLogger::record($e);
         });
     }
 
