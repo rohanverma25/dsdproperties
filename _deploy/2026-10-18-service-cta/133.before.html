@@ -1,0 +1,435 @@
+<style>
+:root{
+  --dsd-navy:#011f4b;
+  --dsd-teal:#008080;
+  --dsd-orange:#FF5C00;
+  --dsd-light-teal:#e0f7f7;
+  --dsd-bg:#f9fafb;
+  --dsd-border:#e2e8f0;
+  --dsd-text:#374151;
+  --dsd-muted:#6b7280;
+}
+.dsd-stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;background:var(--dsd-navy);border-radius:12px;overflow:hidden;margin:28px 0;box-shadow:0 4px 20px rgba(1,31,75,0.18);}
+.dsd-stat-item{padding:18px 14px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
+.dsd-stat-item:last-child{border-right:none;}
+.dsd-stat-num{font-size:20px;font-weight:700;color:#20B2AA;display:block;line-height:1.1;font-family:'Poppins',sans-serif;}
+.dsd-stat-label{font-size:11px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.06em;margin-top:4px;display:block;font-family:'Poppins',sans-serif;}
+.dsd-highlight{background:var(--dsd-light-teal);border:1px solid rgba(0,128,128,0.2);border-radius:12px;padding:20px 24px;margin:22px 0;}
+.dsd-highlight h4{color:var(--dsd-navy);font-size:15px;font-weight:700;margin:0 0 12px;}
+.dsd-highlight ul{padding-left:0;list-style:none;margin:0;}
+.dsd-highlight ul li{padding:6px 0 6px 22px;position:relative;font-size:14.5px;color:var(--dsd-text);border-bottom:1px solid rgba(0,128,128,0.1);line-height:1.85;}
+.dsd-highlight ul li:last-child{border-bottom:none;}
+.dsd-highlight ul li::before{content:'✓';position:absolute;left:0;color:var(--dsd-teal);font-weight:700;}
+.dsd-infobox{background:#fff8f0;border:1px solid rgba(255,92,0,0.2);border-left:4px solid var(--dsd-orange);border-radius:0 12px 12px 0;padding:16px 20px;margin:22px 0;}
+.dsd-infobox h4{color:var(--dsd-orange);font-size:15px;font-weight:700;margin:0 0 10px;}
+.dsd-infobox ul{list-style:none;padding:0;margin:0;}
+.dsd-infobox ul li{font-size:14px;color:var(--dsd-text);padding:5px 0 5px 18px;position:relative;line-height:1.85;}
+.dsd-infobox ul li::before{content:'→';position:absolute;left:0;color:var(--dsd-orange);}
+.dsd-doc-card{background:#fff;border:1px solid var(--dsd-border);border-left:5px solid var(--dsd-teal);border-radius:0 12px 12px 0;padding:24px 28px;margin:28px 0;box-shadow:0 4px 16px rgba(0,128,128,0.08);position:relative;}
+.dsd-doc-card .doc-number{position:absolute;top:-18px;left:-18px;width:50px;height:50px;border-radius:12px;background:var(--dsd-teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;font-family:'Poppins',sans-serif;box-shadow:0 4px 12px rgba(0,128,128,0.3);}
+.dsd-doc-card h3{color:var(--dsd-navy);font-size:18px;font-weight:700;margin:0 0 8px;padding-left:40px;}
+.dsd-doc-card .doc-meta{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 16px;padding-left:40px;}
+.dsd-doc-card .doc-meta span{background:var(--dsd-light-teal);color:var(--dsd-navy);font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:0.3px;}
+.dsd-doc-card .doc-meta span.amber{background:#fef3c7;color:#92400e;}
+.dsd-doc-card .doc-meta span.green{background:#dcfce7;color:#065f46;}
+.dsd-doc-card .doc-body p{font-size:14.5px;color:var(--dsd-text);line-height:1.85;margin:0 0 12px;}
+.dsd-doc-card .where-box{background:#ecfdf5;border:1px solid #065f46;border-radius:8px;padding:12px 16px;margin-top:14px;}
+.dsd-doc-card .where-box h5{color:#065f46;font-size:13px;font-weight:700;margin:0 0 6px;}
+.dsd-doc-card .where-box p{font-size:13.5px;color:#064e3b;margin:0;line-height:1.7;}
+.dsd-doc-card .note-tag{font-size:12px;color:var(--dsd-muted);font-style:italic;margin-top:10px;display:block;}
+.dsd-redflag{background:#fff5f5;border:1px solid rgba(220,38,38,0.2);border-left:4px solid #dc2626;border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:12px;}
+.dsd-redflag h5{color:#991b1b;font-size:14px;font-weight:700;margin:0 0 6px;}
+.dsd-redflag p{font-size:13.5px;color:var(--dsd-text);margin:0;line-height:1.8;}
+.dsd-doc-step{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--dsd-border);border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,0.03);}
+.dsd-doc-num{width:44px;height:44px;min-width:44px;border-radius:10px;background:var(--dsd-navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;font-family:'Poppins',sans-serif;}
+.dsd-doc-body h5{color:var(--dsd-navy);font-size:15px;font-weight:700;margin:0 0 6px;}
+.dsd-doc-body p{font-size:13.5px;color:var(--dsd-text);margin:0;line-height:1.85;}
+.dsd-doc-body .where-to-check{font-size:12px;color:var(--dsd-teal);font-weight:600;margin-top:8px;display:block;}
+.dsd-related-inline{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:22px 0;}
+.dsd-link-card{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:10px;padding:14px 16px;text-decoration:none;display:block;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;}
+.dsd-link-card:hover{border-color:var(--dsd-teal);box-shadow:0 4px 16px rgba(0,128,128,0.1);transform:translateY(-2px);}
+.dsd-link-card .dsd-link-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dsd-teal);font-weight:600;margin-bottom:5px;font-family:'Poppins',sans-serif;}
+.dsd-link-card .dsd-link-title{font-size:14px;font-weight:600;color:var(--dsd-navy);line-height:1.5;}
+#FAQs h3{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-left:4px solid var(--dsd-teal);padding:14px 18px;border-radius:0 10px 10px 0;cursor:pointer;color:var(--dsd-navy);font-size:15px;font-weight:600;margin-bottom:0;position:relative;transition:background 0.2s;}
+#FAQs h3:hover{background:#e0f7f7;}
+#FAQs h3::after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--dsd-teal);font-weight:400;}
+#FAQs h3.active::after{content:'−';}
+#FAQs h3+p{background:#fff;border:1px solid var(--dsd-border);border-top:none;border-radius:0 0 10px 10px;padding:14px 18px;font-size:14.5px;color:var(--dsd-text);margin-top:0;margin-bottom:12px;line-height:1.95;}
+@media(max-width:600px){
+  .dsd-stats-bar{grid-template-columns:repeat(2,1fr);}
+  .dsd-related-inline{grid-template-columns:1fr;}
+  .dsd-doc-card{padding:20px 20px 20px 24px;}
+  .dsd-doc-card .doc-number{width:42px;height:42px;font-size:17px;top:-14px;left:-14px;}
+  .dsd-doc-card h3{padding-left:32px;font-size:16px;}
+  .dsd-doc-card .doc-meta{padding-left:32px;}
+}
+</style>
+<p style="font-size: 13px; color: #6b7280; margin: 0 0 28px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0;">Sources: Lucknow Development Authority (ldalucknow.in), UP Online Building Plan Approval System (map.up.gov.in &amp; upobpas.in), LDA OneMap GIS Portal (gis.ldalucknow.in), LDA Citizen Portal (registration.ldalucknow.in), UP Bhulekh (upbhulekh.gov.in), UP RERA (up-rera.in), Awas Bandhu portal, Hindustan Times Lucknow, Oneindia News (Fastpass announcement January 2026), LDA Building Bylaws. All portals and fee figures verified May 2026.</p>
+<p style="font-size: 17px; color: #374151; line-height: 1.9; margin-bottom: 20px; font-weight: 500;"><strong>"LDA approved" is the single most misused phrase in Lucknow real estate.</strong> Builders use it on hoardings. Plot dealers shout it on phone calls. Brokers stamp it on flyers. But almost none of them tell you how to actually <em>verify</em> the claim — because in a large number of cases, the claim simply isn't true.</p>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.9; margin-bottom: 16px;">In 2025 and 2026, the Lucknow Development Authority moved building-plan approvals fully online through the UP government's <strong>map.up.gov.in</strong> portal, launched the <strong>Fastpass system</strong> for instant clearance of small plots, and made the LDA OneMap GIS portal at <strong>gis.ldalucknow.in</strong> publicly searchable for sector-wise land use. For the first time, every Lucknow buyer can independently verify whether a plot, colony or building plan is genuinely approved — in under 15 minutes — without paying a broker or middleman.</p>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.9; margin-bottom: 24px;">This guide walks you through the exact verification process: how to check an LDA-approved map online, how to confirm if a colony is on the LDA-approved list (or the blacklist of 241+ illegal colonies), how the online building plan status system works in 2026, and what every Lucknow buyer should do <em>before</em> paying an advance.</p>
+<div class="dsd-stats-bar">
+<div class="dsd-stat-item"><span class="dsd-stat-num">map.up.gov.in</span><span class="dsd-stat-label">Official BPAS Portal</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">100 sqm</span><span class="dsd-stat-label">Fastpass Residential Limit</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">₹5–6/sqm</span><span class="dsd-stat-label">Reduced Approval Fee</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">241+</span><span class="dsd-stat-label">Illegal Colonies Blacklisted</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">1800 1800 5000</span><span class="dsd-stat-label">LDA Helpline</span></div>
+</div>
+<div class="dsd-infobox" style="margin-bottom: 28px;">
+<h4>⚠️ Why LDA Map Verification Matters — Before You Pay a Single Rupee</h4>
+<ul>
+<li><strong>A registered sale deed alone does not protect you.</strong> If the underlying plot/colony has no LDA-approved layout or building plan, the structure can be demolished years after registry — as happened in <a href="https://dsdproperties.in/blog/anant-nagar-yojana-lucknow-lda-2026" style="color:#008080;font-weight:600;">Anant Nagar</a> (December 2025) and Sushant Golf City (April 2025)</li>
+<li><strong>Bank loans get rejected on unapproved properties.</strong> SBI, HDFC, and ICICI all run independent LDA / BPAS checks. If your plot is in an unapproved colony, you lose access to home loan financing — and so does any future buyer</li>
+<li><strong>The verification is free and online.</strong> map.up.gov.in, gis.ldalucknow.in, and registration.ldalucknow.in are all official portals with zero cost. Anyone charging you for "LDA verification" is overcharging</li>
+<li><strong>Fastpass cuts approval time for small plots from weeks to minutes.</strong> Under the new system launched in early 2026, residential plans up to 100 sqm and commercial up to 30 sqm are auto-approved within minutes if all conditions match</li>
+</ul>
+</div>
+<h2 style="margin-top: 40px; font-size: 24px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">The Three Different "Approvals" — Don't Confuse Them</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.9; margin-bottom: 24px;">Before you start verification, understand that there are three different LDA approvals — buyers regularly confuse them, and dealers exploit the confusion.</p>
+<!-- TYPE 1 -->
+<div class="dsd-doc-card">
+<div class="doc-number">1</div>
+<h3>Colony / Layout Approval — Is the Colony Itself Legal?</h3>
+<div class="doc-meta"><span class="amber">FIRST CHECK</span> <span>LDA OR LMC</span> <span>MASTER PLAN</span></div>
+<div class="doc-body">
+<p>This is approval of the entire colony's layout — the road network, plot demarcation, green areas, sewer lines, electricity poles. Without colony approval, no individual plot inside can ever be legally constructed on, regardless of what the seller says. LDA's blacklist of <strong>241+ illegal colonies</strong> covers neighbourhoods that were never approved and never will be.</p>
+<p>The <a href="https://dsdproperties.in/blog/lucknow-master-plan-2031-mahayojna-guide" style="color:#008080;font-weight:600;">Lucknow Master Plan</a> and zoning regulations determine which lands can become residential colonies in the first place. A plot that sits in an agricultural-zoned area cannot become a residential colony just because someone built compound walls on it.</p>
+<div class="where-box">
+<h5>📍 Where to verify</h5>
+<p>LDA OneMap GIS portal at <strong>gis.ldalucknow.in</strong> shows sector-wise approved layouts. LDA Master Plan Map: <strong>ldalucknow.in/master-plan-map</strong>. Always cross-check against the LDA illegal colony blacklist before any payment.</p>
+</div>
+</div>
+</div>
+<!-- TYPE 2 -->
+<div class="dsd-doc-card">
+<div class="doc-number">2</div>
+<h3>Building Plan / Map Approval — Is YOUR Construction Plan Approved?</h3>
+<div class="doc-meta"><span class="amber">SECOND CHECK</span> <span>map.up.gov.in</span> <span>BPAS</span></div>
+<div class="doc-body">
+<p>This is approval of the specific construction drawing — the proposed building's setbacks, height, FAR (Floor Area Ratio), parking, ventilation, and structural details. Submitted online through the UP government's central BPAS portal at <strong>map.up.gov.in</strong>. Every legal construction in Lucknow must have a sanctioned building plan from LDA before construction begins.</p>
+<p>Without a sanctioned building plan: (1) you cannot get electricity and water connections legally; (2) any home loan is blocked; (3) LDA can issue a stop-work notice or demolition order at any stage; (4) the building cannot get a Completion Certificate or Occupancy Certificate later.</p>
+<div class="where-box">
+<h5>📍 Where to verify</h5>
+<p>map.up.gov.in is the single UP-wide BPAS portal covering LDA, KDA, GDA, ADA, AFDA, AGDA, PDA and all other UP development authorities. Alternate URL: upobpas.in. AutoDCR software auto-reads CAD drawings against the bylaws.</p>
+</div>
+<span class="note-tag">Source: UP Online Building Plan Approval System (upobpas.in)</span></div>
+</div>
+<!-- TYPE 3 -->
+<div class="dsd-doc-card">
+<div class="doc-number">3</div>
+<h3>Completion Certificate &amp; Occupancy Certificate — Has the Construction Been Inspected?</h3>
+<div class="doc-meta"><span class="amber">FINAL CHECK</span> <span>POST-CONSTRUCTION</span> <span>5-YEAR WINDOW</span></div>
+<div class="doc-body">
+<p>After construction is complete, LDA must issue a Completion Certificate (CC) — confirming the building was actually built as per the approved plan — and an Occupancy Certificate (OC) granting permission to legally occupy. <strong>The CC must be applied for within 5 years of building plan approval, otherwise the permit lapses and the entire map process restarts.</strong></p>
+<p>Many "ready-to-move" flats in Lucknow are technically illegal to occupy because the builder never obtained the OC. This becomes a major issue at resale time — buyer banks routinely reject loans on OC-less flats.</p>
+<div class="where-box">
+<h5>📍 Where to verify</h5>
+<p>Builder or seller must produce both CC and OC. For RERA-registered projects, status is also visible on up-rera.in.</p>
+</div>
+</div>
+</div>
+<h2 style="margin-top: 40px; font-size: 22px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">How to Check LDA Approved Map in Lucknow — Step by Step</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.9; margin-bottom: 16px;">Follow this exact sequence. Each step takes only a few minutes, requires no payment, and uses only official portals.</p>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">1</div>
+<div class="dsd-doc-body">
+<h5>Step 1 — Confirm the Land Use Classification on LDA OneMap GIS</h5>
+<p>Visit <strong>gis.ldalucknow.in</strong> and open the Sector Explorer. Search for the exact location by sector name (e.g., Gomti Nagar Vipul Khand, Jankipuram Vistar, <a href="https://dsdproperties.in/blog/sushant-golf-city-lucknow-buyers-guide-2026" style="color:#008080;font-weight:600;">Sushant Golf City</a>). Confirm whether the parcel is zoned residential, commercial, mixed-use, green belt, or agricultural under the Lucknow Master Plan 2031. Agricultural-zoned land cannot be sold as a residential plot without a Section 80 conversion order from the SDM or District Magistrate.</p>
+<span class="where-to-check">📍 gis.ldalucknow.in — LDA OneMap Portal &amp; Sector Explorer</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">2</div>
+<div class="dsd-doc-body">
+<h5>Step 2 — Use the "Know Your Land Use" Service on Citizen Portal</h5>
+<p>Log in at <strong>registration.ldalucknow.in</strong> and use the "Application to Know Your Land Use" service. This is the official LDA citizen service for confirming what use is permitted at a specific address or plot ID. Cross-verify this against what the seller is claiming.</p>
+<span class="where-to-check">📍 registration.ldalucknow.in — Citizen Login → Know Your Land Use</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">3</div>
+<div class="dsd-doc-body">
+<h5>Step 3 — Verify the Building Plan Approval on map.up.gov.in (BPAS)</h5>
+<p>Visit <strong>map.up.gov.in</strong> or <strong>upobpas.in</strong> — the UP-wide Online Building Plan Approval System. Search by file number, applicant name, or plot location. The portal shows: approval status, sanctioned plan, FAR utilised, setbacks, height, approved/rejected stamp, date of approval, and validity. Ask the seller for the file/reference number — a legitimate seller has this readily available.</p>
+<span class="where-to-check">📍 map.up.gov.in — UP Building Plan Approval System</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">4</div>
+<div class="dsd-doc-body">
+<h5>Step 4 — Cross-Check Property Details on LDA Property Search</h5>
+<p>For LDA-allotted plots specifically (Gomti Nagar, Jankipuram, Vrindavan Yojna, Anant Nagar, Basant Kunj, <a href="https://dsdproperties.in/blog/atal-nagar-awasiya-yojana-phase-2-devpur-para-lucknow-2026" style="color:#008080;font-weight:600;">Atal Nagar</a>, etc.), use <strong>ldalucknow.in/property-details</strong> to search by sector, plot number, or owner name. The system shows the LDA's official record of who the plot is allotted to. If the name differs from the seller, demand a written explanation.</p>
+<span class="where-to-check">📍 ldalucknow.in/property-details — LDA Property Search</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">5</div>
+<div class="dsd-doc-body">
+<h5>Step 5 — Confirm Khatauni and Mutation on UP Bhulekh</h5>
+<p>For plots in revenue-village areas (Mohanlalganj, Malihabad, Bakshi Ka Talab, Kakori rural belts), visit <strong>upbhulekh.gov.in</strong>. Select Lucknow district, the correct tehsil, and the village. Search by Khasra/Gata number to view the current Khatauni — confirm the seller's name appears and the land type is recorded as Gair-Krishi (non-agricultural) if you intend residential use.</p>
+<span class="where-to-check">📍 upbhulekh.gov.in — UP Revenue Records</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">6</div>
+<div class="dsd-doc-body">
+<h5>Step 6 — Check RERA Registration for Builder Projects</h5>
+<p>For any builder-sold project (apartments, plotted townships, integrated colonies), verify the UP <a href="https://dsdproperties.in/blog/understanding-rera-guide-lucknow-property-buyers-C7ECl" style="color:#008080;font-weight:600;">RERA registration</a> at <strong>up-rera.in</strong>. Confirm the project's approved plan, possession timeline, and any complaints filed. RERA Section 3 makes registration mandatory for all projects above 500 sqm or 8 apartments.</p>
+<span class="where-to-check">📍 up-rera.in — UP RERA Portal</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">7</div>
+<div class="dsd-doc-body">
+<h5>Step 7 — Final Confirmation by Phone / Office Visit</h5>
+<p>If any of the above checks throw conflicting results, call the LDA helpline at <strong>1800 1800 5000</strong> or visit the LDA office at Sector 38A, 2A, Vipin Khand, Gomti Nagar, Lucknow 226010. Reference the specific plot number and file number. Always insist on getting the answer in writing.</p>
+<span class="where-to-check">📍 LDA Head Office — Gomti Nagar, Lucknow / 1800 1800 5000</span></div>
+</div>
+<h2 style="margin-top: 40px; font-size: 22px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">LDA Map Approval Verification Process — How Submission Actually Works in 2026</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.9; margin-bottom: 16px;">If you are not just verifying but also <em>submitting</em> a building plan for approval — for your own plot construction — here is exactly how the current 2026 process works.</p>
+<div class="dsd-doc-card">
+<div class="doc-number">A</div>
+<h3>Fastpass System — Small Plots, Instant Approval</h3>
+<div class="doc-meta"><span class="green">LAUNCHED JAN 2026</span> <span>INSTANT CLEARANCE</span> <span>map.up.gov.in</span></div>
+<div class="doc-body">
+<p>The Yogi government launched the <strong>Fastpass system</strong> in early 2026 for quicker online approval of building plans. Under this regime, plans for <strong>residential buildings up to 100 square metres</strong> and <strong>commercial constructions up to 30 square metres</strong> are cleared within minutes through map.up.gov.in. LDA Vice-Chairperson Prathamesh Kumar announced the limits.</p>
+<p>The process is fully digital: upload the building map and required data on map.up.gov.in. Specialised software checks the inputs against the bylaws. If conditions match — land use matches the master plan, road width within bounds, setbacks correct, height permitted, parking provisioned — the system auto-approves and issues a certified map and certificate.</p>
+<p><strong>Mandatory inputs:</strong> exact plot location; adjacent road lengths and widths; proposed building height; total covered area; front, side and rear setbacks; entry and exit gate details; parking space provision.</p>
+<div class="where-box">
+<h5>📍 Where to apply</h5>
+<p>map.up.gov.in — select Lucknow Development Authority (LDA), then Fastpass route for eligible plot sizes.</p>
+</div>
+<span class="note-tag">Source: Oneindia News, January 2026 — Fastpass launch by Yogi government / LDA</span></div>
+</div>
+<div class="dsd-doc-card">
+<div class="doc-number">B</div>
+<h3>Standard Online Approval — Larger Plots, Through Registered Architect</h3>
+<div class="doc-meta"><span class="amber">FOR LARGER PLOTS</span> <span>COA-REGISTERED ARCHITECT</span> <span>AWAS BANDHU</span></div>
+<div class="doc-body">
+<p>For residential plots above 100 sqm or commercial above 30 sqm — outside the Fastpass envelope — the standard online process applies. LDA has reduced the map approval fee from <strong>₹7–8 per sqm to ₹5–6 per sqm</strong> (a 10–20% reduction), and replaced the older Pre-DCR system with the simplified Awas Bandhu portal.</p>
+<p>Any architect registered with the Council of Architecture (COA) in Lucknow can now create the building map in AutoCAD and submit it directly online. The AutoDCR software in the BPAS system auto-reads the CAD drawing against development control regulations. This is a major change — previously only a limited number of architects could operate Pre-DCR's technical complexity.</p>
+<p><strong>Documents required for standard submission:</strong> registered sale deed; latest Khatauni / mutation record; property tax receipts; layout approval / colony approval reference; site plan; building plan (CAD); structural drawings; architect's signature with COA registration number; identity and address proof of owner; PAN.</p>
+<div class="where-box">
+<h5>📍 Where to apply</h5>
+<p>map.up.gov.in (LDA jurisdiction) — submission via COA-registered architect using AutoCAD via Awas Bandhu integration.</p>
+</div>
+<span class="note-tag">Source: HT Syndication — LDA fee reduction announcement (May 9)</span></div>
+</div>
+<div class="dsd-doc-card">
+<div class="doc-number">C</div>
+<h3>Mandatory Compliance Inputs — What the Bylaws Demand</h3>
+<div class="doc-meta"><span class="amber">BYLAWS</span> <span>FAR &amp; SETBACKS</span> <span>SAFETY NORMS</span></div>
+<div class="doc-body">
+<p>Whether you submit via Fastpass or standard route, the plan must comply with current LDA building bylaws. Key 2026 compliance items:</p>
+<p><strong>Setbacks:</strong> front, side and rear setbacks per plot frontage and building height bracket. <strong>FAR (Floor Area Ratio):</strong> varies by zone and road width — LDA is reportedly revising FAR and mixed-use norms with higher incentives for plots along metro and 45 m expressways. <strong>Road width:</strong> measured between compound walls, not from centre line — a common error.</p>
+<p><strong>Rainwater harvesting:</strong> mandatory on plots <strong>300 sqm or larger</strong> — tanks and pipes must appear in the plan. <strong>Fire safety:</strong> fire stairs and pumps mandatory if the building is more than 15 m tall or houses more than 12 flats. <strong>Tree planting:</strong> two shade trees on every plot over 300 sqm, with photographic proof for the completion file. <strong>Disabled access:</strong> ramps, handrails and a ground-floor toilet for public buildings and flats above 12 units.</p>
+<p><strong>Structural &amp; fire audit:</strong> every 10 years by a consultant on the LDA panel, with report submitted online.</p>
+<div class="where-box">
+<h5>📍 Where to access</h5>
+<p>LDA Building Bylaws PDF: ldalucknow.in/building-bylaws. Zoning Regulations PDF: ldalucknow.in (under Planning section).</p>
+</div>
+</div>
+</div>
+<h2 style="margin-top: 40px; font-size: 22px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">Check If Property Map Is Approved by LDA — The 3-Minute Test</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.9; margin-bottom: 24px;">Walking through a property tomorrow? Use these three quick tests to flag obvious red flags before deeper investigation.</p>
+<div class="dsd-highlight">
+<h4>The 3-Minute Field Check</h4>
+<ul>
+<li><strong>Ask the seller for the BPAS file number on the spot.</strong> A genuine seller with approved plans has the file number in WhatsApp, in their phone notes, or printed on the sanctioned drawing. Hesitation, vagueness, or "I'll send it later" responses are red flags</li>
+<li><strong>Pull up gis.ldalucknow.in on your phone.</strong> Search the location by sector. If the parcel does not show in any LDA-allotted sector, it is either private land in a master-plan-approved zone (verify zoning) or in an unapproved colony</li>
+<li><strong>Cross-check the colony name against LDA's illegal colony list.</strong> A simple Google search "[colony name] LDA illegal colony list" will surface news reports on <a href="https://dsdproperties.in/lda-demolition-tracker" style="color:#008080;font-weight:600;">demolition drives</a> and blacklisted areas. The 241+ illegal colony list is publicly known</li>
+<li><strong>Look at the construction physically.</strong> Setback violations, road encroachment, no proper drainage entry, or compound walls touching adjacent plots are visible signs of unapproved construction</li>
+<li><strong>Call the LDA helpline 1800 1800 5000</strong> with the exact plot details. They will tell you whether the colony / plot is in LDA records — a 2-minute call that has saved many buyers from disaster</li>
+</ul>
+</div>
+<h2 style="margin-top: 40px; font-size: 22px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">LDA Approved Colony List in Lucknow — What's In and What's Out</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.9; margin-bottom: 16px;">LDA does not publish a single static "approved colony list" — rather, it publishes a detailed master plan, sector-wise allotment records, and a blacklist of unapproved colonies. Understanding both sides clarifies whether your target locality is safe.</p>
+<div class="dsd-highlight">
+<h4>LDA-Approved Townships and Schemes (Major Notified Schemes)</h4>
+<ul>
+<li><strong>Gomti Nagar &amp; Gomti Nagar Extension</strong> (Vipul Khand, Vibhuti Khand, Vishwas Khand, Vinay Khand, etc.) — flagship LDA development</li>
+<li><strong>Jankipuram &amp; Jankipuram Vistar / Extension</strong> — north Lucknow LDA sectors</li>
+<li><strong>Vrindavan Yojna</strong> — south Lucknow LDA scheme</li>
+<li><strong>Vasant Kunj &amp; Basant Kunj Yojana</strong> (Sectors I, N, etc., on Hardoi Bypass) — LDA + PMAY integrated</li>
+<li><strong>Anant Nagar Yojana</strong> — recent LDA plot scheme, 332 plots opened July 2025</li>
+<li><strong>Atal Nagar Awasiya Yojana (Phase 2)</strong> — newer LDA scheme</li>
+<li><strong>Sharda Nagar Extension Scheme</strong> — LDA + PMAY integrated</li>
+<li><strong>LDA IT City (CG City), Sultanpur Road</strong> — IT/SEZ cluster within 3,490-acre Chak Gajaria City master plan</li>
+<li><strong>Sushant Golf City</strong> (operated by Ansal API, but within LDA master plan jurisdiction) — verification of specific layouts still mandatory</li>
+<li><strong>Plots in Vrindavan, Amausi, Chinhat, Mahanagar, Alambagh, Indiranagar</strong> — LDA has notified 626 residential plots across these colonies in recent allotments</li>
+</ul>
+</div>
+<div class="dsd-redflag">
+<h5>🚨 Areas with Documented LDA Demolition Action 2024–2026</h5>
+<p>LDA carried out major demolition drives in <strong>Anant Nagar near Mohan Road (December 2025)</strong>, <strong>Gosaiganj and Dubagga (November 2025)</strong>, and <strong>Sushant Golf City unapproved 38-acre layout (April 2025)</strong>. Always verify the specific plot's LDA approval status before assuming "Sushant Golf City" or "Anant Nagar" automatically means safe — both names cover both approved and unapproved sections.</p>
+</div>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.9; margin: 20px 0;">The <strong>241+ illegal colony blacklist</strong> maintained by LDA covers neighbourhoods that were never approved and where regularisation has been ruled out. Per LDA's February 2026 rule changes, even 30-foot private developer roads no longer qualify for compounding — only 7.5-metre government-built roads do. Properties in blacklisted colonies face: zero resale value, utility disconnection mandates, bank loan blacklisting, and demolition risk under UP Urban Planning Act Sections 26, 27, 28. Refer to DSD Properties' detailed LDA Illegal Colony guide for the complete list.</p>
+<h2 style="margin-top: 40px; font-size: 22px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">LDA Online Building Plan Status — Tracking Your Application</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.9; margin-bottom: 16px;">Once a building plan is submitted on map.up.gov.in, you can track its status at any stage. Here is how the workflow operates in 2026.</p>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">1</div>
+<div class="dsd-doc-body">
+<h5>Submission Acknowledgement &amp; File Number Generation</h5>
+<p>Once your COA-registered architect uploads the CAD drawing and data, the BPAS system generates a unique file number. Save this — it is your tracking ID for every future check.</p>
+<span class="where-to-check">📍 map.up.gov.in → Application Status (login required)</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">2</div>
+<div class="dsd-doc-body">
+<h5>Automated AutoDCR Scrutiny</h5>
+<p>AutoDCR software reads the CAD drawing and maps it against LDA's development control regulations. The system checks setbacks, FAR, height, parking, and other parameters automatically. Routine cases (Fastpass-eligible) are auto-approved at this stage.</p>
+<span class="where-to-check">📍 Status: "Under Auto-Scrutiny"</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">3</div>
+<div class="dsd-doc-body">
+<h5>Manual Verification by LDA Town Planner (Non-Fastpass)</h5>
+<p>For plans outside the Fastpass envelope, the file is routed to the Town Planning Section of LDA for manual review. The town planner may raise objections, request clarifications, or call for site inspection.</p>
+<span class="where-to-check">📍 Status: "Under Review by Town Planner"</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">4</div>
+<div class="dsd-doc-body">
+<h5>Fee Payment &amp; Approval Letter Generation</h5>
+<p>Once all clarifications are addressed and the file is cleared, the system generates a fee challan (₹5–6 per sqm on built-up area under the revised fee structure). Pay online; the approval letter and digitally-signed sanctioned plan are then issued on the portal.</p>
+<span class="where-to-check">📍 Status: "Fee Demand" → "Approved" → "Sanctioned Plan Issued"</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">5</div>
+<div class="dsd-doc-body">
+<h5>5-Year Construction Window</h5>
+<p>Construction must commence within the approval validity period and the Completion Certificate must be applied for within 5 years of approval. If you miss this window, the permit lapses and the entire map approval process restarts.</p>
+<span class="where-to-check">📍 Track countdown on map.up.gov.in dashboard</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">6</div>
+<div class="dsd-doc-body">
+<h5>Completion Certificate &amp; Occupancy Certificate Application</h5>
+<p>On construction completion, apply for CC online via the same portal. LDA conducts a final site inspection to confirm the as-built structure matches the sanctioned plan. CC + OC then become available for download.</p>
+<span class="where-to-check">📍 map.up.gov.in → Completion Certificate module</span></div>
+</div>
+<p>{{CONSULTATION_BUTTON:Get a Complete LDA Verification Report — ₹5,000, PDF Within 48 Hours}}</p>
+<h2 style="margin-top: 40px; font-size: 22px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">Red Flags That Indicate Map / Colony Is NOT LDA Approved</h2>
+<div class="dsd-redflag">
+<h5>🚨 Sign 1 — Seller Cannot Produce a BPAS / map.up.gov.in File Number</h5>
+<p>Every legitimate approved building has a BPAS file number that can be searched on map.up.gov.in. If the seller cannot provide it, or provides a number that fails portal search, the construction is almost certainly unapproved. "Approval is coming, papers are with our CA" is the classic delay tactic — do not pay an advance against verbal promises.</p>
+</div>
+<div class="dsd-redflag">
+<h5>🚨 Sign 2 — The Colony Does Not Appear on gis.ldalucknow.in</h5>
+<p>If the LDA OneMap Sector Explorer shows no record of the colony or layout, treat it as not LDA-allotted. Verify whether it is at least in master-plan-approved private land (and demand the private developer's LDA approval letter), or whether it falls in agricultural / green-belt zoning.</p>
+</div>
+<div class="dsd-redflag">
+<h5>🚨 Sign 3 — Construction Has No Visible Setbacks or Drainage Compliance</h5>
+<p>A building that occupies the entire plot up to the boundary wall, has no proper drainage entry, no parking provision, or has been built right up to the road edge is almost certainly violating LDA bylaws. Visible non-compliance equals invisible map non-compliance.</p>
+</div>
+<div class="dsd-redflag">
+<h5>🚨 Sign 4 — Seller Resists the LDA Helpline Call (1800 1800 5000)</h5>
+<p>A genuine seller will encourage you to verify directly with LDA. Any seller who discourages independent verification, claims "the staff there don't know anything," or insists "trust me, paperwork is in order" is signalling something to hide.</p>
+</div>
+<div class="dsd-redflag">
+<h5>🚨 Sign 5 — Price Is Significantly Below Locality Average</h5>
+<p>Unapproved colonies discount heavily to move inventory. If similar-frontage plots in approved sectors nearby are at ₹3,000/sqft and you are being offered ₹1,200/sqft, the gap is almost always explained by missing LDA approval, agricultural classification, or being on the illegal colony list. Cheap is rarely cheap in the long run.</p>
+</div>
+<h2 style="margin-top: 40px; font-size: 22px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">Common Mistakes Buyers Make During LDA Verification</h2>
+<div class="dsd-redflag">
+<h5>🚨 Mistake 1 — Trusting a Brochure Stamp Without Portal Verification</h5>
+<p>Builders and dealers stamp "LDA Approved" on glossy brochures and posters. The stamp itself proves nothing. Always verify the approval file number on map.up.gov.in or the colony's status on gis.ldalucknow.in independently. A stamp is not a sanction.</p>
+</div>
+<div class="dsd-redflag">
+<h5>🚨 Mistake 2 — Confusing RERA Registration With LDA Map Approval</h5>
+<p>RERA registration covers the developer's compliance with consumer-protection rules. LDA approval covers the physical layout and building plans. A project can be RERA-registered yet still have specific building plan deviations from LDA-approved drawings. Always verify both separately.</p>
+</div>
+<div class="dsd-redflag">
+<h5>🚨 Mistake 3 — Assuming Dakhil Kharij Equals LDA Approval</h5>
+<p>Dakhil Kharij is mutation in revenue records — confirming you as the owner. It says nothing about whether the land has LDA layout approval or whether a sanctioned building plan exists. These are completely independent verifications.</p>
+</div>
+<div class="dsd-redflag">
+<h5>🚨 Mistake 4 — Skipping Verification Because Bank Sanctioned the Loan</h5>
+<p>Bank loan sanction is helpful but not foolproof — banks rely on technical <a href="https://dsdproperties.in/services/property-verification-lucknow" style="color:#008080;font-weight:600;">due diligence</a> vendors who occasionally miss issues. Run your own LDA verification independently. Also note: if the bank later discovers a defect, they can recall the loan and seize the property.</p>
+</div>
+<div class="dsd-redflag">
+<h5>🚨 Mistake 5 — Paying Advance Before Receiving Written LDA Confirmation</h5>
+<p>Verbal assurances from LDA helpline staff are useful for screening but not legally binding. For high-value transactions, file a formal RTI or written query with LDA referencing the exact plot. The written reply is what protects you in court if a dispute arises later.</p>
+</div>
+<h2 style="margin-top: 40px; font-size: 22px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">How DSD Properties Helps With LDA Map Verification</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.9; margin-bottom: 16px;">At <strong>DSD Properties</strong>, our verification process is built specifically around Lucknow's LDA approval ecosystem. Our ₹5,000 property verification service includes:</p>
+<div class="dsd-highlight">
+<h4>What Our LDA Verification Covers</h4>
+<ul>
+<li><strong>LDA OneMap GIS sector check</strong> at gis.ldalucknow.in — confirms whether the parcel falls in an LDA-allotted sector and matches the master plan zoning</li>
+<li><strong>BPAS file verification</strong> at map.up.gov.in — pulls the building plan approval status using the seller's file number</li>
+<li><strong>"Know Your Land Use" application</strong> at registration.ldalucknow.in for the specific address</li>
+<li><strong>LDA property search</strong> at ldalucknow.in/property-details for LDA-allotted plot ownership confirmation</li>
+<li><strong>Cross-check with LDA illegal colony list</strong> covering 241+ blacklisted neighbourhoods</li>
+<li><strong>RERA verification</strong> at up-rera.in (for builder projects) with complaint history check</li>
+<li><strong>Khatauni verification</strong> at upbhulekh.gov.in for land type and seller name match</li>
+<li><strong>Section 80 conversion check</strong> for plots with agricultural history</li>
+<li><strong>Bank financing eligibility</strong> confirmed independently with SBI, HDFC, ICICI</li>
+<li><strong>Personalised PDF report</strong> with a clear "Safe to Buy" or "Red Flags Found" verdict, delivered within 48 hours</li>
+</ul>
+</div>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.9; margin-bottom: 24px;">Given that even entry-level Lucknow plots involve ₹15–50 lakh investment, the verification cost is typically less than 1% of the capital at risk — and protects you from the most common cause of post-purchase distress: discovering after registry that the LDA never approved the construction or the colony.</p>
+<h2 style="margin-top: 40px; font-size: 22px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">Related Guides from DSD Properties</h2>
+<div class="dsd-related-inline"><a href="https://dsdproperties.in/blog/lda-illegal-colony-list-lucknow-2026" class="dsd-link-card">
+<div class="dsd-link-label">Legal Advice</div>
+<div class="dsd-link-title">LDA Illegal Colony List Lucknow 2026 — 241+ Areas to Avoid</div>
+</a><a href="https://dsdproperties.in/blog/dakhil-kharij-lucknow-mutation-process-guide" class="dsd-link-card">
+<div class="dsd-link-label">Legal Guide</div>
+<div class="dsd-link-title">Dakhil Kharij Lucknow 2026 — Complete Mutation Process Guide</div>
+</a><a href="https://dsdproperties.in/blog/igrsup-lucknow-property-search-tutorial" class="dsd-link-card">
+<div class="dsd-link-label">Tutorial</div>
+<div class="dsd-link-title">IGRSUP Property Search Tutorial — Lucknow 2026</div>
+</a><a href="https://dsdproperties.in/blog/encumbrance-certificate-lucknow-how-to-apply-online" class="dsd-link-card">
+<div class="dsd-link-label">Verification</div>
+<div class="dsd-link-title">Encumbrance Certificate Lucknow 2026 — Online Apply Guide</div>
+</a></div>
+<p>{{CONSULTATION_BUTTON:Get Your LDA Verification Before You Pay — ₹5,000 Plot Audit Service}}</p>
+<section id="FAQs">
+<h2 style="margin-top: 40px; font-size: 22px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">Frequently Asked Questions</h2>
+<h3>How can I check if a building map is approved by LDA in Lucknow?</h3>
+<p style="display: none;">The official portal for verifying LDA building map approval is map.up.gov.in — the UP-wide Online Building Plan Approval System (BPAS) — also accessible at upobpas.in. Both URLs cover Lucknow Development Authority along with all other UP development authorities including KDA, GDA, ADA, AFDA, AGDA, PDA, and others. To verify a specific plan, ask the seller or builder for the BPAS file/reference number, then search it on map.up.gov.in to view approval status, sanctioned plan, date of approval, validity period, FAR utilised, and setbacks. A legitimate seller with approved plans will have this file number readily available. If they hesitate or cannot provide it, treat that as a major red flag and verify independently by calling the LDA helpline at 1800 1800 5000 or visiting the LDA head office at Sector 38A, 2A, Vipin Khand, Gomti Nagar, Lucknow 226010.</p>
+<h3>What is the LDA map approval verification process online?</h3>
+<p style="display: none;">The complete LDA map approval verification process involves seven steps using official portals: (1) Confirm land use classification on the LDA OneMap GIS portal at gis.ldalucknow.in via Sector Explorer to verify zoning under the Lucknow Master Plan 2031; (2) Use the "Application to Know Your Land Use" service after logging in at registration.ldalucknow.in to confirm permitted use at the specific address; (3) Verify the building plan approval on map.up.gov.in or upobpas.in using the BPAS file number; (4) Cross-check property details on ldalucknow.in/property-details for LDA-allotted plot ownership; (5) Confirm Khatauni and mutation at upbhulekh.gov.in for revenue-village plots; (6) Check RERA registration at up-rera.in for any builder project above 500 sqm or 8 apartments; (7) If results conflict, call the LDA helpline at 1800 1800 5000 or visit the LDA office for written confirmation. Each step uses an official government portal at zero cost.</p>
+<h3>What is the LDA Fastpass system and which plots qualify?</h3>
+<p style="display: none;">The Fastpass system, launched in early 2026 by the Yogi government under LDA's new building bylaws, provides instant online approval of building plans for residential buildings up to 100 square metres and commercial constructions up to 30 square metres. The system is managed through the map.up.gov.in portal. LDA Vice-Chairperson Prathamesh Kumar announced the size limits. Once the owner or COA-registered architect uploads the building map and required data — including exact plot location, adjacent road lengths and widths, proposed building height, total covered area, front, side and rear setbacks, entry and exit gate details, and parking space provision — the AutoDCR software auto-scrutinises the inputs against the bylaws. If all conditions match (including land use matching the notified master plan), the system approves the plan within minutes and issues an auto-certified map and certificate. This eliminates repeated visits to the LDA office for small projects, aligning with the Digital India mission.</p>
+<h3>What is the current LDA map approval fee in 2026?</h3>
+<p style="display: none;">LDA reduced the map approval fee in May 2025 from the earlier ₹7-8 per square metre to approximately ₹5-6 per square metre — a 10-20% reduction in overall cost for applicants. The fee is calculated on built-up area and paid online during the BPAS submission process on map.up.gov.in. The simplified Awas Bandhu portal replaced the older Pre-DCR system, and now any architect registered with the Council of Architecture (COA) in Lucknow can create the building map in AutoCAD and submit it directly online. This change opened up the architect ecosystem — previously only a limited number of architects could operate Pre-DCR's technical complexity, creating bottlenecks and inflated fees. The new system is more transparent and user-friendly, and approval letters along with digitally-signed sanctioned plans are issued directly on the portal after fee payment.</p>
+<h3>How do I check the LDA approved colony list in Lucknow?</h3>
+<p style="display: none;">LDA does not publish a single static "approved colony list" — instead it publishes a comprehensive master plan, sector-wise allotment records, and a public blacklist of 241+ illegal colonies. To verify any colony's approval status, follow this approach: (1) Visit gis.ldalucknow.in — the LDA OneMap GIS Sector Explorer — and search for the locality name. LDA-allotted sectors include Gomti Nagar, Gomti Nagar Extension, Jankipuram, Jankipuram Vistar, Vrindavan Yojna, Basant Kunj Yojana, Anant Nagar Yojana, Atal Nagar Awasiya Yojana Phase 2, Sharda Nagar Extension, LDA IT City within CG City, and recently-notified plots in Vrindavan, Amausi, Chinhat, Mahanagar, Alambagh, and Indiranagar. (2) Cross-check the colony name against LDA's published blacklist of 241+ illegal colonies. (3) For private developments within LDA's master-plan jurisdiction (such as parts of Sushant Golf City), verify the specific section's layout approval — both names like "Sushant Golf City" and "Anant Nagar" cover sections that are approved AND sections that have faced demolition action. Documented LDA demolitions include Anant Nagar (December 2025), Gosaiganj and Dubagga (November 2025), and a 38-acre Sushant Golf City layout (April 2025).</p>
+<h3>How can I track LDA online building plan status?</h3>
+<p style="display: none;">Once a building plan is submitted on map.up.gov.in, you can track its status at every stage by logging in and using your unique file/reference number. The workflow has six key stages: (1) Submission acknowledgement and file number generation when the COA-registered architect uploads CAD drawings and data; (2) Automated AutoDCR scrutiny where the software maps the CAD drawing against LDA's development control regulations — Fastpass-eligible cases (residential ≤100 sqm, commercial ≤30 sqm) are auto-approved at this stage; (3) Manual verification by LDA Town Planner for plans outside the Fastpass envelope, with possible objections, clarifications, or site inspections; (4) Fee payment with ₹5-6 per sqm on built-up area, followed by issuance of approval letter and digitally-signed sanctioned plan on the portal; (5) 5-year construction window during which the Completion Certificate must be applied for, otherwise the permit lapses; (6) Completion Certificate and Occupancy Certificate application via the same portal after construction is complete. Each status update reflects on the portal dashboard in real time.</p>
+<h3>What is the difference between LDA approval, RERA registration, and Dakhil Kharij?</h3>
+<p style="display: none;">These three are completely independent verifications that buyers regularly confuse: (1) LDA approval — covers the physical layout of the colony and the sanctioned building plan for the construction. Verified at gis.ldalucknow.in for the colony layout and map.up.gov.in for the building plan. Without LDA approval, the structure can be demolished and bank loans are blocked regardless of other paperwork. (2) RERA registration — covers the developer's compliance with consumer-protection rules under the Real Estate (Regulation and Development) Act 2016. Mandatory for any project above 500 sqm or 8 apartments. Verified at up-rera.in. A RERA-registered project can still have specific building plan deviations from LDA-approved drawings. (3) Dakhil Kharij (mutation) — updates revenue records or municipal records to show you as the current owner after purchase. Verified at upbhulekh.gov.in for revenue-village plots or Nagar Nigam for urban properties. Dakhil Kharij says nothing about whether LDA approved the layout or sanctioned a building plan. Always verify all three independently.</p>
+<h3>Can I check LDA approved map by plot number or owner name?</h3>
+<p style="display: none;">Yes, the LDA Property Search at ldalucknow.in/property-details allows search by sector, plot number, or owner name for LDA-allotted plots specifically across major schemes like Gomti Nagar, Jankipuram, Vrindavan Yojna, Anant Nagar, Basant Kunj, Atal Nagar, and others. The search shows LDA's official record of who the plot is allotted to. Important caveat: this shows the original allottee — if the plot was later sold via registered sale deed, the current owner may differ. Always cross-check this LDA record with the IGRSUP registry data (igrsup.gov.in) and the current Khatauni (upbhulekh.gov.in). If names do not match between LDA records and IGRSUP, demand a written explanation from the seller before proceeding. Refer to DSD Properties' detailed property ownership records guide for the complete cross-verification process.</p>
+<h3>What documents are required for LDA building plan approval submission?</h3>
+<p style="display: none;">For standard online building plan submission on map.up.gov.in (outside the Fastpass envelope), the required documents include: (1) Registered sale deed of the plot; (2) Latest Khatauni or mutation record showing current ownership; (3) Property tax receipts cleared up to the latest financial year; (4) Layout approval / colony approval reference for the larger development; (5) Site plan showing the exact plot dimensions and adjacent road widths; (6) Building plan in CAD format (AutoCAD) prepared by a COA-registered architect; (7) Structural drawings prepared by a qualified structural engineer; (8) Architect's signature with COA registration number on all drawings; (9) Identity and address proof of the owner (Aadhaar, passport, voter ID); (10) PAN card of the owner; (11) Power of Attorney if construction is being undertaken on behalf of the owner. For plots within LDA-notified colonies, the LDA allotment letter must also be produced. Any required NOCs — fire department for buildings above 15 m or 12 flats, AAI NOCAS for properties within 20 km of Amausi Airport, environmental clearance for larger projects — must be obtained separately and uploaded.</p>
+<h3>What are the consequences of constructing without LDA map approval?</h3>
+<p style="display: none;">Constructing without LDA map approval exposes the property owner to severe legal, financial, and operational consequences. Legal consequences: LDA can issue stop-work notices at any construction stage, demolition orders even after years of occupation, and penalty notices under UP Urban Planning Act Sections 26, 27, 28. Documented Lucknow demolitions in 2024-2026 include Anant Nagar (December 2025), Gosaiganj and Dubagga (November 2025), Sushant Golf City unapproved layout across 38 acres (April 2025), and 21 row-houses behind Amausi Airport for height violations (December 2025). Financial consequences: bank loans are blocked because home loan lenders (SBI, HDFC, ICICI) refuse to finance unapproved constructions and may recall existing loans if defects are discovered post-disbursement. Resale value drops to near-zero because future buyers face the same bank-loan rejection problem. Operational consequences: utility connections (electricity from UPPCL, water from Jal Sansthan) may be disconnected or refused; no Completion Certificate or Occupancy Certificate can be issued, making legal occupancy questionable; insurance claims become difficult; and the building cannot be sold or willed cleanly to heirs. The verification cost (₹5,000 for a complete DSD Properties audit, or free if you check the portals yourself) is a fraction of these downstream risks.</p>
+<h3>Is there a Lucknow LDA approved colony list I can download as PDF?</h3>
+<p style="display: none;">LDA does not publish a single consolidated downloadable PDF titled "approved colony list" because the information is structured differently — through the Lucknow Master Plan, sector-wise notifications, and named scheme launches that occur over time. To get the equivalent information: (1) Download the LDA Master Plan Map from ldalucknow.in/master-plan-map which shows all zoned residential, commercial, and mixed-use areas under the Lucknow Master Plan Convergence 2031; (2) Review the LDA Zoning Regulations PDF (ldalucknow.in/wp-content/uploads/2025/04/zoning_regulations.pdf) for the official zoning framework; (3) Use the LDA OneMap GIS portal at gis.ldalucknow.in for interactive sector-wise lookup of approved layouts; (4) Track new LDA scheme launches at ldalucknow.in/new-scheme-projects — recent schemes include Anant Nagar (332 plots, July 2025), Basant Kunj Sector N (200 EWS flats, February 2026), Atal Nagar Phase 2, and IT City within CG City. For the illegal colony blacklist of 241+ unapproved colonies, refer to DSD Properties' dedicated guide. When in doubt, the safest single resource is the LDA OneMap GIS portal because it shows the current approved-versus-unapproved status visually for any location.</p>
+</section>
+<script>
+(function() {
+  function initFAQ() {
+    document.querySelectorAll("#FAQs h3").forEach(function(q) {
+      q.style.cursor = "pointer";
+      q.addEventListener("click", function() {
+        var self = this;
+        var isOpen = self.classList.contains("active");
+        document.querySelectorAll("#FAQs h3.active").forEach(function(b) {
+          b.classList.remove("active");
+          var a = b.nextElementSibling;
+          while (a && a.tagName !== "P") { a = a.nextElementSibling; }
+          if (a) { a.style.display = "none"; }
+        });
+        if (!isOpen) {
+          self.classList.add("active");
+          var ans = self.nextElementSibling;
+          while (ans && ans.tagName !== "P") { ans = ans.nextElementSibling; }
+          if (ans) { ans.style.display = "block"; }
+        }
+      });
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initFAQ);
+  } else {
+    initFAQ();
+  }
+})();
+</script>

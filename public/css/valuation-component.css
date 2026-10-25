@@ -1,0 +1,441 @@
+/* =========================================
+   Property Valuation Component Styles
+   Namespace: vc- (Valuation Component)
+   ========================================= */
+
+:root {
+    --vc-primary: #011f4b;
+    --vc-secondary: #008080;
+    --vc-accent: #FF5C00;
+    --vc-light-teal: #e0f2f1;
+    --vc-surface: #f8fafb;
+    --vc-white: #ffffff;
+    --vc-radius: 20px;
+    --vc-shadow: 0 20px 40px -10px rgba(1, 31, 75, 0.15);
+}
+
+/* Backdrop */
+.vc-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(1, 31, 75, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vc-backdrop.vc-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Modal Container */
+.vc-modal {
+    position: fixed;
+    z-index: 9999;
+    background: var(--vc-white);
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--vc-primary);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Mobile: Centered Modal */
+@media (max-width: 767px) {
+    .vc-modal {
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%) scale(0.95);
+        width: calc(100% - 32px);
+        max-width: 480px;
+        max-height: calc(100vh - 60px);
+        border-radius: var(--vc-radius);
+        opacity: 0;
+        visibility: hidden;
+        box-shadow: var(--vc-shadow);
+    }
+
+    .vc-modal.vc-active {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* Desktop: Side Panel */
+@media (min-width: 768px) {
+    .vc-modal {
+        top: 0; right: 0;
+        width: 100%; max-width: 520px;
+        height: 100vh;
+        border-radius: 0;
+        transform: translateX(100%);
+        visibility: hidden;
+        box-shadow: -10px 0 40px rgba(1, 31, 75, 0.1);
+    }
+
+    .vc-modal.vc-active {
+        transform: translateX(0);
+        visibility: visible;
+    }
+}
+
+/* Close Button */
+.vc-close-btn {
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(1, 31, 75, 0.05);
+    border: none;
+    cursor: pointer;
+    z-index: 15; /* Higher than progress bar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.vc-close-btn:hover {
+    background: rgba(1, 31, 75, 0.1);
+    transform: rotate(90deg);
+}
+
+/* --- PROGRESS BAR (Fixed Header) --- */
+.vc-progress-header {
+    padding: 1.5rem 2rem 0;
+    background: var(--vc-white);
+    z-index: 10;
+    flex-shrink: 0; /* Prevent squishing */
+}
+
+@media (min-width: 768px) {
+    .vc-progress-header { padding: 2rem 3rem 0; }
+}
+
+.vc-progress-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0; /* No margin, handled by step padding */
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--vc-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.vc-progress-text {
+    color: rgba(1, 31, 75, 0.4);
+}
+
+.vc-progress-dots {
+    display: flex;
+    gap: 6px;
+    margin-left: auto;
+}
+
+.vc-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(1, 31, 75, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vc-dot.vc-active {
+    background: var(--vc-secondary);
+    width: 24px;
+    border-radius: 10px;
+}
+
+/* Content Scroller */
+.vc-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--vc-secondary) transparent;
+}
+
+/* Steps Logic */
+.vc-step {
+    display: none;
+    opacity: 0;
+    padding: 2rem; 
+    /* Padding bottom handled by button spacing */
+    padding-bottom: 3rem;
+    transform: translateY(20px);
+}
+
+@media (min-width: 768px) {
+    .vc-step { padding: 2rem 3rem 3rem; }
+}
+
+.vc-step.vc-active {
+    display: block;
+    animation: vcFadeIn 0.5s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+@keyframes vcFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Typography */
+.vc-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--vc-primary);
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem; /* Spacing from progress bar */
+}
+
+.vc-subtitle {
+    font-size: 0.95rem;
+    color: rgba(1, 31, 75, 0.6);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+/* Form Elements */
+.vc-input-group { margin-bottom: 1.5rem; }
+
+.vc-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--vc-primary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.vc-input, .vc-select {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid rgba(1, 31, 75, 0.08);
+    border-radius: 14px;
+    background: #fff;
+    font-size: 16px; /* prevents iOS auto-zoom on focus */
+    font-family: inherit;
+    color: var(--vc-primary);
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.vc-input:focus, .vc-select:focus {
+    border-color: var(--vc-secondary);
+    box-shadow: 0 0 0 4px rgba(0, 128, 128, 0.08);
+}
+
+.vc-input::placeholder { color: rgba(1, 31, 75, 0.3); }
+
+.vc-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23011f4b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 18px;
+    padding-right: 50px;
+    cursor: pointer;
+}
+
+/* Option Cards */
+.vc-options-grid { display: grid; gap: 1rem; }
+
+.vc-option-card {
+    position: relative;
+    padding: 20px;
+    border: 2px solid rgba(1, 31, 75, 0.06);
+    border-radius: 16px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.vc-option-card:hover {
+    border-color: rgba(0, 128, 128, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+}
+
+.vc-option-card.vc-selected {
+    border-color: var(--vc-secondary);
+    background: rgba(0, 128, 128, 0.03);
+}
+
+.vc-option-card input { display: none; }
+
+.vc-icon-box {
+    width: 50px; height: 50px;
+    border-radius: 12px;
+    background: rgba(1, 31, 75, 0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.vc-option-card.vc-selected .vc-icon-box {
+    background: var(--vc-secondary);
+    color: white;
+}
+
+.vc-check {
+    position: absolute;
+    right: 20px; top: 50%;
+    transform: translateY(-50%);
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(1, 31, 75, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.vc-option-card.vc-selected .vc-check {
+    background: var(--vc-secondary);
+    border-color: var(--vc-secondary);
+}
+
+/* Feature Tags */
+.vc-features-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.vc-tag {
+    padding: 10px 18px;
+    border: 2px solid rgba(1, 31, 75, 0.06);
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fff;
+}
+
+.vc-tag:hover { border-color: var(--vc-secondary); }
+.vc-tag.vc-selected {
+    background: var(--vc-secondary);
+    color: white;
+    border-color: var(--vc-secondary);
+}
+
+/* Buttons */
+.vc-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 32px;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s ease;
+    width: 100%;
+}
+
+.vc-btn-primary {
+    background: linear-gradient(135deg, var(--vc-accent), #e65500);
+    color: white;
+    box-shadow: 0 8px 20px rgba(255, 92, 0, 0.2);
+}
+
+.vc-btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(255, 92, 0, 0.25);
+}
+
+.vc-btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.vc-nav-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 2rem;
+}
+
+.vc-btn-back {
+    width: auto; flex-grow: 0;
+    background: transparent;
+    color: var(--vc-primary);
+    padding: 16px;
+}
+
+.vc-btn-back:hover { background: rgba(1, 31, 75, 0.03); }
+
+.vc-btn-next { flex-grow: 1; }
+
+/* Loader */
+.vc-loader-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.98);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.vc-loader-overlay.vc-active { opacity: 1; visibility: visible; }
+
+.vc-spinner {
+    width: 60px; height: 60px;
+    border: 3px solid rgba(0, 128, 128, 0.1);
+    border-top-color: var(--vc-secondary);
+    border-radius: 50%;
+    animation: vcSpin 1s linear infinite;
+    margin-bottom: 1.5rem;
+}
+
+@keyframes vcSpin { to { transform: rotate(360deg); } }
+
+/* Success */
+.vc-success-icon {
+    width: 80px; height: 80px;
+    background: var(--vc-light-teal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    color: var(--vc-secondary);
+}
+
+/* Trust Signals */
+.vc-trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: rgba(1, 31, 75, 0.5);
+}
+
+.vc-trust-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--vc-secondary);
+}

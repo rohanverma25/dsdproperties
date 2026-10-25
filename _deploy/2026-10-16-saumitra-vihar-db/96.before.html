@@ -1,0 +1,910 @@
+<style>
+/* ==========================================================================
+   DSD Properties — सौमित्र विहार योजना (UPAVP, लखनऊ)
+   Hindi article styles · v3 · last updated 4 September 2026
+   ========================================================================== */
+:root{
+  --dsd-navy:#011f4b;
+  --dsd-navy-soft:#0a2f66;
+  --dsd-teal:#008080;
+  --dsd-teal-bright:#20B2AA;
+  --dsd-orange:#FF5C00;
+  --dsd-red:#d92d20;
+  --dsd-green:#087443;
+  --dsd-light-teal:#e6f7f7;
+  --dsd-surface:#ffffff;
+  --dsd-bg:#f7f9fb;
+  --dsd-border:#e3e8ef;
+  --dsd-text:#334155;
+  --dsd-muted:#64748b;
+  --dsd-radius:14px;
+  --dsd-radius-sm:10px;
+  --dsd-shadow:0 1px 2px rgba(1,31,75,.06), 0 8px 24px rgba(1,31,75,.06);
+  --dsd-shadow-lg:0 4px 12px rgba(1,31,75,.08), 0 20px 48px rgba(1,31,75,.10);
+  --dsd-font:'Noto Sans Devanagari','Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+
+/* Hindi body typography — Devanagari needs more line-height than Latin */
+.dsd-hindi{font-family:var(--dsd-font);line-height:1.95;font-size:15.5px;color:var(--dsd-text);}
+.dsd-hindi p{margin-bottom:1.15rem;}
+
+.dsd-sourceline{font-size:12.5px;color:var(--dsd-muted);margin:0 0 26px;padding-bottom:14px;border-bottom:1px solid var(--dsd-border);line-height:1.8;}
+
+/* status ribbon */
+.dsd-ribbon{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;background:linear-gradient(135deg,var(--dsd-navy) 0%,#062a5e 55%,#0b3a7a 100%);border-radius:var(--dsd-radius);padding:16px 20px;margin:0 0 22px;box-shadow:var(--dsd-shadow-lg);}
+.dsd-ribbon span.dsd-ribbon-pill.dsd-ribbon-pill{display:inline-flex;align-items:center;gap:7px;background:#ffffff;border:1px solid rgba(255,255,255,.9);color:#011f4b !important;font-family:var(--dsd-font);font-size:12.5px;font-weight:600;padding:6px 13px;border-radius:999px;line-height:1.7;}
+.dsd-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dsd-dot.live{background:#ff6b4a;box-shadow:0 0 0 0 rgba(255,107,74,.7);animation:dsdPulse 2s infinite;}
+.dsd-dot.wait{background:#fbbf24;}
+.dsd-dot.done{background:#34d399;}
+@keyframes dsdPulse{70%{box-shadow:0 0 0 9px rgba(255,107,74,0);}100%{box-shadow:0 0 0 0 rgba(255,107,74,0);}}
+@media(prefers-reduced-motion:reduce){.dsd-dot.live{animation:none;}}
+.dsd-ribbon span.dsd-ribbon-date.dsd-ribbon-date{margin-left:auto;font-family:var(--dsd-font);font-size:12px;color:rgba(255,255,255,.88) !important;letter-spacing:.03em;font-weight:500;}
+
+/* stats bar */
+.dsd-stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:rgba(255,255,255,.09);border-radius:var(--dsd-radius);overflow:hidden;margin:22px 0 28px;box-shadow:var(--dsd-shadow-lg);}
+.dsd-stat-item{padding:18px 14px;text-align:center;background:var(--dsd-navy);transition:background .25s ease;}
+.dsd-stat-item:hover{background:var(--dsd-navy-soft);}
+.dsd-stats-bar .dsd-stat-item span.dsd-stat-num{font-size:19px;font-weight:700;color:#5eead4 !important;display:block;line-height:1.3;font-family:var(--dsd-font);white-space:nowrap;}
+.dsd-stats-bar .dsd-stat-item span.dsd-stat-num.sm{font-size:15px;white-space:normal;line-height:1.4;}
+.dsd-stats-bar .dsd-stat-item span.dsd-stat-label{font-size:11px;color:rgba(255,255,255,.86) !important;letter-spacing:.03em;margin-top:6px;display:block;font-family:var(--dsd-font);line-height:1.55;}
+
+/* alerts */
+.dsd-alert{border-radius:var(--dsd-radius);padding:18px 22px;margin:24px 0;border:1px solid;border-left-width:4px;box-shadow:var(--dsd-shadow);}
+.dsd-alert h4{font-size:15.5px;font-weight:700;margin:0 0 12px;display:flex;align-items:center;gap:8px;font-family:var(--dsd-font);line-height:1.6;}
+.dsd-alert ul{list-style:none;padding:0;margin:0;}
+.dsd-alert li{font-size:14.5px;color:var(--dsd-text);padding:8px 0 8px 22px;position:relative;line-height:1.9;}
+.dsd-alert li + li{border-top:1px solid rgba(0,0,0,.05);}
+.dsd-alert li::before{position:absolute;left:0;font-weight:700;}
+.dsd-alert p{font-size:14.5px;color:var(--dsd-text);line-height:1.9;margin:0;}
+.dsd-alert.info{background:#fff8f0;border-color:rgba(255,92,0,.22);border-left-color:var(--dsd-orange);}
+.dsd-alert.info h4{color:var(--dsd-orange);}
+.dsd-alert.info li::before{content:'→';color:var(--dsd-orange);}
+.dsd-alert.good{background:var(--dsd-light-teal);border-color:rgba(0,128,128,.22);border-left-color:var(--dsd-teal);}
+.dsd-alert.good h4{color:var(--dsd-navy);}
+.dsd-alert.good li::before{content:'✓';color:var(--dsd-teal);}
+.dsd-alert.danger{background:#fff5f4;border-color:rgba(217,45,32,.24);border-left-color:var(--dsd-red);}
+.dsd-alert.danger h4{color:var(--dsd-red);}
+.dsd-alert.danger li::before{content:'✕';color:var(--dsd-red);}
+
+/* pull quote */
+.dsd-pullquote{border-left:4px solid var(--dsd-orange);background:#fff8f5;padding:20px 24px;margin:26px 0;border-radius:0 var(--dsd-radius) var(--dsd-radius) 0;}
+.dsd-pullquote p{font-size:15.5px;font-style:italic;color:var(--dsd-navy);line-height:1.9;margin:0 0 8px;}
+.dsd-pullquote cite{font-size:12.5px;color:var(--dsd-muted);font-style:normal;line-height:1.7;}
+
+/* TOC */
+.dsd-toc{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:var(--dsd-radius);padding:20px 22px;margin:24px 0;}
+.dsd-toc h2{margin:0 0 14px !important;font-size:16.5px !important;color:var(--dsd-navy);border:none !important;padding:0 !important;}
+.dsd-toc ol{list-style:none;counter-reset:dsdtoc;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:2px 20px;}
+.dsd-toc li{counter-increment:dsdtoc;margin:0;}
+.dsd-toc a{display:flex;gap:11px;align-items:baseline;padding:8px 10px;border-radius:var(--dsd-radius-sm);text-decoration:none;color:var(--dsd-text);font-size:14.5px;line-height:1.7;transition:background .18s ease,color .18s ease;}
+.dsd-toc a::before{content:counter(dsdtoc,decimal-leading-zero);font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;color:var(--dsd-teal);flex-shrink:0;}
+.dsd-toc a:hover,.dsd-toc a:focus-visible{background:#fff;color:var(--dsd-navy);box-shadow:var(--dsd-shadow);}
+
+/* map */
+.dsd-map{border:1px solid var(--dsd-border);border-radius:var(--dsd-radius);overflow:hidden;margin:22px 0;background:var(--dsd-surface);box-shadow:var(--dsd-shadow);}
+.dsd-map-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--dsd-border);background:var(--dsd-bg);}
+.dsd-map .dsd-map-head span.dsd-pin{width:34px;height:34px;border-radius:50%;background:var(--dsd-teal);color:#ffffff !important;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.dsd-map-title{font-family:var(--dsd-font);font-size:14.5px;font-weight:700;color:var(--dsd-navy);margin:0;line-height:1.55;}
+.dsd-map-sub{font-size:12.5px;color:var(--dsd-muted);margin:2px 0 0;line-height:1.65;}
+.dsd-map .dsd-map-head a.dsd-map-btn{margin-left:auto;background:#B83C00;color:#ffffff !important;font-family:var(--dsd-font);font-size:13px;font-weight:600;padding:9px 16px;border-radius:999px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:transform .18s ease,box-shadow .18s ease;white-space:nowrap;}
+.dsd-map .dsd-map-head a.dsd-map-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(184,60,0,.38);color:#ffffff !important;}
+.dsd-map-frame{position:relative;width:100%;aspect-ratio:16/9;min-height:260px;max-height:420px;
+  background-color:#e9eff6;
+  background-image:linear-gradient(rgba(1,31,75,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(1,31,75,.055) 1px,transparent 1px),linear-gradient(115deg,rgba(0,128,128,.10) 0%,transparent 55%);
+  background-size:32px 32px,32px 32px,100% 100%;}
+.dsd-map-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;}
+.dsd-map-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px;cursor:pointer;border:0;background:transparent;width:100%;font-family:inherit;}
+.dsd-map-placeholder span.dsd-mp-icon{font-size:26px;line-height:1;width:60px;height:60px;border-radius:50%;background:#fff;border:1px solid var(--dsd-border);display:flex;align-items:center;justify-content:center;box-shadow:var(--dsd-shadow);}
+.dsd-map-placeholder:hover span.dsd-mp-icon{border-color:var(--dsd-teal);}
+.dsd-map-placeholder span.dsd-mp-text{font-family:var(--dsd-font);font-size:14px;font-weight:700;color:var(--dsd-navy);background:#fff;border:1px solid var(--dsd-border);padding:9px 18px;border-radius:999px;box-shadow:var(--dsd-shadow);}
+.dsd-map-placeholder span.dsd-mp-hint{font-size:12.5px;color:var(--dsd-muted);max-width:400px;line-height:1.75;}
+.dsd-map-foot{display:flex;flex-wrap:wrap;gap:8px;padding:12px 18px;border-top:1px solid var(--dsd-border);background:var(--dsd-bg);}
+.dsd-coord{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;color:var(--dsd-muted);background:#fff;border:1px solid var(--dsd-border);padding:4px 10px;border-radius:6px;}
+
+/* plot cards */
+.dsd-plot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin:22px 0;}
+.dsd-plot-card{background:linear-gradient(160deg,#011f4b 0%,#0a2f66 100%);border:1px solid rgba(32,178,170,.34);border-radius:var(--dsd-radius-sm);padding:18px 14px;text-align:center;position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease;}
+.dsd-plot-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(1,31,75,.24);}
+.dsd-plot-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 0%,rgba(32,178,170,.28) 0%,transparent 62%);pointer-events:none;}
+.dsd-plot-card > *{position:relative;z-index:1;}
+.dsd-plot-grid .dsd-plot-card span.dsd-plot-size{font-size:19px;font-weight:700;color:#ffffff !important;display:block;font-family:'Poppins',sans-serif;line-height:1.2;}
+.dsd-plot-grid .dsd-plot-card span.dsd-plot-sqft{font-size:12.5px;color:#5eead4 !important;display:block;margin-top:5px;font-weight:600;font-family:var(--dsd-font);line-height:1.5;}
+.dsd-plot-grid .dsd-plot-card span.dsd-plot-count{display:inline-block;margin-top:9px;font-size:11.5px;font-family:var(--dsd-font);font-weight:700;color:#011f4b !important;background:#ffffff;border:1px solid #ffffff;padding:4px 12px;border-radius:999px;line-height:1.5;}
+
+/* estimator */
+.dsd-calc{background:var(--dsd-surface);border:1px solid var(--dsd-border);border-top:3px solid var(--dsd-teal);border-radius:var(--dsd-radius);padding:20px 22px;margin:24px 0;box-shadow:var(--dsd-shadow);}
+.dsd-calc h4{font-family:var(--dsd-font);font-size:15.5px;font-weight:700;color:var(--dsd-navy);margin:0 0 4px;line-height:1.6;}
+.dsd-calc .dsd-calc-note{font-size:12.5px;color:var(--dsd-muted);margin:0 0 16px;line-height:1.8;}
+.dsd-calc-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.dsd-calc-opt{border:1px solid var(--dsd-border);background:var(--dsd-bg);color:var(--dsd-text);font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;padding:9px 15px;border-radius:999px;cursor:pointer;transition:all .18s ease;}
+.dsd-calc-opt:hover{border-color:var(--dsd-teal);color:var(--dsd-navy);}
+.dsd-calc-opt[aria-pressed="true"]{background:var(--dsd-teal);border-color:var(--dsd-teal);color:#fff;box-shadow:0 4px 14px rgba(0,128,128,.28);}
+.dsd-calc-out{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;}
+.dsd-calc-cell{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:var(--dsd-radius-sm);padding:14px 16px;}
+.dsd-calc-cell .dsd-cc-label{font-family:var(--dsd-font);font-size:11px;font-weight:700;letter-spacing:.03em;color:var(--dsd-muted);display:block;margin-bottom:6px;line-height:1.5;}
+.dsd-calc-cell .dsd-cc-val{font-family:'Poppins',sans-serif;font-size:17px;font-weight:700;color:var(--dsd-navy);display:block;line-height:1.3;}
+
+/* timeline */
+.dsd-timeline{position:relative;margin:24px 0;padding-left:30px;}
+.dsd-timeline::before{content:'';position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--dsd-border);}
+.dsd-tl-item{position:relative;padding:0 0 20px;}
+.dsd-tl-item:last-child{padding-bottom:0;}
+.dsd-tl-item::before{content:'';position:absolute;left:-26px;top:6px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--dsd-border);z-index:1;}
+.dsd-tl-item.done::before{background:var(--dsd-green);border-color:var(--dsd-green);}
+.dsd-tl-item.active::before{background:var(--dsd-orange);border-color:var(--dsd-orange);box-shadow:0 0 0 4px rgba(255,92,0,.16);}
+.dsd-tl-date{font-family:var(--dsd-font);font-size:11.5px;font-weight:700;letter-spacing:.03em;color:var(--dsd-teal);display:block;margin-bottom:4px;line-height:1.6;}
+.dsd-tl-title{font-family:var(--dsd-font);font-size:14.5px;font-weight:700;color:var(--dsd-navy);margin:0 0 4px;line-height:1.65;}
+.dsd-tl-desc{font-size:13.5px;color:var(--dsd-muted);margin:0;line-height:1.85;}
+
+/* feature cards */
+.dsd-zone-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin:22px 0;}
+.dsd-zone-card{background:var(--dsd-surface);border:1px solid var(--dsd-border);border-top:3px solid var(--dsd-teal);border-radius:var(--dsd-radius-sm);padding:16px 18px;box-shadow:var(--dsd-shadow);transition:transform .2s ease,box-shadow .2s ease;}
+.dsd-zone-card:hover{transform:translateY(-2px);box-shadow:var(--dsd-shadow-lg);}
+.dsd-zone-card.orange{border-top-color:var(--dsd-orange);}
+.dsd-zone-card h5{color:var(--dsd-navy);font-family:var(--dsd-font);font-size:14.5px;font-weight:700;margin:0 0 6px;line-height:1.6;}
+.dsd-zone-card p{font-size:13.5px;color:var(--dsd-muted);margin:0;line-height:1.8;}
+
+/* village tags */
+.dsd-village-grid{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0;}
+.dsd-village-tag{background:var(--dsd-light-teal);border:1px solid rgba(0,128,128,.26);color:var(--dsd-navy);padding:6px 14px;border-radius:999px;font-size:14px;font-weight:500;line-height:1.7;}
+
+/* pros & cons */
+.dsd-inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0;}
+.dsd-inv-card{border-radius:var(--dsd-radius);padding:20px 18px;border:1px solid;box-shadow:var(--dsd-shadow);}
+.dsd-inv-card.pro{background:#f2fbf6;border-color:rgba(8,116,67,.22);}
+.dsd-inv-card.con{background:#fff8f0;border-color:rgba(255,92,0,.24);}
+.dsd-inv-card h4{font-family:var(--dsd-font);font-size:15.5px;font-weight:700;margin:0 0 12px;line-height:1.6;}
+.dsd-inv-card.pro h4{color:var(--dsd-green);}
+.dsd-inv-card.con h4{color:var(--dsd-orange);}
+.dsd-inv-card ul{list-style:none;padding:0;margin:0;}
+.dsd-inv-card li{font-size:14px;padding:8px 0 8px 20px;position:relative;color:var(--dsd-text);line-height:1.88;}
+.dsd-inv-card li + li{border-top:1px solid rgba(0,0,0,.05);}
+.dsd-inv-card li::before{position:absolute;left:0;font-weight:700;}
+.dsd-inv-card.pro li::before{content:'✓';color:var(--dsd-green);}
+.dsd-inv-card.con li::before{content:'!';color:var(--dsd-orange);}
+
+/* steps */
+.dsd-steps{margin:24px 0;}
+.dsd-step-row{display:flex;align-items:flex-start;gap:15px;margin-bottom:14px;}
+.dsd-steps .dsd-step-row div.dsd-step-num{width:34px;height:34px;border-radius:50%;background:var(--dsd-teal);color:#ffffff !important;font-family:'Poppins',sans-serif;font-size:13.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.dsd-step-num.orange{background:var(--dsd-orange);}
+.dsd-step-body{background:var(--dsd-surface);border:1px solid var(--dsd-border);border-radius:var(--dsd-radius-sm);padding:13px 17px;flex:1;box-shadow:var(--dsd-shadow);}
+.dsd-step-title{font-family:var(--dsd-font);font-size:14.5px;font-weight:700;color:var(--dsd-navy);margin:0 0 5px;line-height:1.65;}
+.dsd-step-desc{font-size:13.5px;color:var(--dsd-muted);margin:0;line-height:1.85;}
+
+/* tables */
+.dsd-table-wrap{overflow-x:auto;margin:22px 0;border:1px solid var(--dsd-border);border-radius:var(--dsd-radius);box-shadow:var(--dsd-shadow);-webkit-overflow-scrolling:touch;}
+.dsd-table-wrap table{width:100%;border-collapse:collapse;margin:0 !important;font-size:14px;min-width:540px;}
+.dsd-table-wrap table thead tr th{background:var(--dsd-navy);color:#ffffff !important;font-family:var(--dsd-font);font-size:12.5px;font-weight:700;letter-spacing:.02em;text-align:left;padding:13px 16px;white-space:nowrap;line-height:1.6;}
+.dsd-table-wrap tbody td{padding:12px 16px;border-top:1px solid var(--dsd-border);color:var(--dsd-text);line-height:1.75;vertical-align:top;}
+.dsd-table-wrap tbody tr:nth-child(even){background:var(--dsd-bg);}
+.dsd-table-wrap tbody tr:hover{background:var(--dsd-light-teal);}
+.dsd-badge{display:inline-block;font-family:var(--dsd-font);font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:999px;white-space:nowrap;line-height:1.6;}
+.dsd-badge.ok{background:#dcfce7;color:#065f36 !important;}
+.dsd-badge.wait{background:#fef3c7;color:#92400e !important;}
+.dsd-badge.no{background:#fee2e2;color:#991b1b !important;}
+
+/* link cards */
+.dsd-related-inline{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px;margin:22px 0;}
+.dsd-link-card{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:var(--dsd-radius-sm);padding:15px 17px;text-decoration:none;display:block;transition:border-color .2s,box-shadow .2s,transform .2s;}
+.dsd-link-card:hover,.dsd-link-card:focus-visible{border-color:var(--dsd-teal);box-shadow:var(--dsd-shadow-lg);transform:translateY(-2px);}
+.dsd-link-label{font-family:var(--dsd-font);font-size:10.5px;letter-spacing:.06em;color:var(--dsd-teal);font-weight:700;margin-bottom:5px;line-height:1.6;}
+.dsd-link-title{font-size:14.5px;font-weight:600;color:var(--dsd-navy);line-height:1.65;}
+.dsd-inline-link{display:flex;align-items:center;gap:14px;background:var(--dsd-bg);border:1px solid var(--dsd-border);border-left:3px solid var(--dsd-teal);border-radius:0 var(--dsd-radius-sm) var(--dsd-radius-sm) 0;padding:13px 17px;text-decoration:none;margin:20px 0;transition:border-left-color .2s,background .2s;}
+.dsd-inline-link:hover{border-left-color:var(--dsd-orange);background:#fff;}
+.dsd-il-label{font-family:var(--dsd-font);font-size:10.5px;letter-spacing:.06em;color:var(--dsd-teal);font-weight:700;line-height:1.6;}
+.dsd-il-title{font-size:14.5px;font-weight:600;color:var(--dsd-navy);margin-top:3px;line-height:1.65;}
+.dsd-il-arrow{margin-left:auto;color:var(--dsd-teal);font-size:18px;flex-shrink:0;}
+
+/* checklist */
+.dsd-checklist{list-style:none;padding:0;margin:0;counter-reset:dsdchk;}
+.dsd-checklist li{counter-increment:dsdchk;position:relative;padding:12px 0 12px 34px;font-size:14.5px;color:var(--dsd-text);line-height:1.9;}
+.dsd-checklist li + li{border-top:1px solid rgba(217,45,32,.1);}
+.dsd-checklist li::before{content:counter(dsdchk);position:absolute;left:0;top:13px;width:22px;height:22px;border-radius:6px;background:#fff;border:1px solid rgba(217,45,32,.3);color:var(--dsd-red);font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+
+/* FAQ accordion */
+#FAQs h3{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-left:4px solid var(--dsd-teal);padding:15px 46px 15px 18px;border-radius:0 var(--dsd-radius-sm) var(--dsd-radius-sm) 0;cursor:pointer;color:var(--dsd-navy);font-family:var(--dsd-font);font-size:15px;font-weight:600;margin:0 0 10px;position:relative;transition:background .2s,border-left-color .2s;line-height:1.7;}
+#FAQs h3:hover{background:var(--dsd-light-teal);}
+#FAQs h3:focus-visible{outline:2px solid var(--dsd-teal);outline-offset:2px;}
+#FAQs h3::after{content:'';position:absolute;right:18px;top:50%;width:9px;height:9px;border-right:2px solid var(--dsd-teal);border-bottom:2px solid var(--dsd-teal);transform:translateY(-70%) rotate(45deg);transition:transform .25s ease;}
+#FAQs h3.active{border-left-color:var(--dsd-orange);border-radius:0 var(--dsd-radius-sm) 0 0;margin-bottom:0;background:var(--dsd-light-teal);}
+#FAQs h3.active::after{transform:translateY(-20%) rotate(-135deg);border-color:var(--dsd-orange);}
+#FAQs h3 + p{display:none;background:var(--dsd-surface);border:1px solid var(--dsd-border);border-left:4px solid var(--dsd-orange);border-top:none;border-radius:0 0 var(--dsd-radius-sm) 0;padding:15px 18px;font-size:14.5px;color:var(--dsd-text);margin:0 0 10px;line-height:1.95;}
+@media(prefers-reduced-motion:reduce){#FAQs h3::after{transition:none;}.dsd-plot-card,.dsd-zone-card,.dsd-link-card,.dsd-map-btn{transition:none;}}
+
+/* responsive */
+@media(max-width:640px){
+  .dsd-stats-bar{grid-template-columns:repeat(2,1fr);}
+  .dsd-inv-grid{grid-template-columns:1fr;}
+  .dsd-plot-grid{grid-template-columns:repeat(2,1fr);}
+  .dsd-zone-grid{grid-template-columns:1fr 1fr;}
+  .dsd-related-inline{grid-template-columns:1fr;}
+  .dsd-toc ol{grid-template-columns:1fr;}
+  .dsd-ribbon-date{margin-left:0;width:100%;}
+  .dsd-map-btn{margin-left:0;width:100%;justify-content:center;}
+  .dsd-calc-out{grid-template-columns:1fr;}
+}
+</style>
+<div class="dsd-hindi">
+<p class="dsd-sourceline">स्रोत: दैनिक जागरण (16 अगस्त 2026), उत्तर प्रदेश आवास विकास परिषद, यूपी रेरा, अमर उजाला — DSD Properties द्वारा संकलित और क्रॉस-चेक किया गया। <strong>अंतिम अपडेट: 4 सितंबर 2026।</strong></p>
+<div class="dsd-ribbon"><span class="dsd-ribbon-pill"><span class="dsd-dot live"></span> रजिस्ट्रेशन अभी शुरू नहीं</span> <span class="dsd-ribbon-pill"><span class="dsd-dot wait"></span> रेरा आवेदन 11 अगस्त 2026</span> <span class="dsd-ribbon-pill"><span class="dsd-dot done"></span> किसानों की रजिस्ट्री पूरी</span> <span class="dsd-ribbon-date">जाँचा गया 4 सितंबर 2026</span></div>
+<div class="dsd-stats-bar">
+<div class="dsd-stat-item"><span class="dsd-stat-num">5,000+</span><span class="dsd-stat-label">कुल प्रस्तावित प्लॉट</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">2,092</span><span class="dsd-stat-label">फेज़ 1 में प्लॉट</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">169</span><span class="dsd-stat-label">कमर्शियल प्लॉट</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">560 एकड़</span><span class="dsd-stat-label">टाउनशिप क्षेत्र</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num sm">₹3,000–3,500</span><span class="dsd-stat-label">प्रति वर्ग फुट (अनुमानित)</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num sm">लैंड पूलिंग</span><span class="dsd-stat-label">यूपी में पहली बार</span></div>
+</div>
+<div class="dsd-alert info">
+<h4>अभी स्थिति क्या है — 4 सितंबर 2026</h4>
+<ul>
+<li><strong>रजिस्ट्रेशन शुरू नहीं हुआ है।</strong> upavp.in पर सौमित्र विहार का न कोई आवेदन लिंक है, न ब्रोशर, न रेट लिस्ट।</li>
+<li><strong>रेरा आवेदन 11 अगस्त 2026 को दाखिल हुआ है।</strong> यूपी रेरा ने पुष्टि की है कि आवेदन मिल गया है और दस्तावेज़ों की जाँच शुरू हो चुकी है। <strong>योजना को अभी रेरा मंज़ूरी नहीं मिली है</strong> — मामला समीक्षा में है।</li>
+<li><strong>फेज़ 1 में 2,092 आवासीय प्लॉट</strong> होंगे — छह साइज़ में, 40.74 वर्ग मीटर से 300 वर्ग मीटर तक — साथ में 169 कमर्शियल प्लॉट।</li>
+<li><strong>अनुमानित दर: ₹3,000–₹3,500 प्रति वर्ग फुट</strong> (लगभग ₹32,300–₹37,700 प्रति वर्ग मीटर)। यह अनुमान है, घोषित दर नहीं।</li>
+<li><strong>किसानों से ज़मीन का हस्तांतरण पूरा हो चुका है।</strong> पूल की गई ज़मीन की रजिस्ट्री परिषद के नाम हो चुकी है, और 192 किसानों को लॉटरी के ज़रिए विकसित प्लॉट मिल भी चुके हैं।</li>
+<li><strong>कृपया अभी किसी को पैसे न दें।</strong> इस योजना में एडवांस बुकिंग जैसी कोई चीज़ है ही नहीं। अगर आज कोई आपको प्लॉट देने की बात कर रहा है, तो वह असली पेशकश नहीं है।</li>
+</ul>
+</div>
+<p>अगर आप लखनऊ में किसी नियोजित टाउनशिप में प्लॉट का इंतज़ार कर रहे हैं, तो शायद यही वो योजना है जिसकी चर्चा आपने सुनी होगी। <strong>सौमित्र विहार योजना</strong> लखनऊ के <strong>गोसाईंगंज में न्यू जेल रोड</strong> पर बन रही एक नई टाउनशिप है, जिसे <strong>उत्तर प्रदेश आवास एवं विकास परिषद</strong> विकसित कर रहा है। यह करीब <strong>560 एकड़</strong> में फैली है और पूरे प्रोजेक्ट में <strong>5,000 से ज़्यादा प्लॉट</strong> प्रस्तावित हैं।</p>
+<p>इसे खास बनाती है ज़मीन जुटाने का तरीका। परिषद ने किसानों से ज़बरदस्ती अधिग्रहण करने के बजाय उन्हें साझेदार बनाया। किसानों ने अपनी मर्ज़ी से ज़मीन दी और बदले में विकसित प्लॉट पाए। <strong>उत्तर प्रदेश में इस तरह बनने वाली यह पहली टाउनशिप है</strong> — और चूँकि किसी पर दबाव नहीं डाला गया, इस पर ज़मीन के विवाद लगभग न के बराबर हैं। खरीदार के लिए यह बहुत बड़ी बात है।</p>
+<p>पहले फेज़ में <strong>2,092 प्लॉट</strong> बिक्री के लिए आएँगे — छोटे 40.74 वर्ग मीटर के प्लॉट से लेकर 300 वर्ग मीटर तक। अनुमानित दर पर सबसे छोटे प्लॉट करीब <strong>₹13 लाख</strong> के बैठते हैं। लखनऊ के अंदर एक नियोजित सरकारी टाउनशिप के लिए यह अब भी कम शुरुआती कीमत है।</p>
+<p>लेकिन अब ईमानदारी वाली बात, और इसे उत्साह में आने से पहले ज़रूर पढ़िए: <strong>योजना अभी खुली नहीं है।</strong> रेरा आवेदन 11 अगस्त 2026 को ही गया है और अभी उसकी जाँच चल रही है। जब तक वह पास नहीं होता और UPAVP आधिकारिक ब्रोशर जारी नहीं करता, यहाँ कोई आपको प्लॉट बेच नहीं सकता। इस गाइड में हम बताएँगे कि क्या-क्या पक्का है, क्या अभी अनिश्चित है, और एक रुपया देने से पहले आपको क्या-क्या जाँचना चाहिए।</p>
+<p>{{CONSULTATION_BUTTON:सौमित्र विहार लॉन्च अलर्ट पाएँ — फ्री}}</p>
+<nav class="dsd-toc" aria-label="विषय सूची">
+<h2 id="toc_id">इस गाइड में क्या-क्या है</h2>
+<ol>
+<li><a href="#kya-hai">सौमित्र विहार योजना क्या है?</a></li>
+<li><a href="#kahan-hai">कहाँ है? (नक्शे के साथ)</a></li>
+<li><a href="#plot-sizes">प्लॉट साइज़ और किसके कितने प्लॉट</a></li>
+<li><a href="#price">कीमत और लागत कैलकुलेटर</a></li>
+<li><a href="#land-pooling">लैंड पूलिंग यहाँ कैसे काम करती है</a></li>
+<li><a href="#facilities">टाउनशिप में क्या-क्या बनेगा</a></li>
+<li><a href="#status">अब तक की पूरी कहानी — टाइमलाइन</a></li>
+<li><a href="#how-to-apply">आवेदन कैसे करें, स्टेप बाय स्टेप</a></li>
+<li><a href="#eligibility">कौन आवेदन कर सकता है</a></li>
+<li><a href="#investment">खरीदें या नहीं? ईमानदार राय</a></li>
+<li><a href="#fraud">धोखाधड़ी से कैसे बचें</a></li>
+<li><a href="#FAQs">आम सवाल</a></li>
+</ol>
+</nav>
+<h2 id="kya-hai">सौमित्र विहार योजना क्या है?</h2>
+<p>सौमित्र विहार लखनऊ के गोसाईंगंज–<a href="https://dsdproperties.in/blog/mohanlalganj-lucknow-real-estate-guide-2026" style="color:#008080;font-weight:600;">मोहनलालगंज</a> इलाके में न्यू जेल रोड पर बन रही एक नियोजित आवासीय टाउनशिप है। इसे <strong>उत्तर प्रदेश आवास एवं विकास परिषद</strong> विकसित कर रहा है, जिसे यूपी हाउसिंग एंड डेवलपमेंट बोर्ड भी कहते हैं।</p>
+<p>प्रोजेक्ट को नाम हाल ही में मिला है। <strong>दिसंबर 2024</strong> में परिषद ने लखनऊ की न्यू जेल रोड पर एक नई आवासीय योजना की घोषणा की थी। फिर <strong>मार्च 2025 की 270वीं बोर्ड बैठक</strong> में बोर्ड ने औपचारिक रूप से नाम मंज़ूर किया — सौमित्र विहार योजना।</p>
+<p>एक बात पर लोग अक्सर उलझ जाते हैं, तो उसे शुरू में ही साफ़ कर लेते हैं:</p>
+<div class="dsd-alert good">
+<h4>यह UPAVP की योजना है, LDA की नहीं</h4>
+<ul>
+<li>आईटी सिटी, वेलनेस सिटी, अनंत नगर और वरुण विहार <strong>LDA</strong> (लखनऊ विकास प्राधिकरण) की योजनाएँ हैं।</li>
+<li>सौमित्र विहार <strong>UPAVP</strong> (<a href="https://dsdproperties.in/awas-vikas-schemes" style="color:#008080;font-weight:600;">आवास विकास परिषद</a>) की है। अलग संस्था, अलग वेबसाइट, अलग आवेदन प्रक्रिया।</li>
+<li>इसके लिए आपको <strong>upavp.in</strong> पर आवेदन करना होगा — LDA पोर्टल पर नहीं।</li>
+<li>दोनों सरकारी संस्थाएँ हैं, इसलिए प्लॉट दोनों जगह असली ही हैं। बस रजिस्ट्रेशन खुलने पर दोनों पोर्टल आपस में मत मिला दीजिए।</li>
+</ul>
+</div>
+<a class="dsd-inline-link" href="https://dsdproperties.in/blog/it-city-lucknow-lda-plots-guide-hindi-2026" target="_blank" rel="noopener">
+<div>
+<div class="dsd-il-label">LDA से तुलना करें</div>
+<div class="dsd-il-title">आईटी सिटी लखनऊ 2026 — LDA प्लॉट, कीमत और लॉटरी गाइड</div>
+</div>
+<span class="dsd-il-arrow">→</span></a>
+<h2 id="kahan-hai">कहाँ है?</h2>
+<p>साइट <strong>न्यू जेल रोड</strong> पर है, मोहनलालगंज के पास गोसाईंगंज इलाके में, लगभग <strong>सिठौली खुर्द (पिन 226501)</strong> के आसपास। नक्शे पर सटीक जगह यह रही:</p>
+<div class="dsd-map">
+<div class="dsd-map-head"><span class="dsd-pin" aria-hidden="true">📍</span>
+<div>
+<p class="dsd-map-title">सौमित्र विहार, आवास विकास — सिठौली खुर्द</p>
+<p class="dsd-map-sub">न्यू जेल रोड, गोसाईंगंज–मोहनलालगंज, लखनऊ, उत्तर प्रदेश 226501</p>
+</div>
+<a class="dsd-map-btn" href="https://maps.app.goo.gl/mjmS4gBcekogGiSn6" target="_blank" rel="noopener">गूगल मैप्स में खोलें ↗</a></div>
+<div class="dsd-map-frame" id="dsdMapFrame"><button type="button" class="dsd-map-placeholder" id="dsdMapLoad" aria-label="सौमित्र विहार का गूगल मैप लोड करें"> <span class="dsd-mp-icon" aria-hidden="true">🗺</span> <span class="dsd-mp-text">नक्शा लोड करने के लिए टैप करें</span> <span class="dsd-mp-hint">नक्शा तभी लोड होता है जब आप टैप करें, ताकि मोबाइल डेटा पर पेज तेज़ खुले।</span> </button></div>
+<div class="dsd-map-foot"><span class="dsd-coord">Lat 26.724394</span> <span class="dsd-coord">Lng 81.068965</span> <span class="dsd-coord">PIN 226501</span></div>
+</div>
+<p>टाउनशिप की ज़मीन इसी बेल्ट के गाँवों से आई है, जिनमें ये शामिल हैं:</p>
+<div class="dsd-village-grid"><span class="dsd-village-tag">मोहारी कला</span> <span class="dsd-village-tag">सिठौली कला</span> <span class="dsd-village-tag">सिठौली खुर्द</span></div>
+<p>अब लोकेशन की बात ईमानदारी से कर लेते हैं, क्योंकि यहीं पर लोग बाद में निराश होते हैं।</p>
+<div class="dsd-alert info">
+<h4>इलाके की असली तस्वीर</h4>
+<ul>
+<li>यह <strong>शहर के किनारे की खुली ज़मीन</strong> है, बनी-बनाई कॉलोनी नहीं। अभी ज़्यादातर हिस्सा खेत है।</li>
+<li>आसपास स्कूल, अस्पताल और बाज़ार अभी सीमित हैं। टाउनशिप इन्हें लाएगी, लेकिन उसमें साल लगेंगे।</li>
+<li>लखनऊ का यह हिस्सा <a href="https://dsdproperties.in/blog/plots-sultanpur-road-lucknow-2026-hindi" style="color:#008080;font-weight:600;">सुल्तानपुर रोड</a> या गोमती नगर एक्सटेंशन जितना विकसित नहीं है।</li>
+<li><strong>इसे 3 से 5 साल की योजना मानिए</strong>, अगले साल शिफ्ट होने की जगह नहीं।</li>
+<li>अगर कोई आपको यहाँ कोई खास प्लॉट दिखाए, तो मानने से पहले खसरा नंबर आधिकारिक लेआउट से ज़रूर मिलाइए।</li>
+</ul>
+</div>
+<a class="dsd-inline-link" href="https://dsdproperties.in/blog/transforming-agricultural-land-residential-property-lucknow" target="_blank" rel="noopener">
+<div>
+<div class="dsd-il-label">कानूनी गाइड</div>
+<div class="dsd-il-title">लखनऊ में खेती की ज़मीन को आवासीय में कैसे बदलें — पूरी प्रक्रिया</div>
+</div>
+<span class="dsd-il-arrow">→</span></a>
+<h2 id="plot-sizes">प्लॉट साइज़ और किसके कितने प्लॉट</h2>
+<p>फेज़ 1 में <strong>छह आवासीय प्लॉट साइज़</strong> हैं। यहाँ सबसे काम की बात यह है कि हमें हर साइज़ में प्लॉट की संख्या भी पता है — इससे अंदाज़ा लगता है कि मुक़ाबला कहाँ सबसे कड़ा होगा।</p>
+<div class="dsd-plot-grid">
+<div class="dsd-plot-card"><span class="dsd-plot-size">40.74 m²</span><span class="dsd-plot-sqft">≈ 439 वर्ग फुट</span><span class="dsd-plot-count">80 प्लॉट</span></div>
+<div class="dsd-plot-card"><span class="dsd-plot-size">60.29 m²</span><span class="dsd-plot-sqft">≈ 649 वर्ग फुट</span><span class="dsd-plot-count">229 प्लॉट</span></div>
+<div class="dsd-plot-card"><span class="dsd-plot-size">75 m²</span><span class="dsd-plot-sqft">≈ 807 वर्ग फुट</span><span class="dsd-plot-count">598 प्लॉट</span></div>
+<div class="dsd-plot-card"><span class="dsd-plot-size">122.23 m²</span><span class="dsd-plot-sqft">≈ 1,316 वर्ग फुट</span><span class="dsd-plot-count">445 प्लॉट</span></div>
+<div class="dsd-plot-card"><span class="dsd-plot-size">200 m²</span><span class="dsd-plot-sqft">≈ 2,153 वर्ग फुट</span><span class="dsd-plot-count">579 प्लॉट</span></div>
+<div class="dsd-plot-card"><span class="dsd-plot-size">300 m²</span><span class="dsd-plot-sqft">≈ 3,229 वर्ग फुट</span><span class="dsd-plot-count">161 प्लॉट</span></div>
+</div>
+<p>इन सबको जोड़िए तो ठीक <strong>2,092 प्लॉट</strong> बनते हैं। श्रेणी चुनने से पहले दो बातें ध्यान देने लायक हैं:</p>
+<p><strong>75 वर्ग मीटर साइज़ में सबसे ज़्यादा प्लॉट हैं</strong> — 598, यानी पूरी योजना का करीब 29%। ज़्यादा प्लॉट मतलब लॉटरी में बेहतर मौका, लेकिन यही वह साइज़ भी है जिसे ज़्यादातर मध्यमवर्गीय परिवार चुनेंगे, तो माँग भी भारी रहेगी। दूसरी तरफ़ <strong>300 वर्ग मीटर के प्लॉट कम हैं</strong> — पूरे फेज़ में सिर्फ़ 161। अगर आपको वही चाहिए, तो मौका काफ़ी कम रहेगा।</p>
+<h3>कमर्शियल प्लॉट</h3>
+<p>घरों के साथ फेज़ 1 में दुकानों और कारोबार के लिए <strong>169 कमर्शियल प्लॉट</strong> भी हैं:</p>
+<div class="dsd-table-wrap">
+<table>
+<thead>
+<tr>
+<th>प्लॉट साइज़</th>
+<th>प्लॉट की संख्या</th>
+<th>किस काम के लिए</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100 वर्ग मीटर (≈ 1,076 वर्ग फुट)</td>
+<td>107</td>
+<td>दुकानें और छोटा रिटेल</td>
+</tr>
+<tr>
+<td>200 वर्ग मीटर (≈ 2,153 वर्ग फुट)</td>
+<td>57</td>
+<td>शोरूम, क्लिनिक, ऑफिस</td>
+</tr>
+<tr>
+<td>1,375 वर्ग मीटर (≈ 14,800 वर्ग फुट)</td>
+<td>5</td>
+<td>बड़ा कमर्शियल या मॉल फॉर्मेट</td>
+</tr>
+<tr>
+<td><strong>कुल</strong></td>
+<td><strong>169</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="price">कीमत और लागत कैलकुलेटर</h2>
+<p>अनुमानित दर <strong>₹3,000 से ₹3,500 प्रति वर्ग फुट</strong> है। वर्ग मीटर में देखें तो यह लगभग <strong>₹32,300 से ₹37,700 प्रति वर्ग मीटर</strong> बैठता है।</p>
+<div class="dsd-alert info">
+<h4>कृपया इन्हें अनुमान ही मानें</h4>
+<ul>
+<li>UPAVP ने अभी तक <strong>आधिकारिक रेट लिस्ट जारी नहीं की है</strong>। ऊपर दी गई दर ख़बरों में आया अनुमान है।</li>
+<li>पुरानी रिपोर्ट्स (और इस गाइड के पुराने वर्ज़न) में दर <strong>₹25,000–₹26,000 प्रति वर्ग मीटर, यानी करीब ₹2,300–₹2,400 प्रति वर्ग फुट</strong> बताई गई थी। वह पहले का अनुमान था, जो अब बढ़ा दिया गया है। कृपया नई रेंज को ही मानें।</li>
+<li>आपकी आख़िरी लागत बेस रेट से ज़्यादा होगी। कॉर्नर प्लॉट, पार्क-फेसिंग और चौड़ी सड़क वाले प्लॉट पर आमतौर पर अतिरिक्त चार्ज लगता है।</li>
+<li>रजिस्ट्री और <a href="https://dsdproperties.in/blog/stamp-duty-registration-charges-lucknow-2026" style="color:#008080;font-weight:600;">स्टाम्प ड्यूटी</a> इन सब पर अलग से लगेगी।</li>
+<li><strong>आधिकारिक ब्रोशर का नंबर ही अंतिम है।</strong> यहाँ दी गई जानकारी योजना बनाने के लिए है, कोटेशन के लिए नहीं।</li>
+</ul>
+</div>
+<div class="dsd-calc">
+<h4>अपने प्लॉट की लागत का अनुमान लगाएँ</h4>
+<p class="dsd-calc-note">साइज़ चुनिए और देखिए अनुमानित ज़मीन की कीमत, साथ ही एक मोटा कुल आँकड़ा जिसमें उत्तर प्रदेश की स्टाम्प ड्यूटी और रजिस्ट्रेशन के लिए करीब 7% जोड़ा गया है। गणना ₹3,000–₹3,500 प्रति वर्ग फुट पर की गई है। ये सिर्फ़ अनुमान हैं, कोटेशन नहीं।</p>
+<div class="dsd-calc-row" role="group" aria-label="प्लॉट साइज़ चुनें"><button type="button" class="dsd-calc-opt" data-sqm="40.74" aria-pressed="false">40.74 m²</button> <button type="button" class="dsd-calc-opt" data-sqm="60.29" aria-pressed="false">60.29 m²</button> <button type="button" class="dsd-calc-opt" data-sqm="75" aria-pressed="true">75 m²</button> <button type="button" class="dsd-calc-opt" data-sqm="122.23" aria-pressed="false">122.23 m²</button> <button type="button" class="dsd-calc-opt" data-sqm="200" aria-pressed="false">200 m²</button> <button type="button" class="dsd-calc-opt" data-sqm="300" aria-pressed="false">300 m²</button></div>
+<div class="dsd-calc-out">
+<div class="dsd-calc-cell"><span class="dsd-cc-label">प्लॉट क्षेत्रफल</span><span class="dsd-cc-val" id="dsdCalcArea">75 m² · 807 sq ft</span></div>
+<div class="dsd-calc-cell"><span class="dsd-cc-label">ज़मीन की कीमत</span><span class="dsd-cc-val" id="dsdCalcLand">₹24.22–28.26 L</span></div>
+<div class="dsd-calc-cell"><span class="dsd-cc-label">अनुमानित कुल (+7%)</span><span class="dsd-cc-val" id="dsdCalcAll">₹25.91–30.23 L</span></div>
+<div class="dsd-calc-cell"><span class="dsd-cc-label">इस साइज़ में प्लॉट</span><span class="dsd-cc-val" id="dsdCalcCount">598</span></div>
+</div>
+</div>
+<div class="dsd-table-wrap">
+<table>
+<thead>
+<tr>
+<th>प्लॉट साइज़</th>
+<th>वर्ग फुट</th>
+<th>प्लॉट</th>
+<th>₹3,000/वर्ग फुट पर</th>
+<th>₹3,500/वर्ग फुट पर</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>40.74 वर्ग मीटर</td>
+<td>439</td>
+<td>80</td>
+<td>₹13.16 लाख</td>
+<td>₹15.35 लाख</td>
+</tr>
+<tr>
+<td>60.29 वर्ग मीटर</td>
+<td>649</td>
+<td>229</td>
+<td>₹19.47 लाख</td>
+<td>₹22.71 लाख</td>
+</tr>
+<tr>
+<td>75 वर्ग मीटर</td>
+<td>807</td>
+<td>598</td>
+<td>₹24.22 लाख</td>
+<td>₹28.26 लाख</td>
+</tr>
+<tr>
+<td>122.23 वर्ग मीटर</td>
+<td>1,316</td>
+<td>445</td>
+<td>₹39.47 लाख</td>
+<td>₹46.05 लाख</td>
+</tr>
+<tr>
+<td>200 वर्ग मीटर</td>
+<td>2,153</td>
+<td>579</td>
+<td>₹64.58 लाख</td>
+<td>₹75.35 लाख</td>
+</tr>
+<tr>
+<td>300 वर्ग मीटर</td>
+<td>3,229</td>
+<td>161</td>
+<td>₹96.88 लाख</td>
+<td>₹1.13 करोड़</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p style="font-size: 13px; color: #64748b; margin-top: -8px;">ये सिर्फ़ ज़मीन की कीमत है, अनुमानित दर से निकाली गई। रजिस्ट्री, स्टाम्प ड्यूटी और कोई भी लोकेशन चार्ज अलग से लगेगा।</p>
+<p>{{CONSULTATION_BUTTON:प्लॉट साइज़ को लेकर उलझन है? हमसे फ्री बात करें}}</p>
+<h2 id="land-pooling">लैंड पूलिंग यहाँ कैसे काम करती है</h2>
+<p>यही वह हिस्सा है जो सौमित्र विहार को खास बनाता है, और इसे ठीक से समझना ज़रूरी है — खासकर अगर आपकी ज़मीन लखनऊ के बाहरी इलाके में कहीं है, क्योंकि यह मॉडल आगे भी दोहराया जाएगा।</p>
+<p>आम तौर पर जब सरकार को टाउनशिप के लिए ज़मीन चाहिए होती है, तो वह अधिग्रहण करती है। नोटिस जारी होता है, मुआवज़ा तय होता है, और किसान को पैसा मिल जाता है — चाहे वह कीमत से सहमत हो या नहीं। आगे क्या होता है, आप जानते हैं — मुक़दमे, <a href="https://dsdproperties.in/blog/property-stay-order-injunction-lucknow-2026" style="color:#008080;font-weight:600;">स्टे ऑर्डर</a>, और दस-दस साल तक अटके प्रोजेक्ट।</p>
+<p><strong>लैंड पूलिंग अलग तरह से काम करती है।</strong> किसान पर दबाव नहीं डाला जाता। वह अपनी मर्ज़ी से ज़मीन देता है, और सिर्फ़ नक़द के बजाय उसे उसी ज़मीन का एक हिस्सा वापस मिलता है — लेकिन अब विकसित, सड़क, ड्रेनेज और बिजली के साथ, और साफ़ कागज़ों के साथ। जो खेती की ज़मीन बहुत कम कीमत की थी, वह एक पूरा आवासीय प्लॉट बन जाती है जिसे वह बेच सकता है या उस पर बना सकता है।</p>
+<div class="dsd-alert good">
+<h4>किसानों के साथ अब तक क्या हुआ है</h4>
+<ul>
+<li>किसानों ने <strong>अपनी मर्ज़ी से</strong> ज़मीन दी। इस योजना में ज़बरन अधिग्रहण का कोई नोटिस नहीं निकला।</li>
+<li><strong>रजिस्ट्री पूरी हो चुकी है।</strong> ज़मीन औपचारिक रूप से परिषद के नाम हस्तांतरित हो चुकी है।</li>
+<li><strong>192 किसानों को लॉटरी ड्रॉ के ज़रिए विकसित प्लॉट मिल चुके हैं।</strong></li>
+<li>चूँकि सब सहमत थे, आगे ज़मीन विवाद खड़ा होने की आशंका बहुत कम है।</li>
+<li>इस तरह बनने वाली यह <strong>उत्तर प्रदेश की पहली टाउनशिप</strong> है।</li>
+</ul>
+</div>
+<p>खरीदार के तौर पर आपको इससे क्या फ़र्क़ पड़ता है? सीधी बात। <strong>यूपी में ज़्यादातर प्लॉट फ्रॉड और ज़्यादातर अटके प्रोजेक्ट ज़मीन विवाद से ही आते हैं।</strong> कोई अधिग्रहण को चुनौती देता है, अदालत स्टे लगा देती है, और आपका पैसा सालों फँसा रह जाता है। जब ज़मीन सबकी सहमति से पूलिंग के ज़रिए आई हो और रजिस्ट्री भी हो चुकी हो, तो जोखिम की यह पूरी श्रेणी काफ़ी हद तक हट जाती है।</p>
+<p>इसका मतलब यह नहीं कि आप जाँच-पड़ताल छोड़ दें। मतलब बस इतना है कि सबसे आम समस्या यहाँ कम संभावित है।</p>
+<a class="dsd-inline-link" href="https://dsdproperties.in/blog/wellness-city-lucknow-lda-guide-hindi-2026" target="_blank" rel="noopener">
+<div>
+<div class="dsd-il-label">तुलना करें</div>
+<div class="dsd-il-title">वेलनेस सिटी लखनऊ 2026 — LDA प्रोजेक्ट में लैंड पूलिंग कैसे चलती है</div>
+</div>
+<span class="dsd-il-arrow">→</span></a>
+<h2 id="facilities">टाउनशिप में क्या-क्या बनेगा</h2>
+<p>टाउनशिप प्लान के हिस्से के तौर पर अब तक जो पुष्ट है, वह यह है:</p>
+<div class="dsd-zone-grid">
+<div class="dsd-zone-card">
+<h5>अंदरूनी सड़कें</h5>
+<p>टाउनशिप के सभी हिस्सों को जोड़ने वाला प्रस्तावित सड़क नेटवर्क।</p>
+</div>
+<div class="dsd-zone-card">
+<h5>ग्रीन बेल्ट</h5>
+<p>लेआउट में ही शामिल हरित पट्टियाँ और खुली जगहें।</p>
+</div>
+<div class="dsd-zone-card">
+<h5>कृत्रिम झीलें</h5>
+<p>मानव-निर्मित जलाशय, भूजल के लिए और इलाके की सुंदरता के लिए उपयोगी।</p>
+</div>
+<div class="dsd-zone-card orange">
+<h5>कमर्शियल केंद्र</h5>
+<p>दुकानों, बाज़ारों और रोज़मर्रा की ज़रूरतों के लिए 169 कमर्शियल प्लॉट।</p>
+</div>
+<div class="dsd-zone-card orange">
+<h5>EWS और LIG क्षेत्र</h5>
+<p>कम आय वर्ग के लिए अलग से रखे गए आवासीय ज़ोन।</p>
+</div>
+<div class="dsd-zone-card">
+<h5>स्मार्ट टाउनशिप प्लान</h5>
+<p>सिर्फ़ प्लॉट कॉलोनी नहीं, एक एकीकृत टाउनशिप के रूप में नियोजित।</p>
+</div>
+</div>
+<div class="dsd-alert info">
+<h4>लेआउट को लेकर एक चेतावनी</h4>
+<p>आपको कहीं-कहीं सौमित्र विहार के लिए खास सेक्टर नाम या सेक्टर नंबर गिनाते लेख मिल सकते हैं। <strong>आधिकारिक लेआउट प्लान अभी प्रकाशित नहीं हुआ है।</strong> जब तक UPAVP उसे ब्रोशर के साथ जारी नहीं करता, कृपया कहीं भी पढ़ी हुई जानकारी के आधार पर किसी खास सेक्टर में प्लॉट न चुनें और न पैसे दें — इस लेख के आधार पर भी नहीं। आधिकारिक नक्शे का इंतज़ार कीजिए।</p>
+</div>
+<h2 id="status">अब तक की पूरी कहानी</h2>
+<p>सौमित्र विहार को यहाँ तक पहुँचने में लंबा समय लगा है। यह इतिहास जानने से उम्मीदें व्यावहारिक रहती हैं:</p>
+<div class="dsd-timeline">
+<div class="dsd-tl-item done"><span class="dsd-tl-date">26 दिसंबर 2024</span>
+<p class="dsd-tl-title">योजना की घोषणा</p>
+<p class="dsd-tl-desc">UPAVP ने लखनऊ की न्यू जेल रोड पर नई आवासीय योजना की घोषणा की, साथ में मेरठ, अयोध्या और अन्य शहरों की योजनाएँ भी।</p>
+</div>
+<div class="dsd-tl-item done"><span class="dsd-tl-date">13 जनवरी 2025</span>
+<p class="dsd-tl-title">पहली लॉन्च तारीख — नहीं हो पाई</p>
+<p class="dsd-tl-desc">योजना प्रयागराज महाकुंभ में लॉन्च होनी थी। यह टल गई।</p>
+</div>
+<div class="dsd-tl-item done"><span class="dsd-tl-date">मार्च 2025</span>
+<p class="dsd-tl-title">बोर्ड ने नाम मंज़ूर किया</p>
+<p class="dsd-tl-desc">270वीं बोर्ड बैठक में मोहनलालगंज न्यू जेल रोड टाउनशिप को आधिकारिक रूप से सौमित्र विहार योजना नाम दिया गया।</p>
+</div>
+<div class="dsd-tl-item done"><span class="dsd-tl-date">2025 से 2026</span>
+<p class="dsd-tl-title">दो साल की बोर्ड बैठकें</p>
+<p class="dsd-tl-desc">बोर्ड बैठकों में लगातार बताया जाता रहा कि रेरा पंजीकरण प्रक्रिया में है। इसी बीच ज़मीन के कागज़ात पूरे किए जाते रहे।</p>
+</div>
+<div class="dsd-tl-item done"><span class="dsd-tl-date">पूरा हुआ</span>
+<p class="dsd-tl-title">किसानों की ज़मीन की रजिस्ट्री, 192 किसानों को प्लॉट</p>
+<p class="dsd-tl-desc">ज़मीन औपचारिक रूप से परिषद के नाम दर्ज हुई, और जिन 192 किसानों ने ज़मीन दी थी उन्हें लॉटरी से विकसित प्लॉट मिले।</p>
+</div>
+<div class="dsd-tl-item active"><span class="dsd-tl-date">11 अगस्त 2026</span>
+<p class="dsd-tl-title">रेरा आवेदन दाखिल</p>
+<p class="dsd-tl-desc">UPAVP ने यूपी रेरा पोर्टल पर पंजीकरण आवेदन जमा किया। दस्तावेज़ों का सत्यापन शुरू हो चुका है। योजना आज यहीं खड़ी है।</p>
+</div>
+<div class="dsd-tl-item"><span class="dsd-tl-date">आगे क्या</span>
+<p class="dsd-tl-title">रेरा मंज़ूरी, फिर सार्वजनिक रजिस्ट्रेशन</p>
+<p class="dsd-tl-desc">रेरा पंजीकरण मिलने के बाद UPAVP जनता के लिए रजिस्ट्रेशन खोलेगा, ब्रोशर और रेट लिस्ट जारी करेगा, और फिर कंप्यूटरीकृत लॉटरी होगी।</p>
+</div>
+</div>
+<div class="dsd-pullquote">
+<p>"आवास विकास परिषद ने सौमित्र विहार योजना के पंजीकरण के लिए 11 अगस्त को यूपी रेरा पोर्टल पर आवेदन किया है। अब दस्तावेज़ों की जाँच की प्रक्रिया शुरू होगी।"</p>
+<cite>— संजय भूसरेड्डी, अध्यक्ष, यूपी रेरा (दैनिक जागरण, 16 अगस्त 2026 में प्रकाशित)</cite></div>
+<div class="dsd-pullquote">
+<p>"सौमित्र विहार योजना के पंजीकरण के लिए यूपी रेरा में आवेदन किया गया है। जैसे ही यह पूरा होगा, आम जनता के लिए रजिस्ट्रेशन खोल दिया जाएगा। परिषद इसकी तैयारी कर रहा है।"</p>
+<cite>— चंदन पटेल, उप आवास आयुक्त एवं लखनऊ ज़ोन प्रभारी (दैनिक जागरण, 16 अगस्त 2026 में प्रकाशित)</cite></div>
+<div class="dsd-table-wrap">
+<table>
+<thead>
+<tr>
+<th>चरण</th>
+<th>स्थिति</th>
+<th>विवरण</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>बोर्ड की मंज़ूरी और नामकरण</td>
+<td><span class="dsd-badge ok">पूरा</span></td>
+<td>270वीं बोर्ड बैठक, मार्च 2025 में नाम तय</td>
+</tr>
+<tr>
+<td>किसानों से लैंड पूलिंग</td>
+<td><span class="dsd-badge ok">पूरा</span></td>
+<td>करीब 560 एकड़ ज़मीन सहमति से जुटाई गई</td>
+</tr>
+<tr>
+<td>परिषद के नाम रजिस्ट्री</td>
+<td><span class="dsd-badge ok">पूरा</span></td>
+<td>औपचारिक रूप से UPAVP के नाम हस्तांतरित</td>
+</tr>
+<tr>
+<td>किसानों को प्लॉट आवंटन</td>
+<td><span class="dsd-badge ok">पूरा</span></td>
+<td>192 किसानों को लॉटरी से विकसित प्लॉट</td>
+</tr>
+<tr>
+<td>फेज़ 1 प्लॉट योजना</td>
+<td><span class="dsd-badge ok">पूरा</span></td>
+<td>2,092 आवासीय + 169 कमर्शियल प्लॉट</td>
+</tr>
+<tr>
+<td>यूपी रेरा पंजीकरण</td>
+<td><span class="dsd-badge wait">आवेदन — समीक्षा में</span></td>
+<td>11 अगस्त 2026 को दाखिल, दस्तावेज़ जाँचे जा रहे हैं</td>
+</tr>
+<tr>
+<td>आधिकारिक ब्रोशर और रेट लिस्ट</td>
+<td><span class="dsd-badge no">जारी नहीं</span></td>
+<td>₹3,000–3,500 प्रति वर्ग फुट की दर अनुमान है</td>
+</tr>
+<tr>
+<td>सार्वजनिक रजिस्ट्रेशन</td>
+<td><span class="dsd-badge no">खुला नहीं</span></td>
+<td>रेरा मंज़ूरी के बाद खुलेगा</td>
+</tr>
+<tr>
+<td>साइट पर विकास कार्य</td>
+<td><span class="dsd-badge no">शुरू नहीं</span></td>
+<td>लॉन्च के बाद शुरू होगा</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="how-to-apply">आवेदन कैसे करें, स्टेप बाय स्टेप</h2>
+<p>जब रजिस्ट्रेशन खुलेगा, तो प्रक्रिया इस तरह चलेगी। सब कुछ आधिकारिक पोर्टल पर ऑनलाइन होता है — न काउंटर बुकिंग है, न एजेंट चैनल।</p>
+<div class="dsd-steps">
+<div class="dsd-step-row">
+<div class="dsd-step-num">1</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">upavp.in देखते रहें</p>
+<p class="dsd-step-desc">घोषणा आधिकारिक UPAVP वेबसाइट के schemes सेक्शन में आएगी। ब्रोशर और रेट लिस्ट उसी समय जारी होंगे। कुछ भी तय करने से पहले दोनों ठीक से पढ़ें।</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num">2</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">पहले रेरा नंबर जाँचें</p>
+<p class="dsd-step-desc">ब्रोशर आने के बाद उसमें से रेरा नंबर लीजिए और खुद up-rera.in पर जाँचिए। अगर ब्रोशर में रेरा नंबर नहीं है, तो रुकिए और इंतज़ार कीजिए।</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num">3</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">अपना अकाउंट बनाएँ</p>
+<p class="dsd-step-desc">अपने ही मोबाइल नंबर से नया यूज़र रजिस्टर करें और OTP से वेरिफाई करें। कृपया अपना ही नंबर और ईमेल इस्तेमाल करें, एजेंट का कभी नहीं।</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num">4</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">प्लॉट साइज़ सोच-समझकर चुनें</p>
+<p class="dsd-step-desc">ऊपर दी गई प्लॉट संख्या वाली टेबल देखिए। 75 वर्ग मीटर में सबसे ज़्यादा प्लॉट हैं, लेकिन आवेदक भी सबसे ज़्यादा। 300 वर्ग मीटर में सिर्फ़ 161 प्लॉट हैं। बजट और मौके, दोनों को तौलिए।</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num">5</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">फॉर्म भरें और दस्तावेज़ अपलोड करें</p>
+<p class="dsd-step-desc">आधार, पैन, फोटो और पता प्रमाण। अगर आरक्षित आय श्रेणी में आवेदन कर रहे हैं तो आय प्रमाण पत्र भी लगाएँ। ध्यान रखें कि आपका नाम हर जगह एक ही तरह लिखा हो।</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num">6</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">रजिस्ट्रेशन राशि ऑनलाइन जमा करें</p>
+<p class="dsd-step-desc">सिर्फ़ UPAVP पोर्टल के ज़रिए। रसीद और ट्रांज़ैक्शन नंबर सुरक्षित रखें। इसके लिए किसी को नक़द कभी न दें।</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num orange">7</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">लॉटरी का इंतज़ार करें</p>
+<p class="dsd-step-desc">आवंटन कंप्यूटरीकृत ड्रॉ से होता है और नतीजे पोर्टल पर आते हैं। इसे कोई प्रभावित नहीं कर सकता, और कोई पहले से आपको प्लॉट का वादा नहीं कर सकता।</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num orange">8</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">आवंटन पत्र डाउनलोड करें</p>
+<p class="dsd-step-desc">नाम आने पर अपने ही UPAVP डैशबोर्ड से पत्र डाउनलोड कीजिए। आगे का हर भुगतान इसी दस्तावेज़ से वैध होता है।</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num orange">9</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">किस्तें समय पर भरें</p>
+<p class="dsd-step-desc">आवंटन पत्र में दिए शेड्यूल का पालन करें। देर से भुगतान पर ब्याज लगता है, और बार-बार देरी पर आवंटन रद्द भी हो सकता है।</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num orange">10</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">कब्ज़ा और रजिस्ट्री</p>
+<p class="dsd-step-desc">पूरा भुगतान और विकास कार्य पूरा होने के बाद UPAVP कब्ज़ा देता है। सब-रजिस्ट्रार कार्यालय में <a href="https://dsdproperties.in/blog/bainama-vs-registry-vs-power-of-attorney-lucknow-2026" style="color:#008080;font-weight:600;">बैनामा</a> कराएँ और फिर अपने नाम दाखिल-खारिज पूरा करें।</p>
+</div>
+</div>
+</div>
+<a class="dsd-inline-link" href="https://dsdproperties.in/blog/lda-plot-lottery-winner-guide-lucknow" target="_blank" rel="noopener">
+<div>
+<div class="dsd-il-label">आवंटन के बाद</div>
+<div class="dsd-il-title">सरकारी प्लॉट मिल गया? आगे के ज़रूरी कदमों की गाइड</div>
+</div>
+<span class="dsd-il-arrow">→</span></a>
+<h2 id="eligibility">कौन आवेदन कर सकता है</h2>
+<p>इस योजना के लिए अब तक दो शर्तें सामने आई हैं:</p>
+<div class="dsd-alert good">
+<h4>बुनियादी पात्रता</h4>
+<ul>
+<li>आपको <strong>उत्तर प्रदेश का निवासी</strong> होना चाहिए।</li>
+<li>आपकी आयु <strong>18 से 55 वर्ष</strong> के बीच होनी चाहिए।</li>
+</ul>
+</div>
+<div class="dsd-alert info">
+<h4>कुछ भी मान लेने से पहले ब्रोशर का इंतज़ार करें</h4>
+<p>UPAVP ने सौमित्र विहार के पूरे पात्रता नियम अभी जारी नहीं किए हैं। ऊपर दी गई दो शर्तों के अलावा ब्रोशर में आय सीमा, पहले से मकान होने से जुड़े नियम, आरक्षण श्रेणियाँ और आवेदन शुल्क भी जोड़े जा सकते हैं। ये चीज़ें हर योजना में बदलती रहती हैं। इसलिए कृपया आधिकारिक ब्रोशर आने तक खुद को पात्र या अपात्र न मान लें।</p>
+</div>
+<p><strong>तैयार रखने वाले दस्तावेज़:</strong> आधार कार्ड, पैन कार्ड, हाल की पासपोर्ट साइज़ फोटो, पता प्रमाण, और चयन न होने पर रिफंड के लिए बैंक खाते का विवरण। अगर EWS या LIG श्रेणी में आवेदन का इरादा है तो आय प्रमाण पत्र भी तैयार रखें।</p>
+<h2 id="investment">खरीदें या नहीं? एक ईमानदार राय</h2>
+<div class="dsd-inv-grid">
+<div class="dsd-inv-card pro">
+<h4>इसमें अच्छा क्या है</h4>
+<ul>
+<li>सरकारी योजना — विक्रेता UPAVP है, यानी बिल्डर के भागने का डर नहीं</li>
+<li>लखनऊ के अंदर एक नियोजित टाउनशिप के लिए अनुमानित दर वाजिब है</li>
+<li>सबसे छोटे प्लॉट करीब ₹13–15 लाख के — शुरुआत के लिए कम कीमत</li>
+<li>ज़मीन सहमति से पूलिंग के ज़रिए आई, इसलिए विवाद का जोखिम कम</li>
+<li>परिषद के नाम ज़मीन की रजिस्ट्री पहले ही पूरी हो चुकी है</li>
+<li>192 किसानों को प्लॉट मिल चुके हैं, यानी मॉडल ज़मीन पर काम कर चुका है</li>
+<li>560 एकड़ और 5,000+ प्लॉट का बड़ा प्रोजेक्ट — ढंग से विकसित होने लायक आकार</li>
+<li>सड़कें, ग्रीन बेल्ट, झीलें और 169 कमर्शियल प्लॉट योजना का हिस्सा हैं</li>
+</ul>
+</div>
+<div class="dsd-inv-card con">
+<h4>इन बातों पर सोचिए</h4>
+<ul>
+<li>रेरा सिर्फ़ आवेदन हुआ है, मंज़ूरी नहीं मिली — 11 अगस्त 2026 को दाखिल</li>
+<li>रजिस्ट्रेशन खुला नहीं है, और जनवरी 2025 की तारीख पहले ही निकल चुकी है</li>
+<li>आधिकारिक रेट लिस्ट नहीं है — हर दर अनुमान है, और अनुमान एक बार बढ़ भी चुका है</li>
+<li>अभी खुली ज़मीन है, आसपास सुविधाएँ लगभग नहीं</li>
+<li>कब्ज़े में व्यावहारिक रूप से 3 से 5 साल लगेंगे</li>
+<li>साइट पर विकास कार्य शुरू नहीं हुआ है</li>
+<li>लखनऊ का यह हिस्सा सुल्तानपुर रोड जितना विकसित नहीं है</li>
+<li>यह लॉटरी है — आवेदन करके पैसा फँसाने के बाद भी प्लॉट न मिलने की पूरी संभावना है</li>
+<li>धोखाधड़ी का जोखिम अभी सबसे ज़्यादा है, आधिकारिक लॉन्च से पहले</li>
+</ul>
+</div>
+</div>
+<p><strong>हमारी ईमानदार राय:</strong> इस योजना की बुनियाद वाकई अच्छी है। सहमति से ली गई साफ़ ज़मीन, रजिस्ट्री पूरी, सरकारी विक्रेता, बड़ा प्रोजेक्ट। ये छोटी बातें नहीं हैं — लखनऊ के कई प्रोजेक्ट ठीक उन्हीं बिंदुओं पर फेल होते हैं जहाँ यह मज़बूत है।</p>
+<p>लेकिन रफ़्तार धीमी रही है, रेरा मंज़ूरी अभी बाकी है, और अनुमानित दर एक बार बढ़ भी चुकी है। इसलिए जल्दबाज़ी में इसके भरोसे योजना मत बनाइए। अगर आप आराम से 3 से 5 साल इंतज़ार कर सकते हैं, रजिस्ट्रेशन खुलने पर आधिकारिक लॉटरी से आवेदन करें और सिर्फ़ आधिकारिक दर चुकाएँ, तो यह एक वाजिब दाँव है। लेकिन अगर आपको जल्दी बनाने के लिए प्लॉट चाहिए, या कोई आपसे ब्रोशर आने से पहले ही पैसे माँग रहा है, तो कृपया पीछे हट जाइए।</p>
+<a class="dsd-inline-link" href="https://dsdproperties.in/blog/lda-plot-vs-builder-flat-lucknow-2026" target="_blank" rel="noopener">
+<div>
+<div class="dsd-il-label">खरीदारी गाइड</div>
+<div class="dsd-il-title">LDA प्लॉट vs बिल्डर फ्लैट लखनऊ 2026 — आपके लिए कौन सा बेहतर है?</div>
+</div>
+<span class="dsd-il-arrow">→</span></a>
+<p>{{CONSULTATION_BUTTON:पैसे देने से पहले लखनऊ का कोई भी प्लॉट वेरिफाई कराएँ}}</p>
+<h2 id="fraud">धोखाधड़ी से कैसे बचें</h2>
+<p>यह इस लेख का सबसे ज़रूरी हिस्सा है, इसे ध्यान से पढ़िए। किसी सरकारी योजना के खुलने से ठीक पहले का समय ही वह वक़्त होता है जब धोखाधड़ी होती है, क्योंकि लोग उत्साहित होते हैं और जाँचने के लिए कोई आधिकारिक जानकारी होती नहीं।</p>
+<div class="dsd-alert danger">
+<h4>अभी कोई भी आपके लिए सौमित्र विहार का प्लॉट बुक नहीं कर सकता</h4>
+<ul>
+<li>रजिस्ट्रेशन <strong>खुला ही नहीं है</strong>। भरने के लिए कोई फॉर्म नहीं है।</li>
+<li><strong>इस योजना में एडवांस बुकिंग की कोई व्यवस्था है ही नहीं।</strong> बिल्कुल नहीं। इसका कोई अस्तित्व नहीं है।</li>
+<li>कोई <strong>स्पेशल कोटा, वीआईपी कोटा या प्रायोरिटी बुकिंग</strong> नहीं है जिसे कोई करा सके।</li>
+<li><strong>कोई आपको प्लॉट की गारंटी नहीं दे सकता।</strong> यह कंप्यूटर लॉटरी है — इसे सेट नहीं किया जा सकता।</li>
+<li>UPAVP पैसा <strong>सिर्फ़ अपनी वेबसाइट के ज़रिए</strong> लेता है। नक़द, किसी निजी नंबर पर UPI, या किसी व्यक्ति के नाम चेक — यह धोखाधड़ी है।</li>
+<li>इकलौती आधिकारिक वेबसाइट <strong>upavp.in</strong> है। योजना का नाम पते में लिख देने से कोई वेबसाइट आधिकारिक नहीं हो जाती।</li>
+</ul>
+</div>
+<h3>पैसे देने से पहले सात जाँचें</h3>
+<div class="dsd-alert info">
+<ol class="dsd-checklist">
+<li><strong>क्या रजिस्ट्रेशन की सूचना सचमुच upavp.in पर है?</strong> पता खुद टाइप कीजिए। व्हाट्सएप पर फॉरवर्ड हुए लिंक मत खोलिए।</li>
+<li><strong>क्या ब्रोशर में रेरा नंबर है, और क्या वह up-rera.in पर मिलता है?</strong> रेरा साइट पर खुद जाँचिए। कागज़ पर छपा नंबर कुछ साबित नहीं करता।</li>
+<li><strong>क्या आपको बताई गई दर आधिकारिक ब्रोशर वाली दर है?</strong> इससे ज़्यादा कुछ भी हो तो समझिए किसी ने अपना मार्जिन जोड़ा है।</li>
+<li><strong>क्या आप सिर्फ़ UPAVP की वेबसाइट से भुगतान कर रहे हैं?</strong> नक़द नहीं, निजी UPI नहीं, एजेंट का खाता कभी नहीं।</li>
+<li><strong>क्या कोई गारंटीड आवंटन का वादा कर रहा है?</strong> यही एक वाक्य धोखाधड़ी का सबूत है। बातचीत वहीं खत्म कीजिए।</li>
+<li><strong>क्या आपके दस्तावेज़ आपस में मेल खाते हैं?</strong> आधार, पैन और पता प्रमाण पर नाम की स्पेलिंग एक जैसी होनी चाहिए, वरना ड्रॉ के बाद भी फॉर्म रद्द हो सकता है।</li>
+<li><strong>क्या आपका आवंटन पत्र आपके ही UPAVP डैशबोर्ड से आया है?</strong> कोई भी किस्त देने से पहले यह जाँच लीजिए। लखनऊ में सबसे आम प्लॉट फ्रॉड नकली आवंटन पत्र का ही है।</li>
+</ol>
+</div>
+<p>अगर कोई सौदा इन सात सवालों से नहीं गुज़र पाता, तो दिक्कत सौदे में है, सवालों में नहीं। हम लखनऊ भर के खरीदारों के लिए ठीक यही जाँच करते हैं — तय फीस पर, लिखित रिपोर्ट के साथ, और किसी भी पक्ष से कोई कमीशन लिए बिना।</p>
+<a class="dsd-inline-link" href="https://dsdproperties.in/blog/check-property-ownership-records-lucknow-hindi" target="_blank" rel="noopener">
+<div>
+<div class="dsd-il-label">वेरिफिकेशन गाइड</div>
+<div class="dsd-il-title">लखनऊ में प्रॉपर्टी का मालिकाना हक ऑनलाइन कैसे जाँचें</div>
+</div>
+<span class="dsd-il-arrow">→</span></a>
+<h2>DSD Properties की और गाइड</h2>
+<div class="dsd-related-inline"><a class="dsd-link-card" href="https://dsdproperties.in/blog/it-city-lucknow-lda-plots-guide-hindi-2026" target="_blank" rel="noopener">
+<div class="dsd-link-label">LDA गाइड</div>
+<div class="dsd-link-title">आईटी सिटी लखनऊ 2026 — LDA प्लॉट, कीमत और लॉटरी गाइड</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/wellness-city-lucknow-lda-guide-hindi-2026" target="_blank" rel="noopener">
+<div class="dsd-link-label">LDA गाइड</div>
+<div class="dsd-link-title">वेलनेस सिटी लखनऊ 2026 — LDA प्लॉट और खरीदार गाइड</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/varun-vihar-yojana-lucknow-hindi-2026" target="_blank" rel="noopener">
+<div class="dsd-link-label">LDA गाइड</div>
+<div class="dsd-link-title">वरुण विहार योजना लखनऊ 2026 — LDA की सबसे बड़ी योजना</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/lda-plot-vs-builder-flat-lucknow-2026" target="_blank" rel="noopener">
+<div class="dsd-link-label">खरीदारी गाइड</div>
+<div class="dsd-link-title">LDA प्लॉट vs बिल्डर फ्लैट लखनऊ 2026 — कौन सा बेहतर है?</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/check-property-ownership-records-lucknow-hindi" target="_blank" rel="noopener">
+<div class="dsd-link-label">वेरिफिकेशन</div>
+<div class="dsd-link-title">लखनऊ में प्रॉपर्टी का मालिकाना हक ऑनलाइन कैसे जाँचें</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/lda-plot-lottery-winner-guide-lucknow" target="_blank" rel="noopener">
+<div class="dsd-link-label">आवंटन के बाद</div>
+<div class="dsd-link-title">LDA प्लॉट मिल गया? आगे के ज़रूरी कदम — 2026 गाइड</div>
+</a></div>
+<!-- ज़रूरी: सवालों को इसी wrapper div के अंदर रखें। अगर id="FAQs" को heading पर लगा दिया जाए,
+     तो सवाल children के बजाय siblings बन जाते हैं, "#FAQs h3" selector किसी से match नहीं करता,
+     और accordion चुपचाप काम करना बंद कर देता है। -->
+<div id="FAQs">
+<h2>सौमित्र विहार योजना — आम सवाल</h2>
+<h3>सौमित्र विहार योजना लखनऊ क्या है?</h3>
+<p>सौमित्र विहार योजना उत्तर प्रदेश आवास एवं विकास परिषद द्वारा लखनऊ के गोसाईंगंज इलाके में न्यू जेल रोड पर, सिठौली खुर्द (पिन 226501) के पास विकसित की जा रही एक नई आवासीय टाउनशिप है। यह करीब 560 एकड़ में फैली है और कुल मिलाकर 5,000 से ज़्यादा प्लॉट प्रस्तावित हैं। पहले फेज़ में 2,092 आवासीय और 169 कमर्शियल प्लॉट होंगे। यह उत्तर प्रदेश की पहली ऐसी टाउनशिप है जिसमें ज़बरन अधिग्रहण के बजाय किसानों की सहमति से लैंड पूलिंग के ज़रिए ज़मीन ली गई है।</p>
+<h3>क्या सौमित्र विहार का रजिस्ट्रेशन शुरू हो गया है?</h3>
+<p>नहीं, अभी नहीं। 4 सितंबर 2026 तक upavp.in पर न कोई रजिस्ट्रेशन लिंक है, न ब्रोशर, न रेट लिस्ट। योजना पहले 13 जनवरी 2025 को प्रयागराज महाकुंभ में लॉन्च होनी थी लेकिन टल गई। UPAVP ने 11 अगस्त 2026 को रेरा पंजीकरण आवेदन दाखिल किया है, और वह पास होने के बाद सार्वजनिक रजिस्ट्रेशन खोला जाएगा। upavp.in देखते रहिए, और आधिकारिक विंडो खुलने से पहले प्लॉट बुक करने का दावा करने वाले किसी भी व्यक्ति को पैसे मत दीजिए।</p>
+<h3>क्या सौमित्र विहार रेरा अप्रूव्ड है?</h3>
+<p>नहीं। योजना को फ़िलहाल रेरा मंज़ूरी नहीं मिली है। UPAVP ने 11 अगस्त 2026 को यूपी रेरा पोर्टल पर पंजीकरण आवेदन जमा किया है, और यूपी रेरा ने पुष्टि की है कि दस्तावेज़ों का सत्यापन शुरू हो गया है। इसका मतलब है कि आवेदन समीक्षा में है, मंज़ूर नहीं हुआ है। जब ब्रोशर जारी हो, तो उसमें से रेरा नंबर लेकर आवेदन से पहले खुद up-rera.in पर जाँचिए। जो आज आपसे कह रहा है कि यह योजना पहले से रेरा पंजीकृत है, वह गलत जानकारी दे रहा है।</p>
+<h3>सौमित्र विहार में प्लॉट साइज़ क्या-क्या हैं?</h3>
+<p>फेज़ 1 में छह आवासीय साइज़ हैं: 40.74 वर्ग मीटर (80 प्लॉट), 60.29 वर्ग मीटर (229 प्लॉट), 75 वर्ग मीटर (598 प्लॉट), 122.23 वर्ग मीटर (445 प्लॉट), 200 वर्ग मीटर (579 प्लॉट) और 300 वर्ग मीटर (161 प्लॉट)। इनका जोड़ 2,092 प्लॉट बनता है। कमर्शियल प्लॉट तीन साइज़ में हैं: 100 वर्ग मीटर (107 प्लॉट), 200 वर्ग मीटर (57 प्लॉट) और 1,375 वर्ग मीटर (5 प्लॉट), कुल 169।</p>
+<h3>सौमित्र विहार में प्लॉट की कीमत कितनी होगी?</h3>
+<p>अनुमानित दर करीब ₹3,000 से ₹3,500 प्रति वर्ग फुट है, जो लगभग ₹32,300 से ₹37,700 प्रति वर्ग मीटर बैठती है। इस आधार पर 75 वर्ग मीटर के प्लॉट की कीमत करीब ₹24.22 से ₹28.26 लाख, और 300 वर्ग मीटर के प्लॉट की करीब ₹96.88 लाख से ₹1.13 करोड़ होगी — रजिस्ट्री और स्टाम्प ड्यूटी से पहले। कृपया याद रखें कि UPAVP ने अभी आधिकारिक रेट लिस्ट जारी नहीं की है, इसलिए इन्हें अनुमान ही मानें। पुरानी रिपोर्ट्स में दर ₹25,000–₹26,000 प्रति वर्ग मीटर, यानी करीब ₹2,300–₹2,400 प्रति वर्ग फुट बताई गई थी — वह पुराना अनुमान था और अब बढ़ चुका है।</p>
+<h3>सौमित्र विहार कौन बना रहा है — UPAVP या LDA?</h3>
+<p>UPAVP, यानी उत्तर प्रदेश आवास एवं विकास परिषद, जिसे यूपी हाउसिंग एंड डेवलपमेंट बोर्ड भी कहते हैं। यह लखनऊ विकास प्राधिकरण से अलग संस्था है, जो आईटी सिटी, वेलनेस सिटी, अनंत नगर और वरुण विहार विकसित करता है। दोनों सरकारी संस्थाएँ हैं लेकिन उनकी वेबसाइट और आवेदन प्रक्रिया अलग-अलग हैं। सौमित्र विहार के लिए आपको upavp.in पर आवेदन करना होगा, LDA पोर्टल पर नहीं।</p>
+<h3>सौमित्र विहार में कौन आवेदन कर सकता है?</h3>
+<p>अब तक दो शर्तें सामने आई हैं: आपको उत्तर प्रदेश का निवासी होना चाहिए, और आपकी आयु 18 से 55 वर्ष के बीच होनी चाहिए। UPAVP ने पूरे पात्रता नियम अभी प्रकाशित नहीं किए हैं, और ब्रोशर में आय सीमा, पहले से संपत्ति होने के नियम और आरक्षण श्रेणियों जैसी शर्तें जुड़ सकती हैं। इसलिए कृपया आधिकारिक ब्रोशर आने तक यह न मान लें कि आप पात्र हैं या नहीं।</p>
+<h3>यहाँ की लैंड पूलिंग मॉडल में खास क्या है?</h3>
+<p>सामान्य भूमि अधिग्रहण में सरकार नोटिस जारी करती है और मुआवज़ा तय कर देती है, चाहे किसान सहमत हो या नहीं — जिससे अक्सर मुक़दमे और अटके प्रोजेक्ट बनते हैं। लैंड पूलिंग में किसान अपनी मर्ज़ी से ज़मीन देते हैं और बदले में विकसित प्लॉट पाते हैं। सौमित्र विहार इस तरह बनने वाली उत्तर प्रदेश की पहली टाउनशिप है। ज़मीन पहले ही परिषद के नाम दर्ज हो चुकी है और 192 किसानों को लॉटरी से उनके विकसित प्लॉट मिल चुके हैं। खरीदारों के लिए इसका मतलब है कि आगे ज़मीन विवाद खड़ा होने का जोखिम काफ़ी कम है।</p>
+<h3>क्या मैं एजेंट या ब्रोकर के ज़रिए एडवांस में प्लॉट बुक करा सकता हूँ?</h3>
+<p>नहीं, और जो कोई यह पेशकश कर रहा है वह आपको ठगने की कोशिश कर रहा है। इस योजना में एडवांस बुकिंग की कोई व्यवस्था है ही नहीं। UPAVP प्लॉट सिर्फ़ आधिकारिक ऑनलाइन रजिस्ट्रेशन विंडो खुलने के बाद कंप्यूटरीकृत लॉटरी से आवंटित करता है। न कोई प्रायोरिटी कोटा है, न कोई स्पेशल बुकिंग, और न ही किसी के पास आपको प्लॉट की गारंटी देने का कोई तरीका। सारा भुगतान सिर्फ़ UPAVP की वेबसाइट से होता है — नक़द कभी नहीं, निजी नंबर पर UPI कभी नहीं, किसी व्यक्ति के नाम चेक कभी नहीं। इकलौती आधिकारिक वेबसाइट upavp.in है।</p>
+<h3>सौमित्र विहार में कितने सेक्टर हैं?</h3>
+<p>आधिकारिक लेआउट प्लान अभी प्रकाशित नहीं हुआ है, इसलिए सेक्टर से जुड़ी जानकारी पुष्ट नहीं है। आपको ऑनलाइन कुछ लेख मिल सकते हैं जिनमें खास सेक्टर नाम या नंबर गिनाए गए हों, लेकिन जब तक UPAVP ब्रोशर के साथ आधिकारिक लेआउट जारी नहीं करता, इनकी पुष्टि नहीं की जा सकती। कृपया अपुष्ट जानकारी के आधार पर किसी खास सेक्टर में प्लॉट न चुनें और न पैसे दें।</p>
+<h3>क्या 2026 में सौमित्र विहार अच्छा निवेश है?</h3>
+<p>बुनियाद मज़बूत है। यह सरकारी योजना है, ज़मीन सहमति आधारित पूलिंग से आई है इसलिए विवाद का जोखिम कम है, रजिस्ट्री पहले ही हो चुकी है, और 560 एकड़ का बड़ा प्रोजेक्ट है। दूसरी तरफ़, रेरा मंज़ूरी अभी बाकी है, रजिस्ट्रेशन खुला नहीं है, आधिकारिक रेट लिस्ट नहीं है, अनुमानित दर एक बार बढ़कर ₹3,000–₹3,500 प्रति वर्ग फुट हो चुकी है, और साइट पर विकास कार्य शुरू नहीं हुआ है। इसे 3 से 5 साल का निवेश मानिए। रजिस्ट्रेशन खुलने पर आधिकारिक लॉटरी से आवेदन करें, सिर्फ़ आधिकारिक दर चुकाएँ, और ब्रोशर आने से पहले किसी को पैसे न दें।</p>
+<h3>सौमित्र विहार ठीक कहाँ स्थित है?</h3>
+<p>साइट लखनऊ के मोहनलालगंज के पास गोसाईंगंज इलाके में न्यू जेल रोड पर है, सिठौली खुर्द (पिन 226501) के आसपास। निर्देशांक लगभग 26.7244 डिग्री उत्तर और 81.0690 डिग्री पूर्व हैं। टाउनशिप की ज़मीन इसी बेल्ट के गाँवों से आई है, जिनमें मोहारी कला, सिठौली कला और सिठौली खुर्द शामिल हैं। कृपया ध्यान रखें कि यह अभी खुली ज़मीन है, ज़्यादातर खेत, और आसपास सुविधाएँ सीमित हैं।</p>
+</div>
+<p>{{CONSULTATION_BUTTON:सौमित्र विहार पर फ्री सलाह लें}}</p>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  function initFaq() {
+    var heads = document.querySelectorAll('#FAQs h3');
+    Array.prototype.forEach.call(heads, function (h, i) {
+      var panel = h.nextElementSibling;
+      if (!panel || panel.tagName !== 'P') return;
+      var pid = 'dsd-faq-panel-' + i;
+      panel.id = pid;
+      panel.setAttribute('role', 'region');
+      h.setAttribute('role', 'button');
+      h.setAttribute('tabindex', '0');
+      h.setAttribute('aria-expanded', 'false');
+      h.setAttribute('aria-controls', pid);
+      function toggle() {
+        var open = h.classList.toggle('active');
+        h.setAttribute('aria-expanded', open ? 'true' : 'false');
+        panel.style.display = open ? 'block' : 'none';
+      }
+      h.addEventListener('click', toggle);
+      h.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    });
+  }
+
+  function initMap() {
+    var btn = document.getElementById('dsdMapLoad');
+    var frame = document.getElementById('dsdMapFrame');
+    if (!btn || !frame) return;
+    btn.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = 'https://www.google.com/maps?q=26.7243945,81.0689648&hl=hi&z=14&output=embed';
+      f.loading = 'lazy';
+      f.referrerPolicy = 'no-referrer-when-downgrade';
+      f.title = 'सौमित्र विहार योजना, सिठौली खुर्द, लखनऊ का गूगल मैप';
+      f.setAttribute('allowfullscreen', '');
+      frame.innerHTML = '';
+      frame.appendChild(f);
+    });
+  }
+
+  function initCalc() {
+    var opts = document.querySelectorAll('.dsd-calc-opt');
+    if (!opts.length) return;
+    /* दरें प्रति वर्ग फुट हैं। क्षेत्रफल को पहले वर्ग मीटर से वर्ग फुट में बदला जाता है। */
+    var LOW = 3000, HIGH = 3500, SQFT = 10.7639, EXTRA = 1.07;
+    var COUNTS = { '40.74': 80, '60.29': 229, '75': 598, '122.23': 445, '200': 579, '300': 161 };
+    var elArea = document.getElementById('dsdCalcArea');
+    var elLand = document.getElementById('dsdCalcLand');
+    var elAll = document.getElementById('dsdCalcAll');
+    var elCount = document.getElementById('dsdCalcCount');
+
+    function range(lo, hi) {
+      if (hi >= 10000000) {
+        return '₹' + (lo / 10000000).toFixed(2) + '–' + (hi / 10000000).toFixed(2) + ' Cr';
+      }
+      return '₹' + (lo / 100000).toFixed(2) + '–' + (hi / 100000).toFixed(2) + ' L';
+    }
+    function render(sqmStr) {
+      var sqm = parseFloat(sqmStr);
+      var sqft = sqm * SQFT;
+      var lo = sqft * LOW, hi = sqft * HIGH;
+      elArea.textContent = sqm + ' m² · ' + Math.round(sqft).toLocaleString('en-IN') + ' sq ft';
+      elLand.textContent = range(lo, hi);
+      elAll.textContent = range(lo * EXTRA, hi * EXTRA);
+      elCount.textContent = COUNTS[sqmStr] != null ? COUNTS[sqmStr] : '—';
+    }
+    Array.prototype.forEach.call(opts, function (b) {
+      b.addEventListener('click', function () {
+        Array.prototype.forEach.call(opts, function (o) { o.setAttribute('aria-pressed', 'false'); });
+        b.setAttribute('aria-pressed', 'true');
+        render(b.getAttribute('data-sqm'));
+      });
+    });
+    render('75');
+  }
+
+  function boot() { initFaq(); initMap(); initCalc(); }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>

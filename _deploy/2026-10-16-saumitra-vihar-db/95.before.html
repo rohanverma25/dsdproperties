@@ -1,0 +1,903 @@
+<style>
+/* ==========================================================================
+   DSD Properties — Saumitra Vihar Yojana (UPAVP, Lucknow)
+   Article styles · v3 · last updated 04 September 2026
+   ========================================================================== */
+:root{
+  --dsd-navy:#011f4b;
+  --dsd-navy-soft:#0a2f66;
+  --dsd-teal:#008080;
+  --dsd-teal-bright:#20B2AA;
+  --dsd-orange:#FF5C00;
+  --dsd-red:#d92d20;
+  --dsd-green:#087443;
+  --dsd-light-teal:#e6f7f7;
+  --dsd-surface:#ffffff;
+  --dsd-bg:#f7f9fb;
+  --dsd-border:#e3e8ef;
+  --dsd-text:#334155;
+  --dsd-muted:#64748b;
+  --dsd-radius:14px;
+  --dsd-radius-sm:10px;
+  --dsd-shadow:0 1px 2px rgba(1,31,75,.06), 0 8px 24px rgba(1,31,75,.06);
+  --dsd-shadow-lg:0 4px 12px rgba(1,31,75,.08), 0 20px 48px rgba(1,31,75,.10);
+  --dsd-font:'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.dsd-sourceline{font-size:12.5px;color:var(--dsd-muted);margin:0 0 26px;padding-bottom:14px;border-bottom:1px solid var(--dsd-border);line-height:1.7;}
+
+/* status ribbon */
+.dsd-ribbon{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;background:linear-gradient(135deg,var(--dsd-navy) 0%,#062a5e 55%,#0b3a7a 100%);border-radius:var(--dsd-radius);padding:16px 20px;margin:0 0 22px;box-shadow:var(--dsd-shadow-lg);}
+.dsd-ribbon span.dsd-ribbon-pill.dsd-ribbon-pill{display:inline-flex;align-items:center;gap:7px;background:#ffffff;border:1px solid rgba(255,255,255,.9);color:#011f4b !important;font-family:var(--dsd-font);font-size:12px;font-weight:600;padding:6px 13px;border-radius:999px;}
+.dsd-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dsd-dot.live{background:#ff6b4a;box-shadow:0 0 0 0 rgba(255,107,74,.7);animation:dsdPulse 2s infinite;}
+.dsd-dot.wait{background:#fbbf24;}
+.dsd-dot.done{background:#34d399;}
+@keyframes dsdPulse{70%{box-shadow:0 0 0 9px rgba(255,107,74,0);}100%{box-shadow:0 0 0 0 rgba(255,107,74,0);}}
+@media(prefers-reduced-motion:reduce){.dsd-dot.live{animation:none;}}
+.dsd-ribbon span.dsd-ribbon-date.dsd-ribbon-date{margin-left:auto;font-family:var(--dsd-font);font-size:11.5px;color:rgba(255,255,255,.88) !important;letter-spacing:.04em;font-weight:500;}
+
+/* stats bar */
+.dsd-stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:rgba(255,255,255,.09);border-radius:var(--dsd-radius);overflow:hidden;margin:22px 0 28px;box-shadow:var(--dsd-shadow-lg);}
+.dsd-stat-item{padding:18px 14px;text-align:center;background:var(--dsd-navy);transition:background .25s ease;}
+.dsd-stat-item:hover{background:var(--dsd-navy-soft);}
+.dsd-stats-bar .dsd-stat-item span.dsd-stat-num{font-size:19px;font-weight:700;color:#5eead4 !important;display:block;line-height:1.15;font-family:var(--dsd-font);white-space:nowrap;}
+.dsd-stats-bar .dsd-stat-item span.dsd-stat-num.sm{font-size:15px;white-space:normal;line-height:1.25;}
+.dsd-stats-bar .dsd-stat-item span.dsd-stat-label{font-size:10.5px;color:rgba(255,255,255,.86) !important;text-transform:uppercase;letter-spacing:.07em;margin-top:5px;display:block;font-family:var(--dsd-font);line-height:1.4;}
+
+/* alerts */
+.dsd-alert{border-radius:var(--dsd-radius);padding:18px 22px;margin:24px 0;border:1px solid;border-left-width:4px;box-shadow:var(--dsd-shadow);}
+.dsd-alert h4{font-size:15px;font-weight:700;margin:0 0 12px;display:flex;align-items:center;gap:8px;font-family:var(--dsd-font);line-height:1.45;}
+.dsd-alert ul{list-style:none;padding:0;margin:0;}
+.dsd-alert li{font-size:14px;color:var(--dsd-text);padding:7px 0 7px 22px;position:relative;line-height:1.78;}
+.dsd-alert li + li{border-top:1px solid rgba(0,0,0,.05);}
+.dsd-alert li::before{position:absolute;left:0;font-weight:700;}
+.dsd-alert p{font-size:14px;color:var(--dsd-text);line-height:1.78;margin:0;}
+.dsd-alert.info{background:#fff8f0;border-color:rgba(255,92,0,.22);border-left-color:var(--dsd-orange);}
+.dsd-alert.info h4{color:var(--dsd-orange);}
+.dsd-alert.info li::before{content:'→';color:var(--dsd-orange);}
+.dsd-alert.good{background:var(--dsd-light-teal);border-color:rgba(0,128,128,.22);border-left-color:var(--dsd-teal);}
+.dsd-alert.good h4{color:var(--dsd-navy);}
+.dsd-alert.good li::before{content:'✓';color:var(--dsd-teal);}
+.dsd-alert.danger{background:#fff5f4;border-color:rgba(217,45,32,.24);border-left-color:var(--dsd-red);}
+.dsd-alert.danger h4{color:var(--dsd-red);}
+.dsd-alert.danger li::before{content:'✕';color:var(--dsd-red);}
+
+/* pull quote */
+.dsd-pullquote{border-left:4px solid var(--dsd-orange);background:#fff8f5;padding:20px 24px;margin:26px 0;border-radius:0 var(--dsd-radius) var(--dsd-radius) 0;}
+.dsd-pullquote p{font-size:15.5px;font-style:italic;color:var(--dsd-navy);line-height:1.78;margin:0 0 8px;}
+.dsd-pullquote cite{font-size:12px;color:var(--dsd-muted);font-style:normal;}
+
+/* TOC */
+.dsd-toc{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:var(--dsd-radius);padding:20px 22px;margin:24px 0;}
+.dsd-toc h2{margin:0 0 14px !important;font-size:16px !important;color:var(--dsd-navy);border:none !important;padding:0 !important;}
+.dsd-toc ol{list-style:none;counter-reset:dsdtoc;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:2px 20px;}
+.dsd-toc li{counter-increment:dsdtoc;margin:0;}
+.dsd-toc a{display:flex;gap:11px;align-items:baseline;padding:8px 10px;border-radius:var(--dsd-radius-sm);text-decoration:none;color:var(--dsd-text);font-size:14px;line-height:1.5;transition:background .18s ease,color .18s ease;}
+.dsd-toc a::before{content:counter(dsdtoc,decimal-leading-zero);font-family:var(--dsd-font);font-size:11px;font-weight:700;color:var(--dsd-teal);flex-shrink:0;}
+.dsd-toc a:hover,.dsd-toc a:focus-visible{background:#fff;color:var(--dsd-navy);box-shadow:var(--dsd-shadow);}
+
+/* map */
+.dsd-map{border:1px solid var(--dsd-border);border-radius:var(--dsd-radius);overflow:hidden;margin:22px 0;background:var(--dsd-surface);box-shadow:var(--dsd-shadow);}
+.dsd-map-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--dsd-border);background:var(--dsd-bg);}
+.dsd-map .dsd-map-head span.dsd-pin{width:34px;height:34px;border-radius:50%;background:var(--dsd-teal);color:#ffffff !important;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.dsd-map-title{font-family:var(--dsd-font);font-size:14px;font-weight:700;color:var(--dsd-navy);margin:0;line-height:1.35;}
+.dsd-map-sub{font-size:12px;color:var(--dsd-muted);margin:2px 0 0;line-height:1.45;}
+.dsd-map .dsd-map-head a.dsd-map-btn{margin-left:auto;background:#B83C00;color:#ffffff !important;font-family:var(--dsd-font);font-size:12.5px;font-weight:600;padding:9px 16px;border-radius:999px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:transform .18s ease,box-shadow .18s ease;white-space:nowrap;}
+.dsd-map .dsd-map-head a.dsd-map-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(184,60,0,.38);color:#ffffff !important;}
+.dsd-map-frame{position:relative;width:100%;aspect-ratio:16/9;min-height:260px;max-height:420px;
+  background-color:#e9eff6;
+  background-image:linear-gradient(rgba(1,31,75,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(1,31,75,.055) 1px,transparent 1px),linear-gradient(115deg,rgba(0,128,128,.10) 0%,transparent 55%);
+  background-size:32px 32px,32px 32px,100% 100%;}
+.dsd-map-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;}
+.dsd-map-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px;cursor:pointer;border:0;background:transparent;width:100%;font-family:inherit;}
+.dsd-map-placeholder span.dsd-mp-icon{font-size:26px;line-height:1;width:60px;height:60px;border-radius:50%;background:#fff;border:1px solid var(--dsd-border);display:flex;align-items:center;justify-content:center;box-shadow:var(--dsd-shadow);}
+.dsd-map-placeholder:hover span.dsd-mp-icon{border-color:var(--dsd-teal);}
+.dsd-map-placeholder span.dsd-mp-text{font-family:var(--dsd-font);font-size:13.5px;font-weight:700;color:var(--dsd-navy);background:#fff;border:1px solid var(--dsd-border);padding:9px 18px;border-radius:999px;box-shadow:var(--dsd-shadow);}
+.dsd-map-placeholder span.dsd-mp-hint{font-size:12px;color:var(--dsd-muted);max-width:380px;line-height:1.6;}
+.dsd-map-foot{display:flex;flex-wrap:wrap;gap:8px;padding:12px 18px;border-top:1px solid var(--dsd-border);background:var(--dsd-bg);}
+.dsd-coord{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;color:var(--dsd-muted);background:#fff;border:1px solid var(--dsd-border);padding:4px 10px;border-radius:6px;}
+
+/* plot cards */
+.dsd-plot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin:22px 0;}
+.dsd-plot-card{background:linear-gradient(160deg,#011f4b 0%,#0a2f66 100%);border:1px solid rgba(32,178,170,.34);border-radius:var(--dsd-radius-sm);padding:18px 14px;text-align:center;position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease;}
+.dsd-plot-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(1,31,75,.24);}
+.dsd-plot-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 0%,rgba(32,178,170,.28) 0%,transparent 62%);pointer-events:none;}
+.dsd-plot-card > *{position:relative;z-index:1;}
+.dsd-plot-grid .dsd-plot-card span.dsd-plot-size{font-size:19px;font-weight:700;color:#ffffff !important;display:block;font-family:var(--dsd-font);line-height:1.15;}
+.dsd-plot-grid .dsd-plot-card span.dsd-plot-sqft{font-size:12.5px;color:#5eead4 !important;display:block;margin-top:4px;font-weight:600;font-family:var(--dsd-font);}
+.dsd-plot-grid .dsd-plot-card span.dsd-plot-count{display:inline-block;margin-top:9px;font-size:11px;font-family:var(--dsd-font);font-weight:700;color:#011f4b !important;background:#ffffff;border:1px solid #ffffff;padding:3px 11px;border-radius:999px;}
+
+/* estimator */
+.dsd-calc{background:var(--dsd-surface);border:1px solid var(--dsd-border);border-top:3px solid var(--dsd-teal);border-radius:var(--dsd-radius);padding:20px 22px;margin:24px 0;box-shadow:var(--dsd-shadow);}
+.dsd-calc h4{font-family:var(--dsd-font);font-size:15px;font-weight:700;color:var(--dsd-navy);margin:0 0 4px;}
+.dsd-calc .dsd-calc-note{font-size:12px;color:var(--dsd-muted);margin:0 0 16px;line-height:1.6;}
+.dsd-calc-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.dsd-calc-opt{border:1px solid var(--dsd-border);background:var(--dsd-bg);color:var(--dsd-text);font-family:var(--dsd-font);font-size:13px;font-weight:600;padding:9px 15px;border-radius:999px;cursor:pointer;transition:all .18s ease;}
+.dsd-calc-opt:hover{border-color:var(--dsd-teal);color:var(--dsd-navy);}
+.dsd-calc-opt[aria-pressed="true"]{background:var(--dsd-teal);border-color:var(--dsd-teal);color:#fff;box-shadow:0 4px 14px rgba(0,128,128,.28);}
+.dsd-calc-out{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;}
+.dsd-calc-cell{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:var(--dsd-radius-sm);padding:14px 16px;}
+.dsd-calc-cell .dsd-cc-label{font-family:var(--dsd-font);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dsd-muted);display:block;margin-bottom:5px;}
+.dsd-calc-cell .dsd-cc-val{font-family:var(--dsd-font);font-size:17px;font-weight:700;color:var(--dsd-navy);display:block;line-height:1.25;}
+
+/* timeline */
+.dsd-timeline{position:relative;margin:24px 0;padding-left:30px;}
+.dsd-timeline::before{content:'';position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--dsd-border);}
+.dsd-tl-item{position:relative;padding:0 0 20px;}
+.dsd-tl-item:last-child{padding-bottom:0;}
+.dsd-tl-item::before{content:'';position:absolute;left:-26px;top:4px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--dsd-border);z-index:1;}
+.dsd-tl-item.done::before{background:var(--dsd-green);border-color:var(--dsd-green);}
+.dsd-tl-item.active::before{background:var(--dsd-orange);border-color:var(--dsd-orange);box-shadow:0 0 0 4px rgba(255,92,0,.16);}
+.dsd-tl-date{font-family:var(--dsd-font);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dsd-teal);display:block;margin-bottom:3px;}
+.dsd-tl-title{font-family:var(--dsd-font);font-size:14.5px;font-weight:700;color:var(--dsd-navy);margin:0 0 3px;}
+.dsd-tl-desc{font-size:13.5px;color:var(--dsd-muted);margin:0;line-height:1.7;}
+
+/* feature cards */
+.dsd-zone-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:14px;margin:22px 0;}
+.dsd-zone-card{background:var(--dsd-surface);border:1px solid var(--dsd-border);border-top:3px solid var(--dsd-teal);border-radius:var(--dsd-radius-sm);padding:16px 18px;box-shadow:var(--dsd-shadow);transition:transform .2s ease,box-shadow .2s ease;}
+.dsd-zone-card:hover{transform:translateY(-2px);box-shadow:var(--dsd-shadow-lg);}
+.dsd-zone-card.orange{border-top-color:var(--dsd-orange);}
+.dsd-zone-card h5{color:var(--dsd-navy);font-family:var(--dsd-font);font-size:14px;font-weight:700;margin:0 0 6px;}
+.dsd-zone-card p{font-size:13px;color:var(--dsd-muted);margin:0;line-height:1.65;}
+
+/* village tags */
+.dsd-village-grid{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0;}
+.dsd-village-tag{background:var(--dsd-light-teal);border:1px solid rgba(0,128,128,.26);color:var(--dsd-navy);padding:6px 14px;border-radius:999px;font-size:13.5px;font-weight:500;}
+
+/* pros & cons */
+.dsd-inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0;}
+.dsd-inv-card{border-radius:var(--dsd-radius);padding:20px 18px;border:1px solid;box-shadow:var(--dsd-shadow);}
+.dsd-inv-card.pro{background:#f2fbf6;border-color:rgba(8,116,67,.22);}
+.dsd-inv-card.con{background:#fff8f0;border-color:rgba(255,92,0,.24);}
+.dsd-inv-card h4{font-family:var(--dsd-font);font-size:15px;font-weight:700;margin:0 0 12px;}
+.dsd-inv-card.pro h4{color:var(--dsd-green);}
+.dsd-inv-card.con h4{color:var(--dsd-orange);}
+.dsd-inv-card ul{list-style:none;padding:0;margin:0;}
+.dsd-inv-card li{font-size:13.5px;padding:7px 0 7px 20px;position:relative;color:var(--dsd-text);line-height:1.72;}
+.dsd-inv-card li + li{border-top:1px solid rgba(0,0,0,.05);}
+.dsd-inv-card li::before{position:absolute;left:0;font-weight:700;}
+.dsd-inv-card.pro li::before{content:'✓';color:var(--dsd-green);}
+.dsd-inv-card.con li::before{content:'!';color:var(--dsd-orange);}
+
+/* steps */
+.dsd-steps{margin:24px 0;}
+.dsd-step-row{display:flex;align-items:flex-start;gap:15px;margin-bottom:14px;}
+.dsd-steps .dsd-step-row div.dsd-step-num{width:34px;height:34px;border-radius:50%;background:var(--dsd-teal);color:#ffffff !important;font-family:var(--dsd-font);font-size:13.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.dsd-step-num.orange{background:var(--dsd-orange);}
+.dsd-step-body{background:var(--dsd-surface);border:1px solid var(--dsd-border);border-radius:var(--dsd-radius-sm);padding:13px 17px;flex:1;box-shadow:var(--dsd-shadow);}
+.dsd-step-title{font-family:var(--dsd-font);font-size:14px;font-weight:700;color:var(--dsd-navy);margin:0 0 4px;}
+.dsd-step-desc{font-size:13.3px;color:var(--dsd-muted);margin:0;line-height:1.68;}
+
+/* tables */
+.dsd-table-wrap{overflow-x:auto;margin:22px 0;border:1px solid var(--dsd-border);border-radius:var(--dsd-radius);box-shadow:var(--dsd-shadow);-webkit-overflow-scrolling:touch;}
+.dsd-table-wrap table{width:100%;border-collapse:collapse;margin:0 !important;font-size:14px;min-width:520px;}
+.dsd-table-wrap table thead tr th{background:var(--dsd-navy);color:#ffffff !important;font-family:var(--dsd-font);font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:13px 16px;white-space:nowrap;}
+.dsd-table-wrap tbody td{padding:12px 16px;border-top:1px solid var(--dsd-border);color:var(--dsd-text);line-height:1.6;vertical-align:top;}
+.dsd-table-wrap tbody tr:nth-child(even){background:var(--dsd-bg);}
+.dsd-table-wrap tbody tr:hover{background:var(--dsd-light-teal);}
+.dsd-badge{display:inline-block;font-family:var(--dsd-font);font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap;}
+.dsd-badge.ok{background:#dcfce7;color:#065f36 !important;}
+.dsd-badge.wait{background:#fef3c7;color:#92400e !important;}
+.dsd-badge.no{background:#fee2e2;color:#991b1b !important;}
+
+/* link cards */
+.dsd-related-inline{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:22px 0;}
+.dsd-link-card{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:var(--dsd-radius-sm);padding:15px 17px;text-decoration:none;display:block;transition:border-color .2s,box-shadow .2s,transform .2s;}
+.dsd-link-card:hover,.dsd-link-card:focus-visible{border-color:var(--dsd-teal);box-shadow:var(--dsd-shadow-lg);transform:translateY(-2px);}
+.dsd-link-label{font-family:var(--dsd-font);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dsd-teal);font-weight:700;margin-bottom:5px;}
+.dsd-link-title{font-size:14px;font-weight:600;color:var(--dsd-navy);line-height:1.45;}
+.dsd-inline-link{display:flex;align-items:center;gap:14px;background:var(--dsd-bg);border:1px solid var(--dsd-border);border-left:3px solid var(--dsd-teal);border-radius:0 var(--dsd-radius-sm) var(--dsd-radius-sm) 0;padding:13px 17px;text-decoration:none;margin:20px 0;transition:border-left-color .2s,background .2s;}
+.dsd-inline-link:hover{border-left-color:var(--dsd-orange);background:#fff;}
+.dsd-il-label{font-family:var(--dsd-font);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dsd-teal);font-weight:700;}
+.dsd-il-title{font-size:14px;font-weight:600;color:var(--dsd-navy);margin-top:3px;line-height:1.45;}
+.dsd-il-arrow{margin-left:auto;color:var(--dsd-teal);font-size:18px;flex-shrink:0;}
+
+/* checklist */
+.dsd-checklist{list-style:none;padding:0;margin:0;counter-reset:dsdchk;}
+.dsd-checklist li{counter-increment:dsdchk;position:relative;padding:11px 0 11px 34px;font-size:14px;color:var(--dsd-text);line-height:1.72;}
+.dsd-checklist li + li{border-top:1px solid rgba(217,45,32,.1);}
+.dsd-checklist li::before{content:counter(dsdchk);position:absolute;left:0;top:11px;width:22px;height:22px;border-radius:6px;background:#fff;border:1px solid rgba(217,45,32,.3);color:var(--dsd-red);font-family:var(--dsd-font);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+
+/* FAQ accordion */
+#FAQs h3{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-left:4px solid var(--dsd-teal);padding:15px 46px 15px 18px;border-radius:0 var(--dsd-radius-sm) var(--dsd-radius-sm) 0;cursor:pointer;color:var(--dsd-navy);font-family:var(--dsd-font);font-size:14.5px;font-weight:600;margin:0 0 10px;position:relative;transition:background .2s,border-left-color .2s;line-height:1.55;}
+#FAQs h3:hover{background:var(--dsd-light-teal);}
+#FAQs h3:focus-visible{outline:2px solid var(--dsd-teal);outline-offset:2px;}
+#FAQs h3::after{content:'';position:absolute;right:18px;top:50%;width:9px;height:9px;border-right:2px solid var(--dsd-teal);border-bottom:2px solid var(--dsd-teal);transform:translateY(-70%) rotate(45deg);transition:transform .25s ease;}
+#FAQs h3.active{border-left-color:var(--dsd-orange);border-radius:0 var(--dsd-radius-sm) 0 0;margin-bottom:0;background:var(--dsd-light-teal);}
+#FAQs h3.active::after{transform:translateY(-20%) rotate(-135deg);border-color:var(--dsd-orange);}
+#FAQs h3 + p{display:none;background:var(--dsd-surface);border:1px solid var(--dsd-border);border-left:4px solid var(--dsd-orange);border-top:none;border-radius:0 0 var(--dsd-radius-sm) 0;padding:15px 18px;font-size:14.2px;color:var(--dsd-text);margin:0 0 10px;line-height:1.82;}
+@media(prefers-reduced-motion:reduce){#FAQs h3::after{transition:none;}.dsd-plot-card,.dsd-zone-card,.dsd-link-card,.dsd-map-btn{transition:none;}}
+
+/* responsive */
+@media(max-width:640px){
+  .dsd-stats-bar{grid-template-columns:repeat(2,1fr);}
+  .dsd-inv-grid{grid-template-columns:1fr;}
+  .dsd-plot-grid{grid-template-columns:repeat(2,1fr);}
+  .dsd-zone-grid{grid-template-columns:1fr 1fr;}
+  .dsd-related-inline{grid-template-columns:1fr;}
+  .dsd-toc ol{grid-template-columns:1fr;}
+  .dsd-ribbon-date{margin-left:0;width:100%;}
+  .dsd-map-btn{margin-left:0;width:100%;justify-content:center;}
+  .dsd-calc-out{grid-template-columns:1fr;}
+}
+</style>
+<p class="dsd-sourceline">Sources: Dainik Jagran (16 August 2026), UP Awas Vikas Parishad, UP RERA, Amar Ujala — compiled and cross-checked by DSD Properties. <strong>Last updated: 4 September 2026.</strong></p>
+<div class="dsd-ribbon"><span class="dsd-ribbon-pill"><span class="dsd-dot live"></span> Registration not open yet</span> <span class="dsd-ribbon-pill"><span class="dsd-dot wait"></span> RERA applied 11 Aug 2026</span> <span class="dsd-ribbon-pill"><span class="dsd-dot done"></span> Farmer land registry done</span> <span class="dsd-ribbon-date">Checked 4 Sep 2026</span></div>
+<div class="dsd-stats-bar">
+<div class="dsd-stat-item"><span class="dsd-stat-num">5,000+</span><span class="dsd-stat-label">Total Plots Planned</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">2,092</span><span class="dsd-stat-label">Plots in Phase 1</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">169</span><span class="dsd-stat-label">Commercial Plots</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">560 Acres</span><span class="dsd-stat-label">Township Area</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num sm">₹3,000–3,500</span><span class="dsd-stat-label">Per Sq Ft (expected)</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num sm">Land Pooling</span><span class="dsd-stat-label">First in UP</span></div>
+</div>
+<div class="dsd-alert info">
+<h4>Where things stand — 4 September 2026</h4>
+<ul>
+<li><strong>Registration has not opened.</strong> There is no application link, no brochure and no price list for Saumitra Vihar on upavp.in yet.</li>
+<li><strong>The RERA application was filed on 11 August 2026.</strong> UP RERA has confirmed it received it and that document checking has now begun. <strong>The scheme is not RERA-approved yet</strong> — it is under review.</li>
+<li><strong>Phase 1 will offer 2,092 residential plots</strong>, in six sizes from 40.74 sq m to 300 sq m, plus 169 commercial plots.</li>
+<li><strong>Expected land rate: ₹3,000–₹3,500 per square foot</strong> (roughly ₹32,300–₹37,700 per square metre). This is an estimate, not a published rate.</li>
+<li><strong>Land transfer from farmers is complete.</strong> The registry of pooled land into the Parishad’s name has been done, and 192 farmers have already received developed plots through a lottery.</li>
+<li><strong>Please do not pay anyone right now.</strong> There is no advance booking in this scheme. If someone offers you a plot today, it is not a real offer.</li>
+</ul>
+</div>
+<p>If you have been waiting for a plot in a planned Lucknow township, this is probably the scheme you have been hearing about. <strong>Saumitra Vihar Yojana</strong> is a new township coming up on <strong>New Jail Road in Gosainganj</strong>, being built by the <strong>Uttar Pradesh Awas Vikas Parishad</strong>. It covers around <strong>560 acres</strong>, and more than <strong>5,000 plots</strong> are planned across the full project.</p>
+<p>What makes it different is how the land was collected. Instead of acquiring land from farmers by force, the Parishad asked them to partner in it. Farmers gave their land willingly and got developed plots back in return. This is the <strong>first township in Uttar Pradesh built this way</strong> — and because nobody was forced, there are almost no land disputes hanging over it. For a buyer, that is a very big deal.</p>
+<p>The first phase will put <strong>2,092 plots</strong> on sale, starting from small 40.74 sq m plots and going up to 300 sq m. At the expected rate, the smallest ones work out to around <strong>₹13 lakh</strong>. That is still a low entry point for a planned government township inside Lucknow.</p>
+<p>But here is the honest part, and please read it before you get too excited: <strong>the scheme has not opened yet.</strong> The RERA application only went in on 11 August 2026 and is still being checked. Until that clears and UPAVP puts up the official brochure, nobody can sell you a plot here. This guide will tell you everything that is confirmed, everything that is still uncertain, and exactly what to check before you pay a single rupee.</p>
+<p>{{CONSULTATION_BUTTON:Get Saumitra Vihar Launch Alerts — Free}}</p>
+<nav class="dsd-toc" aria-label="Table of contents">
+<h2 id="toc_id">What’s in this guide</h2>
+<ol>
+<li><a href="#what-is">What is Saumitra Vihar Yojana?</a></li>
+<li><a href="#location">Where exactly is it? (with map)</a></li>
+<li><a href="#plot-sizes">Plot sizes and how many of each</a></li>
+<li><a href="#price">Price and cost estimator</a></li>
+<li><a href="#land-pooling">How land pooling works here</a></li>
+<li><a href="#facilities">What the township will have</a></li>
+<li><a href="#status">Full story so far — timeline</a></li>
+<li><a href="#how-to-apply">How to apply, step by step</a></li>
+<li><a href="#eligibility">Who can apply</a></li>
+<li><a href="#investment">Should you buy? Honest view</a></li>
+<li><a href="#fraud">Stay safe from fraud</a></li>
+<li><a href="#FAQs">Common questions</a></li>
+</ol>
+</nav>
+<h2 id="what-is">What is Saumitra Vihar Yojana?</h2>
+<p>Saumitra Vihar is a planned residential township on New Jail Road, in the Gosainganj–<a href="https://dsdproperties.in/blog/mohanlalganj-lucknow-real-estate-guide-2026" style="color:#008080;font-weight:600;">Mohanlalganj</a> area of Lucknow. It is being developed by the <strong>Uttar Pradesh Awas Vikas Parishad</strong>, also called the UP Housing and Development Board.</p>
+<p>The project got its name fairly recently. In <strong>December 2024</strong>, the Parishad announced a new residential scheme on Lucknow’s New Jail Road. Then in the <strong>270th board meeting in March 2025</strong>, the board formally approved the name — Saumitra Vihar Yojana.</p>
+<p>One thing people get confused about, so let us clear it up straight away:</p>
+<div class="dsd-alert good">
+<h4>This is UPAVP, not LDA</h4>
+<ul>
+<li>IT City, Wellness City, <a href="https://dsdproperties.in/blog/anant-nagar-yojana-lucknow-lda-2026" style="color:#008080;font-weight:600;">Anant Nagar</a> and Varun Vihar are <strong>LDA</strong> schemes (Lucknow Development Authority).</li>
+<li>Saumitra Vihar is <strong>UPAVP</strong> (<a href="https://dsdproperties.in/awas-vikas-schemes" style="color:#008080;font-weight:600;">Awas Vikas Parishad</a>). Different body, different website, different application process.</li>
+<li>You will apply on <strong>upavp.in</strong> for this one — not on the LDA portal.</li>
+<li>Both are government organisations, so the plots are equally genuine. Just do not mix up the two portals when registration opens.</li>
+</ul>
+</div>
+<a class="dsd-inline-link" href="https://dsdproperties.in/blog/it-city-lucknow-lda-plots-guide-2026" target="_blank" rel="noopener">
+<div>
+<div class="dsd-il-label">Compare with LDA</div>
+<div class="dsd-il-title">IT City Lucknow 2026 — LDA plots, price and lottery guide</div>
+</div>
+<span class="dsd-il-arrow">→</span></a>
+<h2>Where exactly is it?</h2>
+<p>The site sits on <strong>New Jail Road</strong>, in the Gosainganj area near Mohanlalganj, around <strong>Sithauli Khurd (PIN 226501)</strong>. Here is the exact spot on the map:</p>
+<div class="dsd-map">
+<div class="dsd-map-head"><span class="dsd-pin" aria-hidden="true">📍</span>
+<div>
+<p class="dsd-map-title">Saumitra Vihar, Awas Vikas — Sithauli Khurd</p>
+<p class="dsd-map-sub">New Jail Road, Gosainganj–Mohanlalganj, Lucknow, Uttar Pradesh 226501</p>
+</div>
+<a class="dsd-map-btn" href="https://maps.app.goo.gl/mjmS4gBcekogGiSn6" target="_blank" rel="noopener">Open in Google Maps ↗</a></div>
+<div class="dsd-map-frame" id="dsdMapFrame"><button type="button" class="dsd-map-placeholder" id="dsdMapLoad" aria-label="Load the interactive Google Map of Saumitra Vihar"> <span class="dsd-mp-icon" aria-hidden="true">🗺</span> <span class="dsd-mp-text">Tap to load the map</span> <span class="dsd-mp-hint">The map loads only when you tap it, so the page stays fast on mobile data.</span> </button></div>
+<div class="dsd-map-foot"><span class="dsd-coord">Lat 26.724394</span> <span class="dsd-coord">Lng 81.068965</span> <span class="dsd-coord">PIN 226501</span></div>
+</div>
+<p>The land for the township came from villages in this belt, including these:</p>
+<div class="dsd-village-grid"><span class="dsd-village-tag">Mohari Kala</span> <span class="dsd-village-tag">Sithauli Kala</span> <span class="dsd-village-tag">Sithauli Khurd</span></div>
+<p>Now let us talk about the location honestly, because this is where people usually get disappointed later.</p>
+<div class="dsd-alert info">
+<h4>An honest look at the area</h4>
+<ul>
+<li>This is <strong>open land on the edge of the city</strong>, not a ready colony. Right now most of it is farmland.</li>
+<li>Schools, hospitals and markets nearby are limited today. The township is meant to bring them, but that takes years.</li>
+<li>This side of Lucknow is less developed than <a href="https://dsdproperties.in/blog/plots-sultanpur-road-lucknow-2026" style="color:#008080;font-weight:600;">Sultanpur Road</a> or Gomti Nagar Extension.</li>
+<li><strong>Think of this as a 3 to 5 year plan</strong>, not a place you will shift into next year.</li>
+<li>If anyone shows you a specific plot here, always match the khasra number with the official layout before believing them.</li>
+</ul>
+</div>
+<a class="dsd-inline-link" href="https://dsdproperties.in/blog/transforming-agricultural-land-residential-property-lucknow" target="_blank" rel="noopener">
+<div>
+<div class="dsd-il-label">Legal guide</div>
+<div class="dsd-il-title">Agricultural to residential land conversion in Lucknow — step by step</div>
+</div>
+<span class="dsd-il-arrow">→</span></a>
+<h2 id="plot-sizes">Plot sizes and how many of each</h2>
+<p>Phase 1 has <strong>six residential plot sizes</strong>. What is really useful here is that we also know how many plots there are in each size — that tells you where the competition will be toughest.</p>
+<div class="dsd-plot-grid">
+<div class="dsd-plot-card"><span class="dsd-plot-size">40.74 m²</span><span class="dsd-plot-sqft">≈ 439 sq ft</span><span class="dsd-plot-count">80 plots</span></div>
+<div class="dsd-plot-card"><span class="dsd-plot-size">60.29 m²</span><span class="dsd-plot-sqft">≈ 649 sq ft</span><span class="dsd-plot-count">229 plots</span></div>
+<div class="dsd-plot-card"><span class="dsd-plot-size">75 m²</span><span class="dsd-plot-sqft">≈ 807 sq ft</span><span class="dsd-plot-count">598 plots</span></div>
+<div class="dsd-plot-card"><span class="dsd-plot-size">122.23 m²</span><span class="dsd-plot-sqft">≈ 1,316 sq ft</span><span class="dsd-plot-count">445 plots</span></div>
+<div class="dsd-plot-card"><span class="dsd-plot-size">200 m²</span><span class="dsd-plot-sqft">≈ 2,153 sq ft</span><span class="dsd-plot-count">579 plots</span></div>
+<div class="dsd-plot-card"><span class="dsd-plot-size">300 m²</span><span class="dsd-plot-sqft">≈ 3,229 sq ft</span><span class="dsd-plot-count">161 plots</span></div>
+</div>
+<p>Add all of those and you get exactly <strong>2,092 plots</strong>. Two things worth noticing before you pick a category:</p>
+<p>The <strong>75 sq m size has the most plots</strong> — 598 of them, almost 29% of the scheme. More plots means better odds in the lottery, but it is also the size most middle-class families will go for, so expect heavy demand. On the other side, <strong>300 sq m plots are rare</strong> — only 161 in the whole phase. If that is what you want, your chances are much slimmer.</p>
+<h3>Commercial plots</h3>
+<p>Along with homes, Phase 1 has <strong>169 commercial plots</strong> for shops and businesses:</p>
+<div class="dsd-table-wrap">
+<table>
+<thead>
+<tr>
+<th>Plot size</th>
+<th>Number of plots</th>
+<th>Suitable for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100 sq m (≈ 1,076 sq ft)</td>
+<td>107</td>
+<td>Shops and small retail</td>
+</tr>
+<tr>
+<td>200 sq m (≈ 2,153 sq ft)</td>
+<td>57</td>
+<td>Showrooms, clinics, offices</td>
+</tr>
+<tr>
+<td>1,375 sq m (≈ 14,800 sq ft)</td>
+<td>5</td>
+<td>Big commercial or mall format</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>169</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="price">Price and cost estimator</h2>
+<p>The expected land rate is <strong>₹3,000 to ₹3,500 per square foot</strong>. In square metre terms that is roughly <strong>₹32,300 to ₹37,700 per sq m</strong>.</p>
+<div class="dsd-alert info">
+<h4>Please treat these as estimates</h4>
+<ul>
+<li>UPAVP has <strong>not released an official price list</strong> yet. The rate above is an estimate reported in the news.</li>
+<li>Older reports (and earlier versions of this guide) put the rate at around <strong>₹25,000–₹26,000 per sq m, about ₹2,300–₹2,400 per sq ft</strong>. That was the earlier working estimate; the figure has since been revised upward. Please go by the newer range.</li>
+<li>Your final cost will be higher than the base rate. Corner plots, park-facing plots and wider-road plots usually cost extra.</li>
+<li>Registry and <a href="https://dsdproperties.in/blog/stamp-duty-registration-charges-lucknow-2026" style="color:#008080;font-weight:600;">stamp duty</a> come on top of all of this.</li>
+<li><strong>The official brochure is the only number that counts.</strong> Everything here is to help you plan, not to quote.</li>
+</ul>
+</div>
+<div class="dsd-calc">
+<h4>Estimate your plot cost</h4>
+<p class="dsd-calc-note">Pick a size to see the expected land cost, plus a rough all-in figure that adds about 7% for stamp duty and registration in Uttar Pradesh. Worked out at ₹3,000–₹3,500 per sq ft. These are estimates only, not a quotation.</p>
+<div class="dsd-calc-row" role="group" aria-label="Choose a plot size"><button type="button" class="dsd-calc-opt" data-sqm="40.74" aria-pressed="false">40.74 m²</button> <button type="button" class="dsd-calc-opt" data-sqm="60.29" aria-pressed="false">60.29 m²</button> <button type="button" class="dsd-calc-opt" data-sqm="75" aria-pressed="true">75 m²</button> <button type="button" class="dsd-calc-opt" data-sqm="122.23" aria-pressed="false">122.23 m²</button> <button type="button" class="dsd-calc-opt" data-sqm="200" aria-pressed="false">200 m²</button> <button type="button" class="dsd-calc-opt" data-sqm="300" aria-pressed="false">300 m²</button></div>
+<div class="dsd-calc-out">
+<div class="dsd-calc-cell"><span class="dsd-cc-label">Plot area</span><span class="dsd-cc-val" id="dsdCalcArea">75 m² · 807 sq ft</span></div>
+<div class="dsd-calc-cell"><span class="dsd-cc-label">Land cost</span><span class="dsd-cc-val" id="dsdCalcLand">₹24.22–28.26 L</span></div>
+<div class="dsd-calc-cell"><span class="dsd-cc-label">Approx all-in (+7%)</span><span class="dsd-cc-val" id="dsdCalcAll">₹25.91–30.23 L</span></div>
+<div class="dsd-calc-cell"><span class="dsd-cc-label">Plots in this size</span><span class="dsd-cc-val" id="dsdCalcCount">598</span></div>
+</div>
+</div>
+<div class="dsd-table-wrap">
+<table>
+<thead>
+<tr>
+<th>Plot size</th>
+<th>Sq ft</th>
+<th>Plots</th>
+<th>At ₹3,000/sq ft</th>
+<th>At ₹3,500/sq ft</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>40.74 sq m</td>
+<td>439</td>
+<td>80</td>
+<td>₹13.16 lakh</td>
+<td>₹15.35 lakh</td>
+</tr>
+<tr>
+<td>60.29 sq m</td>
+<td>649</td>
+<td>229</td>
+<td>₹19.47 lakh</td>
+<td>₹22.71 lakh</td>
+</tr>
+<tr>
+<td>75 sq m</td>
+<td>807</td>
+<td>598</td>
+<td>₹24.22 lakh</td>
+<td>₹28.26 lakh</td>
+</tr>
+<tr>
+<td>122.23 sq m</td>
+<td>1,316</td>
+<td>445</td>
+<td>₹39.47 lakh</td>
+<td>₹46.05 lakh</td>
+</tr>
+<tr>
+<td>200 sq m</td>
+<td>2,153</td>
+<td>579</td>
+<td>₹64.58 lakh</td>
+<td>₹75.35 lakh</td>
+</tr>
+<tr>
+<td>300 sq m</td>
+<td>3,229</td>
+<td>161</td>
+<td>₹96.88 lakh</td>
+<td>₹1.13 crore</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p style="font-size: 13px; color: #64748b; margin-top: -8px;">These are land cost only, worked out from the expected rate. Registry, stamp duty and any location charges will be extra.</p>
+<p>{{CONSULTATION_BUTTON:Confused About Plot Size? Talk to Us Free}}</p>
+<h2 id="land-pooling">How land pooling works here</h2>
+<p>This is the part that makes Saumitra Vihar special, and it is worth understanding properly — especially if you own land anywhere on the outskirts of Lucknow, because this model is likely to be repeated.</p>
+<p>Normally, when the government needs land for a township, it acquires it. A notice is issued, a compensation amount is fixed, and the farmer gets money whether he agrees with the price or not. You know what usually happens next — court cases, <a href="https://dsdproperties.in/blog/property-stay-order-injunction-lucknow-2026" style="color:#008080;font-weight:600;">stay orders</a>, and projects stuck for ten years.</p>
+<p><strong>Land pooling works differently.</strong> The farmer is not forced. He gives his land willingly, and instead of only cash, he gets a share of the same land back — but now developed, with roads, drainage and electricity, and with clean papers. Agricultural land that was worth very little suddenly becomes a proper residential plot he can sell or build on.</p>
+<div class="dsd-alert good">
+<h4>What has already happened with the farmers</h4>
+<ul>
+<li>Farmers gave land <strong>willingly</strong>. There was no forced acquisition notice in this scheme.</li>
+<li><strong>The registry is complete.</strong> The land has been formally transferred into the Parishad’s name.</li>
+<li><strong>192 farmers have already received developed plots</strong> through a lottery draw.</li>
+<li>Because everyone agreed, there is very little chance of a land dispute surfacing later.</li>
+<li>This is the <strong>first township in Uttar Pradesh</strong> to be built this way.</li>
+</ul>
+</div>
+<p>Why should you care as a buyer? Simple. <strong>Most plot frauds and most stuck projects in UP come from land disputes.</strong> Someone challenges the acquisition, a court puts a stay, and your money sits blocked for years. When land comes through pooling with everyone’s consent and the registry already done, that whole category of risk mostly goes away.</p>
+<p>It does not mean you skip verification. It just means the most common problem is much less likely here.</p>
+<a class="dsd-inline-link" href="https://dsdproperties.in/blog/wellness-city-lucknow-lda-plots-guide-2026" target="_blank" rel="noopener">
+<div>
+<div class="dsd-il-label">Compare</div>
+<div class="dsd-il-title">Wellness City Lucknow 2026 — how land pooling works in LDA projects</div>
+</div>
+<span class="dsd-il-arrow">→</span></a>
+<h2 id="facilities">What the township will have</h2>
+<p>Here is what has been confirmed as part of the township plan:</p>
+<div class="dsd-zone-grid">
+<div class="dsd-zone-card">
+<h5>Internal roads</h5>
+<p>Planned road network connecting all parts of the township.</p>
+</div>
+<div class="dsd-zone-card">
+<h5>Green belts</h5>
+<p>Green strips and open spaces built into the layout.</p>
+</div>
+<div class="dsd-zone-card">
+<h5>Artificial lakes</h5>
+<p>Man-made water bodies, useful for groundwater and for the look of the area.</p>
+</div>
+<div class="dsd-zone-card orange">
+<h5>Commercial centres</h5>
+<p>169 commercial plots for shops, markets and daily needs.</p>
+</div>
+<div class="dsd-zone-card orange">
+<h5>EWS and LIG areas</h5>
+<p>Special residential zones set aside for lower income categories.</p>
+</div>
+<div class="dsd-zone-card">
+<h5>Smart township plan</h5>
+<p>Planned as an integrated township rather than a plain plot colony.</p>
+</div>
+</div>
+<div class="dsd-alert info">
+<h4>One caution about the layout</h4>
+<p>You may come across articles listing specific sector names or sector numbers for Saumitra Vihar. <strong>The official layout plan has not been published yet.</strong> Until UPAVP releases it along with the brochure, please do not choose or pay for a particular sector based on what you read anywhere — including here. Wait for the official map.</p>
+</div>
+<h2 id="status">The full story so far</h2>
+<p>Saumitra Vihar has taken a long time to reach this point. Knowing that history helps you set realistic expectations:</p>
+<div class="dsd-timeline">
+<div class="dsd-tl-item done"><span class="dsd-tl-date">26 December 2024</span>
+<p class="dsd-tl-title">Scheme announced</p>
+<p class="dsd-tl-desc">UPAVP announced a new residential scheme on Lucknow’s New Jail Road, along with schemes in Meerut, Ayodhya and other cities.</p>
+</div>
+<div class="dsd-tl-item done"><span class="dsd-tl-date">13 January 2025</span>
+<p class="dsd-tl-title">First launch date — did not happen</p>
+<p class="dsd-tl-desc">The scheme was to be launched at the Prayagraj Mahakumbh. It got delayed.</p>
+</div>
+<div class="dsd-tl-item done"><span class="dsd-tl-date">March 2025</span>
+<p class="dsd-tl-title">Name approved by the board</p>
+<p class="dsd-tl-desc">In the 270th board meeting, the Mohanlalganj New Jail Road township was officially named Saumitra Vihar Yojana.</p>
+</div>
+<div class="dsd-tl-item done"><span class="dsd-tl-date">2025 to 2026</span>
+<p class="dsd-tl-title">Two years of board meetings</p>
+<p class="dsd-tl-desc">Board meetings kept reporting that <a href="https://dsdproperties.in/blog/understanding-rera-guide-lucknow-property-buyers-C7ECl" style="color:#008080;font-weight:600;">RERA registration</a> was in process. Meanwhile the land paperwork was being completed.</p>
+</div>
+<div class="dsd-tl-item done"><span class="dsd-tl-date">Completed</span>
+<p class="dsd-tl-title">Farmer land registry done, 192 farmers allotted plots</p>
+<p class="dsd-tl-desc">Land was formally registered in the Parishad’s name, and 192 farmers who gave their land received developed plots through a lottery.</p>
+</div>
+<div class="dsd-tl-item active"><span class="dsd-tl-date">11 August 2026</span>
+<p class="dsd-tl-title">RERA application filed</p>
+<p class="dsd-tl-desc">UPAVP submitted the registration application on the UP RERA portal. Document verification has now started. This is where the scheme stands today.</p>
+</div>
+<div class="dsd-tl-item"><span class="dsd-tl-date">Coming next</span>
+<p class="dsd-tl-title">RERA clearance, then public registration</p>
+<p class="dsd-tl-desc">Once RERA registration comes through, UPAVP will open registration for the public, release the brochure and price list, and then hold a computerised lottery.</p>
+</div>
+</div>
+<div class="dsd-pullquote">
+<p>“Awas Vikas Parishad applied on the UP RERA portal on 11 August to register the Saumitra Vihar scheme. The process of checking documents will now begin.”</p>
+<cite>— Sanjay Bhoosreddy, Chairman, UP RERA (as reported by Dainik Jagran, 16 August 2026)</cite></div>
+<div class="dsd-pullquote">
+<p>“An application has been made to UP RERA to register the Saumitra Vihar scheme. As soon as it is complete, registration will be opened for the general public. The Parishad is making preparations for it.”</p>
+<cite>— Chandan Patel, Deputy Housing Commissioner and Lucknow Zone in-charge (as reported by Dainik Jagran, 16 August 2026)</cite></div>
+<div class="dsd-table-wrap">
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Status</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Board approval and naming</td>
+<td><span class="dsd-badge ok">Done</span></td>
+<td>Named in the 270th board meeting, March 2025</td>
+</tr>
+<tr>
+<td>Land pooling from farmers</td>
+<td><span class="dsd-badge ok">Done</span></td>
+<td>Around 560 acres collected with consent</td>
+</tr>
+<tr>
+<td>Land registry to Parishad</td>
+<td><span class="dsd-badge ok">Done</span></td>
+<td>Formally transferred into UPAVP’s name</td>
+</tr>
+<tr>
+<td>Farmer plot allotment</td>
+<td><span class="dsd-badge ok">Done</span></td>
+<td>192 farmers allotted developed plots by lottery</td>
+</tr>
+<tr>
+<td>Phase 1 plot plan</td>
+<td><span class="dsd-badge ok">Done</span></td>
+<td>2,092 residential + 169 commercial plots</td>
+</tr>
+<tr>
+<td>UP RERA registration</td>
+<td><span class="dsd-badge wait">Applied — under review</span></td>
+<td>Filed 11 August 2026, documents being checked</td>
+</tr>
+<tr>
+<td>Official brochure and price list</td>
+<td><span class="dsd-badge no">Not released</span></td>
+<td>Rate of ₹3,000–3,500 per sq ft is an estimate</td>
+</tr>
+<tr>
+<td>Public registration</td>
+<td><span class="dsd-badge no">Not open</span></td>
+<td>Will open after RERA clearance</td>
+</tr>
+<tr>
+<td>Site development</td>
+<td><span class="dsd-badge no">Not started</span></td>
+<td>Begins after launch</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="how-to-apply">How to apply, step by step</h2>
+<p>When registration opens, this is how it will work. Everything happens online on the official portal — there is no counter booking and no agent channel.</p>
+<div class="dsd-steps">
+<div class="dsd-step-row">
+<div class="dsd-step-num">1</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">Keep checking upavp.in</p>
+<p class="dsd-step-desc">The announcement will appear in the schemes section of the official UPAVP website. The brochure and price list will come out at the same time. Read both properly before deciding anything.</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num">2</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">Check the RERA number first</p>
+<p class="dsd-step-desc">Once the brochure is out, take the RERA number from it and check it yourself on up-rera.in. If the brochure has no RERA number, stop and wait.</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num">3</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">Create your account</p>
+<p class="dsd-step-desc">Register as a new user with your own mobile number and verify with OTP. Please use your own number and email, never an agent’s.</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num">4</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">Choose your plot size carefully</p>
+<p class="dsd-step-desc">Look at the plot count table above. 75 sq m has the most plots but the most applicants. 300 sq m has only 161 plots. Balance what you can afford against your chances.</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num">5</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">Fill the form and upload documents</p>
+<p class="dsd-step-desc">Aadhaar, PAN, photograph and address proof. Add an income certificate if you are applying under a reserved income category. Make sure your name is spelled the same everywhere.</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num">6</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">Pay the registration amount online</p>
+<p class="dsd-step-desc">Only through the UPAVP portal. Save the receipt and transaction number. Never pay cash to anyone for this.</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num orange">7</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">Wait for the lottery</p>
+<p class="dsd-step-desc">Allotment happens through a computerised draw and results go up on the portal. Nobody can influence it, and nobody can promise you a plot beforehand.</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num orange">8</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">Download your allotment letter</p>
+<p class="dsd-step-desc">If your name comes up, download the letter from your own UPAVP dashboard. That document is what makes every future payment valid.</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num orange">9</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">Pay instalments on time</p>
+<p class="dsd-step-desc">Follow the schedule in your allotment letter. Late payments attract interest, and repeated delays can lead to cancellation.</p>
+</div>
+</div>
+<div class="dsd-step-row">
+<div class="dsd-step-num orange">10</div>
+<div class="dsd-step-body">
+<p class="dsd-step-title">Possession and registry</p>
+<p class="dsd-step-desc">After full payment and development, UPAVP hands over possession. Get the sale deed done at the Sub-Registrar office and then complete mutation in your name.</p>
+</div>
+</div>
+</div>
+<a class="dsd-inline-link" href="https://dsdproperties.in/blog/lda-plot-lottery-winner-guide-lucknow" target="_blank" rel="noopener">
+<div>
+<div class="dsd-il-label">After allotment</div>
+<div class="dsd-il-title">Got a government plot? Your essential next steps guide</div>
+</div>
+<span class="dsd-il-arrow">→</span></a>
+<h2 id="eligibility">Who can apply</h2>
+<p>Two conditions have been reported for this scheme:</p>
+<div class="dsd-alert good">
+<h4>Basic eligibility</h4>
+<ul>
+<li>You must be a <strong>resident of Uttar Pradesh</strong>.</li>
+<li>Your age should be <strong>between 18 and 55 years</strong>.</li>
+</ul>
+</div>
+<div class="dsd-alert info">
+<h4>Please wait for the brochure before assuming anything</h4>
+<p>UPAVP has not released the full eligibility rules for Saumitra Vihar yet. Along with the two conditions above, the brochure may also add income limits, rules about whether you already own a house, reservation categories and the application fee. These things change from scheme to scheme. So please do not rule yourself in or out until the official brochure is out.</p>
+</div>
+<p><strong>Documents to keep ready:</strong> Aadhaar card, PAN card, a recent passport size photo, address proof, and your bank account details for refund if you are not selected. Keep an income certificate ready too if you plan to apply under EWS or LIG.</p>
+<h2 id="investment">Should you buy? An honest view</h2>
+<div class="dsd-inv-grid">
+<div class="dsd-inv-card pro">
+<h4>What is good about it</h4>
+<ul>
+<li>Government scheme — UPAVP is the seller, so no builder running away</li>
+<li>Expected rate is reasonable for a planned township inside Lucknow district</li>
+<li>Smallest plots work out to around ₹13–15 lakh — a low entry point</li>
+<li>Land came through pooling with consent, so dispute risk is low</li>
+<li>Land registry into the Parishad’s name is already complete</li>
+<li>192 farmers have already got their plots, so the model has worked in practice</li>
+<li>Big project at 560 acres with 5,000+ plots — enough size to develop properly</li>
+<li>Roads, green belts, lakes and 169 commercial plots are part of the plan</li>
+</ul>
+</div>
+<div class="dsd-inv-card con">
+<h4>What you should think about</h4>
+<ul>
+<li>RERA is only applied for, not approved — filed 11 August 2026</li>
+<li>Registration has not opened, and the January 2025 date already passed</li>
+<li>No official price list yet — every rate you see is an estimate, and the estimate has already moved up once</li>
+<li>Open land with almost no facilities nearby right now</li>
+<li>Possession will realistically take 3 to 5 years</li>
+<li>Development work has not started on site</li>
+<li>This side of Lucknow is less developed than Sultanpur Road</li>
+<li>It is a lottery — you may apply, block your money and still not get a plot</li>
+<li>Fraud risk is highest right now, before the official launch</li>
+</ul>
+</div>
+</div>
+<p><strong>Our honest take:</strong> the foundation of this scheme is genuinely good. Clean land with consent, registry done, government seller, big project. Those are not small things — a lot of Lucknow projects fail exactly on the points where this one is strong.</p>
+<p>But the timeline has been slow, RERA approval is still pending, and the expected rate has already been revised upward once. So do not plan around it in a hurry. If you can wait comfortably for 3 to 5 years, apply through the official lottery when it opens and pay only the official rate, this is a reasonable bet. If you need a plot to build on soon, or if someone is pushing you to pay before the brochure is even out, please step back.</p>
+<a class="dsd-inline-link" href="https://dsdproperties.in/blog/lda-plot-vs-builder-flat-lucknow-2026" target="_blank" rel="noopener">
+<div>
+<div class="dsd-il-label">Buying guide</div>
+<div class="dsd-il-title">LDA plot vs builder flat in Lucknow 2026 — which is better for you?</div>
+</div>
+<span class="dsd-il-arrow">→</span></a>
+<p>{{CONSULTATION_BUTTON:Verify Any Lucknow Plot Before You Pay}}</p>
+<h2 id="fraud">Stay safe from fraud</h2>
+<p>This is the most important section of this article, so please read it carefully. The period before a government scheme opens is exactly when fraud happens, because people are excited and there is no official information to check against.</p>
+<div class="dsd-alert danger">
+<h4>Nobody can book a Saumitra Vihar plot for you right now</h4>
+<ul>
+<li>Registration <strong>has not opened</strong>. There is no form to fill.</li>
+<li><strong>There is no advance booking system in this scheme.</strong> None. It does not exist.</li>
+<li>There is <strong>no special quota, VIP quota or priority booking</strong> anyone can arrange.</li>
+<li><strong>Nobody can guarantee you a plot.</strong> It is a computer lottery — it cannot be fixed.</li>
+<li>UPAVP takes money <strong>only through its own website</strong>. Cash, UPI to a personal number, or a cheque to an individual means fraud.</li>
+<li>The only official website is <strong>upavp.in</strong>. A website with the scheme name in its address is not an official website.</li>
+</ul>
+</div>
+<h3>Seven checks before you pay anything</h3>
+<div class="dsd-alert info">
+<ol class="dsd-checklist">
+<li><strong>Is the registration notice actually on upavp.in?</strong> Type the address yourself. Do not open links forwarded on WhatsApp.</li>
+<li><strong>Does the brochure have a RERA number, and does it match on up-rera.in?</strong> Check it on the RERA site yourself. A number printed on paper proves nothing.</li>
+<li><strong>Is the rate you are quoted the official brochure rate?</strong> Anything noticeably higher means someone has added their own margin.</li>
+<li><strong>Are you paying only through the UPAVP website?</strong> No cash, no personal UPI, no agent’s account, ever.</li>
+<li><strong>Is someone promising guaranteed allotment?</strong> That one sentence is proof of fraud. End the conversation there.</li>
+<li><strong>Do your documents match each other?</strong> Name spelling on Aadhaar, PAN and address proof must be the same, or your form can be rejected after the draw.</li>
+<li><strong>Did your allotment letter come from your own UPAVP dashboard?</strong> Check it before paying any instalment. Fake allotment letters are the most common plot fraud in Lucknow.</li>
+</ol>
+</div>
+<p>If a deal cannot survive these seven questions, the problem is the deal, not the questions. We do exactly this verification for buyers across Lucknow at a fixed fee, with a written report, and we take no commission from either side.</p>
+<a class="dsd-inline-link" href="https://dsdproperties.in/blog/check-property-ownership-records-lucknow" target="_blank" rel="noopener">
+<div>
+<div class="dsd-il-label">Verification guide</div>
+<div class="dsd-il-title">How to check property ownership records in Lucknow online</div>
+</div>
+<span class="dsd-il-arrow">→</span></a>
+<h2>More guides from DSD Properties</h2>
+<div class="dsd-related-inline"><a class="dsd-link-card" href="https://dsdproperties.in/blog/it-city-lucknow-lda-plots-guide-2026" target="_blank" rel="noopener">
+<div class="dsd-link-label">LDA Guide</div>
+<div class="dsd-link-title">IT City Lucknow 2026: LDA plots, price and lottery guide</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/wellness-city-lucknow-lda-plots-guide-2026" target="_blank" rel="noopener">
+<div class="dsd-link-label">LDA Guide</div>
+<div class="dsd-link-title">Wellness City Lucknow 2026: LDA plots, price and buyer’s guide</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/varun-vihar-yojana-lucknow-lda-plots-guide-2026" target="_blank" rel="noopener">
+<div class="dsd-link-label">LDA Guide</div>
+<div class="dsd-link-title">Varun Vihar Yojana Lucknow 2026 — LDA’s largest scheme</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/lda-plot-vs-builder-flat-lucknow-2026" target="_blank" rel="noopener">
+<div class="dsd-link-label">Buying Guide</div>
+<div class="dsd-link-title">LDA plot vs builder flat in Lucknow 2026 — which is better?</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/check-property-ownership-records-lucknow" target="_blank" rel="noopener">
+<div class="dsd-link-label">Verification</div>
+<div class="dsd-link-title">How to check property ownership records in Lucknow online</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/lda-plot-lottery-winner-guide-lucknow" target="_blank" rel="noopener">
+<div class="dsd-link-label">After Allotment</div>
+<div class="dsd-link-title">Won an LDA plot? Your essential 2026 next steps guide</div>
+</a></div>
+<!-- IMPORTANT: keep the questions INSIDE this wrapper div. If id="FAQs" is placed on the
+     heading itself, the questions become siblings instead of children, the selector
+     "#FAQs h3" matches nothing, and the accordion silently stops working. -->
+<div id="FAQs">
+<h2>Common questions about Saumitra Vihar Yojana</h2>
+<h3>What is Saumitra Vihar Yojana Lucknow?</h3>
+<p>Saumitra Vihar Yojana is a new residential township being developed by the Uttar Pradesh Awas Vikas Parishad on New Jail Road in the Gosainganj area of Lucknow, near Sithauli Khurd, PIN 226501. It covers around 560 acres and more than 5,000 plots are planned in total. The first phase will offer 2,092 residential plots and 169 commercial plots. It is the first township in Uttar Pradesh where land was taken from farmers through land pooling with their consent, instead of forced acquisition.</p>
+<h3>Has Saumitra Vihar registration opened?</h3>
+<p>No, not yet. As of 4 September 2026 there is no registration link, brochure or price list on upavp.in. The scheme was first meant to launch on 13 January 2025 at the Prayagraj Mahakumbh but got delayed. UPAVP filed its RERA registration application on 11 August 2026, and once that clears, public registration will be opened. Keep checking upavp.in, and please do not pay anyone claiming to book a plot before the official window opens.</p>
+<h3>Is Saumitra Vihar RERA approved?</h3>
+<p>No. The scheme is not RERA approved at the moment. UPAVP submitted its registration application on the UP RERA portal on 11 August 2026, and UP RERA has confirmed that document verification has begun. That means the application is under review, not cleared. When the brochure is finally released, take the RERA number from it and check it yourself on up-rera.in before applying. Anyone telling you today that this scheme is already RERA registered is giving you wrong information.</p>
+<h3>What are the plot sizes in Saumitra Vihar?</h3>
+<p>Phase 1 has six residential sizes: 40.74 sq m (80 plots), 60.29 sq m (229 plots), 75 sq m (598 plots), 122.23 sq m (445 plots), 200 sq m (579 plots) and 300 sq m (161 plots). That adds up to 2,092 plots. Commercial plots come in three sizes: 100 sq m (107 plots), 200 sq m (57 plots) and 1,375 sq m (5 plots), totalling 169.</p>
+<h3>What will a plot in Saumitra Vihar cost?</h3>
+<p>The expected land rate is around ₹3,000 to ₹3,500 per square foot, which works out to roughly ₹32,300 to ₹37,700 per square metre. On that basis a 75 sq m plot would cost about ₹24.22 to ₹28.26 lakh, and a 300 sq m plot about ₹96.88 lakh to ₹1.13 crore, before registry and stamp duty. Please remember UPAVP has not released an official price list yet, so treat these as estimates only. Earlier reports had put the rate near ₹25,000–₹26,000 per sq m, about ₹2,300–₹2,400 per sq ft — that was the older estimate and it has since been revised upward.</p>
+<h3>Who is developing Saumitra Vihar — UPAVP or LDA?</h3>
+<p>UPAVP, the Uttar Pradesh Awas Vikas Parishad, also known as the UP Housing and Development Board. This is a different body from the Lucknow Development Authority, which develops IT City, Wellness City, Anant Nagar and Varun Vihar. Both are government organisations but they have separate websites and separate application processes. For Saumitra Vihar you will apply on upavp.in, not on the LDA portal.</p>
+<h3>Who can apply for a Saumitra Vihar plot?</h3>
+<p>Two conditions have been reported so far: you must be a resident of Uttar Pradesh, and your age should be between 18 and 55 years. UPAVP has not published the complete eligibility rules yet, and the brochure may add more conditions such as income limits, rules about existing property, and reservation categories. So please wait for the official brochure before assuming whether you qualify.</p>
+<h3>What makes the land pooling model here different?</h3>
+<p>In normal land acquisition, the government issues a notice and fixes compensation whether the farmer agrees or not, which often leads to court cases and stalled projects. In land pooling, farmers give their land willingly and get developed plots back in return. Saumitra Vihar is the first township in Uttar Pradesh built this way. The land has already been registered in the Parishad’s name and 192 farmers have received their developed plots through a lottery. For buyers, this means much lower risk of a land dispute surfacing later.</p>
+<h3>Can I book a plot in advance through an agent or broker?</h3>
+<p>No, and anyone offering this is trying to cheat you. There is no advance booking system in this scheme at all. UPAVP allots plots only through a computerised lottery after an official online registration window opens. There is no priority quota, no special booking and no way for anyone to guarantee you a plot. All payments go through the UPAVP website only — never cash, never UPI to a personal number, never a cheque to an individual. The only official website is upavp.in.</p>
+<h3>How many sectors does Saumitra Vihar have?</h3>
+<p>The official layout plan has not been published yet, so the sector details are not confirmed. You may find articles online listing specific sector names or numbers, but these cannot be verified until UPAVP releases the official layout along with the brochure. Please do not choose or pay for a plot in a particular sector based on unofficial information.</p>
+<h3>Is Saumitra Vihar a good investment in 2026?</h3>
+<p>The basics are strong. It is a government scheme, the land came through consent-based pooling so dispute risk is low, the registry is already done, and the project is large at 560 acres. On the other side, RERA approval is still pending, registration has not opened, there is no official price list, the expected rate has already been revised upward once to ₹3,000–₹3,500 per sq ft, and site development has not started. Treat this as a 3 to 5 year investment. Apply through the official lottery when it opens, pay only the official rate, and do not give money to anyone before the brochure exists.</p>
+<h3>Where exactly is Saumitra Vihar located?</h3>
+<p>The site is on New Jail Road in the Gosainganj area near Mohanlalganj, Lucknow, around Sithauli Khurd at PIN 226501. The coordinates are approximately 26.7244 degrees North and 81.0690 degrees East. Land for the township came from villages in this belt including Mohari Kala, Sithauli Kala and Sithauli Khurd. Please keep in mind it is open land at the moment, mostly farmland, with limited facilities nearby.</p>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  function initFaq() {
+    var heads = document.querySelectorAll('#FAQs h3');
+    Array.prototype.forEach.call(heads, function (h, i) {
+      var panel = h.nextElementSibling;
+      if (!panel || panel.tagName !== 'P') return;
+      var pid = 'dsd-faq-panel-' + i;
+      panel.id = pid;
+      panel.setAttribute('role', 'region');
+      h.setAttribute('role', 'button');
+      h.setAttribute('tabindex', '0');
+      h.setAttribute('aria-expanded', 'false');
+      h.setAttribute('aria-controls', pid);
+      function toggle() {
+        var open = h.classList.toggle('active');
+        h.setAttribute('aria-expanded', open ? 'true' : 'false');
+        panel.style.display = open ? 'block' : 'none';
+      }
+      h.addEventListener('click', toggle);
+      h.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    });
+  }
+
+  function initMap() {
+    var btn = document.getElementById('dsdMapLoad');
+    var frame = document.getElementById('dsdMapFrame');
+    if (!btn || !frame) return;
+    btn.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = 'https://www.google.com/maps?q=26.7243945,81.0689648&hl=en&z=14&output=embed';
+      f.loading = 'lazy';
+      f.referrerPolicy = 'no-referrer-when-downgrade';
+      f.title = 'Google Map showing Saumitra Vihar Yojana, Sithauli Khurd, Lucknow';
+      f.setAttribute('allowfullscreen', '');
+      frame.innerHTML = '';
+      frame.appendChild(f);
+    });
+  }
+
+  function initCalc() {
+    var opts = document.querySelectorAll('.dsd-calc-opt');
+    if (!opts.length) return;
+    /* Rates are PER SQUARE FOOT. Area is converted from sq m before applying them. */
+    var LOW = 3000, HIGH = 3500, SQFT = 10.7639, EXTRA = 1.07;
+    var COUNTS = { '40.74': 80, '60.29': 229, '75': 598, '122.23': 445, '200': 579, '300': 161 };
+    var elArea = document.getElementById('dsdCalcArea');
+    var elLand = document.getElementById('dsdCalcLand');
+    var elAll = document.getElementById('dsdCalcAll');
+    var elCount = document.getElementById('dsdCalcCount');
+
+    function range(lo, hi) {
+      if (hi >= 10000000) {
+        return '₹' + (lo / 10000000).toFixed(2) + '–' + (hi / 10000000).toFixed(2) + ' Cr';
+      }
+      return '₹' + (lo / 100000).toFixed(2) + '–' + (hi / 100000).toFixed(2) + ' L';
+    }
+    function render(sqmStr) {
+      var sqm = parseFloat(sqmStr);
+      var sqft = sqm * SQFT;
+      var lo = sqft * LOW, hi = sqft * HIGH;
+      elArea.textContent = sqm + ' m² · ' + Math.round(sqft).toLocaleString('en-IN') + ' sq ft';
+      elLand.textContent = range(lo, hi);
+      elAll.textContent = range(lo * EXTRA, hi * EXTRA);
+      elCount.textContent = COUNTS[sqmStr] != null ? COUNTS[sqmStr] : '—';
+    }
+    Array.prototype.forEach.call(opts, function (b) {
+      b.addEventListener('click', function () {
+        Array.prototype.forEach.call(opts, function (o) { o.setAttribute('aria-pressed', 'false'); });
+        b.setAttribute('aria-pressed', 'true');
+        render(b.getAttribute('data-sqm'));
+      });
+    });
+    render('75');
+  }
+
+  function boot() { initFaq(); initMap(); initCalc(); }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>

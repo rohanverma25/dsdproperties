@@ -1,0 +1,61 @@
+# ── Seller web app (PWA) ────────────────────────────────────────────────────
+<IfModule mod_mime.c>
+    AddType application/manifest+json .webmanifest
+</IfModule>
+
+# The service worker must not be served from a stale cache, or sellers stay on an old
+# version after a deploy. Its own scope is set at registration time.
+<Files "sw-seller.js">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Service-Worker-Allowed "/seller/"
+    </IfModule>
+</Files>
+
+<IfModule mod_rewrite.c>
+
+    # Disable ModSecurity for blog editor AJAX save endpoints
+    <IfModule mod_security2.c>
+        SecRuleEngine Off
+    </IfModule>
+    <IfModule mod_security.c>
+        SecFilterEngine Off
+        SecFilterScanPOST Off
+    </IfModule>
+
+    # Increase request timeout (if server supports mod_reqtimeout)
+    <IfModule mod_reqtimeout.c>
+        RequestReadTimeout header=60-120,MinRate=500
+        RequestReadTimeout body=60-120,MinRate=500
+    </IfModule>
+
+    # Prevent directory listing
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Handle Authorization Header (for APIs, Sanctum, Passport, etc.)
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Redirect Trailing Slashes If Not A Folder
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller (index.php)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+</IfModule>
+
+# PHP settings (works if PHP is loaded via mod_php)
+<IfModule mod_php7.c>
+    php_value max_execution_time 300
+    php_value memory_limit 512M
+    php_value post_max_size 64M
+    php_value upload_max_filesize 64M
+</IfModule>

@@ -1,0 +1,328 @@
+<style>
+:root{--dsd-navy:#011f4b;--dsd-teal:#008080;--dsd-orange:#FF5C00;--dsd-light-teal:#e0f7f7;--dsd-bg:#f9fafb;--dsd-border:#e2e8f0;--dsd-text:#374151;--dsd-muted:#6b7280;}
+.dsd-article{font-family:'Poppins','Noto Sans Devanagari',sans-serif;color:var(--dsd-text);}
+.dsd-statusbox{background:#fffbeb;border:1px solid #fcd34d;border-left:5px solid #f59e0b;border-radius:0 12px 12px 0;padding:16px 20px;margin:0 0 26px;}
+.dsd-statusbox h4{color:#92400e;font-size:15px;font-weight:700;margin:0 0 8px;}
+.dsd-statusbox p{font-size:14px;color:#78350f;margin:0;line-height:1.85;}
+.dsd-stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;background:var(--dsd-navy);border-radius:12px;overflow:hidden;margin:28px 0;box-shadow:0 4px 20px rgba(1,31,75,0.18);}
+.dsd-stat-item{padding:18px 14px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
+.dsd-stat-item:last-child{border-right:none;}
+.dsd-stat-num{font-size:19px;font-weight:700;color:#20B2AA;display:block;line-height:1.18;font-family:'Poppins','Noto Sans Devanagari',sans-serif;}
+.dsd-stat-label{font-size:11px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.04em;margin-top:4px;display:block;}
+.dsd-highlight{background:var(--dsd-light-teal);border:1px solid rgba(0,128,128,0.2);border-radius:12px;padding:20px 24px;margin:22px 0;}
+.dsd-highlight h4{color:var(--dsd-navy);font-size:16px;font-weight:700;margin:0 0 12px;}
+.dsd-highlight ul{padding-left:0;list-style:none;margin:0;}
+.dsd-highlight ul li{padding:7px 0 7px 32px;position:relative;font-size:15px;color:var(--dsd-text);border-bottom:1px solid rgba(0,128,128,0.1);line-height:1.9;}
+.dsd-highlight ul li:last-child{border-bottom:none;}
+.dsd-highlight ul li::before{content:'✓';position:absolute;left:0;color:var(--dsd-teal);font-weight:700;}
+.dsd-infobox{background:#fff8f0;border:1px solid rgba(255,92,0,0.2);border-left:4px solid var(--dsd-orange);border-radius:0 12px 12px 0;padding:16px 20px;margin:22px 0;}
+.dsd-infobox h4{color:var(--dsd-orange);font-size:16px;font-weight:700;margin:0 0 10px;}
+.dsd-infobox ul{list-style:none;padding:0;margin:0;}
+.dsd-infobox ul li{font-size:15px;color:var(--dsd-text);padding:6px 0 6px 20px;position:relative;line-height:1.9;}
+.dsd-infobox ul li::before{content:'→';position:absolute;left:0;color:var(--dsd-orange);}
+.dsd-doc-card{background:#fff;border:1px solid var(--dsd-border);border-left:5px solid var(--dsd-teal);border-radius:0 12px 12px 0;padding:24px 28px;margin:30px 0;box-shadow:0 4px 16px rgba(0,128,128,0.08);position:relative;}
+.dsd-doc-card .doc-number{position:absolute;top:-18px;left:-18px;width:50px;height:50px;border-radius:12px;background:var(--dsd-teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;box-shadow:0 4px 12px rgba(0,128,128,0.3);}
+.dsd-doc-card h3{color:var(--dsd-navy);font-size:18px;font-weight:700;margin:0 0 8px;padding-left:40px;}
+.dsd-doc-card .doc-meta{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 16px;padding-left:40px;}
+.dsd-doc-card .doc-meta span{background:var(--dsd-light-teal);color:var(--dsd-navy);font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:0.3px;}
+.dsd-doc-card .doc-meta span.expected{background:#fef3c7;color:#92400e;}
+.dsd-doc-card .doc-meta span.verified{background:#dcfce7;color:#065f46;}
+.dsd-doc-card .doc-body p{font-size:15px;color:var(--dsd-text);line-height:1.9;margin:0 0 12px;}
+.dsd-doc-card .note-tag{font-size:12.5px;color:var(--dsd-muted);font-style:italic;margin-top:10px;display:block;}
+.dsd-chapter-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:20px 0;}
+.dsd-chapter{background:#fff;border:1px solid var(--dsd-border);border-radius:10px;padding:14px 16px 14px 58px;position:relative;box-shadow:0 2px 6px rgba(0,0,0,0.03);}
+.dsd-chapter .ch-no{position:absolute;left:14px;top:14px;width:30px;height:30px;border-radius:8px;background:var(--dsd-navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+.dsd-chapter h5{color:var(--dsd-navy);font-size:15px;font-weight:700;margin:0 0 4px;}
+.dsd-chapter p{font-size:14px;color:var(--dsd-text);margin:0;line-height:1.8;}
+.dsd-redflag{background:#fff5f5;border:1px solid rgba(220,38,38,0.2);border-left:4px solid #dc2626;border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:12px;}
+.dsd-redflag h5{color:#991b1b;font-size:15px;font-weight:700;margin:0 0 6px;}
+.dsd-redflag p{font-size:14.5px;color:var(--dsd-text);margin:0;line-height:1.85;}
+.dsd-doc-step{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--dsd-border);border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,0.03);}
+.dsd-doc-num{width:44px;height:44px;min-width:44px;border-radius:10px;background:var(--dsd-navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;}
+.dsd-doc-body h5{color:var(--dsd-navy);font-size:16px;font-weight:700;margin:0 0 6px;}
+.dsd-doc-body p{font-size:14.5px;color:var(--dsd-text);margin:0;line-height:1.9;}
+.dsd-doc-body .where-to-check{font-size:12.5px;color:var(--dsd-teal);font-weight:600;margin-top:8px;display:block;}
+.dsd-related-inline{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:22px 0;}
+.dsd-link-card{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:10px;padding:14px 16px;text-decoration:none;display:block;transition:border-color .2s,box-shadow .2s,transform .2s;}
+.dsd-link-card:hover{border-color:var(--dsd-teal);box-shadow:0 4px 16px rgba(0,128,128,0.1);transform:translateY(-2px);}
+.dsd-link-card .dsd-link-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dsd-teal);font-weight:600;margin-bottom:5px;}
+.dsd-link-card .dsd-link-title{font-size:14.5px;font-weight:600;color:var(--dsd-navy);line-height:1.55;}
+#FAQs h3{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-left:4px solid var(--dsd-teal);padding:14px 18px;border-radius:0 10px 10px 0;cursor:pointer;color:var(--dsd-navy);font-size:16px;font-weight:600;margin-bottom:0;position:relative;transition:background .2s;}
+#FAQs h3:hover{background:#e0f7f7;}
+#FAQs h3::after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--dsd-teal);font-weight:400;}
+#FAQs h3.active::after{content:'−';}
+#FAQs h3+p{background:#fff;border:1px solid var(--dsd-border);border-top:none;border-radius:0 0 10px 10px;padding:14px 18px;font-size:15px;color:var(--dsd-text);margin-top:0;margin-bottom:12px;line-height:1.95;}
+@media(max-width:600px){.dsd-stats-bar{grid-template-columns:repeat(2,1fr);}.dsd-related-inline{grid-template-columns:1fr;}.dsd-doc-card{padding:20px 20px 20px 24px;}.dsd-doc-card .doc-number{width:42px;height:42px;font-size:17px;top:-14px;left:-14px;}.dsd-doc-card h3{padding-left:32px;font-size:16px;}.dsd-doc-card .doc-meta{padding-left:32px;}}
+</style>
+<div class="dsd-article">
+<p style="font-size: 13px; color: #6b7280; margin: 0 0 22px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0;">स्रोत: उत्तर प्रदेश पंचायती राज विभाग की प्रस्तावित ‘मॉडल भवन निर्माण एवं विकास उपविधि-2026’ से जुड़ी हालिया समाचार रिपोर्ट्स (जून 2026); आवास एवं शहरी नियोजन विभाग की ‘मॉडल भवन निर्माण एवं विकास उपविधि तथा मॉडल ज़ोनिंग रेगुलेशन्स, 2025’ (जिस पर यह प्रस्ताव आधारित है); रियल एस्टेट (विनियमन और विकास) अधिनियम, 2016; UP-RERA (up-rera.in)। यह लेख सामान्य जानकारी के लिए है, कानूनी सलाह नहीं।</p>
+<div class="dsd-statusbox">
+<h4>⚠️ पहले स्थिति साफ कर लें (जरूरी)</h4>
+<p>यह उपविधि अभी <strong>प्रस्तावित (Draft) चरण</strong> में है — इसे अंतिम रूप दिया जा रहा है और बिल्डरों, आर्किटेक्ट्स व <a href="https://dsdproperties.in/blog/up-zila-panchayat-plot-legal-guide-rera-lda-dhara-80-hindi-lucknow-2026" style="color:#008080;font-weight:600;">जिला पंचायत</a> अधिकारियों के साथ विचार-विमर्श जारी है। नीचे जो विशिष्ट प्रावधान (जैसे 15% ग्रीन एरिया, 20% बंधक, सड़क की चौड़ाई) बताए गए हैं, वे <strong>अपेक्षित</strong> हैं और मुख्यतः विकास प्राधिकरणों की मॉडल उपविधि-2025 पर आधारित हैं। अंतिम आंकड़े सरकार द्वारा आधिकारिक रूप से अधिसूचित (Notified) नियमावली के अनुसार ही मान्य होंगे। निवेश से पहले हमेशा नवीनतम आधिकारिक आदेश की पुष्टि करें।</p>
+</div>
+<p style="font-size: 17px; color: #374151; line-height: 1.95; margin-bottom: 20px; font-weight: 500;">उत्तर प्रदेश के ग्रामीण और अर्ध-शहरी रियल एस्टेट के लिए एक बड़ा प्रशासनिक बदलाव दस्तक दे रहा है। अब तक विकास प्राधिकरणों की सीमा के बाहर, जिला पंचायत क्षेत्रों में नक्शा पास कराने की प्रक्रिया बिखरी हुई और कई बार मनमानी रही है — पर सरकार इसे एक समान और पारदर्शी बनाने जा रही है।</p>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 16px;">उत्तर प्रदेश सरकार का पंचायती राज विभाग पूरे प्रदेश की जिला पंचायतों के लिए <strong>“मॉडल भवन निर्माण एवं विकास उपविधि-2026”</strong> तैयार कर रहा है। इसका मकसद है — ग्रामीण क्षेत्रों में अव्यवस्थित और अवैध निर्माण पर रोक, नक्शा स्वीकृति में पारदर्शिता, और जिला पंचायतों की आय बढ़ाना। समाचार रिपोर्ट्स के अनुसार इस प्रस्तावित नियमावली पर अंतिम सहमति के लिए हितधारकों के साथ बैठकें की जा रही हैं।</p>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 24px;">इस लेख में हम तीन चीजें स्पष्ट रूप से समझेंगे: (1) इस बदलाव में पक्का (Verified) क्या है, (2) नई नियमावली में किस तरह के प्रावधान अपेक्षित हैं, और (3) जब तक यह लागू नहीं होती, तब तक एक खरीदार को क्या जांचना चाहिए।</p>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 24px;">लखनऊ के लिए यह खबर खास मायने रखती है। शहर के बाहरी बेल्ट — सुल्तानपुर रोड, अयोध्या/फैजाबाद रोड, रायबरेली रोड, देवा रोड और बीकेटी, काकोरी, मोहनलालगंज जैसे इलाके — में इस समय ‘जिला पंचायत अप्रूव्ड’ के नाम पर सबसे ज्यादा प्लॉटिंग हो रही है। इन्हीं इलाकों में अव्यवस्थित और बिना सुविधाओं वाली कॉलोनियों की शिकायतें भी सबसे ज्यादा हैं। अगर नई उपविधि लागू होती है, तो इसका सीधा असर लखनऊ के इन्हीं उपनगरीय खरीदारों और डेवलपर्स पर पड़ेगा।</p>
+<div class="dsd-stats-bar">
+<div class="dsd-stat-item"><span class="dsd-stat-num">2026</span><span class="dsd-stat-label">प्रस्तावित जिला पंचायत उपविधि</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">Rs 70 → 210 करोड़</span><span class="dsd-stat-label">जिला पंचायत आय का अनुमानित लक्ष्य</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">2025 मॉडल</span><span class="dsd-stat-label">विकास प्राधिकरण उपविधि पर आधारित</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">RERA</span><span class="dsd-stat-label">बड़े प्रोजेक्ट पर अब भी अनिवार्य</span></div>
+</div>
+<h2 style="margin-top: 40px; font-size: 24px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">भाग 1: इस बदलाव में पक्का (Verified) क्या है?</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 24px;">अफवाहों और तय बातों में फर्क करना जरूरी है। समाचार रिपोर्ट्स के आधार पर ये बातें पुष्ट हैं:</p>
+<div class="dsd-highlight">
+<h4>आधिकारिक रूप से सामने आई बातें</h4>
+<ul>
+<li><strong>नियमावली का नाम:</strong> “उत्तर प्रदेश जिला पंचायतों के लिए मॉडल भवन निर्माण एवं विकास उपविधि-2026”</li>
+<li><strong>तैयार करने वाला विभाग:</strong> उत्तर प्रदेश पंचायती राज विभाग; प्रमुख सचिव अनिल कुमार इसकी निगरानी कर रहे हैं</li>
+<li><strong>मकसद:</strong> ग्रामीण क्षेत्रों में अव्यवस्थित निर्माण पर रोक, एक समान नियम, और नक्शा स्वीकृति में पारदर्शिता</li>
+<li><strong>शुल्क:</strong> आवासीय और व्यावसायिक भवनों के लिए अलग-अलग शुल्क, जो भवन के क्षेत्रफल और उपयोग पर आधारित होंगे</li>
+<li><strong>आय का लक्ष्य:</strong> नक्शा स्वीकृति से जिला पंचायतों की मौजूदा लगभग Rs 70 करोड़ आय को बढ़ाकर लगभग Rs 210 करोड़ तक ले जाने का अनुमान</li>
+<li><strong>स्थिति:</strong> प्रस्तावित (ड्राफ्ट); हितधारकों (बिल्डर, आर्किटेक्ट, अधिकारी) से चर्चा कर अंतिम रूप दिया जा रहा है</li>
+</ul>
+</div>
+<h2 style="margin-top: 40px; font-size: 24px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">भाग 2: नई नियमावली में क्या प्रावधान अपेक्षित हैं?</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 16px;">यह प्रस्तावित उपविधि मुख्य रूप से आवास एवं शहरी नियोजन विभाग की <strong>“मॉडल भवन निर्माण एवं विकास उपविधि तथा मॉडल ज़ोनिंग रेगुलेशन्स, 2025”</strong> (जो विकास प्राधिकरणों पर लागू है) को आधार बनाकर तैयार की जा रही है, ताकि ग्रामीण नियोजन में भी वही तकनीकी गुणवत्ता आए। उसी आधार पर नीचे दिए गए प्रावधान अपेक्षित हैं।</p>
+<p style="font-size: 14px; color: #92400e; background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; padding: 12px 16px; line-height: 1.85; margin-bottom: 24px;"><strong>ध्यान दें:</strong> नीचे दिए गए विशिष्ट आंकड़े (15%, 20%, 7.5 मीटर, समय-सीमा आदि) <strong>अपेक्षित/संभावित</strong> हैं और अंतिम अधिसूचित नियमावली में बदल सकते हैं। इन्हें अंतिम सच मानकर निवेश का फैसला न लें — आधिकारिक आदेश आने पर ही पुष्टि करें।</p>
+<div class="dsd-doc-card">
+<div class="doc-number">1</div>
+<h3>15% ग्रीन और ओपन एरिया (अपेक्षित)</h3>
+<div class="doc-meta"><span class="expected">संभावित प्रावधान</span> <span>पार्क/हरियाली</span></div>
+<div class="doc-body">
+<p>चूंकि जिला पंचायत क्षेत्रों में विकास प्राधिकरणों जैसे बड़े <a href="https://dsdproperties.in/blog/lucknow-master-plan-2031-mahayojna-guide" style="color:#008080;font-weight:600;">मास्टर प्लान</a> पार्क नहीं होते, इसलिए अपेक्षा है कि आवासीय परियोजनाओं में कुल भूमि का लगभग <strong>15% हिस्सा</strong> पार्क/ओपन एरिया और व्यावसायिक परियोजनाओं में लगभग <strong>10%</strong> ग्रीन/ओपन के लिए छोड़ना अनिवार्य होगा।</p>
+</div>
+</div>
+<div class="dsd-doc-card">
+<div class="doc-number">2</div>
+<h3>सड़कों की चौड़ाई का नया गणित (अपेक्षित)</h3>
+<div class="doc-meta"><span class="expected">संभावित प्रावधान</span> <span>आंतरिक + एप्रोच रोड</span></div>
+<div class="doc-body">
+<p>संभावना है कि छोटी प्लॉटिंग को राहत देते हुए आंतरिक सड़क की न्यूनतम चौड़ाई लगभग <strong>7.5 मीटर (करीब 25 फीट)</strong> रखी जा सकती है, बशर्ते उसकी लंबाई एक तय सीमा (लगभग 300 मीटर) के भीतर हो; लंबाई बढ़ने पर चौड़ाई 9 या 12 मीटर तक बढ़ सकती है।</p>
+<p>लेआउट के बाहर की एप्रोच रोड की वैधता UP Road Side Control Rules, 1964 और PWD मानकों के आधार पर तय होने की अपेक्षा है — मौके पर सड़क कम चौड़ी होने पर डेवलपर को रोड-वाइडनिंग के लिए जमीन छोड़नी पड़ सकती है।</p>
+</div>
+</div>
+<div class="dsd-doc-card">
+<div class="doc-number">3</div>
+<h3>20% भूखंड बंधक रखने का नियम (अपेक्षित)</h3>
+<div class="doc-meta"><span class="expected">संभावित प्रावधान</span> <span>खरीदार की सुरक्षा</span></div>
+<div class="doc-body">
+<p>ग्रामीण इलाकों में अक्सर बिल्डर सड़क-नाली-बिजली दिए बिना सारे प्लॉट बेचकर गायब हो जाते हैं। इसे रोकने के लिए विकास प्राधिकरणों की तर्ज पर अपेक्षा है कि डेवलपर को कुल विक्रय योग्य क्षेत्रफल का लगभग <strong>20% भूखंड जिला पंचायत के पास बंधक (Mortgage)</strong> रखना होगा — जिसे वह तभी बेच पाएगा जब आंतरिक विकास पूरा कर कंप्लीशन सर्टिफिकेट प्राप्त कर ले।</p>
+</div>
+</div>
+<div class="dsd-doc-card">
+<div class="doc-number">4</div>
+<h3>लेआउट की समय-सीमा (अपेक्षित)</h3>
+<div class="doc-meta"><span class="expected">संभावित प्रावधान</span> <span>5 + 3 वर्ष</span></div>
+<div class="doc-body">
+<p>अपेक्षा है कि स्वीकृत लेआउट/नक्शा पहले चरण में लगभग <strong>5 वर्ष</strong> के लिए वैध रहेगा और जरूरत पर 1-1 वर्ष करके अधिकतम 3 वर्ष की समय-वृद्धि मिल सकती है — यानी कुल मिलाकर लगभग 8 वर्ष के भीतर कंप्लीशन सर्टिफिकेट लेना आवश्यक हो सकता है।</p>
+</div>
+</div>
+<div class="dsd-doc-card">
+<div class="doc-number">5</div>
+<h3>RERA अब भी अनिवार्य (यह पक्का है)</h3>
+<div class="doc-meta"><span class="verified">पुष्ट तथ्य</span> <span>RERA 2016</span></div>
+<div class="doc-body">
+<p>यह बात स्वतंत्र रूप से सच है और इस उपविधि से नहीं बदलती: जिला पंचायत से लेआउट पास होने के बाद भी, यदि प्रोजेक्ट <strong>500 वर्ग मीटर से बड़ा</strong> है या उसमें <strong>8 से अधिक</strong> प्लॉट/यूनिट हैं, तो UP-RERA में रजिस्ट्रेशन कानूनी रूप से अनिवार्य है। जिला पंचायत का नक्शा RERA की जगह नहीं ले सकता।</p>
+<span class="note-tag">विस्तार से पढ़ें: जिला पंचायत और RERA पर हमारा अलग गाइड (नीचे लिंक)</span></div>
+</div>
+<p>{{CONSULTATION_BUTTON:ग्रामीण या जिला पंचायत क्षेत्र में प्लॉट ले रहे हैं? खरीद से पहले DSD वेरिफिकेशन रिपोर्ट लें — Rs 5,000, 48 घंटे}}</p>
+<h2 style="margin-top: 40px; font-size: 24px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">भाग 3: सभी 18 अध्याय — आम आदमी की भाषा में</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 8px;">रियल एस्टेट के भारी-भरकम शब्द (FAR, सेटबैक, शमन) अक्सर आम आदमी के सिर के ऊपर से निकल जाते हैं। ऐसी मॉडल उपविधि आमतौर पर जिन विषयों को कवर करती है (विकास प्राधिकरणों की 2025 उपविधि की संरचना के आधार पर), उन्हें सरल भाषा में नीचे समझाया गया है।</p>
+<p style="font-size: 14px; color: #6b7280; line-height: 1.85; margin-bottom: 18px;"><em>(नोट: अध्यायों की यह संरचना अपेक्षित है; अंतिम नियमावली में अध्यायों की संख्या या क्रम भिन्न हो सकता है।)</em></p>
+<div class="dsd-chapter-grid">
+<div class="dsd-chapter">
+<div class="ch-no">1</div>
+<h5>अध्याय 1: नाम और परिभाषाएं</h5>
+<p>इस कानून की डिक्शनरी — बिल्डर, प्लॉट, सड़क जैसे शब्दों का साफ मतलब, ताकि बाद में कोई नियम को अपनी मर्जी से न मरोड़ सके।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">2</div>
+<h5>अध्याय 2: नक्शा पास कराने का तरीका</h5>
+<p>ग्रामीण क्षेत्र में मकान या कॉलोनी के लिए मंजूरी (नक्शा पास) ऑनलाइन/ऑफलाइन कैसे और किस दफ्तर से मिलेगी, यह तय करता है।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">3</div>
+<h5>अध्याय 3: जमीन और मकान के साइज के मानक</h5>
+<p>मकान के आगे-पीछे कितनी खाली जगह (सेटबैक) छोड़नी है, पार्किंग कितनी देनी है, और अंदर की सड़कें कितनी चौड़ी होंगी।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">4</div>
+<h5>अध्याय 4: रहने वाले मकान (रेजिडेंशियल)</h5>
+<p>व्यक्तिगत मकान या ग्रुप हाउसिंग (फ्लैट्स) के नियम — जमीन के कितने हिस्से पर निर्माण और कितना खुला छोड़ना है।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">5</div>
+<h5>अध्याय 5: दुकान और बाजार (कमर्शियल)</h5>
+<p>ग्रामीण क्षेत्र की दुकानों, शॉपिंग कॉम्प्लेक्स या छोटे बाजार के अलग नियम — ज्यादा पार्किंग और चौड़ी सड़क जरूरी।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">6</div>
+<h5>अध्याय 6: स्कूल, अस्पताल और बारात घर</h5>
+<p>सार्वजनिक भवनों (स्कूल, कॉलेज, अस्पताल, मैरिज लॉन) के लिए सुरक्षा और जगह के मानक।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">7</div>
+<h5>अध्याय 7: फैक्ट्री और कृषि भवन (इंडस्ट्रियल)</h5>
+<p>आटा चक्की, छोटा कारखाना, कोल्ड स्टोरेज या गोदाम आबादी से कितनी दूर हों और उनके क्या नियम होंगे।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">8</div>
+<h5>अध्याय 8: मिक्स यूज (नीचे दुकान, ऊपर मकान)</h5>
+<p>एक ही भूखंड पर आवासीय और व्यावसायिक निर्माण की शर्तें, ताकि रहने वालों को दिक्कत न हो।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">9</div>
+<h5>अध्याय 9: ज्यादा मंजिल बनाने का नियम (अतिरिक्त FAR)</h5>
+<p>तय सीमा से ज्यादा ऊंचा/मंजिल बनाने के लिए सरकार को एक्स्ट्रा फीस देकर मंजूरी लेने का फॉर्मूला।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">10</div>
+<h5>अध्याय 10: आग से बचाव (फायर सेफ्टी)</h5>
+<p>इमरजेंसी निकास, फायर उपकरण और फायर ब्रिगेड के लिए जगह जैसे आग से सुरक्षा के इंतजाम।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">11</div>
+<h5>अध्याय 11: मजबूत मकान (स्ट्रक्चरल सेफ्टी)</h5>
+<p>भूकंपरोधी निर्माण और घटिया सामग्री पर रोक — मकान सिर्फ कागज पर नहीं, असल में मजबूत हो।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">12</div>
+<h5>अध्याय 12: बुजुर्ग, बच्चे और दिव्यांगजन</h5>
+<p>बड़ी इमारतों में रैंप, विशेष लिफ्ट और चौड़े दरवाजे ताकि सबको आसान पहुंच मिले।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">13</div>
+<h5>अध्याय 13: पर्यावरण और जल संरक्षण</h5>
+<p>रेन वाटर हार्वेस्टिंग और हरियाली के नियम, ताकि गांव का भूजल स्तर बना रहे।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">14</div>
+<h5>अध्याय 14: नक्शा बनाने वालों की योग्यता</h5>
+<p>नक्शा बनाने वाले आर्किटेक्ट/सिविल इंजीनियर की न्यूनतम योग्यता और जिला पंचायत से लाइसेंस की प्रक्रिया।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">15</div>
+<h5>अध्याय 15: सरकारी फीस का हिसाब</h5>
+<p>नक्शा शुल्क, विकास शुल्क और अन्य कर — मनमानी वसूली रोकने के लिए उदाहरण सहित पारदर्शी फॉर्मूला।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">16</div>
+<h5>अध्याय 16: अवैध निर्माण को वैध करना (शमन)</h5>
+<p>छोटी-मोटी नियम-विरुद्ध बातें जुर्माना देकर वैध कब हो सकती हैं, और कौन सी माफ नहीं होंगी।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">17</div>
+<h5>अध्याय 17: EV चार्जिंग की जगह</h5>
+<p>नई कॉलोनियों में इलेक्ट्रिक गाड़ियों के चार्जिंग स्टेशन के लिए पहले से जगह और बिजली का इंतजाम।</p>
+</div>
+<div class="dsd-chapter">
+<div class="ch-no">18</div>
+<h5>अध्याय 18: डिजिटल/इंटरनेट वायरिंग</h5>
+<p>दीवारों में पहले से पाइप-डक्ट, ताकि हाई-स्पीड इंटरनेट और केबल के लिए बाद में तोड़फोड़ न करनी पड़े।</p>
+</div>
+</div>
+<p style="font-size: 15px; color: #374151; line-height: 1.95; margin: 18px 0 24px;">इसके अतिरिक्त ऐसी नियमावली में आमतौर पर कई <strong>परिशिष्ट (Appendices)</strong> भी होते हैं, जिनमें आवेदन पत्र, एनओसी और सबसे महत्वपूर्ण <strong>कंप्लीशन सर्टिफिकेट</strong> के प्रारूप तय किए जाते हैं, ताकि फाइलों के अटकने और बाबूशाही की समस्या कम हो।</p>
+<h2 style="margin-top: 40px; font-size: 24px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">आम जनता और डेवलपर्स पर असर क्या होगा?</h2>
+<div class="dsd-infobox">
+<h4>दो तरफा असर</h4>
+<ul>
+<li><strong>खरीदार के लिए राहत:</strong> अगर ये कड़े मानक लागू होते हैं, तो ग्रामीण क्षेत्रों में भी पार्क, चौड़ी सड़कें और पूरी विकसित सुविधाओं वाले प्लॉट मिलने की संभावना बढ़ेगी, और धोखाधड़ी घटेगी</li>
+<li><strong>अवैध कॉलोनाइजर पर शिकंजा:</strong> बिना मानकों के जमीन बेचना कठिन हो जाएगा</li>
+<li><strong>कीमतों पर असर:</strong> कड़े मानकों से विकास लागत बढ़ने पर भूखंडों के दाम कुछ बढ़ सकते हैं</li>
+<li><strong>जिला पंचायत की आय:</strong> नक्शा शुल्क से आय बढ़ने का अनुमान, जिससे ग्रामीण बुनियादी ढांचे में निवेश संभव</li>
+</ul>
+</div>
+<h2 style="margin-top: 40px; font-size: 24px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">तब तक खरीदार क्या जांचें? (अभी की सही प्रक्रिया)</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 24px;">जब तक नई उपविधि आधिकारिक रूप से लागू नहीं होती, तब तक मौजूदा नियम ही चलेंगे। ग्रामीण या जिला पंचायत क्षेत्र में प्लॉट लेने से पहले ये जांच जरूर करें।</p>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">1</div>
+<div class="dsd-doc-body">
+<h5>RERA नंबर की जांच</h5>
+<p>बड़े प्रोजेक्ट (500 वर्ग मीटर से बड़ा या 8 से अधिक प्लॉट) में बिल्डर से RERA रजिस्ट्रेशन नंबर मांगें और up-rera.in पर खुद वेरीफाई करें।</p>
+<span class="where-to-check">📍 up-rera.in</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">2</div>
+<div class="dsd-doc-body">
+<h5>क्षेत्राधिकार और मास्टर प्लान</h5>
+<p>पता करें कि जमीन वाकई जिला पंचायत में है या विकास प्राधिकरण (LDA/KDA) के मास्टर प्लान में शामिल हो चुकी है। प्राधिकरण सीमा में आने पर जिला पंचायत का नक्शा बेअसर हो जाता है।</p>
+<span class="where-to-check">📍 संबंधित प्राधिकरण मास्टर प्लान</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">3</div>
+<div class="dsd-doc-body">
+<h5>धारा 80 (पुरानी 143) भू-उपयोग परिवर्तन</h5>
+<p>सुनिश्चित करें कि SDM कोर्ट से जमीन का धारा 80 के तहत अकृषक उपयोग पास हो चुका है। बिना इसके जिला पंचायत में नक्शा भी पास नहीं होता।</p>
+<span class="where-to-check">📍 खतौनी/भूलेख का दर्जा</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">4</div>
+<div class="dsd-doc-body">
+<h5>स्वीकृत लेआउट और कंप्लीशन</h5>
+<p>जिला पंचायत से पास असली लेआउट देखें, और चेक करें कि आपका प्लॉट नंबर स्वीकृत नक्शे के अंदर है। संभव हो तो विकास और कंप्लीशन की स्थिति भी देखें।</p>
+<span class="where-to-check">📍 जिला पंचायत कार्यालय</span></div>
+</div>
+<div class="dsd-doc-step">
+<div class="dsd-doc-num">5</div>
+<div class="dsd-doc-body">
+<h5>बैंक प्रोजेक्ट लोन</h5>
+<p>जांचें कि प्रोजेक्ट पर किसी प्रतिष्ठित बैंक से प्रोजेक्ट लोन उपलब्ध है या नहीं। बैंक की मंजूरी प्रोजेक्ट की कानूनी वैधता का मजबूत संकेत है।</p>
+<span class="where-to-check">📍 बैंक की approved-projects सूची</span></div>
+</div>
+<h2 style="margin-top: 40px; font-size: 24px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">DSD Properties आपकी कैसे मदद करता है</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 16px;">नियम बदल रहे हों या पुराने हों — सुरक्षा हमेशा जांच में है। DSD Properties की <strong>Rs 5,000</strong> वाली वेरिफिकेशन सेवा किसी भी लखनऊ प्रॉपर्टी की पूरी कानूनी तस्वीर 48 घंटे में देती है।</p>
+<div class="dsd-highlight">
+<h4>हमारी रिपोर्ट में क्या शामिल है</h4>
+<ul>
+<li><strong>RERA स्थिति</strong> — up-rera.in पर प्रोजेक्ट का रजिस्ट्रेशन और शर्तें</li>
+<li><strong>क्षेत्राधिकार</strong> — जमीन जिला पंचायत में है या प्राधिकरण के मास्टर प्लान में</li>
+<li><strong>धारा 80 और भूलेख</strong> — कृषि/अकृषक दर्जा और मालिकाना हक</li>
+<li><strong>स्वीकृत लेआउट का मिलान</strong> — प्लॉट नंबर पास नक्शे के अंदर है या नहीं</li>
+<li><strong>अवैध कॉलोनी क्रॉस-चेक</strong> और साफ गैप रिपोर्ट</li>
+</ul>
+</div>
+<h2 style="margin-top: 40px; font-size: 24px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">निष्कर्ष</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 24px;">“मॉडल भवन निर्माण एवं विकास उपविधि-2026” ग्रामीण रियल एस्टेट को व्यवस्थित और सुरक्षित बनाने की दिशा में एक स्वागत योग्य कदम है। पर याद रखें — यह अभी प्रस्तावित है, लागू नहीं। ऊपर बताए गए विशिष्ट प्रावधान अपेक्षित हैं और अंतिम अधिसूचना पर निर्भर करेंगे। इसलिए किसी डेवलपर के “नए बायलॉज में सब हो जाएगा” जैसे दावे पर भरोसा करने के बजाय, आज की मौजूदा प्रक्रिया — RERA, क्षेत्राधिकार, धारा 80 और स्वीकृत लेआउट — की जांच करके ही निवेश करें। नई उपविधि लागू होने पर हम इस लेख को अपडेट करते रहेंगे। सतर्क रहें, विधिक रूप से जांच-परख कर सुरक्षित निवेश करें।</p>
+<h2 style="margin-top: 40px; font-size: 24px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">संबंधित गाइड (DSD Properties)</h2>
+<div class="dsd-related-inline"><a href="https://dsdproperties.in/blog/rera-zila-panchayat-rural-plots-hindi-lucknow-2026" class="dsd-link-card">
+<div class="dsd-link-label">RERA</div>
+<div class="dsd-link-title">क्या जिला पंचायत क्षेत्र में RERA जरूरी है? पूरा सच</div>
+</a><a href="https://dsdproperties.in/blog/dhara-80-naksha-zila-panchayat-hindi-lucknow-2026" class="dsd-link-card">
+<div class="dsd-link-label">कानूनी गाइड</div>
+<div class="dsd-link-title">जिला पंचायत में नक्शा कैसे पास करें? धारा 80 क्यों जरूरी</div>
+</a><a href="https://dsdproperties.in/blog/dhara-80-krishi-bhumi-aawasiya-hindi-lucknow-2026" class="dsd-link-card">
+<div class="dsd-link-label">भू-उपयोग</div>
+<div class="dsd-link-title">कृषि भूमि को आवासीय कैसे करें? धारा 80 (143) गाइड</div>
+</a><a href="https://dsdproperties.in/blog/lda-illegal-colony-list-lucknow-2026" class="dsd-link-card">
+<div class="dsd-link-label">सावधानी</div>
+<div class="dsd-link-title">LDA अवैध कॉलोनियों की सूची और पहचान</div>
+</a></div>
+<p>{{CONSULTATION_BUTTON:ग्रामीण प्लॉट या जिला पंचायत प्रोजेक्ट में निवेश से पहले DSD Properties से बात करें}}</p>
+<section id="FAQs">
+<h2 style="margin-top: 40px; font-size: 22px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 15px;">अक्सर पूछे जाने वाले सवाल (FAQs)</h2>
+<h3>क्या जिला पंचायत बिल्डिंग बायलॉज 2026 लागू हो चुके हैं?</h3>
+<p style="display: none;">नहीं। समाचार रिपोर्ट्स के अनुसार “मॉडल भवन निर्माण एवं विकास उपविधि-2026” अभी प्रस्तावित (ड्राफ्ट) चरण में है। पंचायती राज विभाग इसे अंतिम रूप दे रहा है और बिल्डरों, आर्किटेक्ट्स व जिला पंचायत अधिकारियों के साथ चर्चा कर रहा है। यह आधिकारिक रूप से अधिसूचित और लागू होने के बाद ही पूरी तरह प्रभावी होगा।</p>
+<h3>नई उपविधि किस आधार पर तैयार की जा रही है?</h3>
+<p style="display: none;">यह मुख्य रूप से आवास एवं शहरी नियोजन विभाग की “मॉडल भवन निर्माण एवं विकास उपविधि तथा मॉडल ज़ोनिंग रेगुलेशन्स, 2025” को आधार बनाकर तैयार की जा रही है, जो विकास प्राधिकरणों पर लागू होती है। मकसद यह है कि ग्रामीण क्षेत्रों में भी वही तकनीकी गुणवत्ता और पारदर्शिता आए।</p>
+<h3>क्या 15% ग्रीन एरिया और 20% बंधक नियम पक्के हैं?</h3>
+<p style="display: none;">ये प्रावधान अभी अपेक्षित/संभावित हैं और मुख्यतः विकास प्राधिकरणों की 2025 मॉडल उपविधि पर आधारित हैं। अंतिम आंकड़े सरकार द्वारा आधिकारिक रूप से अधिसूचित नियमावली में ही तय होंगे, जो भिन्न हो सकते हैं। इसलिए इन्हें अंतिम सच मानकर निवेश का निर्णय न लें।</p>
+<h3>उपविधि लागू होने से जिला पंचायत की आय कैसे बढ़ेगी?</h3>
+<p style="display: none;">समाचार रिपोर्ट्स के अनुसार आवासीय और व्यावसायिक भवनों के लिए भवन के क्षेत्रफल और उपयोग के आधार पर अलग-अलग शुल्क तय किए जाएंगे। इससे नक्शा स्वीकृति से जिला पंचायतों की मौजूदा लगभग 70 करोड़ रुपये की आय बढ़कर लगभग 210 करोड़ रुपये तक पहुंचने का अनुमान है।</p>
+<h3>क्या उपविधि लागू होने के बाद भी RERA जरूरी रहेगा?</h3>
+<p style="display: none;">हाँ। RERA एक केंद्रीय कानून है जो पूरे उत्तर प्रदेश पर लागू होता है। जिला पंचायत से लेआउट पास होने के बाद भी, यदि प्रोजेक्ट 500 वर्ग मीटर से बड़ा है या उसमें 8 से अधिक प्लॉट/यूनिट हैं, तो UP-RERA में रजिस्ट्रेशन अनिवार्य रहेगा। नई उपविधि इस आवश्यकता को समाप्त नहीं करती।</p>
+<h3>आंतरिक सड़क की अपेक्षित न्यूनतम चौड़ाई कितनी हो सकती है?</h3>
+<p style="display: none;">रिपोर्ट्स और 2025 मॉडल उपविधि के आधार पर अपेक्षा है कि छोटी प्लॉटिंग में आंतरिक सड़क की न्यूनतम चौड़ाई लगभग 7.5 मीटर (करीब 25 फीट) हो सकती है, बशर्ते उसकी लंबाई एक तय सीमा के भीतर हो; लंबाई बढ़ने पर चौड़ाई 9 या 12 मीटर तक रखनी पड़ सकती है। अंतिम मानक अधिसूचित नियमावली से ही पक्के होंगे।</p>
+<h3>20% भूखंड बंधक का अपेक्षित नियम खरीदार के लिए कैसे फायदेमंद है?</h3>
+<p style="display: none;">इस अपेक्षित प्रावधान के अनुसार डेवलपर को कुल विक्रय योग्य क्षेत्रफल का लगभग 20% भूखंड जिला पंचायत के पास बंधक रखना होगा, जिसे वह तभी बेच पाएगा जब सड़क, नाली, सीवर और बिजली जैसे विकास कार्य पूरे करके कंप्लीशन सर्टिफिकेट ले ले। इससे बिल्डर के पैसे लेकर सुविधाएं अधूरी छोड़कर भागने की प्रवृत्ति पर रोक लगेगी।</p>
+<h3>जब तक उपविधि लागू नहीं होती, तब तक प्लॉट खरीदते समय क्या करें?</h3>
+<p style="display: none;">मौजूदा प्रक्रिया का पालन करें: बड़े प्रोजेक्ट में RERA नंबर up-rera.in पर वेरीफाई करें, जमीन का क्षेत्राधिकार (जिला पंचायत या प्राधिकरण मास्टर प्लान) जांचें, धारा 80 के तहत अकृषक उपयोग की पुष्टि करें, जिला पंचायत से पास स्वीकृत लेआउट देखें, और प्रोजेक्ट पर बैंक लोन की उपलब्धता जांचें।</p>
+<h3>क्या इस उपविधि से ग्रामीण प्लॉट महंगे हो जाएंगे?</h3>
+<p style="display: none;">कड़े विकास मानक (जैसे पार्क के लिए जगह और पूरी सुविधाएं) लागू होने पर विकास लागत बढ़ने से भूखंडों की कीमतों में कुछ वृद्धि संभव है। लेकिन एक आम खरीदार के लिए यह दीर्घकाल में लाभकारी है, क्योंकि उसे सुनियोजित बुनियादी ढांचा और कानूनी रूप से सुरक्षित प्लॉट मिलने की संभावना बढ़ेगी।</p>
+<h3>क्या DSD Properties मौजूदा नियमों के तहत प्लॉट की जांच करता है?</h3>
+<p style="display: none;">हाँ। DSD Properties की वेरिफिकेशन टीम मौजूदा नियमों के तहत RERA स्थिति, क्षेत्राधिकार, धारा 80, भूलेख रिकॉर्ड और स्वीकृत लेआउट की जांच Rs 5,000 में 48 घंटे की रिपोर्ट के साथ करती है। नई उपविधि लागू होने पर जांच के मानदंड उसी के अनुसार अपडेट कर दिए जाएंगे।</p>
+</section>
+<script>
+(function(){function initFAQ(){document.querySelectorAll("#FAQs h3").forEach(function(q){q.style.cursor="pointer";q.addEventListener("click",function(){var self=this;var isOpen=self.classList.contains("active");document.querySelectorAll("#FAQs h3.active").forEach(function(b){b.classList.remove("active");var a=b.nextElementSibling;while(a&&a.tagName!=="P"){a=a.nextElementSibling;}if(a){a.style.display="none";}});if(!isOpen){self.classList.add("active");var ans=self.nextElementSibling;while(ans&&ans.tagName!=="P"){ans=ans.nextElementSibling;}if(ans){ans.style.display="block";}}});});}if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",initFAQ);}else{initFAQ();}})();
+</script></div>

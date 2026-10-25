@@ -1,0 +1,142 @@
+[
+ {
+  "id": 95,
+  "date": "24 October 2026",
+  "new_box_title": "🔴 Latest Update — 24 October 2026",
+  "li": "<strong>24 October 2026:</strong> UP RERA has approved Saumitra Vihar, Additional Housing Commissioner Rakesh Kumar Singh told Hindustan. UPAVP is preparing to launch by Diwali with 2,000+ plots in phase 1, but the date, plot count and rates are not fixed yet (the paper reports ₹2,600–3,000/sq ft as possible). The RERA number is not public yet. (Hindustan, print · <a href=\"https://dsdproperties.in/news/saumitra-vihar-yojana-rera-manjuri-diwali-launch-october-2026\" style=\"color:#008080;font-weight:600;\">our news report</a>)",
+  "replace": [
+   [
+    "8 sectors, RERA approval pending. Launch date",
+    "8 sectors, RERA approved (Oct 2026). Launch date"
+   ],
+   [
+    "<span class=\"dsd-dot wait\"></span> RERA: final certificate pending</span>",
+    "<span class=\"dsd-dot done\"></span> RERA: approved, per UPAVP (24 Oct)</span>"
+   ],
+   [
+    "Checked 16 Oct 2026",
+    "Checked 24 Oct 2026"
+   ],
+   [
+    "<li><strong>The final RERA certificate is still pending.</strong> UPAVP applied to UP RERA on 11 August 2026 (Dainik Jagran).",
+    "<li><strong>RERA has approved the scheme, according to UPAVP.</strong> Additional Housing Commissioner Rakesh Kumar Singh told Hindustan on 24 October 2026 that UP RERA has cleared it and booking can now open; rates, plot numbers and the date are not fixed yet. UPAVP had applied to UP RERA on 11 August 2026 (Dainik Jagran)."
+   ],
+   [
+    "Do not treat it as approved until the RERA number shows on up-rera.in.</li>",
+    "The RERA number is not public yet, so check it on up-rera.in before you pay.</li>"
+   ],
+   [
+    "The final RERA certificate has not come through yet. Until that clears and UPAVP puts up the official brochure, nobody can sell you a plot here.",
+    "RERA approval came in October 2026, but until UPAVP puts up the official brochure and opens registration, nobody can sell you a plot here."
+   ],
+   [
+    "Planned in 8 sectors. RERA approval is still pending.",
+    "Planned in 8 sectors. RERA approval reported on 24 Oct 2026."
+   ],
+   [
+    "<td><span class=\"dsd-badge wait\">Final certificate pending</span></td>",
+    "<td><span class=\"dsd-badge ok\">Approved (per UPAVP, 24 Oct 2026)</span></td>"
+   ],
+   [
+    "<td>Applied 11 August 2026; green signal reported in September</td>",
+    "<td>Applied 11 August 2026; approval confirmed by the Additional Housing Commissioner on 24 October 2026; RERA number not yet public</td>"
+   ],
+   [
+    "<li>The final RERA certificate has not come yet — the application was filed on 11 August 2026</li>",
+    "<li>RERA approval came only in October 2026, and the RERA number is not public yet</li>"
+   ],
+   [
+    "RERA approval is still pending, and the expected rate",
+    "RERA approval came only in October 2026, and the expected rate"
+   ],
+   [
+    "No, not yet. As of 16 October 2026 there is no registration link, brochure or price list on upavp.in.",
+    "Not yet. RERA approval came in October 2026, but as of 24 October there is no registration link, brochure or price list on upavp.in."
+   ],
+   [
+    "Public registration will open only after the final RERA certificate is issued.",
+    "In October 2026 UPAVP said it is preparing to launch by Diwali, but no date is fixed (Hindustan, 24 October 2026)."
+   ],
+   [
+    "Not yet. UPAVP applied to UP RERA on 11 August 2026 (Dainik Jagran). A News Nation report on 17 September 2026 said the scheme had RERA’s green signal and only the final certificate was pending, but as of 16 October 2026 the approval is not complete. When the brochure comes out, take the RERA number from it and check it yourself on up-rera.in before applying. Anyone telling you today that this scheme is already RERA registered is giving you wrong information.",
+    "Yes, according to UPAVP. Additional Housing Commissioner Rakesh Kumar Singh told Hindustan on 24 October 2026 that UP RERA has approved the scheme. UPAVP had applied on 11 August 2026 (Dainik Jagran). The RERA registration number is not public yet. When the brochure comes out, take the RERA number from it and check it yourself on up-rera.in before applying."
+   ],
+   [
+    "the final RERA certificate is still pending, registration has not opened",
+    "RERA approval has only just come (October 2026) and its number is not public yet, registration has not opened"
+   ]
+  ]
+ },
+ {
+  "id": 96,
+  "date": "24 अक्टूबर 2026",
+  "new_box_title": "🔴 ताज़ा अपडेट — 24 अक्टूबर 2026",
+  "li": "<strong>24 अक्टूबर 2026:</strong> अपर आवास आयुक्त राकेश कुमार सिंह ने हिन्दुस्तान को बताया कि सौमित्र विहार को यूपी रेरा से मंज़ूरी मिल गई है। परिषद दिवाली तक लॉन्च की तैयारी में है, पहले चरण में 2,000 से ज़्यादा भूखंड; तारीख, संख्या और दरें अभी तय नहीं (अख़बार के अनुसार ₹2,600–3,000 प्रति वर्गफुट संभव)। रेरा नंबर अभी सार्वजनिक नहीं। (हिन्दुस्तान, प्रिंट · <a href=\"https://dsdproperties.in/news/saumitra-vihar-yojana-rera-manjuri-diwali-launch-october-2026\" style=\"color:#008080;font-weight:600;\">पूरी खबर</a>)",
+  "replace": [
+   [
+    "8 सेक्टर, RERA मंज़ूरी बाकी —",
+    "8 सेक्टर, RERA मंज़ूरी मिली (अक्टूबर 2026) —"
+   ],
+   [
+    "<span class=\"dsd-dot wait\"></span> रेरा: अंतिम प्रमाणपत्र बाकी</span>",
+    "<span class=\"dsd-dot done\"></span> रेरा: मंज़ूरी मिली (परिषद, 24 अक्टूबर)</span>"
+   ],
+   [
+    "जाँचा गया 16 अक्टूबर 2026",
+    "जाँचा गया 24 अक्टूबर 2026"
+   ],
+   [
+    "<li><strong>रेरा का अंतिम प्रमाणपत्र अभी बाकी है।</strong> UPAVP ने 11 अगस्त 2026 को यूपी रेरा में आवेदन किया था (दैनिक जागरण)।",
+    "<li><strong>रेरा से मंज़ूरी मिल गई है (परिषद के अनुसार)।</strong> अपर आवास आयुक्त राकेश कुमार सिंह ने 24 अक्टूबर 2026 को हिन्दुस्तान को बताया कि यूपी रेरा ने योजना को मंज़ूरी दे दी है और अब बुकिंग खोलने में अड़चन नहीं है; दरें, भूखंडों की संख्या और तारीख अभी तय नहीं। UPAVP ने 11 अगस्त 2026 को यूपी रेरा में आवेदन किया था (दैनिक जागरण)।"
+   ],
+   [
+    "जब तक up-rera.in पर रेरा नंबर न दिखे, योजना को मंज़ूर न मानें।</li>",
+    "रेरा नंबर अभी सार्वजनिक नहीं है, इसलिए पैसे देने से पहले up-rera.in पर ज़रूर जाँचें।</li>"
+   ],
+   [
+    "रेरा का अंतिम प्रमाणपत्र अभी नहीं मिला है। जब तक वह पास नहीं होता और UPAVP आधिकारिक ब्रोशर जारी नहीं करता, यहाँ कोई आपको प्लॉट बेच नहीं सकता।",
+    "रेरा की मंज़ूरी अक्टूबर 2026 में मिली है, लेकिन जब तक UPAVP आधिकारिक ब्रोशर जारी नहीं करता और रजिस्ट्रेशन नहीं खुलता, यहाँ कोई आपको प्लॉट बेच नहीं सकता।"
+   ],
+   [
+    "8 सेक्टरों में नियोजित। RERA मंज़ूरी अभी बाकी है।",
+    "8 सेक्टरों में नियोजित। RERA मंज़ूरी 24 अक्टूबर 2026 को बताई गई।"
+   ],
+   [
+    "<td><span class=\"dsd-badge wait\">अंतिम प्रमाणपत्र बाकी</span></td>",
+    "<td><span class=\"dsd-badge ok\">मंज़ूरी मिली (परिषद, 24 अक्टूबर 2026)</span></td>"
+   ],
+   [
+    "<td>11 अगस्त 2026 को आवेदन; सितंबर में हरी झंडी की ख़बर</td>",
+    "<td>11 अगस्त 2026 को आवेदन; 24 अक्टूबर 2026 को अपर आवास आयुक्त ने मंज़ूरी की पुष्टि की; रेरा नंबर अभी सार्वजनिक नहीं</td>"
+   ],
+   [
+    "<td>रेरा मंज़ूरी के बाद खुलेगा</td>",
+    "<td>दिवाली तक लॉन्च की तैयारी, तारीख तय नहीं</td>"
+   ],
+   [
+    "<li>रेरा का अंतिम प्रमाणपत्र अभी नहीं मिला — आवेदन 11 अगस्त 2026 को हुआ था</li>",
+    "<li>रेरा मंज़ूरी अक्टूबर 2026 में मिली, पर रेरा नंबर अभी सार्वजनिक नहीं</li>"
+   ],
+   [
+    "रेरा मंज़ूरी अभी बाकी है, और अनुमानित दर",
+    "रेरा मंज़ूरी अक्टूबर 2026 में जाकर मिली है, और अनुमानित दर"
+   ],
+   [
+    "नहीं, अभी नहीं। 16 अक्टूबर 2026 तक upavp.in पर न कोई रजिस्ट्रेशन लिंक है, न ब्रोशर, न रेट लिस्ट।",
+    "अभी नहीं। रेरा मंज़ूरी अक्टूबर 2026 में मिल गई है, लेकिन 24 अक्टूबर तक upavp.in पर न कोई रजिस्ट्रेशन लिंक है, न ब्रोशर, न रेट लिस्ट।"
+   ],
+   [
+    "रेरा का अंतिम प्रमाणपत्र मिलने के बाद ही सार्वजनिक रजिस्ट्रेशन खुलेगा।",
+    "अक्टूबर 2026 में परिषद ने दिवाली तक लॉन्च की तैयारी की बात कही है, लेकिन तारीख अभी तय नहीं है (हिन्दुस्तान, 24 अक्टूबर 2026)।"
+   ],
+   [
+    "अभी नहीं। UPAVP ने 11 अगस्त 2026 को यूपी रेरा में आवेदन किया था (दैनिक जागरण)। 17 सितंबर 2026 की न्यूज़ नेशन रिपोर्ट के अनुसार योजना को रेरा से हरी झंडी मिल चुकी है और सिर्फ़ अंतिम प्रमाणपत्र बाकी है, लेकिन 16 अक्टूबर 2026 तक मंज़ूरी पूरी नहीं हुई है। ब्रोशर आने पर उसमें से रेरा नंबर लेकर आवेदन से पहले खुद up-rera.in पर जाँचिए। जो आज आपसे कह रहा है कि यह योजना पहले से रेरा पंजीकृत है, वह गलत जानकारी दे रहा है।",
+    "हाँ, परिषद के अनुसार। अपर आवास आयुक्त राकेश कुमार सिंह ने 24 अक्टूबर 2026 को हिन्दुस्तान को बताया कि यूपी रेरा ने योजना को मंज़ूरी दे दी है। UPAVP ने 11 अगस्त 2026 को आवेदन किया था (दैनिक जागरण)। रेरा पंजीकरण नंबर अभी सार्वजनिक नहीं है। ब्रोशर आने पर उसमें से रेरा नंबर लेकर आवेदन से पहले खुद up-rera.in पर जाँचिए।"
+   ],
+   [
+    "रेरा का अंतिम प्रमाणपत्र अभी बाकी है, रजिस्ट्रेशन खुला नहीं है",
+    "रेरा मंज़ूरी अभी अक्टूबर 2026 में मिली है और उसका नंबर सार्वजनिक नहीं है, रजिस्ट्रेशन खुला नहीं है"
+   ]
+  ]
+ }
+]

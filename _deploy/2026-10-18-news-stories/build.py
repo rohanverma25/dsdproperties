@@ -1,0 +1,186 @@
+# Builds 6 hand-checked Hindi news stories (18 Oct 2026) into stories.json for insert.php.
+import json, urllib.parse
+
+WA = 'https://wa.me/918595002933?text='
+def link(url, text, ext=True):
+    extra = ' target="_blank" rel="noopener"' if ext else ''
+    return f'<a href="{url}"{extra} style="color:#008080;font-weight:600;">{text}</a>'
+def site(path, text): return link('https://dsdproperties.in/' + path, text, ext=False)
+def facts(items):
+    lis = ''.join(f'<li style="margin:5px 0;line-height:1.7;">{i}</li>' for i in items)
+    return ('<div style="background:#f0fdfa;border:1px solid rgba(0,128,128,0.25);border-left:4px solid #008080;'
+            'border-radius:0 12px 12px 0;padding:16px 20px;margin:0 0 24px;">'
+            '<p style="margin:0 0 8px;font-weight:700;color:#011f4b;font-size:16px;">मुख्य बातें</p>'
+            f'<ul style="margin:0;padding-left:20px;">{lis}</ul></div>')
+def h2(t): return f'<h2 style="font-size:21px;font-weight:700;color:#011f4b;margin:28px 0 10px;border-left:5px solid #FF5C00;padding-left:12px;">{t}</h2>'
+def p(t): return f'<p style="font-size:15.5px;line-height:1.85;color:#374151;margin:0 0 14px;">{t}</p>'
+def ul(items): return '<ul style="margin:0 0 16px;padding-left:22px;">' + ''.join(f'<li style="margin:6px 0;line-height:1.75;color:#374151;">{i}</li>' for i in items) + '</ul>'
+def cta(title, body, button, msg):
+    return ('<div style="background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #FF5C00;border-radius:0 12px 12px 0;padding:16px 20px;margin:24px 0;">'
+            f'<p style="margin:0 0 6px;font-weight:700;color:#011f4b;font-size:16px;">{title}</p>'
+            f'<p style="margin:0 0 12px;line-height:1.7;font-size:15px;color:#374151;">{body}</p>'
+            f'<p style="margin:0;text-align:center;"><a href="{WA + urllib.parse.quote(msg)}" target="_blank" rel="noopener" '
+            'style="display:inline-block;background:#FF5C00;color:#fff;font-weight:700;padding:10px 22px;border-radius:10px;text-decoration:none;">'
+            f'{button}</a></p></div>')
+VERIFY = lambda: cta('खरीदने से पहले जाँच कराएँ',
+    'खतौनी, रजिस्ट्री की चेन, भार-मुक्त प्रमाणपत्र (Encumbrance), LDA/जिला पंचायत की मंज़ूरी और कोर्ट केस — <strong>आवासीय प्लॉट और फ़्लैट के लिए ₹5,000, 48 घंटे में PDF रिपोर्ट</strong>। '
+    + site('services/property-verification-lucknow', 'देखें हम क्या-क्या जाँचते हैं →'),
+    'प्रॉपर्टी वेरिफिकेशन कराएँ — ₹5,000', 'नमस्ते, मुझे प्रॉपर्टी वेरिफिकेशन करानी है।')
+def sources(items): return '<p style="font-size:13px;color:#6b7280;margin:24px 0 0;padding-top:12px;border-top:1px solid #e2e8f0;">स्रोत: ' + ', '.join(items) + '</p>'
+def dateline(d): return f'<p style="font-size:13px;color:#FF5C00;font-weight:700;letter-spacing:.04em;margin:0 0 14px;">लखनऊ • {d}</p>'
+
+AU_KP = 'https://www.amarujala.com/lucknow/up-building-plans-along-kisan-path-to-be-approved-by-lda-paving-the-way-for-new-townships-and-colonies-deci-2026-10-14'
+AU_BOARD = 'https://www.amarujala.com/lucknow/lda-board-meeting-postponed-will-now-be-held-next-week-lucknow-news-c-13-lko1070-1970335-2026-10-17'
+AU_IT = 'https://www.amarujala.com/lucknow/up-lda-to-acquire-300-hectares-of-land-for-an-it-city-in-lucknow-land-from-these-villages-is-included-in-the-2026-10-06'
+AU_SGC = 'https://www.amarujala.com/lucknow/lucknow-news-lucknow-news-c-13-1-lko1069-1970557-2026-10-16'
+AU_MLG = 'https://www.amarujala.com/lucknow/lucknow-news-lucknow-news-c-13-1-lko1069-1954421-2026-10-06'
+IM_13 = 'https://indianmasterminds.com/news/up-rera-approves-15-real-estate-projects-1226-crore-242341/'
+IM_01 = 'https://indianmasterminds.com/news/up-rera-real-estate-projects-2086-crore-238472/'
+SW = 'https://www.thesandeshwahak.com/lda-anant-nagar-lucknow-affordable-flats-registration-2-october/'
+ZB = 'https://www.zeebiz.com/hindi/real-estate/lda-pm-awaas-yojana-aditi-apartments-1bhk-flats-worth-rs-6-lakh-50-thousand-airport-metro-expressway-connectivity-266275'
+AU_LAUNCH = 'https://www.amarujala.com/lucknow/up-dream-of-owning-a-home-capital-to-be-realized-naimish-nagar-varun-vihar-schemes-launched-find-out-2026-09-24'
+ASIA = 'https://hindi.asianetnews.com/news/lda-plot-scheme-2026-540-registrations-in-24-hours-for-varun-vihar-and-naimish-nagar-projects-articleshow-4bww4cl'
+ETV_S11 = 'https://www.etvbharat.com/hi/state/lucknow-lda-bans-land-registry-in-it-city-and-wellness-city-section-11-imposed-ups26060605995'
+BHASKAR = 'https://bhaskardigital.com/those-makingin-both-lda-houwill-up-to-6-discount-apply-by-october-24/'
+
+S = []
+
+# 1 ── Kisan Path map approvals
+S.append(dict(
+ slug='kisan-path-lda-naksha-manjuri-prastav-board-baithak-tali-october-2026',
+ title='किसान पथ के किनारे LDA से पास होंगे नक्शे? 43 गांवों का प्रस्ताव, बोर्ड बैठक अगले हफ्ते',
+ summary='एलडीए किसान पथ (आउटर रिंग रोड) के किनारे 43 गांवों में पहली बार नक्शे पास करने का प्रस्ताव ला रहा है। 17 अक्टूबर की बोर्ड बैठक टल गई; अब फैसला अगले हफ्ते की बैठक में होने की संभावना है।',
+ meta_description='किसान पथ के किनारे 43 गांवों में LDA नक्शा मंज़ूरी का प्रस्ताव। 17 अक्टूबर 2026 की बोर्ड बैठक टली, फैसला अगले हफ्ते। जमीन खरीदारों के लिए इसका मतलब।',
+ category='lda', is_hot=1, source_name='अमर उजाला', source_url=AU_KP,
+ full_content=dateline('18 अक्टूबर 2026') + facts([
+   'एलडीए करीब 105 किमी लंबे <strong>किसान पथ (आउटर रिंग रोड)</strong> के किनारे लखनऊ के <strong>43 गांवों</strong> में पहली बार नक्शे पास करने का प्रस्ताव ला रहा है।',
+   'अभी इस पट्टी में एलडीए नक्शे पास नहीं करता। मंज़ूरी मिलने पर यहां टाउनशिप, अपार्टमेंट और कॉलोनियां कानूनी रूप से बन सकेंगी।',
+   'प्रस्ताव 17 अक्टूबर की बोर्ड बैठक में आना था, लेकिन बैठक त्योहारों के कारण टल गई। अब बैठक अगले हफ्ते होने की संभावना है।',
+   'अमर उजाला के अनुसार इलाके में आवासीय जमीन करीब ₹3,000 प्रति वर्गफुट और व्यावसायिक ₹5,000–6,000 प्रति वर्गफुट बिक रही है।']) +
+ h2('प्रस्ताव में क्या है') +
+ p('किसान पथ करीब तीन साल पहले बनकर तैयार हुआ, लेकिन इसके किनारे की जमीन पर अब तक एलडीए नक्शे पास नहीं करता था। नई नीति के प्रस्ताव में किसान पथ के किनारे लखनऊ के 43 गांवों की जमीन शामिल है। एलडीए सचिव सुशील प्रताप सिंह ने अमर उजाला से कहा: "प्रस्ताव बोर्ड में लाया जाएगा। बोर्ड की मंज़ूरी मिलने पर नक्शा पास करने की व्यवस्था शुरू कर दी जाएगी।" (' + link(AU_KP, 'अमर उजाला, 14 अक्टूबर 2026') + ')') +
+ p('रिपोर्ट के अनुसार इलाके में अवैध निर्माण पहले से शुरू हो चुका है, और नक्शा पास न होने से परेशान कुछ डेवलपर एलडीए के खिलाफ अदालत जाने की तैयारी में हैं।') +
+ h2('बोर्ड बैठक क्यों टली') +
+ p('एलडीए की 17 अक्टूबर को होने वाली बोर्ड बैठक टाल दी गई है। आधिकारिक कारण त्योहार बताया गया है। अमर उजाला ने सूत्रों के हवाले से लिखा है कि स्नातक चुनाव की आचार संहिता भी एक वजह है, ताकि किसी नीतिगत फैसले पर सवाल न उठे। बैठक अब अगले हफ्ते होने की संभावना है; तारीख तय नहीं हुई है। (' + link(AU_BOARD, 'अमर उजाला, 17 अक्टूबर 2026') + ')') +
+ h2('खरीदारों के लिए इसका मतलब') +
+ ul(['<strong>अभी यह सिर्फ प्रस्ताव है।</strong> बोर्ड की मंज़ूरी और नीति के नियम आने तक किसान पथ के किनारे किसी प्लॉट को "एलडीए अप्रूव्ड" बताकर बेचा जाए तो सावधान रहें।',
+     'मंज़ूरी मिलने के बाद भी हर प्लॉट का नक्शा अलग से पास होगा — खेती की जमीन हो तो पहले धारा 80 का आदेश जरूरी है।',
+     'यह जांचें कि जमीन किस प्राधिकरण के क्षेत्र में है: ' + site('blog/lda-vs-zila-panchayat-lucknow-hindi', 'LDA बनाम जिला पंचायत — अंतर समझें') + '।',
+     'किसान पथ के आसपास के इलाकों की पूरी जानकारी: ' + site('blog/kisan-path-lucknow-investment-map-2026', 'किसान पथ लखनऊ — निवेश नक्शा और गाइड') + '।']) +
+ VERIFY() + sources([link(AU_KP, 'अमर उजाला, 14 अक्टूबर 2026'), link(AU_BOARD, 'अमर उजाला, 17 अक्टूबर 2026')])))
+
+# 2 ── IT City acquisition
+S.append(dict(
+ slug='it-city-lucknow-lda-300-hectare-bhumi-adhigrahan-october-2026',
+ title='आईटी सिटी: लैंड पूलिंग में जमीन न देने वाले किसानों की 300 हेक्टेयर जमीन का अधिग्रहण करेगा LDA',
+ summary='एलडीए सुल्तानपुर रोड की आईटी सिटी के लिए 300 हेक्टेयर निजी जमीन का अधिग्रहण करेगा। यह उन किसानों की जमीन है जिन्होंने लैंड पूलिंग में जमीन नहीं दी। प्रस्ताव डीएम को भेजा गया है।',
+ meta_description='आईटी सिटी लखनऊ: LDA 300 हेक्टेयर जमीन का अधिग्रहण करेगा, 10 गांव शामिल। मुआवजा ग्रामीण में सर्किल रेट का 4 गुना। अक्टूबर 2026 अपडेट।',
+ category='it-city', is_hot=1, source_name='अमर उजाला', source_url=AU_IT,
+ full_content=dateline('6 अक्टूबर 2026 की खबर') + facts([
+   'आईटी सिटी का कुल दायरा करीब <strong>1,054 हेक्टेयर</strong> है। इसमें से करीब <strong>500 हेक्टेयर</strong> लैंड पूलिंग से मिल चुका है।',
+   'करीब 200 हेक्टेयर ग्राम समाज की जमीन है, जिसकी कानूनी प्रक्रिया चल रही है।',
+   'बाकी <strong>300 हेक्टेयर</strong> उन किसानों की निजी जमीन है जिन्होंने लैंड पूलिंग में जमीन नहीं दी — इसका अब अधिग्रहण होगा।',
+   'मुआवजा: ग्रामीण क्षेत्र में डीएम सर्किल रेट का 4 गुना, शहरी क्षेत्र में 2 गुना। प्रस्ताव डीएम को भेजा गया है।']) +
+ h2('किन गांवों की जमीन') +
+ p('अमर उजाला के अनुसार आईटी सिटी में ये गांव शामिल हैं: बक्कास, सिकंदरपुर अमोलिया, सिद्धपुरा, परेहटा, रकीबाबाद, मोहारी खुर्द, मोहारी कलां, खुजौली, भटवारा, सोनई कंजेहरा और पहाड़नगर टिकरिया।') +
+ h2('एलडीए ने क्या कहा') +
+ p('एलडीए उपाध्यक्ष प्रथमेश कुमार ने कहा कि किसानों को लैंड पूलिंग में जमीन देने का पर्याप्त मौका दिया गया; जिन्होंने जमीन नहीं दी, उनकी जमीन अब अधिग्रहित की जाएगी। लैंड पूलिंग में जमीन देने वाले किसानों को विकसित जमीन का 25% प्लॉट के रूप में वापस मिलता है, और ये प्लॉट आवंटित किए जा रहे हैं। (' + link(AU_IT, 'अमर उजाला, 6 अक्टूबर 2026') + ')') +
+ h2('खरीदारों और किसानों के लिए इसका मतलब') +
+ ul(['आईटी सिटी के गांवों में <strong>निजी विक्रेता से जमीन न खरीदें</strong> — यह जमीन अधिग्रहण में जा सकती है। जून 2026 में आईटी सिटी और वेलनेस सिटी के पहले चरण में धारा-11 लागू कर खरीद-फरोख्त पर रोक भी लगाई गई थी (' + link(ETV_S11, 'ईटीवी भारत') + ')।',
+     'किसान हैं तो मुआवजे और लैंड पूलिंग के 25% प्लॉट का अंतर समझें: ' + site('blog/it-city-wellness-city-land-pooling-kisan-guide', 'आईटी सिटी और वेलनेस सिटी में लैंड पूलिंग — किसानों के लिए गाइड') + '।',
+     'योजना, सेक्टर और कीमत: ' + site('blog/it-city-lucknow-lda-plots-guide-hindi-2026', 'आईटी सिटी लखनऊ 2026 — पूरी गाइड') + '।']) +
+ VERIFY() + sources([link(AU_IT, 'अमर उजाला, 6 अक्टूबर 2026'), link(ETV_S11, 'ईटीवी भारत, जून 2026')])))
+
+# 3 ── Demolitions
+S.append(dict(
+ slug='lda-avaidh-plotting-dhwast-sushant-golf-city-mohanlalganj-october-2026',
+ title='सुशांत गोल्फ सिटी और मोहनलालगंज में LDA का बुलडोजर: 9 अवैध प्लॉटिंग ध्वस्त, 6 निर्माण सील',
+ summary='एलडीए ने अक्टूबर में सुशांत गोल्फ सिटी क्षेत्र की 65 बीघा और मोहनलालगंज की 15 बीघा जमीन पर चल रही 9 अवैध प्लॉटिंग ध्वस्त की। बिना नक्शे के बन रहे 6 व्यावसायिक निर्माण सील किए गए।',
+ meta_description='LDA ने अक्टूबर 2026 में सुशांत गोल्फ सिटी (65 बीघा) और मोहनलालगंज (15 बीघा) में 9 अवैध प्लॉटिंग ध्वस्त कीं। प्लॉट खरीदने से पहले क्या जांचें।',
+ category='lda', is_hot=0, source_name='अमर उजाला', source_url=AU_SGC,
+ full_content=dateline('16 अक्टूबर 2026') + facts([
+   '<strong>16 अक्टूबर:</strong> सुशांत गोल्फ सिटी क्षेत्र के मलुकपुर, बक्कास, सरसवां और अहिमामऊ गांवों में करीब <strong>65 बीघा</strong> पर चल रही <strong>5 अवैध प्लॉटिंग</strong> ध्वस्त।',
+   'उसी दिन गोमती नगर विस्तार, इंदिरा नगर, खुर्रमनगर, चिनहट (अयोध्या रोड) और सर्वोदय नगर में बिना मंज़ूर नक्शे के बन रहे <strong>6 व्यावसायिक निर्माण सील</strong>।',
+   '<strong>6 अक्टूबर:</strong> मोहनलालगंज क्षेत्र (देवहा, रानीखेड़ा और मौरावां रोड) में करीब <strong>15 बीघा</strong> पर <strong>4 अवैध प्लॉटिंग</strong> ध्वस्त।']) +
+ h2('सुशांत गोल्फ सिटी क्षेत्र') +
+ p('एलडीए के जोनल अधिकारी रवि नंदन सिंह के अनुसार प्रवर्तन टीम ने मलुकपुर, बक्कास, सरसवां और अहिमामऊ में अभियान चलाया। करीब 65 बीघा में की जा रही पांच प्लॉटिंग ध्वस्त की गईं। जोनल अधिकारी प्रभाकर सिंह ने बताया कि सील किए गए भवनों में बिना स्वीकृत नक्शे के व्यावसायिक निर्माण हो रहा था। (' + link(AU_SGC, 'अमर उजाला, 16 अक्टूबर 2026') + ')') +
+ h2('मोहनलालगंज क्षेत्र') +
+ p('जोनल अधिकारी देवांशु त्रिवेदी के अनुसार देवहा गांव, रानीखेड़ा और मौरावां रोड पर करीब 15 बीघा में चल रही चार अवैध प्लॉटिंग पर बुलडोजर चलाया गया। यह कार्रवाई सक्षम प्राधिकारी के आदेश पर हुई। (' + link(AU_MLG, 'अमर उजाला, 6 अक्टूबर 2026') + ')') +
+ h2('प्लॉट खरीदने से पहले क्या जांचें') +
+ ul(['कॉलोनी का <strong>लेआउट एलडीए या जिला पंचायत से पास</strong> है या नहीं — सिर्फ डीलर की बात पर भरोसा न करें। देखें: ' + site('blog/how-to-check-lda-approved-map-lucknow-2026', 'LDA अप्रूव्ड नक्शा कैसे जांचें') + '।',
+     'कॉलोनी एलडीए की अवैध कॉलोनियों की सूची में तो नहीं: ' + site('blog/LDA-illegal-colony-list-lucknow-2026-verification-hindi', 'लखनऊ की 241 अवैध कॉलोनियों की सूची') + '।',
+     'खतौनी में विक्रेता का नाम, जमीन कृषि है या आवासीय (धारा 80), और कोई कोर्ट केस तो नहीं।',
+     'ध्वस्त प्लॉटिंग में प्लॉट खरीदने वालों का पैसा अक्सर फंस जाता है — रजिस्ट्री से पहले जांच ही सबसे सस्ता बचाव है।']) +
+ VERIFY() + sources([link(AU_SGC, 'अमर उजाला, 16 अक्टूबर 2026'), link(AU_MLG, 'अमर उजाला, 6 अक्टूबर 2026')])))
+
+# 4 ── UP RERA approvals
+S.append(dict(
+ slug='up-rera-lucknow-12-projects-approved-october-2026',
+ title='अक्टूबर में UP RERA ने लखनऊ के 12 प्रोजेक्ट मंज़ूर किए — 797 यूनिट, ₹640 करोड़ का निवेश',
+ summary='यूपी रेरा ने अक्टूबर 2026 की दो बैठकों में लखनऊ के 12 रियल एस्टेट प्रोजेक्ट मंज़ूर किए — 9 आवासीय और 3 व्यावसायिक, कुल 797 यूनिट और करीब ₹640 करोड़ का निवेश। दोनों बार लखनऊ सबसे आगे रहा।',
+ meta_description='UP RERA अक्टूबर 2026: लखनऊ के 12 प्रोजेक्ट मंज़ूर — 9 आवासीय, 3 व्यावसायिक, 797 यूनिट, ₹640.77 करोड़। फ्लैट खरीदने से पहले RERA नंबर कैसे जांचें।',
+ category='rera', is_hot=0, source_name='Indian Masterminds', source_url=IM_13,
+ full_content=dateline('18 अक्टूबर 2026') + facts([
+   '<strong>2 अक्टूबर की रिपोर्ट:</strong> रेरा ने प्रदेश के 5 जिलों में 11 प्रोजेक्ट मंज़ूर किए। लखनऊ के <strong>5 प्रोजेक्ट</strong> (2 आवासीय, 3 व्यावसायिक) — ₹169.53 करोड़ निवेश, 198 यूनिट।',
+   '<strong>14 अक्टूबर की रिपोर्ट:</strong> 8 जिलों में 15 प्रोजेक्ट मंज़ूर। लखनऊ के <strong>7 आवासीय प्रोजेक्ट</strong> — ₹471.24 करोड़ निवेश, 599 आवासीय यूनिट।',
+   'अक्टूबर में कुल मिलाकर लखनऊ के <strong>12 प्रोजेक्ट, 797 यूनिट और करीब ₹640.77 करोड़</strong> का निवेश मंज़ूर हुआ।']) +
+ h2('क्या मंज़ूर हुआ') +
+ p('उत्तर प्रदेश रियल एस्टेट नियामक प्राधिकरण (UP RERA) की पहली बैठक में 11 प्रोजेक्ट (कुल ₹2,086.06 करोड़, 1,873 यूनिट) को मंज़ूरी मिली, जिनमें सबसे ज्यादा 5 लखनऊ के थे (' + link(IM_01, 'Indian Masterminds, 2 अक्टूबर 2026') + ')। अगली बैठक में 15 प्रोजेक्ट (₹1,226.57 करोड़, 1,549 यूनिट) मंज़ूर हुए, जिनमें 7 आवासीय प्रोजेक्ट लखनऊ के हैं — संख्या, निवेश और यूनिट तीनों में लखनऊ सबसे आगे रहा (' + link(IM_13, 'Indian Masterminds, 14 अक्टूबर 2026') + ')।') +
+ p('रिपोर्टों में प्रोजेक्ट के नाम और लोकेशन नहीं दिए गए हैं। नए पंजीकृत प्रोजेक्ट up-rera.in पर "Registered Projects" में देखे जा सकते हैं।') +
+ h2('फ्लैट खरीदारों के लिए इसका मतलब') +
+ ul(['बिल्डर से <strong>RERA पंजीकरण नंबर</strong> मांगें और up-rera.in पर खुद जांचें — प्रोजेक्ट का नाम, प्रमोटर, पूरा होने की तारीख और मंज़ूर नक्शा।',
+     'RERA नंबर के बिना किसी प्रोजेक्ट में बुकिंग का पैसा न दें।',
+     'लखनऊ के रेरा-पंजीकृत प्रोजेक्ट की सूची: ' + site('rera-approved-projects-lucknow', 'RERA अप्रूव्ड प्रोजेक्ट्स लखनऊ') + '।']) +
+ VERIFY() + sources([link(IM_01, 'Indian Masterminds, 2 अक्टूबर 2026'), link(IM_13, 'Indian Masterminds, 14 अक्टूबर 2026')])))
+
+# 5 ── Aditi Apartment
+S.append(dict(
+ slug='lda-aditi-apartment-anant-nagar-pmay-flat-registration-october-2026',
+ title='LDA अदिति अपार्टमेंट: अनंत नगर में 1,392 फ्लैट, पीएम आवास का 1BHK सब्सिडी के बाद करीब ₹6.5 लाख',
+ summary='एलडीए ने मोहन रोड की अनंत नगर योजना में अदिति अपार्टमेंट के 1,392 फ्लैटों का पंजीकरण 2 अक्टूबर 2026 से शुरू किया। 412 फ्लैट पीएम आवास योजना 2.0 के 1BHK हैं, 980 फ्लैट 2BHK।',
+ meta_description='LDA अदिति अपार्टमेंट अनंत नगर, मोहन रोड: 1,392 फ्लैट, पीएम आवास 1BHK करीब ₹9 लाख (₹2.5 लाख सब्सिडी के बाद ₹6.5 लाख), 2BHK करीब ₹35 लाख। पंजीकरण अक्टूबर 2026।',
+ category='projects', is_hot=0, source_name='संदेश वाहक', source_url=SW,
+ full_content=dateline('18 अक्टूबर 2026') + facts([
+   'मोहन रोड की <strong>अनंत नगर योजना</strong> (आदर्श खंड) में एलडीए का <strong>अदिति अपार्टमेंट</strong> — कुल <strong>1,392 फ्लैट</strong>।',
+   '<strong>412 फ्लैट 1BHK</strong> पीएम आवास योजना (शहरी) 2.0 के तहत — कीमत करीब ₹9 लाख; ₹2.5 लाख की सरकारी सब्सिडी के बाद करीब <strong>₹6.5 लाख</strong>।',
+   '<strong>980 फ्लैट 2BHK</strong> अफोर्डेबल श्रेणी — कीमत करीब <strong>₹35 लाख</strong>।',
+   'ऑनलाइन पंजीकरण <strong>2 अक्टूबर 2026</strong> से शुरू हुआ। फ्लैट निर्माणाधीन हैं, इसलिए कीमत पर 1% जीएसटी अलग से।']) +
+ h2('योजना के बारे में') +
+ p('संदेश वाहक (30 सितंबर 2026) के अनुसार एलडीए उपाध्यक्ष प्रथमेश कुमार ने बताया कि एक ही परिसर में अलग-अलग आय वर्ग के लोगों के लिए फ्लैट बनाए जा रहे हैं, ताकि आम लोग भी घर खरीद सकें (' + link(SW, 'संदेश वाहक') + ')। ज़ी बिज़नेस के अनुसार 1BHK फ्लैट पर ₹2.5 लाख की सीधी सब्सिडी मिलेगी और निर्माणाधीन होने के कारण 1% जीएसटी अलग से देना होगा (' + link(ZB, 'ज़ी बिज़नेस') + ')।') +
+ h2('आवेदन से पहले ध्यान दें') +
+ ul(['पंजीकरण सिर्फ एलडीए के पोर्टल <strong>registration.ldalucknow.in</strong> पर करें। पंजीकरण की आखिरी तारीख और पंजीकरण राशि पोर्टल की बुकलेट में जरूर देख लें।',
+     'पीएम आवास का 1BHK आय सीमा और पात्रता की शर्तों पर मिलता है — आय प्रमाण पत्र पहले तैयार रखें: ' + site('blog/lda-yojana-ews-lig-mig-aarakshan-aay-praman-patra-hindi-2026', 'EWS, LIG, MIG श्रेणी और आय प्रमाण पत्र गाइड') + '।',
+     'अनंत नगर योजना के प्लॉट और लोकेशन: ' + site('blog/anant-nagar-yojana-lucknow-lda-2026', 'अनंत नगर योजना लखनऊ गाइड') + '।',
+     'किसी दलाल को "फ्लैट पक्का कराने" के नाम पर पैसा न दें — आवंटन लॉटरी से होता है।']) +
+ cta('कौन सा फ्लैट और श्रेणी आपके लिए सही है?', 'पात्रता, आय प्रमाण पत्र और भुगतान योजना पर WhatsApp पर पूछें।', 'WhatsApp पर पूछें', 'नमस्ते, मुझे LDA अदिति अपार्टमेंट के बारे में जानकारी चाहिए।') +
+ sources([link(SW, 'संदेश वाहक, 30 सितंबर 2026'), link(ZB, 'ज़ी बिज़नेस हिंदी')])))
+
+# 6 ── Varun Vihar / Naimish Nagar last date
+S.append(dict(
+ slug='varun-vihar-naimish-nagar-panjikaran-aakhiri-tarikh-24-october-2026',
+ title='वरुण विहार और नैमिष नगर: पंजीकरण की आखिरी तारीख 24 अक्टूबर, 80% से ज्यादा आवेदकों ने चुना एकमुश्त भुगतान',
+ summary='एलडीए की वरुण विहार (2,847 भूखंड) और नैमिष नगर (1,673 भूखंड) योजनाओं का पंजीकरण 24 अक्टूबर 2026 को बंद होगा। 30 सितंबर तक के एलडीए आंकड़ों के अनुसार 80% से ज्यादा आवेदकों ने एकमुश्त भुगतान चुना है।',
+ meta_description='वरुण विहार और नैमिष नगर पंजीकरण 24 अक्टूबर 2026 तक। 80% से ज्यादा ने एकमुश्त भुगतान चुना, उनकी लॉटरी पहले। दर, जमा राशि और छूट।',
+ category='lda', is_hot=1, source_name='अमर उजाला', source_url=AU_LAUNCH,
+ full_content=dateline('18 अक्टूबर 2026') + facts([
+   'दोनों योजनाओं का ऑनलaइन पंजीकरण <strong>24 अक्टूबर 2026</strong> को बंद होगा — registration.ldalucknow.in पर।'.replace('ऑनलaइन','ऑनलाइन'),
+   '<strong>वरुण विहार</strong> (आगरा एक्सप्रेसवे के पास): 2,847 भूखंड, ₹2,800 प्रति वर्गफुट। <strong>नैमिष नगर</strong> (सीतापुर रोड, बीकेटी): 1,673 भूखंड, ₹3,800 प्रति वर्गफुट।',
+   '30 सितंबर तक के एलडीए आंकड़ों के अनुसार <strong>80% से ज्यादा आवेदकों</strong> ने एकमुश्त भुगतान का विकल्प चुना है। एकमुश्त भुगतान वालों की लॉटरी पहले निकलेगी।',
+   'पहले 24 घंटे में 540 पंजीकरण हुए थे — वरुण विहार में 367 और नैमिष नगर में 173।']) +
+ h2('पंजीकरण के लिए क्या चाहिए') +
+ ul(['₹1,100 की बुकलेट, फिर भूखंड की कीमत का <strong>5%</strong> (आरक्षित श्रेणी के लिए 2.5%) पंजीकरण राशि।',
+     'आवेदक की उम्र कम से कम 18 साल हो और पहले एलडीए या किसी आवास प्राधिकरण से भूखंड/मकान न मिला हो।',
+     'एकमुश्त भुगतान पर छूट: 45 दिन में 6%, 60 दिन में 5%, 90 दिन में 4%। किस्तों में 36 महीने, 9.7% ब्याज।',
+     'पंजीकरण निरस्त कराने पर 20% कटौती होती है — इसलिए सोच-समझकर साइज चुनें।']) +
+ p('(शर्तें: ' + link(AU_LAUNCH, 'अमर उजाला, 24 सितंबर 2026') + '; एकमुश्त भुगतान वालों की पहले लॉटरी: ' + link(BHASKAR, 'भास्कर डिजिटल') + '; 80% का आंकड़ा: ' + link(SW, 'संदेश वाहक, 30 सितंबर 2026') + '; पहले 24 घंटे के पंजीकरण: ' + link(ASIA, 'एशियानेट न्यूज़ हिंदी') + ')') +
+ h2('पूरी जानकारी') +
+ ul([site('blog/varun-vihar-yojana-lucknow-hindi-2026', 'वरुण विहार योजना — साइज-वार कीमत, 12 गांव और नक्शा'),
+     site('blog/naimish-nagar-yojana-lucknow-lda-plots-guide-2026-hindi', 'नैमिष नगर योजना — 18 गांव, भुगतान और पात्रता')]) +
+ p('लॉटरी की तारीख एलडीए ने अभी घोषित नहीं की है। घोषणा होते ही हम यह खबर अपडेट करेंगे।') +
+ cta('कौन सा साइज और कौन सी योजना चुनें?', 'बजट, लोकेशन और भुगतान विकल्प पर WhatsApp पर सलाह लें।', 'WhatsApp पर पूछें', 'नमस्ते, मुझे वरुण विहार/नैमिष नगर पंजीकरण पर सलाह चाहिए।') +
+ sources([link(AU_LAUNCH, 'अमर उजाला'), link(BHASKAR, 'भास्कर डिजिटल'), link(SW, 'संदेश वाहक'), link(ASIA, 'एशियानेट न्यूज़ हिंदी')])))
+
+for s in S:
+    assert len(s['meta_description']) <= 170, (s['slug'], len(s['meta_description']))
+json.dump(S, open('stories.json', 'w', encoding='utf8'), ensure_ascii=False, indent=1)
+print(len(S), [len(s['full_content']) for s in S])

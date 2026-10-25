@@ -1,0 +1,625 @@
+<!-- ============================================================
+     STAMP DUTY & REGISTRY CHARGES LUCKNOW 2026 — content_html
+     Fresh design: card-heavy layout, interactive calculator feel,
+     timeline steps, gender comparison cards, real examples
+     Chart.js: no charts needed — data presented in cards/tables
+     ============================================================ -->
+
+<style>
+:root{
+  --navy:#011f4b;--teal:#008080;--orange:#FF5C00;
+  --light-teal:#e0f7f7;--bg:#f9fafb;--border:#e2e8f0;
+  --text:#374151;--muted:#6b7280;--green:#16a34a;--red:#dc2626;
+}
+
+/* ── Hero Rate Cards ── */
+.rate-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-radius:16px;overflow:hidden;margin:28px 0;box-shadow:0 8px 30px rgba(1,31,75,0.2);}
+.rate-card{padding:28px 20px;text-align:center;position:relative;}
+.rate-card.male{background:#011f4b;}
+.rate-card.female{background:#008080;}
+.rate-card.joint{background:#005f5f;}
+.rate-card-label{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.85);font-family:'Poppins',sans-serif;margin-bottom:10px;display:block;}
+.rate-card-pct{font-size:52px;font-weight:700;color:#ffffff;font-family:'Poppins',sans-serif;line-height:1;display:block;text-shadow:0 2px 8px rgba(0,0,0,0.3);}
+.rate-card-sub{font-size:12px;color:rgba(255,255,255,0.9);margin-top:8px;display:block;font-family:'Poppins',sans-serif;}
+.rate-card-tag{display:inline-block;background:rgba(255,255,255,0.22);color:#ffffff;font-size:10px;padding:4px 12px;border-radius:20px;margin-top:12px;font-family:'Poppins',sans-serif;letter-spacing:0.5px;border:1px solid rgba(255,255,255,0.3);}
+.rate-card.female .rate-card-tag{background:rgba(255,255,255,0.25);border-color:rgba(255,255,255,0.4);}
+
+/* ── Registration Card (bottom row) ── */
+.reg-bar{background:var(--navy);border-radius:12px;padding:16px 24px;margin:-8px 0 28px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 16px rgba(1,31,75,0.15);}
+.reg-bar-left{display:flex;align-items:center;gap:14px;}
+.reg-bar-icon{width:40px;height:40px;border-radius:50%;background:rgba(32,178,170,0.2);border:1px solid rgba(32,178,170,0.4);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.reg-bar-text{font-size:14px;color:rgba(255,255,255,0.8);}
+.reg-bar-text strong{color:#fff;display:block;font-size:16px;font-family:'Poppins',sans-serif;}
+.reg-bar-rate{font-size:36px;font-weight:700;color:#20B2AA;font-family:'Poppins',sans-serif;}
+.reg-bar-rate span{font-size:13px;color:rgba(255,255,255,0.5);display:block;text-align:right;font-weight:400;}
+
+/* ── Example Calculator Cards ── */
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:24px 0;}
+.calc-card{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.calc-card-header{padding:14px 18px;display:flex;align-items:center;gap:10px;}
+.calc-card-header.male{background:#011f4b;}
+.calc-card-header.female{background:#008080;}
+.calc-card-header.joint{background:#005f5f;}
+.calc-card-title{font-size:13px;font-weight:700;color:#fff;font-family:'Poppins',sans-serif;}
+.calc-card-body{padding:16px 18px;}
+.calc-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--text);}
+.calc-row:last-child{border-bottom:none;}
+.calc-row-label{color:var(--muted);}
+.calc-row-val{font-weight:700;color:var(--navy);}
+.calc-total{background:var(--bg);border-radius:8px;padding:10px 14px;margin-top:12px;display:flex;justify-content:space-between;align-items:center;}
+.calc-total-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;font-family:'Poppins',sans-serif;}
+.calc-total-val{font-size:18px;font-weight:700;color:var(--orange);font-family:'Poppins',sans-serif;}
+.calc-saving{font-size:11px;color:var(--green);font-weight:600;text-align:center;margin-top:8px;background:#f0fdf4;padding:5px 10px;border-radius:6px;font-family:'Poppins',sans-serif;}
+
+/* ── Deed Rates Table ── */
+.deed-table{width:100%;border-collapse:collapse;font-size:14px;margin:20px 0;}
+.deed-table thead tr{background:var(--navy);color:#fff;}
+.deed-table th{padding:12px 16px;text-align:left;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;}
+.deed-table td{padding:12px 16px;border-bottom:1px solid var(--border);color:var(--text);line-height:1.5;}
+.deed-table tr:nth-child(even) td{background:#f8fafc;}
+.deed-table tr:last-child td{border-bottom:none;}
+.deed-pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;font-family:'Poppins',sans-serif;}
+.deed-pill.low{background:#f0fdf4;color:var(--green);}
+.deed-pill.mid{background:#fff8f0;color:var(--orange);}
+.deed-pill.high{background:#fff5f5;color:var(--red);}
+
+/* ── Process Steps — NEW STYLE (horizontal for desktop) ── */
+.process-flow{margin:28px 0;}
+.process-step{display:flex;gap:18px;margin-bottom:20px;align-items:flex-start;}
+.step-bubble{min-width:48px;height:48px;border-radius:50%;background:var(--teal);color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;flex-shrink:0;box-shadow:0 4px 12px rgba(0,128,128,0.3);}
+.step-bubble.warn{background:var(--orange);}
+.step-content{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 18px;flex:1;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
+.step-content h4{font-size:14px;font-weight:700;color:var(--navy);margin:0 0 5px;}
+.step-content p{font-size:13px;color:var(--muted);margin:0;line-height:1.6;}
+.step-connector{width:2px;height:14px;background:rgba(0,128,128,0.25);margin:0 0 0 23px;}
+
+/* ── Exemption Cards ── */
+.exemption-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin:22px 0;}
+.exemption-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px;border-top:4px solid;}
+.exemption-card.teal{border-top-color:var(--teal);}
+.exemption-card.green{border-top-color:var(--green);}
+.exemption-card.orange{border-top-color:var(--orange);}
+.exemption-card.navy{border-top-color:var(--navy);}
+.exemption-card h4{font-size:14px;font-weight:700;color:var(--navy);margin:0 0 8px;}
+.exemption-card p{font-size:13px;color:var(--text);margin:0;line-height:1.65;}
+.exemption-card .saving-tag{display:inline-block;margin-top:10px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:#f0fdf4;color:var(--green);font-family:'Poppins',sans-serif;}
+
+/* ── Warning / Info Boxes ── */
+.warn-box{background:#fff5f5;border:1px solid rgba(220,38,38,0.2);border-left:4px solid var(--red);border-radius:0 12px 12px 0;padding:16px 20px;margin:22px 0;}
+.warn-box h4{color:var(--red);font-size:15px;font-weight:700;margin:0 0 10px;}
+.warn-box ul{list-style:none;padding:0;margin:0;}
+.warn-box ul li{font-size:14px;color:var(--text);padding:5px 0 5px 18px;position:relative;line-height:1.75;}
+.warn-box ul li::before{content:'✗';position:absolute;left:0;color:var(--red);font-weight:700;}
+.info-box{background:var(--light-teal);border:1px solid rgba(0,128,128,0.2);border-radius:12px;padding:20px 24px;margin:22px 0;}
+.info-box h4{color:var(--navy);font-size:15px;font-weight:700;margin:0 0 12px;}
+.info-box ul{list-style:none;padding:0;margin:0;}
+.info-box ul li{padding:5px 0 5px 22px;position:relative;font-size:14px;color:var(--text);border-bottom:1px solid rgba(0,128,128,0.1);line-height:1.7;}
+.info-box ul li:last-child{border-bottom:none;}
+.info-box ul li::before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:700;}
+
+/* ── Quick Ref Box ── */
+.quick-ref{background:var(--navy);border-radius:14px;padding:24px 28px;margin:28px 0;color:#fff;}
+.quick-ref h3{color:#20B2AA;font-size:16px;font-weight:700;margin:0 0 16px;font-family:'Poppins',sans-serif;letter-spacing:0.5px;}
+.quick-ref-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;}
+.quick-ref-item{background:rgba(255,255,255,0.07);border-radius:10px;padding:14px 16px;border:1px solid rgba(255,255,255,0.1);}
+.quick-ref-item .val{font-size:22px;font-weight:700;color:#20B2AA;font-family:'Poppins',sans-serif;display:block;line-height:1.1;}
+.quick-ref-item .lbl{font-size:11px;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.5px;margin-top:4px;display:block;font-family:'Poppins',sans-serif;}
+
+/* ── Tax Benefit Banner ── */
+.tax-banner{background:linear-gradient(135deg,#011f4b 0%,#005f5f 100%);border-radius:14px;padding:22px 26px;margin:24px 0;display:flex;align-items:center;gap:20px;}
+.tax-banner-icon{font-size:32px;flex-shrink:0;}
+.tax-banner-text h4{color:#fff;font-size:15px;font-weight:700;margin:0 0 6px;font-family:'Poppins',sans-serif;}
+.tax-banner-text p{color:rgba(255,255,255,0.75);font-size:13.5px;margin:0;line-height:1.6;}
+.tax-banner-amount{flex-shrink:0;text-align:center;}
+.tax-banner-amount .amt{font-size:28px;font-weight:700;color:#20B2AA;font-family:'Poppins',sans-serif;display:block;}
+.tax-banner-amount .lbl{font-size:11px;color:rgba(255,255,255,0.5);font-family:'Poppins',sans-serif;}
+
+/* ── Related + FAQ ── */
+.dsd-related-inline{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:22px 0;}
+.dsd-link-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-decoration:none;display:block;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;}
+.dsd-link-card:hover{border-color:var(--teal);box-shadow:0 4px 16px rgba(0,128,128,0.1);transform:translateY(-2px);}
+.dsd-link-card .lbl{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal);font-weight:600;margin-bottom:5px;font-family:'Poppins',sans-serif;}
+.dsd-link-card .ttl{font-size:14px;font-weight:600;color:var(--navy);line-height:1.45;}
+#FAQs h3{background:var(--bg);border:1px solid var(--border);border-left:4px solid var(--teal);padding:14px 18px;border-radius:0 10px 10px 0;cursor:pointer;color:var(--navy);font-size:15px;font-weight:600;margin-bottom:0;position:relative;transition:background 0.2s;}
+#FAQs h3:hover{background:var(--light-teal);}
+#FAQs h3::after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--teal);font-weight:400;}
+#FAQs h3.active::after{content:'−';}
+#FAQs h3+p{display:none;background:#fff;border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;padding:14px 18px;font-size:14.5px;color:var(--text);margin-top:0;margin-bottom:12px;line-height:1.85;}
+@media(max-width:640px){
+  .rate-cards{grid-template-columns:1fr;}
+  .calc-grid{grid-template-columns:1fr;}
+  .quick-ref-grid{grid-template-columns:repeat(2,1fr);}
+  .exemption-grid{grid-template-columns:1fr;}
+  .reg-bar{flex-direction:column;gap:10px;text-align:center;}
+  .tax-banner{flex-direction:column;text-align:center;}
+  .dsd-related-inline{grid-template-columns:1fr;}
+}
+</style>
+
+<p style="font-size:13px;color:#6b7280;margin:0 0 28px;padding-bottom:16px;border-bottom:1px solid #e2e8f0;">Sources: UP Stamp & Registration Department (igrsup.gov.in), UP Cabinet Gazette July 2025, 99acres, ClearTax, Bajaj Finserv. Verified April 2026.</p>
+
+<!-- ══ INTRO ══ -->
+<p style="font-size:15.5px;color:#374151;line-height:1.85;margin-bottom:16px;">When you buy a property in Lucknow, the price tag on the listing is never the final cost. Add 7–8% on top for stamp duty and registration charges alone — on a ₹50 lakh plot, that's ₹3.5–4 lakh paid to the government before you even begin construction. Most buyers discover this number only at the registry office, unprepared. This guide puts it all clearly so you can budget correctly from day one.</p>
+
+<p style="font-size:15.5px;color:#374151;line-height:1.85;margin-bottom:28px;">Uttar Pradesh has one of the highest stamp duty rates in India. But it also has some of the most generous exemptions — for women buyers, blood relative transfers, and certain buyer categories. If you structure your purchase correctly, you can legally save anywhere from ₹10,000 to ₹1 lakh. This guide covers the exact rates, real worked examples, all exemptions, the step-by-step process, and the most common mistakes that cost buyers extra. <a href="https://dsdproperties.in/services/property-advisory-lucknow" style="color:#008080;font-weight:600;">DSD Properties' free Property Advisory</a> can also help you plan your total purchase cost before committing.</p>
+
+<!-- ══ TOC ══ -->
+<h2 id="toc_id">📋 Table of Contents</h2>
+<ul>
+  <li><a href="#rates">Current Stamp Duty Rates — 2026</a></li>
+  <li><a href="#examples">Real Worked Examples — ₹25L, ₹50L, ₹75L, ₹1 Cr</a></li>
+  <li><a href="#deed-rates">Deed-Wise Stamp Duty Rates</a></li>
+  <li><a href="#circle-rate">The Circle Rate Rule — The Most Expensive Surprise</a></li>
+  <li><a href="#exemptions">Exemptions & Savings — Who Pays Less</a></li>
+  <li><a href="#process">Step-by-Step Registration Process 2026</a></li>
+  <li><a href="#mistakes">5 Costly Mistakes Buyers Make</a></li>
+  <li><a href="#tax-benefit">Income Tax Benefit on Stamp Duty</a></li>
+  <li><a href="#FAQs">Frequently Asked Questions</a></li>
+</ul>
+
+<!-- ══ SECTION 1 — RATES ══ -->
+<h2 id="rates">Current Stamp Duty Rates in Lucknow 2026</h2>
+
+<p style="font-size:15px;color:#374151;line-height:1.85;">Stamp duty in Uttar Pradesh is calculated as a percentage of the property's market value or circle rate — <strong>whichever is higher</strong>. The rate varies based on who is buying.</p>
+
+<!-- Registration bar -->
+<div class="reg-bar">
+  <div class="reg-bar-left">
+    <div class="reg-bar-icon">📋</div>
+    <div class="reg-bar-text">
+      <strong>Registration Charges</strong>
+      Flat rate — same for all buyers, all genders, all property types
+    </div>
+  </div>
+  <div class="reg-bar-rate">1%<span>of property value</span></div>
+</div>
+
+<!-- Quick Reference Box -->
+<div class="quick-ref">
+  <h3>⚡ Quick Reference — Lucknow 2026</h3>
+  <div class="quick-ref-grid">
+    <div class="quick-ref-item"><span class="val">7%</span><span class="lbl">Stamp Duty — Male</span></div>
+    <div class="quick-ref-item"><span class="val">6%</span><span class="lbl">Stamp Duty — Female</span></div>
+    <div class="quick-ref-item"><span class="val">6.5%</span><span class="lbl">Stamp Duty — Joint M+F</span></div>
+    <div class="quick-ref-item"><span class="val">1%</span><span class="lbl">Registration — All</span></div>
+    <div class="quick-ref-item"><span class="val">₹5,000</span><span class="lbl">Blood Relative Transfer</span></div>
+    <div class="quick-ref-item"><span class="val">igrsup.gov.in</span><span class="lbl">Official Payment Portal</span></div>
+  </div>
+</div>
+
+<!-- ══ SECTION 2 — EXAMPLES ══ -->
+<!-- verify-cta -->
+<div class="dsd-verify-cta" style="background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #FF5C00;border-radius:0 12px 12px 0;padding:16px 20px;margin:0 0 24px;">
+  <p style="margin:0 0 6px;font-weight:700;color:#011f4b;font-size:16px;">Verify the property before you pay stamp duty</p>
+  <p style="margin:0 0 12px;line-height:1.7;font-size:15px;color:#374151;">Stamp duty is not refunded if the deal goes wrong. Check the owner, registry chain, encumbrance, LDA status and court cases first — <strong>₹5,000 for residential plots and flats, PDF report in 48 hours</strong>.</p>
+  <p style="margin:0 0 8px;">{{CONSULTATION_BUTTON:Get Property Verified — ₹5,000}}</p>
+  <p style="margin:0;font-size:13px;text-align:center;"><a href="https://dsdproperties.in/services/property-verification-lucknow" style="color:#008080;font-weight:600;">See what we check →</a></p>
+</div>
+<h2 id="examples">Real Worked Examples — What You Actually Pay</h2>
+
+<p style="font-size:15px;color:#374151;line-height:1.85;margin-bottom:8px;">All examples below assume the transaction value equals or exceeds the circle rate (i.e., stamp duty is calculated on transaction value). If your property's circle rate is higher than what you paid, stamp duty is calculated on the circle rate — see the <a href="#circle-rate" style="color:#008080;">Circle Rate section</a> below.</p>
+
+<div class="calc-grid">
+
+  <!-- ₹25L Male -->
+  <div class="calc-card">
+    <div class="calc-card-header male">
+      <div style="width:8px;height:8px;border-radius:50%;background:#20B2AA;"></div>
+      <div class="calc-card-title">₹25 Lakh Property — Male Buyer</div>
+    </div>
+    <div class="calc-card-body">
+      <div class="calc-row"><span class="calc-row-label">Property value</span><span class="calc-row-val">₹25,00,000</span></div>
+      <div class="calc-row"><span class="calc-row-label">Stamp duty @ 7%</span><span class="calc-row-val">₹1,75,000</span></div>
+      <div class="calc-row"><span class="calc-row-label">Registration @ 1%</span><span class="calc-row-val">₹25,000</span></div>
+      <div class="calc-total"><span class="calc-total-label">Total</span><span class="calc-total-val">₹2,00,000</span></div>
+    </div>
+  </div>
+
+  <!-- ₹25L Female -->
+  <div class="calc-card">
+    <div class="calc-card-header female">
+      <div style="width:8px;height:8px;border-radius:50%;background:#fff;"></div>
+      <div class="calc-card-title">₹25 Lakh Property — Female Buyer</div>
+    </div>
+    <div class="calc-card-body">
+      <div class="calc-row"><span class="calc-row-label">Property value</span><span class="calc-row-val">₹25,00,000</span></div>
+      <div class="calc-row"><span class="calc-row-label">Stamp duty @ 6% (7% − 1% women's concession)</span><span class="calc-row-val">₹1,50,000</span></div>
+      <div class="calc-row"><span class="calc-row-label">Registration @ 1%</span><span class="calc-row-val">₹25,000</span></div>
+      <div class="calc-total"><span class="calc-total-label">Total</span><span class="calc-total-val">₹1,75,000</span></div>
+      <div class="calc-saving">Save ₹25,000 vs male buyer</div>
+    </div>
+  </div>
+
+  <!-- ₹50L Male -->
+  <div class="calc-card">
+    <div class="calc-card-header male">
+      <div style="width:8px;height:8px;border-radius:50%;background:#20B2AA;"></div>
+      <div class="calc-card-title">₹50 Lakh Property — Male Buyer</div>
+    </div>
+    <div class="calc-card-body">
+      <div class="calc-row"><span class="calc-row-label">Property value</span><span class="calc-row-val">₹50,00,000</span></div>
+      <div class="calc-row"><span class="calc-row-label">Stamp duty @ 7%</span><span class="calc-row-val">₹3,50,000</span></div>
+      <div class="calc-row"><span class="calc-row-label">Registration @ 1%</span><span class="calc-row-val">₹50,000</span></div>
+      <div class="calc-total"><span class="calc-total-label">Total</span><span class="calc-total-val">₹4,00,000</span></div>
+    </div>
+  </div>
+
+  <!-- ₹50L Female -->
+  <div class="calc-card">
+    <div class="calc-card-header female">
+      <div style="width:8px;height:8px;border-radius:50%;background:#fff;"></div>
+      <div class="calc-card-title">₹50 Lakh Property — Female Buyer</div>
+    </div>
+    <div class="calc-card-body">
+      <div class="calc-row"><span class="calc-row-label">Property value</span><span class="calc-row-val">₹50,00,000</span></div>
+      <div class="calc-row"><span class="calc-row-label">Stamp duty @ 6% (7% − 1% women's concession)</span><span class="calc-row-val">₹3,00,000</span></div>
+      <div class="calc-row"><span class="calc-row-label">Registration @ 1%</span><span class="calc-row-val">₹50,000</span></div>
+      <div class="calc-total"><span class="calc-total-label">Total</span><span class="calc-total-val">₹3,50,000</span></div>
+      <div class="calc-saving">Save ₹50,000 vs male buyer</div>
+    </div>
+  </div>
+
+  <!-- ₹1 Cr Male -->
+  <div class="calc-card">
+    <div class="calc-card-header male">
+      <div style="width:8px;height:8px;border-radius:50%;background:#20B2AA;"></div>
+      <div class="calc-card-title">₹1 Crore Property — Male Buyer</div>
+    </div>
+    <div class="calc-card-body">
+      <div class="calc-row"><span class="calc-row-label">Property value</span><span class="calc-row-val">₹1,00,00,000</span></div>
+      <div class="calc-row"><span class="calc-row-label">Stamp duty @ 7%</span><span class="calc-row-val">₹7,00,000</span></div>
+      <div class="calc-row"><span class="calc-row-label">Registration @ 1%</span><span class="calc-row-val">₹1,00,000</span></div>
+      <div class="calc-total"><span class="calc-total-label">Total</span><span class="calc-total-val">₹8,00,000</span></div>
+    </div>
+  </div>
+
+  <!-- ₹1 Cr Female -->
+  <div class="calc-card">
+    <div class="calc-card-header female">
+      <div style="width:8px;height:8px;border-radius:50%;background:#fff;"></div>
+      <div class="calc-card-title">₹1 Crore Property — Female Buyer</div>
+    </div>
+    <div class="calc-card-body">
+      <div class="calc-row"><span class="calc-row-label">Property value</span><span class="calc-row-val">₹1,00,00,000</span></div>
+      <div class="calc-row"><span class="calc-row-label">Stamp duty @ 6% (7% − 1% women's concession)</span><span class="calc-row-val">₹6,00,000</span></div>
+      <div class="calc-row"><span class="calc-row-label">Registration @ 1%</span><span class="calc-row-val">₹1,00,000</span></div>
+      <div class="calc-total"><span class="calc-total-label">Total</span><span class="calc-total-val">₹7,00,000</span></div>
+      <div class="calc-saving">Maximum saving — ₹1,00,000 vs male</div>
+    </div>
+  </div>
+
+</div>
+
+{{CONSULTATION_BUTTON:Calculate My Total Property Cost — Free Expert Help}}
+
+<!-- ══ SECTION 3 — DEED RATES ══ -->
+<h2 id="deed-rates">Deed-Wise Stamp Duty Rates in UP 2026</h2>
+
+<p style="font-size:15px;color:#374151;line-height:1.85;">Not all property documents carry the same stamp duty. Here are the key deed-wise rates you need to know:</p>
+
+<div style="overflow-x:auto;margin:20px 0;">
+<table class="deed-table">
+  <thead>
+    <tr><th>Deed / Document Type</th><th>Stamp Duty</th><th>Registration</th><th>Category</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Sale Deed (Male buyer)</strong></td><td>7% of value</td><td>1% of value</td><td><span class="deed-pill high">High</span></td></tr>
+    <tr><td><strong>Sale Deed (Female buyer, ≤₹1 Cr)</strong></td><td>6% of value (7% − 1% concession)</td><td>1% of value</td><td><span class="deed-pill mid">Discounted</span></td></tr>
+    <tr><td><strong>Sale Deed (Joint M+F)</strong></td><td>6.5% of value</td><td>1% of value</td><td><span class="deed-pill mid">Mid</span></td></tr>
+    <tr><td><strong>Gift Deed — Blood Relatives</strong></td><td>Flat ₹5,000</td><td>Flat ₹1,000</td><td><span class="deed-pill low">Very Low</span></td></tr>
+    <tr><td><strong>Gift Deed — Others (non-relative)</strong></td><td>7% of value</td><td>1% of value</td><td><span class="deed-pill high">High</span></td></tr>
+    <tr><td><strong>Partition Deed (Family)</strong></td><td>Capped ₹5,000</td><td>₹1,000</td><td><span class="deed-pill low">Very Low</span></td></tr>
+    <tr><td><strong>Will</strong></td><td>₹200 fixed</td><td>₹200 fixed</td><td><span class="deed-pill low">Very Low</span></td></tr>
+    <tr><td><strong>General Power of Attorney</strong></td><td>₹10–₹100</td><td>₹100</td><td><span class="deed-pill low">Very Low</span></td></tr>
+    <tr><td><strong>Agreement to Sell</strong></td><td>₹10 fixed</td><td>₹100</td><td><span class="deed-pill low">Very Low</span></td></tr>
+    <tr><td><strong>Lease Deed</strong></td><td>₹200 fixed</td><td>₹100</td><td><span class="deed-pill low">Very Low</span></td></tr>
+    <tr><td><strong>Agricultural Land</strong></td><td>6–7% of value</td><td>1% of value</td><td><span class="deed-pill high">Same as residential</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ══ SECTION 4 — CIRCLE RATE ══ -->
+<h2 id="circle-rate">The Circle Rate Rule — Lucknow's Biggest Hidden Cost</h2>
+
+<p style="font-size:15.5px;color:#374151;line-height:1.85;">This is the single most important thing to understand about stamp duty in Lucknow — and the one that catches the most buyers off guard.</p>
+
+<div class="warn-box">
+  <h4>⚠️ The Circle Rate Rule — Always Stamp on the Higher of the Two</h4>
+  <ul>
+    <li>Stamp duty in UP is calculated on the <strong>higher of the transaction value OR the government circle rate</strong> for that locality — not just what you paid</li>
+    <li>If you buy a plot for ₹40L but the circle rate values it at ₹50L — you pay stamp duty on ₹50L, not ₹40L</li>
+    <li>This is mandatory under Section 17 of the Registration Act, 1908 — the Sub-Registrar cannot accept a lower valuation</li>
+    <li>Circle rates in prime Lucknow pockets (Gomti Nagar Extension, Amar Shaheed Path, Vrindavan Yojna) are significantly higher than in peripheral zones (Banthra, Mohanlalganj, Zone C pockets)</li>
+  </ul>
+</div>
+
+<div class="info-box">
+  <h4>💡 How to Find the Circle Rate for Your Property</h4>
+  <ul>
+    <li>Visit <strong>igrsup.gov.in</strong> → Property Registration → Market Value search → Enter your tehsil, village, and property details</li>
+    <li>The portal shows the government-notified circle rate for your specific Khasra number or locality</li>
+    <li>Always check this <strong>before negotiating the deal price</strong> — it determines your actual stamp duty outflow</li>
+    <li>Circle rates are revised periodically by the UP government — always use the live portal figure, not old brochure data</li>
+    <li>If the property seller is quoting a price below circle rate, you will still pay stamp duty at the circle rate — budget accordingly</li>
+  </ul>
+</div>
+
+<p style="font-size:15px;color:#374151;line-height:1.85;"><strong>Practical example:</strong> You agree to buy a plot in Banthra for ₹12L. Circle rate for that locality is ₹1,500/sqft. Plot is 1,000 sqft → circle rate value = ₹15L. You pay stamp duty on ₹15L (not ₹12L). For a male buyer: 7% of ₹15L = ₹1,05,000 stamp duty + ₹15,000 registration = <strong>₹1,20,000 total</strong> — despite buying at ₹12L.</p>
+
+<!-- ══ SECTION 5 — EXEMPTIONS ══ -->
+<h2 id="exemptions">Exemptions & Savings — Who Pays Less in 2026</h2>
+
+<div class="exemption-grid">
+
+  <div class="exemption-card teal">
+    <h4>Women Buyers — 1% Rebate (July 2025 Update)</h4>
+    <p>Women buying property valued up to ₹1 crore pay 6% stamp duty instead of 7%. On 22 July 2025 the UP Cabinet raised this 1% concession limit from ₹10 lakh to ₹1 crore. Maximum saving: ₹1 lakh. Property must be registered in the woman's name (not joint male-female).</p>
+    <span class="saving-tag">Save up to ₹1,00,000</span>
+  </div>
+
+  <div class="exemption-card green">
+    <h4>Blood Relative Transfer — Flat ₹5,000</h4>
+    <p>Transfers among blood relatives (spouse, children, parents, siblings) attract a flat stamp duty of just ₹5,000 + ₹1,000 registration — regardless of property value. Earlier this was 7% for all. Massive relief for family gift deeds and inheritance transfers in Lucknow.</p>
+    <span class="saving-tag">From ₹7L to ₹5,000 on ₹1 Cr property</span>
+  </div>
+
+  <div class="exemption-card orange">
+    <h4>Martyrs' Legal Heirs & Ex-Servicemen</h4>
+    <p><a href="https://dsdproperties.in/blog/transfer-property-after-death-lucknow-guide" style="color:#008080;font-weight:600;">Legal heirs</a> of martyrs and ex-servicemen of Uttar Pradesh are exempt from stamp duty on their share of property up to ₹20 lakh on purchases of new houses, residential or commercial land, or agricultural land. A 5% exemption applies on the heir's share.</p>
+    <span class="saving-tag">Exemption up to ₹20L share</span>
+  </div>
+
+  <div class="exemption-card navy">
+    <h4>Joint Female Ownership</h4>
+    <p>Property jointly owned by two women attracts 6% stamp duty — same as a single female buyer. The 1% rebate (post-July 2025) is only for deeds in a woman's name; for joint male-female ownership the rate is 6.5% and no additional rebate applies.</p>
+    <span class="saving-tag">6% stamp on two women joint</span>
+  </div>
+
+  <div class="exemption-card teal">
+    <h4>PLEDGE Scheme — Women Entrepreneurs</h4>
+    <p>Women entrepreneurs buying or leasing industrial land within private industrial parks developed under UP's PLEDGE scheme receive 100% stamp duty exemption. Central UP gets 75% rebate, Gautam Buddha Nagar 50%, Eastern UP and Bundelkhand 100%.</p>
+    <span class="saving-tag">Up to 100% exemption</span>
+  </div>
+
+  <div class="exemption-card green">
+    <h4>Section 80C Tax Deduction</h4>
+    <p>Stamp duty and registration charges paid on a new residential property are eligible for deduction under Section 80C of the Income Tax Act — up to ₹1.5 lakh per year. Joint owners can each claim this deduction independently on their share.</p>
+    <span class="saving-tag">Tax deduction up to ₹1.5L</span>
+  </div>
+
+</div>
+
+<!-- ══ SECTION 6 — PROCESS ══ -->
+<h2 id="process">Step-by-Step Property Registration Process in Lucknow 2026</h2>
+
+<p style="font-size:15px;color:#374151;line-height:1.85;">The UP government has digitized the majority of the registration workflow via <strong>igrsup.gov.in</strong>. Here is the complete process for 2026:</p>
+
+<div class="process-flow">
+
+  <div class="process-step">
+    <div class="step-bubble">1</div>
+    <div class="step-content">
+      <h4>Verify the Circle Rate — Before Anything Else</h4>
+      <p>Visit igrsup.gov.in → Market Value section. Enter your tehsil, village/locality, and property type to get the government circle rate. This determines your stamp duty base — do this before finalising the deal price.</p>
+    </div>
+  </div>
+  <div class="step-connector"></div>
+
+  <div class="process-step">
+    <div class="step-bubble">2</div>
+    <div class="step-content">
+      <h4>Prepare the Sale Deed Draft</h4>
+      <p>A licensed deed writer or your property lawyer prepares the sale deed with all property details, buyer/seller information, and transaction value. Both parties review and sign. This draft is required before online application.</p>
+    </div>
+  </div>
+  <div class="step-connector"></div>
+
+  <div class="process-step">
+    <div class="step-bubble">3</div>
+    <div class="step-content">
+      <h4>Apply Online at igrsup.gov.in</h4>
+      <p>Go to igrsup.gov.in → Property Registration → New Registration. Create an application number. Enter all property and party details. The portal calculates stamp duty and registration charges automatically based on your inputs.</p>
+    </div>
+  </div>
+  <div class="step-connector"></div>
+
+  <div class="process-step">
+    <div class="step-bubble">4</div>
+    <div class="step-content">
+      <h4>Pay Stamp Duty Online (E-Stamp)</h4>
+      <p>Pay the calculated stamp duty through the <a href="https://dsdproperties.in/blog/igrsup-lucknow-property-search-tutorial" style="color:#008080;font-weight:600;">IGRS UP</a> portal via net banking, UPI, or debit/credit card. An e-stamp certificate is generated with a unique number. Download and save this — it is required at the Sub-Registrar office. E-stamping is now mandatory for urban areas including Lucknow.</p>
+    </div>
+  </div>
+  <div class="step-connector"></div>
+
+  <div class="process-step">
+    <div class="step-bubble warn">5</div>
+    <div class="step-content">
+      <h4>Book Appointment at Sub-Registrar Office</h4>
+      <p>Book a slot at your area's Sub-Registrar office through the portal. Both buyer and seller (and two witnesses) must be physically present with original documents: Aadhaar, PAN, sale deed, e-stamp receipt, and property photos.</p>
+    </div>
+  </div>
+  <div class="step-connector"></div>
+
+  <div class="process-step">
+    <div class="step-bubble warn">6</div>
+    <div class="step-content">
+      <h4>Pay Registration Charges (1%) at Office</h4>
+      <p>Registration charge of 1% is paid at the Sub-Registrar office (separate from stamp duty). The deed is formally executed in the presence of the Sub-Registrar. You receive a signed, sealed copy of the registered sale deed with a Document Registration Number (DRN).</p>
+    </div>
+  </div>
+  <div class="step-connector"></div>
+
+  <div class="process-step">
+    <div class="step-bubble warn">7</div>
+    <div class="step-content">
+      <h4>Complete Mutation (Dakhil Kharij) — Don't Skip</h4>
+      <p>Registry alone is not enough. You must also file for mutation at the Tehsil office to update revenue records in your name (Khatauni from "Krishi" or previous owner to your name). Without mutation, the sale deed has no value for bank loans or future sale. Verify the updated Khatauni on upbhulekh.gov.in 2–3 weeks after mutation application.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ SECTION 7 — MISTAKES ══ -->
+<h2 id="mistakes">5 Costly Mistakes Buyers Make at Registry</h2>
+
+<div style="margin:24px 0;">
+
+  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;margin-bottom:14px;border-left:4px solid #dc2626;box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+    <div style="display:flex;align-items:flex-start;gap:14px;">
+      <div style="min-width:36px;height:36px;background:#dc2626;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;font-family:'Poppins',sans-serif;flex-shrink:0;">01</div>
+      <div>
+        <p style="font-size:15px;font-weight:700;color:#011f4b;margin:0 0 5px;">Not Checking the Circle Rate Before Negotiating</p>
+        <p style="font-size:13.5px;color:#374151;line-height:1.75;margin:0;">The most common and expensive mistake. A buyer negotiates ₹40L for a plot, then discovers the circle rate is ₹50L at the registry office — and must pay stamp duty on ₹50L. Budget shock of ₹70,000 extra (7% on ₹10L difference) that was entirely avoidable with a 2-minute check on igrsup.gov.in.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;margin-bottom:14px;border-left:4px solid #dc2626;box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+    <div style="display:flex;align-items:flex-start;gap:14px;">
+      <div style="min-width:36px;height:36px;background:#dc2626;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;font-family:'Poppins',sans-serif;flex-shrink:0;">02</div>
+      <div>
+        <p style="font-size:15px;font-weight:700;color:#011f4b;margin:0 0 5px;">Registering in Husband's Name When Wife Gets 1% Cheaper</p>
+        <p style="font-size:13.5px;color:#374151;line-height:1.75;margin:0;">On a ₹50L property, registering in the wife's name saves ₹50,000 (1% of ₹50L). On ₹1 Cr, savings reach ₹1 lakh. Thousands of Lucknow families miss this saving every month simply because no one told them. If the property value is ₹1 crore or under, always evaluate registering in the wife's name.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;margin-bottom:14px;border-left:4px solid #dc2626;box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+    <div style="display:flex;align-items:flex-start;gap:14px;">
+      <div style="min-width:36px;height:36px;background:#dc2626;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;font-family:'Poppins',sans-serif;flex-shrink:0;">03</div>
+      <div>
+        <p style="font-size:15px;font-weight:700;color:#011f4b;margin:0 0 5px;">Paying 7% on a Blood Relative Transfer When Flat ₹5,000 Applies</p>
+        <p style="font-size:13.5px;color:#374151;line-height:1.75;margin:0;">Many families in Lucknow are still paying 7% stamp duty on property gifted from parent to child, or between siblings — when the flat ₹5,000 rate applies to all blood relative transfers since the 2025 UP Cabinet order. Always declare the relationship with supporting documents (birth certificate, Aadhaar family records) at the Sub-Registrar's office.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;margin-bottom:14px;border-left:4px solid #dc2626;box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+    <div style="display:flex;align-items:flex-start;gap:14px;">
+      <div style="min-width:36px;height:36px;background:#dc2626;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;font-family:'Poppins',sans-serif;flex-shrink:0;">04</div>
+      <div>
+        <p style="font-size:15px;font-weight:700;color:#011f4b;margin:0 0 5px;">Skipping Mutation After Registry</p>
+        <p style="font-size:13.5px;color:#374151;line-height:1.75;margin:0;">Registry at the Sub-Registrar office proves you bought the property. But without <a href="https://dsdproperties.in/blog/dakhil-kharij-lucknow-mutation-process-guide" style="color:#008080;font-weight:600;">Dakhil Kharij</a> (mutation) at the Tehsil, the revenue records still show the previous owner's name. Banks use the Khatauni for loans. LDA uses Khatauni for building plan approval. Skipping mutation is skipping ownership in the most practical sense. File immediately after registry — target within 30 days.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:18px 20px;margin-bottom:0;border-left:4px solid #dc2626;box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+    <div style="display:flex;align-items:flex-start;gap:14px;">
+      <div style="min-width:36px;height:36px;background:#dc2626;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;font-family:'Poppins',sans-serif;flex-shrink:0;">05</div>
+      <div>
+        <p style="font-size:15px;font-weight:700;color:#011f4b;margin:0 0 5px;">Not Claiming the Section 80C Tax Deduction</p>
+        <p style="font-size:13.5px;color:#374151;line-height:1.75;margin:0;">Stamp duty and registration charges paid on a new residential property qualify for deduction under Section 80C — up to ₹1.5 lakh. Most buyers pay ₹2–8 lakh at registry and never claim any of it back. This deduction is available in the year of payment. File it with your ITR for the relevant financial year. Joint buyers can each claim on their respective share. Do not leave this money on the table.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ SECTION 8 — TAX BENEFIT ══ -->
+{{CONSULTATION_BUTTON:Help Me Avoid These Mistakes — Free Registry Consultation}}
+
+<h2 id="tax-benefit">Income Tax Benefit on Stamp Duty</h2>
+
+<div class="tax-banner">
+  <div class="tax-banner-icon">💰</div>
+  <div class="tax-banner-text">
+    <h4>Section 80C Deduction — Claim Back What You Paid</h4>
+    <p>Stamp duty and registration charges paid on a <strong>new residential property</strong> are deductible under Section 80C of the Income Tax Act. Claim this in your ITR for the financial year in which you paid. Joint buyers can both claim on their individual shares. Applicable only to new properties — not resale.</p>
+  </div>
+  <div class="tax-banner-amount">
+    <span class="amt">₹1.5L</span>
+    <span class="lbl">Max deduction per buyer</span>
+  </div>
+</div>
+
+<div class="info-box" style="margin-top:16px;">
+  <h4>✅ How to Claim Stamp Duty Under Section 80C</h4>
+  <ul>
+    <li>Keep the original e-stamp certificate and registered sale deed as proof of payment</li>
+    <li>Mention the stamp duty amount under "Stamp duty and registration charges" in the Section 80C section of your ITR</li>
+    <li>This is over and above the home loan principal deduction — both can be claimed together under 80C (subject to the ₹1.5L ceiling)</li>
+    <li>For joint buyers: each co-owner can claim deduction proportional to their ownership share — effectively doubling the household deduction</li>
+    <li>This deduction is available only in the year of payment — you cannot carry it forward</li>
+  </ul>
+</div>
+
+{{CONSULTATION_BUTTON:Help Me Calculate Total Cost + Tax Saving — Free Advice}}
+
+<!-- ══ RELATED READS ══ -->
+<h2 style="margin-top:40px;">📚 Related Guides from DSD Properties</h2>
+
+<div class="dsd-related-inline">
+  <a class="dsd-link-card" href="https://dsdproperties.in/blog/transforming-agricultural-land-residential-property-lucknow" target="_blank">
+    <div class="lbl">Legal Guide</div>
+    <div class="ttl">Agricultural to Residential Conversion — Section 80 Guide 2026</div>
+  </a>
+  <a class="dsd-link-card" href="https://dsdproperties.in/services/property-verification-lucknow" target="_blank">
+    <div class="lbl">Buying Tips</div>
+    <div class="ttl">Property Verification in Lucknow — Documents We Check Before You Buy</div>
+  </a>
+  <a class="dsd-link-card" href="https://dsdproperties.in/blog/lda-illegal-colony-list-lucknow-2026" target="_blank">
+    <div class="lbl">Safety Alert</div>
+    <div class="ttl">LDA Illegal Colony List Lucknow 2026: 241+ Areas to Avoid</div>
+  </a>
+  <a class="dsd-link-card" href="https://dsdproperties.in/blog/plots-raebareli-road-lucknow-2026" target="_blank">
+    <div class="lbl">Plot Guide</div>
+    <div class="ttl">Plots on Raebareli Road Lucknow 2026 — Zone-Wise Price Guide</div>
+  </a>
+  <a class="dsd-link-card" href="https://dsdproperties.in/blog/kisan-path-lucknow-investment-map-2026" target="_blank">
+    <div class="lbl">Investment Map</div>
+    <div class="ttl">Kisan Path 2026: 5 Gold Pockets & 3 Red Zones</div>
+  </a>
+  <a class="dsd-link-card" href="https://dsdproperties.in/blog/lda-vs-zila-panchayat-lucknow-comparison" target="_blank">
+    <div class="lbl">Legal Guide</div>
+    <div class="ttl">LDA vs Zila Panchayat Property — Which is Better?</div>
+  </a>
+</div>
+
+<!-- ══ FAQs ══ -->
+<h2 id="FAQs" style="margin-top:40px;">❓ Frequently Asked Questions</h2>
+
+<h3>What is the stamp duty in Lucknow in 2026?</h3>
+<p>Stamp duty in Lucknow is 7% for male buyers, 6% for female buyers on properties up to ₹1 crore (7% minus the 1% women's concession), and 6.5% for joint male-female purchases. Registration charges are a flat 1% for all buyers regardless of gender or property type. Stamp duty is calculated on the higher of the transaction value or the government circle rate — not just the deal price.</p>
+
+<h3>What is the registration charge for property in Lucknow?</h3>
+<p>Registration charges in Lucknow are a flat 1% of the property value (or circle rate, whichever is higher). This is the same for all buyers — male, female, joint, all property types. There is no gender-based concession on registration charges, unlike stamp duty. Additionally, a small processing surcharge of ₹100–₹2,000 may apply depending on property value.</p>
+
+<h3>How much does a woman save on stamp duty in Lucknow?</h3>
+<p>After the July 2025 UP Cabinet expansion, women buying property valued up to ₹1 crore get a 1% concession on stamp duty, so they pay 6% instead of 7%. Maximum saving: ₹1 lakh on a ₹1 crore property. Earlier, this rebate was only on properties up to ₹10 lakh with a maximum saving of ₹10,000. The property must be registered in the woman's name alone — joint male-female ownership does not qualify.</p>
+
+<h3>What is the stamp duty on property transfer between family members in UP?</h3>
+<p>As per a 2025 UP Cabinet order, stamp duty on property transfers among blood relatives (spouse, children, parents, siblings) is capped at a flat ₹5,000 — regardless of property value. Earlier this attracted 7% (same as a normal sale). Registration charge is ₹1,000 additional. Proof of blood relationship (Aadhaar family records, birth certificates) must be submitted at the Sub-Registrar office.</p>
+
+<h3>What is the circle rate rule for stamp duty in Lucknow?</h3>
+<p>Under Section 17 of the Registration Act, 1908, stamp duty in UP is calculated on the higher of two values: (1) the actual transaction price, or (2) the government-notified circle rate for that locality. If you buy a plot for ₹40L but the circle rate values it at ₹50L, you pay stamp duty on ₹50L. Check circle rates at igrsup.gov.in before finalising any deal.</p>
+
+<h3>Can I pay stamp duty online in Lucknow?</h3>
+<p>Yes. The UP government's IGRS portal (igrsup.gov.in) supports full end-to-end online payment — net banking, UPI, and debit/credit cards. After payment, an e-stamp certificate is generated. E-stamping is mandatory for urban transactions in Lucknow. You still need a physical visit to the Sub-Registrar office for deed execution, but the stamp duty payment itself is done online.</p>
+
+<h3>Can I claim a tax deduction on stamp duty in Lucknow?</h3>
+<p>Yes. Stamp duty and registration charges paid on a new residential property are deductible under Section 80C of the Income Tax Act — up to ₹1.5 lakh per buyer in the year of payment. Joint buyers can each claim on their share. This deduction is over and above your home loan principal deduction. File it in your ITR for the financial year in which you paid stamp duty — it cannot be carried forward to future years.</p>
+
+<h3>What happens if I don't pay stamp duty on a property in Lucknow?</h3>
+<p>Non-payment of stamp duty is a serious legal offence. The property will not be legally registered in your name. You cannot get a home loan — all banks require the registered sale deed and stamp duty receipt. You will face penalties equal to 2–10 times the unpaid stamp duty plus interest. The document may be treated as invalid in courts. There is also risk of criminal prosecution under the Indian Stamp Act. Attempting to avoid stamp duty by under-declaring property value is equally illegal and carries the same penalties.</p>
+
+{{CONSULTATION_BUTTON:Need Help with Registry? Free Expert Consultation — DSD Properties}}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('#FAQs h3').forEach(function(h) {
+    h.addEventListener('click', function() {
+      this.classList.toggle('active');
+      var p = this.nextElementSibling;
+      if (p && p.tagName === 'P') p.style.display = p.style.display === 'block' ? 'none' : 'block';
+    });
+  });
+  document.querySelectorAll('a[href*="contact-us"]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var d = new FormData(); d.append('page_url', window.location.href);
+      navigator.sendBeacon('https://dsdproperties.in/log-consultation-click', d);
+    });
+  });
+});
+</script>

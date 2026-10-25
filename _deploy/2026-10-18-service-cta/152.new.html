@@ -1,0 +1,300 @@
+<style>
+:root{--dsd-navy:#011f4b;--dsd-teal:#008080;--dsd-orange:#FF5C00;--dsd-light-teal:#e0f7f7;--dsd-bg:#f9fafb;--dsd-border:#e2e8f0;--dsd-text:#374151;--dsd-muted:#6b7280;}
+.dsd-article{font-family:'Poppins','Noto Sans Devanagari',sans-serif;color:var(--dsd-text);}
+.dsd-stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;background:var(--dsd-navy);border-radius:12px;overflow:hidden;margin:28px 0;box-shadow:0 4px 20px rgba(1,31,75,0.18);}
+.dsd-stat-item{padding:18px 14px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
+.dsd-stat-item:last-child{border-right:none;}
+.dsd-stat-num{font-size:20px;font-weight:700;color:#20B2AA;display:block;line-height:1.15;font-family:'Poppins','Noto Sans Devanagari',sans-serif;}
+.dsd-stat-label{font-size:11px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.04em;margin-top:4px;display:block;}
+.dsd-highlight{background:var(--dsd-light-teal);border:1px solid rgba(0,128,128,0.2);border-radius:12px;padding:20px 24px;margin:22px 0;}
+.dsd-highlight h4{color:var(--dsd-navy);font-size:16px;font-weight:700;margin:0 0 12px;}
+.dsd-highlight ul{padding-left:0;list-style:none;margin:0;}
+.dsd-highlight ul li{padding:7px 0 7px 32px;position:relative;font-size:15px;color:var(--dsd-text);border-bottom:1px solid rgba(0,128,128,0.1);line-height:1.9;}
+.dsd-highlight ul li:last-child{border-bottom:none;}
+.dsd-highlight ul li::before{content:'✓';position:absolute;left:0;color:var(--dsd-teal);font-weight:700;}
+.dsd-infobox{background:#fff8f0;border:1px solid rgba(255,92,0,0.2);border-left:4px solid var(--dsd-orange);border-radius:0 12px 12px 0;padding:16px 20px;margin:22px 0;}
+.dsd-infobox h4{color:var(--dsd-orange);font-size:16px;font-weight:700;margin:0 0 10px;}
+.dsd-infobox ul{list-style:none;padding:0;margin:0;}
+.dsd-infobox ul li{font-size:15px;color:var(--dsd-text);padding:6px 0 6px 20px;position:relative;line-height:1.9;}
+.dsd-infobox ul li::before{content:'→';position:absolute;left:0;color:var(--dsd-orange);}
+.dsd-doc-card{background:#fff;border:1px solid var(--dsd-border);border-left:5px solid var(--dsd-teal);border-radius:0 12px 12px 0;padding:24px 28px;margin:30px 0;box-shadow:0 4px 16px rgba(0,128,128,0.08);position:relative;}
+.dsd-doc-card .doc-number{position:absolute;top:-18px;left:-18px;width:50px;height:50px;border-radius:12px;background:var(--dsd-teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;box-shadow:0 4px 12px rgba(0,128,128,0.3);}
+.dsd-doc-card h3{color:var(--dsd-navy);font-size:18px;font-weight:700;margin:0 0 8px;padding-left:40px;}
+.dsd-doc-card .doc-meta{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 16px;padding-left:40px;}
+.dsd-doc-card .doc-meta span{background:var(--dsd-light-teal);color:var(--dsd-navy);font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:0.3px;}
+.dsd-doc-card .doc-meta span.mandatory{background:#fef3c7;color:#92400e;}
+.dsd-doc-card .doc-meta span.exempt{background:#dcfce7;color:#065f46;}
+.dsd-doc-card .doc-body p{font-size:15px;color:var(--dsd-text);line-height:1.9;margin:0 0 12px;}
+.dsd-doc-card .where-box{background:#ecfdf5;border:1px solid #065f46;border-radius:8px;padding:12px 16px;margin-top:14px;}
+.dsd-doc-card .where-box h5{color:#065f46;font-size:13px;font-weight:700;margin:0 0 6px;}
+.dsd-doc-card .where-box p{font-size:14px;color:#064e3b;margin:0;line-height:1.75;}
+.dsd-doc-card .note-tag{font-size:12.5px;color:var(--dsd-muted);font-style:italic;margin-top:10px;display:block;}
+.dsd-redflag{background:#fff5f5;border:1px solid rgba(220,38,38,0.2);border-left:4px solid #dc2626;border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:12px;}
+.dsd-redflag h5{color:#991b1b;font-size:15px;font-weight:700;margin:0 0 6px;}
+.dsd-redflag p{font-size:14.5px;color:var(--dsd-text);margin:0;line-height:1.85;}
+.dsd-doc-step{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--dsd-border);border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,0.03);}
+.dsd-doc-num{width:44px;height:44px;min-width:44px;border-radius:10px;background:var(--dsd-navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;}
+.dsd-doc-body h5{color:var(--dsd-navy);font-size:16px;font-weight:700;margin:0 0 6px;}
+.dsd-doc-body p{font-size:14.5px;color:var(--dsd-text);margin:0;line-height:1.9;}
+.dsd-doc-body .where-to-check{font-size:12.5px;color:var(--dsd-teal);font-weight:600;margin-top:8px;display:block;}
+.dsd-related-inline{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:22px 0;}
+.dsd-link-card{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:10px;padding:14px 16px;text-decoration:none;display:block;transition:border-color .2s,box-shadow .2s,transform .2s;}
+.dsd-link-card:hover{border-color:var(--dsd-teal);box-shadow:0 4px 16px rgba(0,128,128,0.1);transform:translateY(-2px);}
+.dsd-link-card .dsd-link-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dsd-teal);font-weight:600;margin-bottom:5px;}
+.dsd-link-card .dsd-link-title{font-size:14.5px;font-weight:600;color:var(--dsd-navy);line-height:1.55;}
+#FAQs h3{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-left:4px solid var(--dsd-teal);padding:14px 18px;border-radius:0 10px 10px 0;cursor:pointer;color:var(--dsd-navy);font-size:16px;font-weight:600;margin-bottom:0;position:relative;transition:background .2s;}
+#FAQs h3:hover{background:#e0f7f7;}
+#FAQs h3::after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--dsd-teal);font-weight:400;}
+#FAQs h3.active::after{content:'−';}
+#FAQs h3+p{background:#fff;border:1px solid var(--dsd-border);border-top:none;border-radius:0 0 10px 10px;padding:14px 18px;font-size:15px;color:var(--dsd-text);margin-top:0;margin-bottom:12px;line-height:1.95;}
+@media(max-width:600px){.dsd-stats-bar{grid-template-columns:repeat(2,1fr);}.dsd-related-inline{grid-template-columns:1fr;}.dsd-doc-card{padding:20px 20px 20px 24px;}.dsd-doc-card .doc-number{width:42px;height:42px;font-size:17px;top:-14px;left:-14px;}.dsd-doc-card h3{padding-left:32px;font-size:16px;}.dsd-doc-card .doc-meta{padding-left:32px;}}
+</style><div class="dsd-article">
+<p style="font-size:13px;color:#6b7280;margin:0 0 28px;padding-bottom:16px;border-bottom:1px solid #e2e8f0;">स्रोत: रियल एस्टेट (विनियमन और विकास) अधिनियम, 2016 (RERA) &mdash; धारा 3 (रजिस्ट्रेशन), धारा 3(2)(a) (छूट की सीमा), धारा 4 (एस्क्रो/70% नियम), धारा 59 (दंड); उत्तर प्रदेश रियल एस्टेट रेगुलेटरी अथॉरिटी (up-rera.in); उत्तर प्रदेश राजस्व संहिता 2006 की धारा 80 (पुरानी धारा 143)। यह लेख केवल सामान्य जानकारी के लिए है, कानूनी सलाह नहीं। जानकारी जून 2026 तक सत्यापित।</p>
+
+<p style="font-size:17px;color:#374151;line-height:1.95;margin-bottom:20px;font-weight:500;">शहर के बाहरी इलाके में एक सस्ता और बड़ा प्लॉट &mdash; सुनते ही दिल खुश हो जाता है। और तभी डीलर पूरे आत्मविश्वास से कहता है, &ldquo;सर, ये जमीन LDA के बाहर <a href="https://dsdproperties.in/blog/up-zila-panchayat-plot-legal-guide-rera-lda-dhara-80-hindi-lucknow-2026" style="color:#008080;font-weight:600;">जिला पंचायत</a> क्षेत्र में है, यहाँ RERA की कोई जरूरत नहीं। बस जिला पंचायत का नक्शा ही काफी है।&rdquo;</p>
+
+<p style="font-size:15.5px;color:#374151;line-height:1.95;margin-bottom:16px;">यह एक लाइन लाखों लोगों की जिंदगी भर की कमाई डुबो चुकी है। सवाल सीधा है &mdash; क्या इस बात में कोई कानूनी सच्चाई है? क्या वाकई ग्रामीण या जिला पंचायत क्षेत्र में बिल्डर बिना <a href="https://dsdproperties.in/blog/rera-number-validity-expiry-renewal-hindi-lucknow-2026" style="color:#008080;font-weight:600;">RERA नंबर</a> के प्लॉटिंग करके बेच सकते हैं?</p>
+
+<p style="font-size:15.5px;color:#374151;line-height:1.95;margin-bottom:24px;">जवाब है &mdash; नहीं। और इस ब्लॉग में हम उत्तर प्रदेश RERA के नियमों के हिसाब से इस सबसे बड़े भ्रम का पूरा पर्दाफाश करेंगे। पढ़ने के बाद कोई डीलर आपको &ldquo;जिला पंचायत में RERA नहीं लगता&rdquo; कहकर गुमराह नहीं कर पाएगा।</p>
+
+<div class="dsd-stats-bar">
+<div class="dsd-stat-item"><span class="dsd-stat-num">RERA 2016</span><span class="dsd-stat-label">पूरे UP पर लागू कानून</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">500 वर्ग मी</span><span class="dsd-stat-label">या 8 से अधिक यूनिट = रजिस्ट्रेशन</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">70%</span><span class="dsd-stat-label">पैसा एस्क्रो खाते में अनिवार्य</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">10% + 3 साल</span><span class="dsd-stat-label">जुर्माना और जेल का प्रावधान</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">5 जांच</span><span class="dsd-stat-label">खरीद से पहले जरूरी चेकलिस्ट</span></div>
+</div>
+
+<div class="dsd-infobox" style="margin-bottom:28px;">
+<h4>&#9888;&#65039; प्लॉट खरीदने से पहले ये बातें गांठ बांध लें</h4>
+<ul>
+<li><strong>RERA पूरे राज्य पर लागू है</strong> &mdash; यह किसी एक शहर या विकास प्राधिकरण तक सीमित नहीं, जिला पंचायत के गांव भी इसमें आते हैं</li>
+<li><strong>व्यावसायिक प्लॉटिंग पर RERA अनिवार्य है</strong> &mdash; अगर प्रोजेक्ट 500 वर्ग मीटर से बड़ा है या उसमें 8 से अधिक प्लॉट/यूनिट बिक रहे हैं</li>
+<li><strong>जिला पंचायत का नक्शा अलग चीज है</strong> &mdash; नक्शा होना RERA की जगह नहीं ले सकता, दोनों अलग-अलग जरूरी हैं</li>
+<li><strong>सिर्फ रजिस्ट्री को वैधता का सबूत न मानें</strong> &mdash; रजिस्ट्री मालिकाना दिखाती है, प्रोजेक्ट की कानूनी मंजूरी नहीं</li>
+<li><strong>बिना RERA प्रोजेक्ट में फंसे तो</strong> &mdash; बिल्डर भाग जाए या सुविधा न दे, तो RERA अथॉरिटी भी मदद नहीं कर पाएगी</li>
+</ul>
+</div>
+
+<h2 style="margin-top:40px;font-size:24px;color:#011f4b;font-weight:bold;border-left:5px solid #FF5C00;padding-left:15px;">भ्रम बनाम सच्चाई: क्या जिला पंचायत क्षेत्र में RERA लगता है?</h2>
+<p style="font-size:15.5px;color:#374151;line-height:1.95;margin-bottom:24px;">सबसे पहले बुनियादी बात समझिए। RERA एक्ट (Real Estate Regulation Act, 2016) किसी खास शहर या विकास प्राधिकरण तक सीमित नहीं है। यह कानून पूरे उत्तर प्रदेश राज्य पर एक समान लागू होता है। मायने यह नहीं रखता कि जमीन शहर में है या गांव में &mdash; मायने यह रखता है कि वहाँ क्या हो रहा है।</p>
+
+<div class="dsd-doc-card">
+<div class="doc-number">1</div>
+<h3>प्रोजेक्ट का आकार &mdash; 500 वर्ग मीटर का नियम</h3>
+<div class="doc-meta"><span class="mandatory">रजिस्ट्रेशन अनिवार्य</span> <span>धारा 3(2)(a)</span></div>
+<div class="doc-body">
+<p>अगर विकसित की जा रही जमीन या प्रोजेक्ट का कुल क्षेत्रफल <strong>500 वर्ग मीटर से अधिक</strong> है, तो प्रोजेक्ट को RERA में रजिस्टर कराना अनिवार्य है &mdash; चाहे वह जिला पंचायत क्षेत्र का गांव ही क्यों न हो।</p>
+<p>कानून इसमें &ldquo;या&rdquo; (OR) शब्द का इस्तेमाल करता है। यानी आकार और यूनिट की संख्या &mdash; इनमें से कोई एक भी शर्त पूरी होने पर रजिस्ट्रेशन जरूरी हो जाता है।</p>
+</div>
+</div>
+
+<div class="dsd-doc-card">
+<div class="doc-number">2</div>
+<h3>प्लॉट्स या फ्लैट्स की संख्या &mdash; 8 का नियम</h3>
+<div class="doc-meta"><span class="mandatory">रजिस्ट्रेशन अनिवार्य</span> <span>8 से अधिक यूनिट</span></div>
+<div class="doc-body">
+<p>अगर प्रोजेक्ट में बेचे जाने वाले प्लॉट्स या अपार्टमेंट्स की संख्या <strong>8 से अधिक</strong> (यानी सभी फेज मिलाकर 9 या उससे ज्यादा) है, तो आकार चाहे कुछ भी हो, RERA रजिस्ट्रेशन अनिवार्य है।</p>
+<p>यानी अगर कोई बिल्डर खेत खरीदकर उसमें आंतरिक सड़कें, नाली और बिजली के खंभे लगाकर 10, 20 या 50 प्लॉट काट रहा है, तो जिला पंचायत क्षेत्र में होने के बावजूद वह बिना RERA नंबर के उस प्रोजेक्ट का न तो विज्ञापन कर सकता है, न बिक्री।</p>
+</div>
+</div>
+
+<div class="dsd-doc-card">
+<div class="doc-number">3</div>
+<h3>सुविधाओं वाली प्लॉटिंग &mdash; &ldquo;रियल एस्टेट प्रोजेक्ट&rdquo;</h3>
+<div class="doc-meta"><span class="mandatory">रजिस्ट्रेशन अनिवार्य</span> <span>गेटेड/लेआउट प्लॉटिंग</span></div>
+<div class="doc-body">
+<p>यहाँ सबसे जरूरी बात &mdash; घर बनना जरूरी नहीं। अगर डेवलपर सड़कें, पार्क, लाइट जैसी सुविधाओं के साथ एक योजनाबद्ध लेआउट में प्लॉट बेच रहा है, तो वह कानून की नजर में &ldquo;रियल एस्टेट प्रोजेक्ट&rdquo; बन जाता है, और रजिस्ट्रेशन अनिवार्य हो जाता है।</p>
+<p>UP-RERA की ऑफिशियल वेबसाइट पर ऐसे अनगिनत प्रोजेक्ट्स रजिस्टर्ड हैं जिनका लेआउट जिला पंचायत से पास है। इसका मतलब साफ है &mdash; जिला पंचायत का नक्शा और RERA दोनों अलग-अलग चीजें हैं, और बड़े प्रोजेक्ट में दोनों जरूरी हैं।</p>
+<span class="note-tag">कानूनी आधार: RERA 2016, धारा 3 एवं धारा 3(2)(a)</span></div>
+</div>
+
+<!-- verify-cta -->
+<div class="dsd-verify-cta" style="background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #FF5C00;border-radius:0 12px 12px 0;padding:16px 20px;margin:0 0 24px;">
+  <p style="margin:0 0 6px;font-weight:700;color:#011f4b;font-size:16px;">जिला पंचायत क्षेत्र में प्लॉट खरीद रहे हैं?</p>
+  <p style="margin:0 0 12px;line-height:1.7;font-size:15px;color:#374151;">पैसा देने से पहले जिला पंचायत की मंज़ूरी, RERA, खतौनी में मालिक और कोर्ट केस जाँच लें — <strong>आवासीय प्लॉट और फ़्लैट के लिए ₹5,000, 48 घंटे में PDF रिपोर्ट</strong>।</p>
+  <p style="margin:0 0 8px;">{{CONSULTATION_BUTTON:प्रॉपर्टी वेरिफिकेशन कराएँ — ₹5,000}}</p>
+  <p style="margin:0;font-size:13px;text-align:center;"><a href="https://dsdproperties.in/services/property-verification-lucknow" style="color:#008080;font-weight:600;">देखें हम क्या-क्या जाँचते हैं →</a></p>
+</div>
+<h2 style="margin-top:40px;font-size:24px;color:#011f4b;font-weight:bold;border-left:5px solid #FF5C00;padding-left:15px;">बिल्डर RERA रजिस्ट्रेशन से बचते क्यों हैं?</h2>
+<p style="font-size:15.5px;color:#374151;line-height:1.95;margin-bottom:24px;">ग्रामीण या जिला पंचायत क्षेत्रों में अवैध कॉलोनाइजर जानबूझकर RERA नंबर नहीं लेते। वजह यह है कि RERA के नियम बहुत सख्त हैं और बिल्डर की हर मनमानी पर लगाम लगाते हैं।</p>
+
+<div class="dsd-doc-card">
+<div class="doc-number">1</div>
+<h3>70% एस्क्रो अकाउंट का नियम</h3>
+<div class="doc-meta"><span class="mandatory">धारा 4</span> <span>पैसा प्रोजेक्ट में ही लगेगा</span></div>
+<div class="doc-body">
+<p>बिल्डर को ग्राहकों से लिए गए पैसे का <strong>70% एक अलग बैंक खाते (एस्क्रो)</strong> में रखना होता है, जिसका इस्तेमाल केवल उसी प्रोजेक्ट के विकास और जमीन की लागत के लिए हो सकता है।</p>
+<p>इसीलिए जो बिल्डर एक प्रोजेक्ट का पैसा दूसरी जगह लगाना चाहते हैं, वे RERA से बचते हैं &mdash; क्योंकि RERA में यह &ldquo;खेल&rdquo; संभव नहीं।</p>
+</div>
+</div>
+
+<div class="dsd-doc-card">
+<div class="doc-number">2</div>
+<h3>कड़े दंड का प्रावधान</h3>
+<div class="doc-meta"><span class="mandatory">धारा 59</span> <span>10% जुर्माना + जेल</span></div>
+<div class="doc-body">
+<p>बिना RERA रजिस्ट्रेशन के प्रोजेक्ट बेचने पर परियोजना की कुल अनुमानित लागत का <strong>10% तक जुर्माना</strong> लग सकता है। और अगर बिल्डर आदेश के बाद भी रजिस्ट्रेशन नहीं कराता या बार-बार उल्लंघन करता है, तो <strong>3 साल तक की जेल</strong> तक हो सकती है।</p>
+</div>
+</div>
+
+<div class="dsd-doc-card">
+<div class="doc-number">3</div>
+<h3>समय पर पजेशन की गारंटी</h3>
+<div class="doc-meta"><span class="mandatory">पारदर्शिता</span> <span>तय समय पर हैंडओवर</span></div>
+<div class="doc-body">
+<p>RERA में रजिस्टर होने के बाद बिल्डर को वादे के मुताबिक तय समय पर सुविधाएं और प्लॉट/फ्लैट का पजेशन देना होता है। देरी होने पर ग्राहक RERA में शिकायत करके ब्याज या मुआवजा पा सकता है &mdash; बिना RERA वाले प्रोजेक्ट में यह सुरक्षा नहीं मिलती।</p>
+</div>
+</div>
+
+<h2 style="margin-top:40px;font-size:24px;color:#011f4b;font-weight:bold;border-left:5px solid #FF5C00;padding-left:15px;">RERA से छूट कब और किसे मिलती है?</h2>
+<p style="font-size:15.5px;color:#374151;line-height:1.95;margin-bottom:24px;">यह समझना भी जरूरी है कि हर ग्रामीण जमीन पर RERA लागू नहीं होता। डीलर का झूठ तब पकड़ में आता है जब आप जानते हों कि छूट असल में कब मिलती है।</p>
+
+<div class="dsd-doc-card">
+<div class="doc-number">1</div>
+<h3>शुद्ध कृषि भूमि की सीधी बिक्री</h3>
+<div class="doc-meta"><span class="exempt">RERA से छूट</span> <span>कोई लेआउट नहीं</span></div>
+<div class="doc-body">
+<p>अगर कोई किसान या व्यक्ति अपनी सामान्य खेती की जमीन को <strong>बिना किसी लेआउट, बिना आंतरिक सड़क और बिना कॉलोनी</strong> बनाए सीधे बेच रहा है, तो वहाँ RERA लागू नहीं होता। यह केवल जमीन की बिक्री है, &ldquo;प्रोजेक्ट&rdquo; नहीं।</p>
+</div>
+</div>
+
+<div class="dsd-doc-card">
+<div class="doc-number">2</div>
+<h3>छोटा प्रोजेक्ट</h3>
+<div class="doc-meta"><span class="exempt">RERA से छूट</span> <span>सीमा से नीचे</span></div>
+<div class="doc-body">
+<p>अगर प्रोजेक्ट <strong>500 वर्ग मीटर या उससे छोटा</strong> है और उसमें <strong>8 या उससे कम</strong> प्लॉट/यूनिट हैं, तो उसे RERA रजिस्ट्रेशन की जरूरत नहीं। पर ध्यान रहे &mdash; बिल्डर अक्सर बड़े प्रोजेक्ट को कागज पर छोटे-छोटे टुकड़ों (फेज) में दिखाकर इस छूट का गलत फायदा उठाते हैं।</p>
+</div>
+</div>
+
+<div class="dsd-doc-card">
+<div class="doc-number">3</div>
+<h3>व्यक्तिगत रीसेल</h3>
+<div class="doc-meta"><span class="exempt">RERA से छूट</span> <span>कोई बिल्डर नहीं</span></div>
+<div class="doc-body">
+<p>अगर कोई व्यक्ति अपना पुराना बना हुआ मकान या पुश्तैनी प्लॉट किसी दूसरे व्यक्ति को बेच रहा है और इसमें कोई बिल्डर/डेवलपर शामिल नहीं है, तो यह व्यक्तिगत लेनदेन है और RERA के दायरे में नहीं आता।</p>
+</div>
+</div>
+
+<h2 style="margin-top:40px;font-size:24px;color:#011f4b;font-weight:bold;border-left:5px solid #FF5C00;padding-left:15px;">नोएडा, ग्रेटर नोएडा और औद्योगिक क्षेत्र का क्या नियम है?</h2>
+<p style="font-size:15.5px;color:#374151;line-height:1.95;margin-bottom:16px;">एक और बड़ा कन्फ्यूजन औद्योगिक क्षेत्रों को लेकर रहता है। यहाँ नियम को सीधे शब्दों में समझिए।</p>
+<div class="dsd-infobox">
+<h4>औद्योगिक बनाम रिहायशी/कमर्शियल</h4>
+<ul>
+<li><strong>केवल औद्योगिक उपयोग पर RERA नहीं:</strong> अगर NOIDA, ग्रेटर नोएडा या UPSIDA केवल औद्योगिक उपयोग (फैक्ट्री, प्लांट) के लिए जमीन आवंटित कर रहे हैं, तो वहाँ RERA उस तरह लागू नहीं होता</li>
+<li><strong>रिहायशी/कमर्शियल पर RERA पूरी तरह लागू:</strong> लेकिन अगर इन्हीं क्षेत्रों में रेजिडेंशियल ग्रुप हाउसिंग (फ्लैट्स), विला या कमर्शियल शॉप/मॉल बिक्री के लिए बन रहे हैं, तो उन पर RERA पूरी तरह लागू है</li>
+<li><strong>बिना RERA निवेश गैरकानूनी:</strong> ऐसे रिहायशी/कमर्शियल प्रोजेक्ट में बिना RERA नंबर के पैसा लगाना खतरे से खाली नहीं</li>
+</ul>
+</div>
+
+<p>{{CONSULTATION_BUTTON:जिला पंचायत या ग्रामीण क्षेत्र में प्लॉट ले रहे हैं? खरीद से पहले DSD वेरिफिकेशन रिपोर्ट लें &mdash; Rs 5,000, 48 घंटे}}</p>
+
+<h2 style="margin-top:40px;font-size:24px;color:#011f4b;font-weight:bold;border-left:5px solid #FF5C00;padding-left:15px;">जिला पंचायत क्षेत्र में प्लॉट खरीदने से पहले 5 जरूरी जांच</h2>
+<p style="font-size:15.5px;color:#374151;line-height:1.95;margin-bottom:24px;">शहर के बाहर निवेश कर रहे हैं तो केवल &ldquo;रजिस्ट्री&rdquo; को वैधता का प्रमाण न मानें। इन 5 चीजों को खुद जांचें, या किसी जानकार से जांच कराएं।</p>
+
+<div class="dsd-doc-step"><div class="dsd-doc-num">1</div><div class="dsd-doc-body"><h5>RERA नंबर की जांच</h5><p>सबसे पहले बिल्डर से RERA रजिस्ट्रेशन सर्टिफिकेट मांगें और उस नंबर को UP-RERA की वेबसाइट पर जाकर खुद वेरीफाई करें। नंबर असली है या नहीं, यह वहीं पता चल जाता है।</p><span class="where-to-check">&#128205; up-rera.in &mdash; प्रोजेक्ट/रजिस्ट्रेशन सर्च</span></div></div>
+
+<div class="dsd-doc-step"><div class="dsd-doc-num">2</div><div class="dsd-doc-body"><h5>सही क्षेत्राधिकार (Jurisdiction)</h5><p>पता करें कि वह गांव वाकई जिला पंचायत के अधिकार क्षेत्र में है, या उसे विकास प्राधिकरण (LDA/KDA) ने अपने <a href="https://dsdproperties.in/blog/lucknow-master-plan-2031-mahayojna-guide" style="color:#008080;font-weight:600;">मास्टर प्लान</a> में शामिल कर लिया है। अगर वह प्राधिकरण की सीमा में आ चुका है, तो जिला पंचायत का नक्शा रद्दी के बराबर है।</p><span class="where-to-check">&#128205; संबंधित प्राधिकरण का मास्टर प्लान / तहसील रिकॉर्ड</span></div></div>
+
+<div class="dsd-doc-step"><div class="dsd-doc-num">3</div><div class="dsd-doc-body"><h5>धारा 80 (पुरानी धारा 143) &mdash; भू-उपयोग परिवर्तन</h5><p>ग्रामीण इलाकों में जमीन अक्सर कृषि होती है। सुनिश्चित करें कि SDM कोर्ट से उस जमीन का धारा 80 के तहत &ldquo;गैर-कृषि (अकृषक)&rdquo; उपयोग पास हो चुका हो। बिना धारा 80 के जिला पंचायत में नक्शा भी पास नहीं होता।</p><span class="where-to-check">&#128205; खतौनी/भूलेख में दर्ज दर्जा जांचें</span></div></div>
+
+<div class="dsd-doc-step"><div class="dsd-doc-num">4</div><div class="dsd-doc-body"><h5>स्वीकृत लेआउट नक्शा (Sanctioned Layout)</h5><p>जिला पंचायत कार्यालय से पास असली लेआउट नक्शा देखें और चेक करें कि आपका प्लॉट नंबर उस स्वीकृत नक्शे के अंदर ही आता है। मौके पर कटे प्लॉट और कागज का नक्शा अक्सर अलग निकलते हैं।</p><span class="where-to-check">&#128205; जिला पंचायत कार्यालय &mdash; स्वीकृत लेआउट</span></div></div>
+
+<div class="dsd-doc-step"><div class="dsd-doc-num">5</div><div class="dsd-doc-body"><h5>बैंक प्रोजेक्ट लोन</h5><p>हमेशा जांचें कि क्या उस प्रोजेक्ट पर किसी सरकारी या प्रतिष्ठित प्राइवेट बैंक से प्रोजेक्ट लोन मिल रहा है। बैंक सभी कानूनी दस्तावेज जांचने के बाद ही लोन देते हैं, इसलिए बैंक लोन की मंजूरी एक मजबूत हरी झंडी है।</p><span class="where-to-check">&#128205; बैंक की approved-projects सूची</span></div></div>
+
+<h2 style="margin-top:40px;font-size:24px;color:#011f4b;font-weight:bold;border-left:5px solid #FF5C00;padding-left:15px;">डीलर के ये झांसे &mdash; जिनसे सबसे ज्यादा लोग फंसते हैं</h2>
+
+<div class="dsd-redflag"><h5>&#128680; &ldquo;जिला पंचायत में RERA की जरूरत नहीं&rdquo;</h5><p>सबसे आम झूठ। व्यावसायिक रूप से बेचे जा रहे बड़े प्लॉटिंग प्रोजेक्ट पर जिला पंचायत क्षेत्र में भी RERA अनिवार्य है। बिना RERA बिक्री गैरकानूनी है।</p></div>
+
+<div class="dsd-redflag"><h5>&#128680; &ldquo;नक्शा पास है, और क्या चाहिए&rdquo;</h5><p>जिला पंचायत का नक्शा और RERA दोनों अलग हैं। नक्शा निर्माण की अनुमति देता है; RERA खरीदार को बिल्डर की धोखाधड़ी से बचाता है। एक दूसरे की जगह नहीं ले सकता।</p></div>
+
+<div class="dsd-redflag"><h5>&#128680; प्रोजेक्ट को छोटे-छोटे फेज में दिखाना</h5><p>बड़े प्रोजेक्ट को कागज पर 8-8 प्लॉट के टुकड़ों में बांटकर &ldquo;छूट&rdquo; का गलत फायदा उठाना। कानून सभी फेज को मिलाकर देखता है, इसलिए यह बचाव टिकता नहीं।</p></div>
+
+<div class="dsd-redflag"><h5>&#128680; &ldquo;रजिस्ट्री हो गई मतलब सब सेट&rdquo;</h5><p>रजिस्ट्री सिर्फ <a href="https://dsdproperties.in/blog/check-property-ownership-records-lucknow-hindi" style="color:#008080;font-weight:600;">मालिकाना हक</a> का लेनदेन है। यह प्रोजेक्ट के RERA रजिस्टर्ड होने या लेआउट के वैध होने का प्रमाण नहीं है।</p></div>
+
+<div class="dsd-redflag"><h5>&#128680; &ldquo;बाद में RERA करा लेंगे, अभी बुकिंग कर लो&rdquo;</h5><p>बिना रजिस्ट्रेशन के विज्ञापन या बुकिंग खुद कानून का उल्लंघन है। &ldquo;बाद में&rdquo; अक्सर कभी नहीं आता, और तब तक आपका पैसा फंस चुका होता है।</p></div>
+
+<h2 style="margin-top:40px;font-size:24px;color:#011f4b;font-weight:bold;border-left:5px solid #FF5C00;padding-left:15px;">बिना RERA प्रोजेक्ट में फंसने के असली नुकसान</h2>
+<p style="font-size:15.5px;color:#374151;line-height:1.95;margin-bottom:16px;">बहुत से खरीदार सोचते हैं कि &ldquo;प्लॉट तो सस्ता मिल रहा है, RERA का क्या करना है&rdquo;। पर यह सस्ता सौदा अक्सर सबसे महंगा साबित होता है। बिना RERA रजिस्ट्रेशन वाले प्रोजेक्ट में निवेश के नतीजे कागज पर नहीं, बल्कि सालों की भागदौड़ में दिखते हैं।</p>
+<div class="dsd-highlight">
+<h4>क्या-क्या जोखिम उठाने पड़ते हैं</h4>
+<ul>
+<li><strong>कोई कानूनी सुरक्षा नहीं</strong> &mdash; बिल्डर भाग जाए या वादे की सुविधाएं न दे, तो RERA अथॉरिटी आपकी मदद नहीं कर सकती</li>
+<li><strong>बैंक लोन में दिक्कत</strong> &mdash; बिना RERA और बिना स्वीकृत लेआउट वाले प्लॉट पर बैंक अक्सर लोन देने से मना कर देते हैं</li>
+<li><strong>अवैध कॉलोनी का ठप्पा</strong> &mdash; पक्की सड़क, बिजली, पानी और सीवर जैसी सरकारी सुविधाएं मिलने में सालों लग सकते हैं</li>
+<li><strong>ध्वस्तीकरण का खतरा</strong> &mdash; प्राधिकरण सीमा में आने या नियम उल्लंघन पर निर्माण ढहाए जाने तक का जोखिम बना रहता है</li>
+<li><strong>दोबारा बेचने में मुश्किल</strong> &mdash; जागरूक खरीदार RERA नंबर मांगते हैं, इसलिए ऐसे प्लॉट की दोबारा बिक्री अटक जाती है</li>
+</ul>
+</div>
+
+<h2 style="margin-top:40px;font-size:24px;color:#011f4b;font-weight:bold;border-left:5px solid #FF5C00;padding-left:15px;">DSD Properties आपकी कैसे मदद करता है</h2>
+<p style="font-size:15.5px;color:#374151;line-height:1.95;margin-bottom:16px;">जिला पंचायत या ग्रामीण क्षेत्र में प्लॉट का सबसे बड़ा जोखिम कागजी सच्चाई का छिपा होना है। DSD Properties की <strong>Rs 5,000</strong> वाली <a href="https://dsdproperties.in/services/property-verification-lucknow" style="color:#008080;font-weight:600;">प्रॉपर्टी वेरिफिकेशन</a> सेवा आपको किसी भी लखनऊ प्रॉपर्टी की पूरी, दस्तावेज-आधारित तस्वीर 48 घंटे में देती है।</p>
+<div class="dsd-highlight">
+<h4>हमारी वेरिफिकेशन रिपोर्ट में क्या-क्या शामिल है</h4>
+<ul>
+<li><strong>RERA स्थिति जांच</strong> &mdash; up-rera.in पर प्रोजेक्ट का रजिस्ट्रेशन असली है या नहीं, और शर्तें क्या हैं</li>
+<li><strong>क्षेत्राधिकार की पुष्टि</strong> &mdash; जमीन जिला पंचायत में है या प्राधिकरण के मास्टर प्लान में आ चुकी है</li>
+<li><strong>धारा 80 और भूलेख जांच</strong> &mdash; जमीन कृषि दर्ज है या अकृषक, और खतौनी में मालिकाना हक</li>
+<li><strong>स्वीकृत लेआउट का मिलान</strong> &mdash; आपका प्लॉट नंबर पास नक्शे के अंदर है या नहीं</li>
+<li><strong>अवैध कॉलोनी क्रॉस-चेक</strong> &mdash; ldalucknow.in और संबंधित सूचियों से</li>
+<li><strong>साफ गैप रिपोर्ट</strong> &mdash; कौन से दस्तावेज कमजोर हैं और आगे क्या करना है</li>
+</ul>
+</div>
+<p style="font-size:15.5px;color:#374151;line-height:1.95;margin:20px 0 24px;">एक छोटी सी जांच लाखों रुपये और सालों की कानूनी परेशानी से बचा सकती है। डीलर की जुबानी पर नहीं, कागज पर भरोसा कीजिए &mdash; <strong>भरोसा हमेशा सत्यापित जानकारी से शुरू होता है</strong>।</p>
+
+<h2 style="margin-top:40px;font-size:24px;color:#011f4b;font-weight:bold;border-left:5px solid #FF5C00;padding-left:15px;">निष्कर्ष</h2>
+<p style="font-size:15.5px;color:#374151;line-height:1.95;margin-bottom:24px;">प्रॉपर्टी डीलरों के इस झांसे में कभी न आएं कि &ldquo;जिला पंचायत क्षेत्र में RERA की जरूरत नहीं होती&rdquo;। कानूनन, व्यावसायिक रूप से बेचे जाने वाले हर बड़े प्लॉटिंग प्रोजेक्ट के लिए RERA अनिवार्य है। बिना RERA नंबर वाले प्रोजेक्ट में निवेश का मतलब है &mdash; कल अगर बिल्डर भाग जाए या सुविधाएं न दे, तो RERA अथॉरिटी भी आपकी मदद नहीं कर पाएगी। पहले RERA नंबर, क्षेत्राधिकार, धारा 80 और स्वीकृत लेआउट जांचें, फिर ही पैसा लगाएं। सतर्क रहें, सुरक्षित निवेश करें।</p>
+
+<h2 style="margin-top:40px;font-size:24px;color:#011f4b;font-weight:bold;border-left:5px solid #FF5C00;padding-left:15px;">संबंधित गाइड (DSD Properties)</h2>
+<div class="dsd-related-inline">
+<a href="https://dsdproperties.in/blog/dhara-80-naksha-zila-panchayat-hindi-lucknow-2026" class="dsd-link-card"><div class="dsd-link-label">कानूनी गाइड</div><div class="dsd-link-title">जिला पंचायत में नक्शा कैसे पास करें? धारा 80 क्यों जरूरी</div></a>
+<a href="https://dsdproperties.in/blog/dhara-80-krishi-bhumi-aawasiya-hindi-lucknow-2026" class="dsd-link-card"><div class="dsd-link-label">भू-उपयोग</div><div class="dsd-link-title">कृषि भूमि को आवासीय कैसे करें? धारा 80 (143) गाइड</div></a>
+<a href="https://dsdproperties.in/blog/up-rera-complaint-process-lucknow-2026" class="dsd-link-card"><div class="dsd-link-label">RERA</div><div class="dsd-link-title">UP RERA में शिकायत कैसे करें &mdash; पूरी प्रक्रिया</div></a>
+<a href="https://dsdproperties.in/blog/bainama-vs-registry-vs-power-of-attorney-lucknow-2026" class="dsd-link-card"><div class="dsd-link-label">दस्तावेज</div><div class="dsd-link-title">बैनामा vs रजिस्ट्री vs पावर ऑफ अटॉर्नी</div></a>
+</div>
+
+<p>{{CONSULTATION_BUTTON:बिना RERA या संदिग्ध प्लॉट में फंसने से पहले DSD Properties से बात करें}}</p>
+
+<section id="FAQs">
+<h2 style="margin-top:40px;font-size:22px;color:#011f4b;font-weight:bold;border-left:5px solid #FF5C00;padding-left:15px;">अक्सर पूछे जाने वाले सवाल (FAQs)</h2>
+
+<h3>क्या जिला पंचायत क्षेत्र में प्लॉट के लिए RERA जरूरी है?</h3>
+<p style="display:none;">हाँ, अगर वहाँ व्यावसायिक रूप से प्लॉटिंग या टाउनशिप बन रही है और प्रोजेक्ट 500 वर्ग मीटर से बड़ा है या उसमें 8 से अधिक प्लॉट/यूनिट हैं, तो जिला पंचायत क्षेत्र में भी RERA रजिस्ट्रेशन अनिवार्य है। RERA एक्ट 2016 पूरे उत्तर प्रदेश पर लागू होता है, किसी एक शहर या प्राधिकरण तक सीमित नहीं। &ldquo;जिला पंचायत में RERA नहीं लगता&rdquo; एक आम झूठ है जिससे सावधान रहें।</p>
+
+<h3>RERA रजिस्ट्रेशन कब अनिवार्य होता है?</h3>
+<p style="display:none;">RERA की धारा 3(2)(a) के अनुसार, अगर प्रोजेक्ट की जमीन का क्षेत्रफल 500 वर्ग मीटर से अधिक है, या उसमें बेचे जाने वाले अपार्टमेंट/प्लॉट की संख्या 8 से अधिक है, तो रजिस्ट्रेशन अनिवार्य है। कानून में &ldquo;या&rdquo; शब्द है, इसलिए इनमें से कोई एक भी शर्त पूरी होने पर रजिस्ट्रेशन जरूरी हो जाता है। सभी फेज मिलाकर गिनती होती है।</p>
+
+<h3>क्या जिला पंचायत का नक्शा होने पर RERA की जरूरत नहीं रहती?</h3>
+<p style="display:none;">नहीं। जिला पंचायत का नक्शा और RERA दोनों अलग-अलग चीजें हैं। नक्शा भवन/लेआउट निर्माण की अनुमति देता है, जबकि RERA खरीदार को बिल्डर की धोखाधड़ी, पैसे के दुरुपयोग और देरी से बचाता है। बड़े व्यावसायिक प्रोजेक्ट में दोनों जरूरी हैं; एक दूसरे की जगह नहीं ले सकता।</p>
+
+<h3>बिना RERA रजिस्ट्रेशन के प्रोजेक्ट बेचने पर क्या सजा है?</h3>
+<p style="display:none;">RERA की धारा 59 के तहत बिना रजिस्ट्रेशन प्रोजेक्ट बेचने पर परियोजना की कुल अनुमानित लागत का 10% तक जुर्माना लग सकता है। और अगर बिल्डर आदेश के बाद भी रजिस्ट्रेशन नहीं कराता या बार-बार उल्लंघन करता है, तो 3 साल तक की जेल भी हो सकती है। बिना रजिस्ट्रेशन विज्ञापन या बुकिंग करना भी कानून का उल्लंघन है।</p>
+
+<h3>70% एस्क्रो अकाउंट नियम क्या है?</h3>
+<p style="display:none;">RERA की धारा 4 के अनुसार बिल्डर को ग्राहकों से लिए गए पैसे का 70% एक अलग बैंक खाते (एस्क्रो) में रखना होता है। इस पैसे का इस्तेमाल केवल उसी प्रोजेक्ट के निर्माण और जमीन की लागत के लिए हो सकता है। इससे बिल्डर एक प्रोजेक्ट का पैसा दूसरी जगह नहीं लगा सकता, जिससे प्रोजेक्ट समय पर पूरा होने की संभावना बढ़ती है।</p>
+
+<h3>RERA से छूट किन परिस्थितियों में मिलती है?</h3>
+<p style="display:none;">RERA से छूट तीन मुख्य स्थितियों में मिलती है: पहला, शुद्ध कृषि भूमि की सीधी बिक्री जब कोई लेआउट, सड़क या कॉलोनी न बनाई गई हो; दूसरा, छोटा प्रोजेक्ट जो 500 वर्ग मीटर या उससे छोटा हो और जिसमें 8 या उससे कम यूनिट हों; और तीसरा, व्यक्तिगत रीसेल जब कोई व्यक्ति अपना पुराना मकान या पुश्तैनी प्लॉट सीधे बेच रहा हो और इसमें कोई बिल्डर शामिल न हो।</p>
+
+<h3>क्या नोएडा, ग्रेटर नोएडा और UPSIDA क्षेत्र में RERA लागू होता है?</h3>
+<p style="display:none;">अगर केवल औद्योगिक उपयोग (फैक्ट्री, प्लांट) के लिए जमीन आवंटित है, तो वहाँ RERA उस रूप में लागू नहीं होता। लेकिन अगर इन्हीं क्षेत्रों में रेजिडेंशियल ग्रुप हाउसिंग (फ्लैट्स), विला या कमर्शियल शॉप/मॉल बिक्री के लिए बन रहे हैं, तो उन पर RERA पूरी तरह लागू है, और बिना RERA नंबर के उनमें निवेश करना गैरकानूनी है।</p>
+
+<h3>क्या सिर्फ रजिस्ट्री हो जाना पर्याप्त है?</h3>
+<p style="display:none;">नहीं। रजिस्ट्री केवल जमीन के मालिकाना हक का लेनदेन प्रमाणित करती है। यह इस बात की गारंटी नहीं देती कि प्रोजेक्ट RERA रजिस्टर्ड है, लेआउट वैध है, या जमीन अकृषक है। इसलिए रजिस्ट्री के साथ-साथ RERA नंबर, क्षेत्राधिकार, धारा 80 और स्वीकृत लेआउट भी जांचना जरूरी है।</p>
+
+<h3>RERA नंबर असली है या नहीं, यह कैसे जांचें?</h3>
+<p style="display:none;">बिल्डर से RERA रजिस्ट्रेशन सर्टिफिकेट मांगें और उस नंबर को UP-RERA की आधिकारिक वेबसाइट up-rera.in पर जाकर खुद वेरीफाई करें। वहाँ प्रोजेक्ट का नाम, प्रमोटर, स्वीकृत समय-सीमा और शर्तें दिखती हैं। अगर नंबर वेबसाइट पर नहीं मिलता या जानकारी मेल नहीं खाती, तो यह बड़ी चेतावनी है।</p>
+
+<h3>क्या बिल्डर प्रोजेक्ट को छोटे फेज में बांटकर RERA से बच सकता है?</h3>
+<p style="display:none;">नहीं। कई बिल्डर बड़े प्रोजेक्ट को कागज पर 8-8 प्लॉट के छोटे टुकड़ों में दिखाकर छूट का गलत फायदा उठाने की कोशिश करते हैं। पर RERA सभी फेज को मिलाकर एक ही रियल एस्टेट प्रोजेक्ट मानता है, इसलिए यह बचाव कानूनन टिकता नहीं और ऐसा करना उल्लंघन है।</p>
+
+<h3>क्या DSD Properties खरीद से पहले RERA और जमीन की जांच करता है?</h3>
+<p style="display:none;">हाँ। DSD Properties की वेरिफिकेशन टीम up-rera.in पर प्रोजेक्ट की RERA स्थिति, जमीन का क्षेत्राधिकार, धारा 80 और भूलेख रिकॉर्ड, स्वीकृत लेआउट का मिलान और अवैध कॉलोनी क्रॉस-चेक &mdash; सब कुछ खरीद से पहले Rs 5,000 में 48 घंटे की रिपोर्ट के साथ जांचती है, ताकि आप किसी अवैध या बिना RERA प्रोजेक्ट में पैसा न लगाएं।</p>
+
+</section>
+
+<script>
+(function(){function initFAQ(){document.querySelectorAll("#FAQs h3").forEach(function(q){q.style.cursor="pointer";q.addEventListener("click",function(){var self=this;var isOpen=self.classList.contains("active");document.querySelectorAll("#FAQs h3.active").forEach(function(b){b.classList.remove("active");var a=b.nextElementSibling;while(a&&a.tagName!=="P"){a=a.nextElementSibling;}if(a){a.style.display="none";}});if(!isOpen){self.classList.add("active");var ans=self.nextElementSibling;while(ans&&ans.tagName!=="P"){ans=ans.nextElementSibling;}if(ans){ans.style.display="block";}}});});}if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",initFAQ);}else{initFAQ();}})();
+</script>
+</div>

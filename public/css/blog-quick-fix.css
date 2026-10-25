@@ -1,0 +1,701 @@
+
+/* ============================================
+   QUICK FIX CSS - Add this to your blog page
+   ============================================ */
+
+/* Enhanced Table Styling */
+.blog-post-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background: white;
+}
+
+.blog-post-content table thead {
+    background: linear-gradient(135deg, #011f4b 0%, #008080 100%);
+}
+
+.blog-post-content table thead th {
+    color: white;
+    font-weight: 600;
+    text-align: left;
+    padding: 1.25rem 1rem;
+    font-size: 0.9375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.blog-post-content table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+    transition: background-color 0.3s ease;
+}
+
+.blog-post-content table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.blog-post-content table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.blog-post-content table tbody td {
+    padding: 1rem;
+    color: #374151;
+    font-size: 0.9375rem;
+}
+
+.blog-post-content table tbody td:first-child {
+    font-weight: 600;
+    color: #011f4b;
+}
+
+/* Links in tables */
+.blog-post-content table a {
+    color: #008080;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.blog-post-content table a:hover {
+    color: #FF5C00;
+    text-decoration: underline;
+}
+
+/* Orange Warning Boxes */
+.blog-post-content blockquote,
+.blog-post-content .important-note,
+.blog-post-content .warning-box {
+    background: #fff8f0;
+    border-left: 4px solid #FF5C00;
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.blog-post-content blockquote h4,
+.blog-post-content .important-note h4,
+.blog-post-content .warning-box h4 {
+    color: #FF5C00;
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+}
+
+.blog-post-content blockquote ul,
+.blog-post-content .important-note ul,
+.blog-post-content .warning-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.blog-post-content blockquote ul li,
+.blog-post-content .important-note ul li,
+.blog-post-content .warning-box ul li {
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    position: relative;
+    color: #374151;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+}
+
+.blog-post-content blockquote ul li::before,
+.blog-post-content .important-note ul li::before,
+.blog-post-content .warning-box ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #FF5C00;
+    font-weight: 700;
+}
+
+/* Teal Highlight Boxes */
+.blog-post-content .highlight-box,
+.blog-post-content .tip-box,
+.blog-post-content .checklist {
+    background: #e0f7f7;
+    border: 1px solid rgba(0, 128, 128, 0.2);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.blog-post-content .highlight-box h4,
+.blog-post-content .tip-box h4,
+.blog-post-content .checklist h4 {
+    color: #011f4b;
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+}
+
+.blog-post-content .highlight-box ul,
+.blog-post-content .tip-box ul,
+.blog-post-content .checklist ul {
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+}
+
+.blog-post-content .highlight-box ul li,
+.blog-post-content .tip-box ul li,
+.blog-post-content .checklist ul li {
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    position: relative;
+    font-size: 0.9375rem;
+    color: #374151;
+    border-bottom: 1px solid rgba(0, 128, 128, 0.1);
+    line-height: 1.75;
+}
+
+.blog-post-content .highlight-box ul li:last-child,
+.blog-post-content .tip-box ul li:last-child,
+.blog-post-content .checklist ul li:last-child {
+    border-bottom: none;
+}
+
+.blog-post-content .highlight-box ul li::before,
+.blog-post-content .tip-box ul li::before,
+.blog-post-content .checklist ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #008080;
+    font-weight: 700;
+}
+
+/* Enhanced Consultation Buttons */
+.blog-post-content .consultation-button,
+.blog-post-content .cta-button {
+    background: linear-gradient(135deg, #FF5C00 0%, #ff7b3a 100%);
+    color: white;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(255, 92, 0, 0.3);
+    margin: 1.5rem 0;
+}
+
+.blog-post-content .consultation-button:hover,
+.blog-post-content .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(255, 92, 0, 0.4);
+}
+
+/* Enhanced Headings */
+.blog-post-content h2 {
+    color: #011f4b;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 3rem 0 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid #008080;
+    line-height: 1.3;
+}
+
+.blog-post-content h3 {
+    color: #011f4b;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 2.5rem 0 1rem;
+    line-height: 1.3;
+}
+
+.blog-post-content h4 {
+    color: #011f4b;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 2rem 0 0.875rem;
+}
+
+/* Better Paragraphs */
+.blog-post-content p {
+    color: #374151;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+/* Better Lists */
+.blog-post-content ul:not(.highlight-box ul):not(.warning-box ul):not(.checklist ul),
+.blog-post-content ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+.blog-post-content ul:not(.highlight-box ul):not(.warning-box ul):not(.checklist ul) li,
+.blog-post-content ol li {
+    margin-bottom: 0.875rem;
+    line-height: 1.75;
+    color: #374151;
+}
+
+/* Better Links */
+.blog-post-content a:not(.consultation-button):not(.cta-button) {
+    color: #008080;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.blog-post-content a:not(.consultation-button):not(.cta-button):hover {
+    color: #FF5C00;
+    border-bottom: 2px solid #FF5C00;
+}
+
+/* Step-by-Step Guide */
+.blog-post-content .step-guide {
+    background: #f9fafb;
+    border-left: 4px solid #008080;
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.blog-post-content .step-guide h4 {
+    color: #008080;
+    margin-top: 0;
+}
+
+/* Code/Portal Links */
+.blog-post-content code,
+.blog-post-content .portal-link {
+    background: #f3f4f6;
+    color: #FF5C00;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+/* Strong/Bold Text */
+.blog-post-content strong {
+    color: #011f4b;
+    font-weight: 600;
+}
+
+/* Quick Tip Boxes */
+.blog-post-content .quick-tip {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    border-radius: 0 12px 12px 0;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.9375rem;
+}
+
+.blog-post-content .quick-tip::before {
+    content: '💡 Quick Tip: ';
+    font-weight: 700;
+    color: #f59e0b;
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    .blog-post-content table {
+        font-size: 0.875rem;
+    }
+    
+    .blog-post-content table thead th,
+    .blog-post-content table tbody td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .blog-post-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .blog-post-content h3 {
+        font-size: 1.25rem;
+    }
+    
+    .blog-post-content .consultation-button,
+    .blog-post-content .cta-button {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Table Responsive Wrapper */
+.blog-post-content .table-wrapper {
+    overflow-x: auto;
+    margin: 2rem 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.blog-post-content .table-wrapper table {
+    margin: 0;
+}
+
+/* Enhanced Spacing */
+.blog-post-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Breadcrumbs Enhancement */
+.blog-breadcrumb {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.blog-breadcrumb a {
+    color: #008080;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.blog-breadcrumb a:hover {
+    color: #FF5C00;
+}
+
+.blog-breadcrumb span {
+    color: #d1d5db;
+}
+/* ============================================
+   🚨 EMERGENCY FIX - Add This CSS IMMEDIATELY
+   ============================================
+   
+   PROBLEM: Blog content showing as raw HTML/code
+   SOLUTION: This CSS will style ALL content from database
+   
+   HOW TO USE:
+   1. Open your blog show blade file
+   2. Add this entire CSS in a <style> tag
+   3. Save and refresh - INSTANT FIX!
+   ============================================ */
+
+/* Main Blog Content Container - CRITICAL FIX */
+.blog-post-content,
+.blog-content,
+.post-content,
+article {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    background: white;
+    line-height: 1.8;
+    color: #374151;
+    font-size: 16px;
+}
+
+/* Fix All Headings */
+.blog-post-content h1,
+.blog-content h1,
+article h1 {
+    color: #011f4b;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 2rem 0 1.5rem;
+    line-height: 1.3;
+}
+
+.blog-post-content h2,
+.blog-content h2,
+article h2 {
+    color: #011f4b;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 2.5rem 0 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #008080;
+    line-height: 1.3;
+}
+
+.blog-post-content h3,
+.blog-content h3,
+article h3 {
+    color: #011f4b;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 2rem 0 1rem;
+    line-height: 1.3;
+}
+
+.blog-post-content h4,
+.blog-content h4,
+article h4 {
+    color: #011f4b;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.875rem;
+}
+
+/* Fix All Paragraphs */
+.blog-post-content p,
+.blog-content p,
+article p {
+    color: #374151;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+/* Fix All Links */
+.blog-post-content a,
+.blog-content a,
+article a {
+    color: #008080;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.blog-post-content a:hover,
+.blog-content a:hover,
+article a:hover {
+    color: #FF5C00;
+    text-decoration: underline;
+}
+
+/* Fix All Lists */
+.blog-post-content ul,
+.blog-content ul,
+article ul {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+    list-style: disc;
+}
+
+.blog-post-content ol,
+.blog-content ol,
+article ol {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+.blog-post-content li,
+.blog-content li,
+article li {
+    margin-bottom: 0.75rem;
+    line-height: 1.75;
+    color: #374151;
+}
+
+/* Fix All Tables - CRITICAL */
+.blog-post-content table,
+.blog-content table,
+article table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background: white;
+}
+
+.blog-post-content table thead,
+.blog-content table thead,
+article table thead {
+    background: linear-gradient(135deg, #011f4b 0%, #008080 100%);
+}
+
+.blog-post-content table thead th,
+.blog-content table thead th,
+article table thead th {
+    color: white !important;
+    font-weight: 600;
+    text-align: left;
+    padding: 1.25rem 1rem;
+    font-size: 0.9375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.blog-post-content table tbody tr,
+.blog-content table tbody tr,
+article table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+    transition: background-color 0.3s ease;
+}
+
+.blog-post-content table tbody tr:hover,
+.blog-content table tbody tr:hover,
+article table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.blog-post-content table tbody tr:last-child,
+.blog-content table tbody tr:last-child,
+article table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.blog-post-content table tbody td,
+.blog-content table tbody td,
+article table tbody td {
+    padding: 1rem;
+    color: #374151;
+    font-size: 0.9375rem;
+}
+
+.blog-post-content table tbody td:first-child,
+.blog-content table tbody td:first-child,
+article table tbody td:first-child {
+    font-weight: 600;
+    color: #011f4b;
+}
+
+/* Fix Table Links */
+.blog-post-content table a,
+.blog-content table a,
+article table a {
+    color: #008080;
+    font-weight: 600;
+}
+
+/* Fix Blockquotes */
+.blog-post-content blockquote,
+.blog-content blockquote,
+article blockquote {
+    background: #fff8f0;
+    border-left: 4px solid #FF5C00;
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+/* Fix Strong/Bold */
+.blog-post-content strong,
+.blog-content strong,
+article strong,
+.blog-post-content b,
+.blog-content b,
+article b {
+    color: #011f4b;
+    font-weight: 600;
+}
+
+/* Fix Code Blocks */
+.blog-post-content code,
+.blog-content code,
+article code {
+    background: #f3f4f6;
+    color: #FF5C00;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.blog-post-content pre,
+.blog-content pre,
+article pre {
+    background: #1f2937;
+    color: #e5e7eb;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 2rem 0;
+}
+
+.blog-post-content pre code,
+.blog-content pre code,
+article pre code {
+    background: transparent;
+    color: #e5e7eb;
+    padding: 0;
+}
+
+/* Fix Images */
+.blog-post-content img,
+.blog-content img,
+article img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 2rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Fix HR Lines */
+.blog-post-content hr,
+.blog-content hr,
+article hr {
+    border: none;
+    border-top: 2px solid #e5e7eb;
+    margin: 3rem 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .blog-post-content,
+    .blog-content,
+    article {
+        padding: 1.5rem 1rem;
+        font-size: 15px;
+    }
+    
+    .blog-post-content h1,
+    .blog-content h1,
+    article h1 {
+        font-size: 2rem;
+    }
+    
+    .blog-post-content h2,
+    .blog-content h2,
+    article h2 {
+        font-size: 1.5rem;
+    }
+    
+    .blog-post-content h3,
+    .blog-content h3,
+    article h3 {
+        font-size: 1.25rem;
+    }
+    
+    .blog-post-content table,
+    .blog-content table,
+    article table {
+        font-size: 0.875rem;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .blog-post-content table thead th,
+    .blog-content table thead th,
+    article table thead th,
+    .blog-post-content table tbody td,
+    .blog-content table tbody td,
+    article table tbody td {
+        padding: 0.75rem 0.5rem;
+    }
+}
+
+/* Ensure Content is Visible - NOT CODE */
+.blog-post-content,
+.blog-content,
+article {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+}
+
+/* Hide any pre-formatted code display */
+.blog-post-content pre.code-display,
+.blog-content pre.code-display {
+    display: none !important;
+}

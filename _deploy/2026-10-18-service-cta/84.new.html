@@ -1,0 +1,411 @@
+<style>
+:root{
+  --dsd-navy:#011f4b;
+  --dsd-teal:#008080;
+  --dsd-orange:#FF5C00;
+  --dsd-light-teal:#e0f7f7;
+  --dsd-bg:#f9fafb;
+  --dsd-border:#e2e8f0;
+  --dsd-text:#374151;
+  --dsd-muted:#6b7280;
+}
+.dsd-hindi{font-family:'Noto Sans Devanagari','Poppins',sans-serif;}
+.dsd-stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0;background:var(--dsd-navy);border-radius:12px;overflow:hidden;margin:24px 0;box-shadow:0 4px 20px rgba(1,31,75,0.18);}
+.dsd-stat-item{padding:18px 14px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
+.dsd-stat-item:last-child{border-right:none;}
+.dsd-stat-num{font-size:21px;font-weight:700;color:#20B2AA;display:block;line-height:1.15;font-family:'Poppins','Noto Sans Devanagari',sans-serif;}
+.dsd-stat-label{font-size:12px;color:rgba(255,255,255,0.7);letter-spacing:0.03em;margin-top:5px;display:block;font-family:'Noto Sans Devanagari',sans-serif;line-height:1.5;}
+.dsd-quick-answer{background:#fff8f0;border:1px solid rgba(255,92,0,0.3);border-left:5px solid var(--dsd-orange);border-radius:0 12px 12px 0;padding:18px 22px;margin:0 0 26px;}
+.dsd-quick-answer p{margin:0;font-size:15.5px;color:#374151;line-height:1.85;}
+.dsd-quick-answer strong{color:#011f4b;}
+.dsd-highlight{background:var(--dsd-light-teal);border:1px solid rgba(0,128,128,0.2);border-radius:12px;padding:20px 24px;margin:22px 0;}
+.dsd-highlight h4{color:var(--dsd-navy);font-size:16px;font-weight:700;margin:0 0 12px;}
+.dsd-highlight ul{padding-left:0;list-style:none;margin:0;}
+.dsd-highlight ul li{padding:7px 0 7px 24px;position:relative;font-size:15px;color:var(--dsd-text);border-bottom:1px solid rgba(0,128,128,0.1);line-height:1.9;}
+.dsd-highlight ul li:last-child{border-bottom:none;}
+.dsd-highlight ul li::before{content:'✓';position:absolute;left:0;color:var(--dsd-teal);font-weight:700;font-size:16px;}
+.dsd-infobox{background:#fff8f0;border:1px solid rgba(255,92,0,0.2);border-left:4px solid var(--dsd-orange);border-radius:0 12px 12px 0;padding:18px 22px;margin:22px 0;}
+.dsd-infobox h4{color:var(--dsd-orange);font-size:16px;font-weight:700;margin:0 0 12px;}
+.dsd-infobox ul{list-style:none;padding:0;margin:0;}
+.dsd-infobox ul li{font-size:14.5px;color:var(--dsd-text);padding:6px 0 6px 22px;position:relative;line-height:1.9;}
+.dsd-infobox ul li::before{content:'→';position:absolute;left:0;color:var(--dsd-orange);font-weight:700;}
+.dsd-doc-card{background:#fff;border:1px solid var(--dsd-border);border-left:5px solid var(--dsd-teal);border-radius:0 12px 12px 0;padding:24px 28px;margin:30px 0;box-shadow:0 4px 16px rgba(0,128,128,0.08);position:relative;}
+.dsd-doc-card .doc-number{position:absolute;top:-18px;left:-18px;width:54px;height:54px;border-radius:12px;background:var(--dsd-teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;font-family:'Poppins',sans-serif;box-shadow:0 4px 14px rgba(0,128,128,0.35);}
+.dsd-doc-card h3{color:var(--dsd-navy);font-size:19px;font-weight:700;margin:0 0 10px;padding-left:44px;line-height:1.4;}
+.dsd-doc-card .doc-meta{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 16px;padding-left:44px;}
+.dsd-doc-card .doc-meta span{background:var(--dsd-light-teal);color:var(--dsd-navy);font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:0.3px;}
+.dsd-doc-card .doc-meta span.amber{background:#fef3c7;color:#92400e;}
+.dsd-doc-card .doc-meta span.green{background:#dcfce7;color:#065f46;}
+.dsd-doc-card .doc-meta span.red{background:#fee2e2;color:#991b1b;}
+.dsd-doc-card .doc-body p{font-size:15px;color:var(--dsd-text);line-height:1.9;margin:0 0 12px;}
+.dsd-doc-card .where-box{background:#ecfdf5;border:1px solid #065f46;border-radius:8px;padding:13px 17px;margin-top:14px;}
+.dsd-doc-card .where-box h5{color:#065f46;font-size:13.5px;font-weight:700;margin:0 0 6px;}
+.dsd-doc-card .where-box p{font-size:14px;color:#064e3b;margin:0;line-height:1.75;}
+.dsd-doc-card .note-tag{font-size:12.5px;color:var(--dsd-muted);font-style:italic;margin-top:10px;display:block;}
+.dsd-redflag{background:#fff5f5;border:1px solid rgba(220,38,38,0.2);border-left:4px solid #dc2626;border-radius:0 12px 12px 0;padding:15px 20px;margin-bottom:14px;}
+.dsd-redflag h5{color:#991b1b;font-size:15px;font-weight:700;margin:0 0 6px;}
+.dsd-redflag p{font-size:14px;color:var(--dsd-text);margin:0;line-height:1.85;}
+.dsd-step{display:flex;gap:18px;align-items:flex-start;background:#fff;border:1px solid var(--dsd-border);border-radius:12px;padding:20px 22px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.dsd-step-num{width:46px;height:46px;min-width:46px;border-radius:10px;background:var(--dsd-navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;font-family:'Poppins',sans-serif;}
+.dsd-step-body h5{color:var(--dsd-navy);font-size:16px;font-weight:700;margin:0 0 7px;}
+.dsd-step-body p{font-size:14.5px;color:var(--dsd-text);margin:0;line-height:1.9;}
+.dsd-step-body .where-to-check{font-size:13px;color:var(--dsd-teal);font-weight:600;margin-top:9px;display:block;}
+.dsd-related-inline{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:22px 0;}
+.dsd-link-card{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:10px;padding:14px 16px;text-decoration:none;display:block;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;}
+.dsd-link-card:hover{border-color:var(--dsd-teal);box-shadow:0 4px 16px rgba(0,128,128,0.1);transform:translateY(-2px);}
+.dsd-link-card .dsd-link-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dsd-teal);font-weight:600;margin-bottom:5px;font-family:'Poppins',sans-serif;}
+.dsd-link-card .dsd-link-title{font-size:14.5px;font-weight:600;color:var(--dsd-navy);line-height:1.55;}
+.dsd-cost-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14.5px;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(1,31,75,0.06);}
+.dsd-cost-table thead{background:var(--dsd-navy);color:#fff;}
+.dsd-cost-table th{padding:13px 16px;text-align:left;font-weight:700;font-size:13.5px;border:1px solid #0a3060;}
+.dsd-cost-table td{padding:12px 16px;border:1px solid var(--dsd-border);line-height:1.7;}
+.dsd-cost-table tbody tr:nth-child(even){background:#f9fafb;}
+.dsd-cost-table .cost-cell{text-align:center;color:#FF5C00;font-weight:700;}
+.dsd-cost-table tr.total-row{background:#fff8f0!important;font-weight:700;}
+.dsd-cost-table tr.total-row td{color:#011f4b;border-top:2px solid var(--dsd-orange);}
+#FAQs h3{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-left:4px solid var(--dsd-teal);padding:15px 20px;border-radius:0 10px 10px 0;cursor:pointer;color:var(--dsd-navy);font-size:15.5px;font-weight:600;margin-bottom:0;position:relative;transition:background 0.2s;line-height:1.5;}
+#FAQs h3:hover{background:#e0f7f7;}
+#FAQs h3::after{content:'+';position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:22px;color:var(--dsd-teal);font-weight:400;}
+#FAQs h3.active::after{content:'−';}
+#FAQs h3+p{background:#fff;border:1px solid var(--dsd-border);border-top:none;border-radius:0 0 10px 10px;padding:16px 20px;font-size:15px;color:var(--dsd-text);margin-top:0;margin-bottom:14px;line-height:2;}
+@media(max-width:600px){
+  .dsd-stats-bar{grid-template-columns:repeat(2,1fr);}
+  .dsd-related-inline{grid-template-columns:1fr;}
+  .dsd-doc-card{padding:22px 22px 22px 26px;}
+  .dsd-doc-card .doc-number{width:44px;height:44px;font-size:18px;top:-14px;left:-14px;}
+  .dsd-doc-card h3{padding-left:36px;font-size:17px;}
+  .dsd-doc-card .doc-meta{padding-left:36px;}
+  .dsd-cost-table{font-size:13.5px;}
+  .dsd-cost-table th,.dsd-cost-table td{padding:10px 12px;}
+}
+</style>
+<article class="dsd-hindi">
+<p style="font-size: 13px; color: #6b7280; margin: 0 0 22px; padding-bottom: 14px; border-bottom: 1px solid #e2e8f0;">अंतिम अपडेट: मई 2026  |  स्रोत: UP Revenue Code 2006 (धारा 34-35), Hindu Succession Act 1956 (2005 संशोधन सहित), Registration of Births and Deaths Act 1969, Indian Succession Act 1925, UP Stamp Act, IGRSUP पोर्टल, UP Bhulekh पोर्टल</p>
+<div class="dsd-quick-answer">
+<p><strong>सीधी बात:</strong> पिता की मृत्यु के बाद ज़मीन अपने नाम करने के लिए सिर्फ <strong>3 ज़रूरी कागज़</strong> चाहिए — मृत्यु प्रमाण पत्र, कानूनी वारिस प्रमाण पत्र, और बाकी वारिसों की NOC। फिर तहसील में <strong>दाखिल खारिज</strong> का आवेदन करें। <strong>UP Revenue Code 2006 की धारा 34</strong> के तहत तहसीलदार को <strong>45 दिन के अंदर</strong> काम पूरा करना ज़रूरी है। Class I वारिस (बेटा, बेटी, पत्नी, माँ) पर <strong>कोई Stamp Duty नहीं</strong> — पूरा खर्च ₹3,000 से ₹5,000 के बीच आता है।</p>
+</div>
+<p style="font-size: 16px; color: #374151; line-height: 1.95; margin-bottom: 18px;">पिता या किसी अपने को खोने का दर्द बहुत बड़ा होता है। लेकिन इस मुश्किल वक़्त में भी एक काम जल्दी करना पड़ता है — पिता के नाम की ज़मीन, मकान या प्लॉट को अपने नाम करवाना। जब तक यह नहीं होगा, न आप उस प्रॉपर्टी को बेच सकते हैं, न उस पर लोन ले सकते हैं, न उसकी रजिस्ट्री किसी और के नाम कर सकते हैं।</p>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 16px;">यह गाइड आपके लिए है — <strong>आसान हिंदी में</strong>, बिना किसी कानूनी जारगन के। हम बताएंगे कि UP में यह काम कैसे होता है, कौन-कौन से कागज़ चाहिए, असली खर्च क्या आता है, और सबसे ज़रूरी — <strong>अगर वसीयत नहीं है तो किसका कितना हिस्सा बनता है</strong>। पूरी जानकारी <strong>UP सरकार के मौजूदा कानून के हिसाब से</strong>, अप्रैल-मई 2026 तक verified।</p>
+<div class="dsd-stats-bar">
+<div class="dsd-stat-item"><span class="dsd-stat-num">45 दिन</span><span class="dsd-stat-label"><a href="https://dsdproperties.in/blog/dakhil-kharij-lucknow-mutation-process-guide-hindi" style="color:#008080;font-weight:600;">दाखिल खारिज</a> की कानूनी समय-सीमा (UP Revenue Code 2006)</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">21 दिन</span><span class="dsd-stat-label">मृत्यु रजिस्ट्रेशन की समय-सीमा (Act 1969)</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">0%</span><span class="dsd-stat-label">Stamp Duty — Class I वारिसों पर कोई टैक्स नहीं</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">6 कदम</span><span class="dsd-stat-label">मृत्यु प्रमाण पत्र से दाखिल खारिज तक</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">₹0</span><span class="dsd-stat-label">Inheritance Tax — भारत में 1985 से ख़त्म</span></div>
+</div>
+<div class="dsd-infobox" style="margin-bottom: 28px;">
+<h4>⚠️ सबसे ज़रूरी 5 बातें — पहले इन्हें समझ लें</h4>
+<ul>
+<li><strong>मृत्यु रजिस्ट्रेशन 21 दिन के अंदर:</strong> Registration of Births and Deaths Act 1969 के तहत, मृत्यु को <a href="https://dsdproperties.in/blog/nagar-nigam-lucknow-2026" style="color:#008080;font-weight:600;">नगर निगम</a> या ग्राम पंचायत में 21 दिन के अंदर रजिस्टर कराना ज़रूरी है। देर होने पर लेट फीस लगती है</li>
+<li><strong>2005 के बाद बेटी का बराबर हक:</strong> Hindu Succession (Amendment) Act 2005 के बाद बेटियों को भी बेटों के बराबर हिस्सा मिलता है — चाहे शादीशुदा हों या नहीं</li>
+<li><strong>विरासत पर कोई टैक्स नहीं:</strong> Class I वारिसों (पत्नी, बेटे, बेटियाँ, माँ) को मिलने वाली प्रॉपर्टी पर <a href="https://dsdproperties.in/blog/stamp-duty-registration-charges-lucknow-2026" style="color:#008080;font-weight:600;">Stamp Duty</a> 0% है। लेकिन जब आप उसे बेचेंगे तब LTCG और Stamp Duty (पुरुष 7%, महिला 6%) लगेगी</li>
+<li><strong>रजिस्ट्री और दाखिल खारिज दो अलग चीज़ें हैं:</strong> रजिस्ट्री से कानूनी ट्रांसफर होता है, दाखिल खारिज से सरकारी रिकॉर्ड में आपका नाम चढ़ता है। दोनों ज़रूरी हैं</li>
+<li><strong>विवाद हो तो Revenue Court जाएं:</strong> अगर वारिसों में आपस में नहीं बनती, तो SDM कोर्ट या सिविल कोर्ट में बंटवारे का केस फाइल करना होता है — इसमें 2 से 5 साल तक लग सकते हैं</li>
+</ul>
+</div>
+<h2 id="kaun-waris" style="margin-top: 44px; font-size: 25px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 16px; line-height: 1.35;">सबसे पहला सवाल — प्रॉपर्टी किसे मिलेगी?</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 18px;">यह जवाब इस बात पर निर्भर करता है कि <strong>वसीयत (Will) बनी है या नहीं</strong>, और प्रॉपर्टी <strong>स्व-अर्जित है या पैतृक</strong>। आइए दोनों स्थितियों को समझते हैं।</p>
+<div class="dsd-doc-card">
+<div class="doc-number">A</div>
+<h3>अगर वसीयत है (Will exists) — साफ़ रास्ता</h3>
+<div class="doc-meta"><span class="green">सीधी प्रक्रिया</span> <span>30-60 दिन</span></div>
+<div class="doc-body">
+<p>अगर पिता ने वसीयत बनाई है — चाहे वो रजिस्टर्ड हो या non-registered — तो जो लिखा है वही होगा। Indian Succession Act 1925 के अनुसार, वसीयत में नामित व्यक्ति को प्रॉपर्टी मिलेगी, बशर्ते कोई वारिस उसे चुनौती न दे।</p>
+<p><strong>ज़रूरी कागज़:</strong> मूल वसीयत की प्रति, मृत्यु प्रमाण पत्र, गवाहों के बयान। अगर वसीयत registered नहीं है तो Probate के लिए अदालत जाना पड़ सकता है। वसीयत वाली प्रॉपर्टी पर भी कोर्ट केस हो सकता है अगर किसी वारिस को लगे कि वसीयत जबरदस्ती बनवाई गई थी।</p>
+<div class="where-box">
+<h5>💡 सुझाव</h5>
+<p>हमेशा वसीयत को SRO में रजिस्टर करवाएं — स्टैम्प ड्यूटी सिर्फ ₹100 लगती है लेकिन भविष्य के विवाद का जोखिम 80% कम हो जाता है।</p>
+</div>
+<span class="note-tag">स्रोत: Indian Succession Act 1925, Section 63</span></div>
+</div>
+<div class="dsd-doc-card">
+<div class="doc-number">B</div>
+<h3>अगर वसीयत नहीं है (Intestate) — Hindu Succession Act लागू</h3>
+<div class="doc-meta"><span class="amber">डिफ़ॉल्ट कानून</span> <span>बराबर बंटवारा</span></div>
+<div class="doc-body">
+<p>हिंदू, सिख, जैन, बौद्ध समुदायों के लिए Hindu Succession Act 1956 लागू होता है। बिना वसीयत वाली प्रॉपर्टी को <strong>Class I वारिसों में बराबर-बराबर</strong> बाँटा जाता है।</p>
+<p><strong>Class I वारिस कौन हैं?</strong> — पत्नी (विधवा), बेटे, बेटियाँ (शादीशुदा या अविवाहित दोनों), माँ (अगर जीवित हैं), और पूर्व-मृत बेटे/बेटी के बच्चे। 2005 के संशोधन के बाद बेटियों को बेटों के बराबर हिस्सा मिलता है — चाहे शादी हो चुकी हो या नहीं।</p>
+<p><strong>उदाहरण:</strong> अगर पिता की मृत्यु हुई और पीछे पत्नी + 2 बेटे + 1 बेटी हैं — तो प्रॉपर्टी 4 बराबर हिस्सों में बँटेगी, हर एक को 25%। अगर माँ भी जीवित हैं तो 5 हिस्सों में, हर एक को 20%।</p>
+<div class="where-box">
+<h5>📍 विशेष नोट — पैतृक vs स्व-अर्जित</h5>
+<p>पैतृक (ancestral) प्रॉपर्टी पर बेटियों का जन्म से अधिकार है — Supreme Court 2020 के <em>Vineeta Sharma vs Rakesh Sharma</em> फैसले के बाद यह स्पष्ट हो गया। स्व-अर्जित प्रॉपर्टी पर पिता वसीयत से किसी को भी दे सकते हैं।</p>
+</div>
+<span class="note-tag">स्रोत: Hindu Succession Act 1956, Section 6, 8, 10; Amendment Act 2005</span></div>
+</div>
+<div class="dsd-doc-card">
+<div class="doc-number">C</div>
+<h3>मुस्लिम, ईसाई, पारसी — अलग कानून</h3>
+<div class="doc-meta"><span>अलग personal law</span></div>
+<div class="doc-body">
+<p><strong>मुस्लिम परिवारों के लिए:</strong> Muslim Personal Law (Shariat) Application Act 1937 लागू होता है — Sunni और Shia के हिसाब से बँटवारा अलग होता है। आम तौर पर बेटे को बेटी के मुक़ाबले दोगुना हिस्सा मिलता है।</p>
+<p><strong>ईसाई, पारसी, यहूदी:</strong> Indian Succession Act 1925 लागू होता है। पत्नी को 1/3 हिस्सा, बाकी बच्चों में बराबर बँटता है। अगर पत्नी नहीं है तो पूरी प्रॉपर्टी बच्चों को।</p>
+<p><strong>विशेष विवाह (Special Marriage Act 1954) के तहत शादी:</strong> चाहे कोई भी धर्म हो, Indian Succession Act 1925 लागू होगा।</p>
+</div>
+</div>
+<!-- verify-cta -->
+<div class="dsd-verify-cta" style="background:#fff7ed;border:1px solid #fed7aa;border-left:4px solid #FF5C00;border-radius:0 12px 12px 0;padding:16px 20px;margin:0 0 24px;">
+  <p style="margin:0 0 6px;font-weight:700;color:#011f4b;font-size:16px;">विरासत की प्रॉपर्टी बेच या खरीद रहे हैं?</p>
+  <p style="margin:0 0 12px;line-height:1.7;font-size:15px;color:#374151;">खरीदार देखेगा कि वरासत दर्ज है और सभी वारिसों की सहमति है। हम खतौनी, रजिस्ट्री की पूरी चेन, भार-मुक्त प्रमाणपत्र (Encumbrance) और कोर्ट केस जाँचते हैं — <strong>आवासीय प्लॉट और फ़्लैट के लिए ₹5,000, 48 घंटे में PDF रिपोर्ट</strong>।</p>
+  <p style="margin:0 0 8px;">{{CONSULTATION_BUTTON:प्रॉपर्टी वेरिफिकेशन कराएँ — ₹5,000}}</p>
+  <p style="margin:0;font-size:13px;text-align:center;"><a href="https://dsdproperties.in/services/property-verification-lucknow" style="color:#008080;font-weight:600;">देखें हम क्या-क्या जाँचते हैं →</a></p>
+</div>
+<h2 id="6-kadam" style="margin-top: 44px; font-size: 25px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 16px; line-height: 1.35;">6 कदमों में पूरी प्रक्रिया — मृत्यु प्रमाण पत्र से दाखिल खारिज तक</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 18px;">यह वही क्रम है जो UP में काम करता है। हर कदम का अपना समय और खर्च है। बीच में कोई कदम छोड़ा तो अगला कदम रुक जाएगा।</p>
+<div class="dsd-step">
+<div class="dsd-step-num">1</div>
+<div class="dsd-step-body">
+<h5>कदम 1 — मृत्यु प्रमाण पत्र (Death Certificate) हासिल करें</h5>
+<p>मृत्यु के <strong>21 दिन के अंदर</strong> नगर निगम (शहरी क्षेत्र में) या ग्राम पंचायत (ग्रामीण क्षेत्र में) में रजिस्ट्रेशन करवाएं। अस्पताल में मृत्यु हुई हो तो अस्पताल खुद Form 4 जमा कर देता है — आपको सिर्फ certified copy लेनी होती है। घर पर मृत्यु हुई हो तो परिवार के सदस्य को आधार कार्ड, पहचान पत्र, और मृत्यु का कारण बताने वाला doctor's certificate लेकर जाना होगा। फीस: साधारण कॉपी ₹20-50, urgent कॉपी ₹100-200। <strong>कम से कम 6 certified copies</strong> ले लें — हर जगह माँगी जाती हैं।</p>
+<span class="where-to-check">📍 लखनऊ में: Lucknow Municipal Corporation, lmc.up.nic.in | ग्रामीण: तहसील कार्यालय</span></div>
+</div>
+<div class="dsd-step">
+<div class="dsd-step-num">2</div>
+<div class="dsd-step-body">
+<h5>कदम 2 — कानूनी वारिस प्रमाण पत्र (Legal Heir Certificate)</h5>
+<p>तहसील कार्यालय में SDM/तहसीलदार से आवेदन करें। ज़रूरी कागज़: मृत्यु प्रमाण पत्र, राशन कार्ड, सभी वारिसों के आधार कार्ड, family tree affidavit, स्थानीय शपथ पत्र, गैस/बिजली बिल। तहसीलदार लेखपाल को verification के लिए भेजते हैं — आस-पास के 2-3 लोगों से पूछताछ होती है। समय: 15 से 30 दिन। फीस: स्टैम्प पेपर का खर्च ₹100-500। यह प्रमाण पत्र दाखिल खारिज और बैंक से पैसे निकालने के लिए ज़रूरी है। NRI वारिसों के लिए — वे Indian Embassy से POA भेज सकते हैं।</p>
+<span class="where-to-check">📍 लखनऊ में: सदर, सरोजिनी नगर, बक्शी का तालाब, मलिहाबाद, <a href="https://dsdproperties.in/blog/mohanlalganj-lucknow-real-estate-guide-2026" style="color:#008080;font-weight:600;">मोहनलालगंज</a> तहसील — प्रॉपर्टी के अनुसार</span></div>
+</div>
+<div class="dsd-step">
+<div class="dsd-step-num">3</div>
+<div class="dsd-step-body">
+<h5>कदम 3 — बाकी वारिसों से NOC (अगर एक वारिस को पूरी प्रॉपर्टी चाहिए)</h5>
+<p>अगर सभी Class I वारिस मिलकर तय करते हैं कि एक वारिस को पूरी प्रॉपर्टी मिले, तो बाकी सबको <strong>रजिस्टर्ड Relinquishment Deed</strong> (अधिकार त्याग पत्र) या Notarised NOC देनी होगी। Relinquishment Deed पर ₹100 की स्टैम्प ड्यूटी लगती है — SRO में रजिस्टर होती है। बिना NOC के तहसीलदार अकेले एक वारिस के नाम मुटेशन नहीं करते। अगर कोई एक वारिस NOC देने से इनकार करे तो आप civil court में बंटवारे का केस फाइल कर सकते हैं।</p>
+<span class="where-to-check">📍 SRO (Sub-Registrar Office) में रजिस्ट्रेशन | igrsup.gov.in से ऑनलाइन</span></div>
+</div>
+<div class="dsd-step">
+<div class="dsd-step-num">4</div>
+<div class="dsd-step-body">
+<h5>कदम 4 — दाखिल खारिज (Mutation/Namantaran) का आवेदन</h5>
+<p>यह सबसे important कदम है। ग्रामीण ज़मीन के लिए तहसील कार्यालय में या <strong>upbhulekh.gov.in</strong> पर ऑनलाइन। LDA flat के लिए LDA Vipin Khand कार्यालय। शहरी प्रॉपर्टी (Nagar Nigam क्षेत्र) के लिए Nagar Nigam ज़ोनल कार्यालय। ज़रूरी कागज़ — मृत्यु प्रमाण पत्र, Legal Heir Certificate, मूल रजिस्ट्री (Sale Deed), सभी वारिसों की NOC या Relinquishment Deeds, पुराना खतौनी, सभी वारिसों का आधार। <strong>UP Revenue Code 2006 की धारा 34</strong> के अनुसार तहसीलदार को 45 दिन के अंदर निर्णय लेना ज़रूरी है। जुलाई 2025 में UP सरकार ने अधिकारियों को सख्त निर्देश दिए हैं कि गैर-विवादित दाखिल खारिज 45 दिन में निपटाएं — अन्यथा disciplinary action।</p>
+<span class="where-to-check">📍 ग्रामीण: upbhulekh.gov.in | शहरी: Nagar Nigam | LDA: ldalucknow.in</span></div>
+</div>
+<div class="dsd-step">
+<div class="dsd-step-num">5</div>
+<div class="dsd-step-body">
+<h5>कदम 5 — Lekhpal/SRO सत्यापन और आपत्ति काल</h5>
+<p>आवेदन के बाद लेखपाल मौके पर जाते हैं — पड़ोसियों से पूछताछ, पुराने khasra-khatauni का मिलान, और भौतिक verification। फिर 15-30 दिन का आपत्ति काल खुलता है — अगर कोई third party (दूर का रिश्तेदार या पुराना owner) दावा करना चाहे तो इस समय में करना होगा। आप अपने आवेदन का status upbhulekh.gov.in पर tracking number से देख सकते हैं। अगर लेखपाल को कोई कमी मिलती है — गलत खसरा नंबर, मिसमैच, या अधूरे कागज़ — तो objection notice आता है, उसका जवाब 15 दिन में देना होता है।</p>
+<span class="where-to-check">📍 Status tracking: upbhulekh.gov.in → namantaran section</span></div>
+</div>
+<div class="dsd-step">
+<div class="dsd-step-num">6</div>
+<div class="dsd-step-body">
+<h5>कदम 6 — मुटेशन आदेश और नया खतौनी</h5>
+<p>सब कुछ सही पाए जाने पर तहसीलदार/SDM/Nagar Nigam अधिकारी <strong>मुटेशन आदेश</strong> (Mutation Order) जारी करते हैं। अब आपका नाम खतौनी में चढ़ जाता है। आप upbhulekh.gov.in से नई खतौनी डाउनलोड कर सकते हैं — यही आपका नया ownership document है। साथ में Nagar Nigam में जाकर House Tax का record भी अपडेट करवाएं — बिजली, पानी, गैस connections भी आपके नाम कराने के लिए यह नई खतौनी काम आएगी। अब प्रॉपर्टी पूरी तरह से आपके नाम है — बेचना, गिरवी रखना, लोन लेना सब संभव।</p>
+<span class="where-to-check">📍 नई खतौनी डाउनलोड: upbhulekh.gov.in (निशुल्क)</span></div>
+</div>
+<h2 id="documents" style="margin-top: 44px; font-size: 25px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 16px; line-height: 1.35;">ज़रूरी कागज़ों की पूरी चेकलिस्ट</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 18px;">सभी कागज़ अग्रिम तैयार रखें — अधूरी फाइल वापस होती है और प्रक्रिया फिर से शुरू करनी पड़ती है। हर कागज़ की 2-3 photocopy साथ रखें।</p>
+<div class="dsd-highlight">
+<h4>मृत्यु के बाद प्रॉपर्टी ट्रांसफर के लिए ज़रूरी कागज़</h4>
+<ul>
+<li><strong>मृत्यु प्रमाण पत्र (Death Certificate) की 6+ certified copies</strong> — नगर निगम या ग्राम पंचायत से</li>
+<li><strong>कानूनी वारिस प्रमाण पत्र (Legal Heir Certificate)</strong> — तहसीलदार/SDM से, सभी वारिसों के नाम सहित</li>
+<li><strong>मूल Sale Deed / रजिस्ट्री</strong> — पिता के नाम वाली; अगर खो गई हो तो SRO से certified copy लें</li>
+<li><strong>पुराना खतौनी / Property Card / House Tax receipts</strong> — पिछले 3 साल के</li>
+<li><strong>सभी Class I वारिसों के आधार कार्ड और PAN</strong> — पत्नी, बेटे, बेटियाँ, माँ</li>
+<li><strong>Family Tree Affidavit</strong> — ₹10-100 के स्टैम्प पेपर पर notarised</li>
+<li><strong>अन्य वारिसों की NOC या Relinquishment Deed</strong> — अगर एक वारिस को पूरी प्रॉपर्टी देनी है</li>
+<li><strong>2 स्थानीय गवाहों का शपथ पत्र (Affidavit)</strong> — पड़ोसी, ग्राम प्रधान, या जान-पहचान वाले</li>
+<li><strong>आवेदक के passport-size फोटो</strong> — 4-6 copies</li>
+<li><strong>राशन कार्ड / गैस bill / बिजली bill</strong> — पते का प्रमाण</li>
+<li><strong>वसीयत (अगर है तो) — Probate के साथ अगर non-registered है</strong></li>
+<li><strong>LDA/UPAVP/Nagar Nigam allotment letter</strong> — अगर सरकारी allotment की प्रॉपर्टी है</li>
+</ul>
+</div>
+<h2 id="kharcha" style="margin-top: 44px; font-size: 25px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 16px; line-height: 1.35;">असली खर्च और समय — साफ़-साफ़ table में</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 18px;">नीचे दिए गए सरकारी fees मई 2026 तक verified हैं। कुछ राज्य-विशिष्ट चार्ज तहसील के अनुसार बदल सकते हैं।</p>
+<div style="overflow-x: auto;">
+<table class="dsd-cost-table">
+<thead>
+<tr>
+<th>कदम / Service</th>
+<th>विवरण</th>
+<th style="text-align: center;">अनुमानित खर्च</th>
+<th style="text-align: center;">समय</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>मृत्यु प्रमाण पत्र</td>
+<td>6 certified copies, Nagar Nigam से</td>
+<td class="cost-cell">₹120 – ₹300</td>
+<td style="text-align: center;">3-7 दिन</td>
+</tr>
+<tr>
+<td>Legal Heir Certificate</td>
+<td>तहसीलदार से, stamp paper सहित</td>
+<td class="cost-cell">₹500 – ₹1,000</td>
+<td style="text-align: center;">15-30 दिन</td>
+</tr>
+<tr>
+<td>Family Tree Affidavit + अन्य शपथ पत्र</td>
+<td>Notarised, stamp paper पर</td>
+<td class="cost-cell">₹200 – ₹500</td>
+<td style="text-align: center;">1-2 दिन</td>
+</tr>
+<tr>
+<td>Relinquishment Deed (अगर ज़रूरी हो)</td>
+<td>SRO में रजिस्टर्ड, ₹100 stamp duty</td>
+<td class="cost-cell">₹300 – ₹1,000</td>
+<td style="text-align: center;">2-5 दिन</td>
+</tr>
+<tr>
+<td>दाखिल खारिज / Mutation Fee</td>
+<td>तहसील में, विरासत के लिए सस्ता</td>
+<td class="cost-cell">₹200 – ₹5,000</td>
+<td style="text-align: center;">30-45 दिन</td>
+</tr>
+<tr>
+<td>Photocopying, फोटो, miscellaneous</td>
+<td>सभी कागज़ों की 3-4 copies</td>
+<td class="cost-cell">₹300 – ₹800</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td><strong>Stamp Duty (Class I वारिसों पर)</strong></td>
+<td>विरासत में मिली प्रॉपर्टी पर</td>
+<td class="cost-cell" style="color: #16a34a; font-weight: bold;">शून्य (₹0)</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td>Inheritance Tax</td>
+<td>भारत में 1985 से ख़त्म</td>
+<td class="cost-cell" style="color: #16a34a; font-weight: bold;">शून्य (₹0)</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr class="total-row">
+<td><strong>कुल अनुमानित खर्च (सीधा case)</strong></td>
+<td><strong>बिना विवाद, सही कागज़ों के साथ</strong></td>
+<td class="cost-cell" style="font-size: 16px;">₹2,500 – ₹5,000</td>
+<td style="text-align: center; font-weight: bold; color: #011f4b;">30-60 दिन</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="dsd-infobox" style="margin-top: 24px;">
+<h4>💡 जब प्रॉपर्टी आगे बेचेंगे — तब क्या खर्च होगा?</h4>
+<ul>
+<li><strong>Stamp Duty (बेचने पर):</strong> पुरुष खरीदार 7%, महिला खरीदार 6% (₹1 करोड़ तक की प्रॉपर्टी पर), संयुक्त owner 6.5%</li>
+<li><strong>Registration Fee:</strong> 1% (अधिकतम ₹30,000)</li>
+<li><strong>LTCG (Long-Term Capital Gains Tax):</strong> अगर 24 महीने से ज्यादा hold किया है तो 12.5% (Budget 2024 के बाद), 22 जुलाई 2024 से पहले की प्रॉपर्टी पर 20% with indexation का option भी</li>
+<li><strong>TDS:</strong> ₹50 लाख से ऊपर बिक्री पर खरीदार 1% TDS काटेगा (Section 194-IA)</li>
+<li><strong>Holding period inherited property के लिए:</strong> पिता के purchase date से गिना जाता है — आपकी inheritance date से नहीं। यह LTCG में बड़ी बचत है</li>
+</ul>
+</div>
+{{CONSULTATION_BUTTON:लखनऊ में पूरी प्रॉपर्टी ट्रांसफर सर्विस — सिर्फ ₹5,000 में, 48 घंटे में PDF रिपोर्ट}}
+<h2 id="vasiyat" style="margin-top: 44px; font-size: 25px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 16px; line-height: 1.35;">वसीयत बनवाना — अपने बच्चों को इस झंझट से बचाएं</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 18px;">अगर आप अभी जीवित हैं और चाहते हैं कि आपके जाने के बाद बच्चों को परेशानी न हो, तो आज ही वसीयत बनवा लें। बहुत आसान है — और सिर्फ ₹100 की स्टैम्प ड्यूटी।</p>
+<div class="dsd-highlight">
+<h4>वसीयत बनवाने का सबसे आसान तरीका</h4>
+<ul>
+<li><strong>वसीयत कौन बना सकता है?</strong> कोई भी मानसिक रूप से स्वस्थ व्यक्ति जो 21 साल से ऊपर हो। 2 स्वतंत्र गवाह ज़रूरी हैं (जो उस वसीयत में नामित नहीं हैं)</li>
+<li><strong>क्या रजिस्ट्रेशन ज़रूरी है?</strong> कानूनी रूप से नहीं — non-registered वसीयत भी valid है। लेकिन रजिस्टर्ड वसीयत पर बाद में अदालत में चुनौती देना बहुत मुश्किल है</li>
+<li><strong>रजिस्ट्रेशन कहाँ?</strong> Sub-Registrar Office (SRO) में, ₹100 stamp paper पर — Lucknow Sadar SRO या आपके क्षेत्र का SRO। समय: 1-2 दिन</li>
+<li><strong>क्या लिखना ज़रूरी है?</strong> साफ़-साफ़ — प्रॉपर्टी का पता, खसरा/प्लॉट नंबर, किसे क्या मिलेगा, गवाहों के नाम और हस्ताक्षर</li>
+<li><strong>कितनी बार बदल सकते हैं?</strong> जितनी बार चाहें — पुरानी वसीयत automatically निरस्त हो जाती है, बशर्ते नई वसीयत में "all previous wills are revoked" लिखा हो</li>
+<li><strong>विशेष टिप:</strong> वसीयत के साथ एक videotaped declaration रखें जिसमें आप कैमरे पर साफ़ कह रहे हों कि यह आपकी इच्छा है। यह future challenges का 90% जोखिम कम करता है</li>
+</ul>
+</div>
+<h2 style="margin-top: 44px; font-size: 25px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 16px; line-height: 1.35;">5 बड़ी ग़लतियाँ जो लोग करते हैं — और बचने के तरीके</h2>
+<div class="dsd-redflag">
+<h5>🚨 ग़लती 1 — मृत्यु रजिस्ट्रेशन में देरी</h5>
+<p>21 दिन के बाद रजिस्टर कराने पर लेट फीस लगती है, और 30 दिन के बाद Magistrate की अनुमति चाहिए होती है। 1 साल के बाद रजिस्ट्रेशन के लिए कोर्ट से आदेश लेना पड़ता है। मृत्यु के तुरंत बाद, चाहे कितना भी मुश्किल हो, परिवार में किसी एक को यह काम तुरंत करवाना चाहिए।</p>
+</div>
+<div class="dsd-redflag">
+<h5>🚨 ग़लती 2 — सिर्फ रजिस्ट्री करवा ली, दाखिल खारिज नहीं</h5>
+<p>बहुत से लोग सोचते हैं कि रजिस्ट्री हो गई तो काम पूरा हुआ। नहीं — खतौनी में पिता का नाम तब तक चलता रहेगा जब तक दाखिल खारिज नहीं होगा। नतीजा: bank loans नहीं मिलेंगे, future buyer का lawyer आपत्ति करेगा, NHAI या UPSIDA अधिग्रहण होने पर compensation पिता के नाम पर जाएगा।</p>
+</div>
+<div class="dsd-redflag">
+<h5>🚨 ग़लती 3 — एक भाई बाकी भाई-बहनों की NOC के बिना दाखिल खारिज</h5>
+<p>तहसीलदार अकेले एक वारिस के नाम पर तब तक mutation नहीं करते जब तक बाकी Class I वारिसों की NOC या Relinquishment Deed न हो। अगर एक भाई दूसरों को बिना बताए कोशिश करेगा, तो आपत्ति काल में मुकदमा होगा — और बात civil court जाएगी।</p>
+</div>
+<div class="dsd-redflag">
+<h5>🚨 ग़लती 4 — बेटियों को छोड़ देना</h5>
+<p>2005 के संशोधन के बाद बेटियों का बराबर हक है — चाहे शादीशुदा हों या नहीं, चाहे पिता 2005 से पहले मरे हों या बाद में। Supreme Court 2020 के Vineeta Sharma judgement के बाद यह बात पक्की है। बेटियों को NOC में शामिल किए बिना mutation गैरकानूनी है, और बाद में बेटियाँ कोर्ट में जा सकती हैं।</p>
+</div>
+<div class="dsd-redflag">
+<h5>🚨 ग़लती 5 — Fake बिचौलिए के चक्कर में पड़ना</h5>
+<p>तहसील के बाहर ₹50,000 - ₹1 लाख माँगने वाले बिचौलियों से बचें। पूरा काम सीधे online (upbhulekh.gov.in) पर हो सकता है, और officially कुल खर्च ₹2,500 - ₹5,000 के बीच है। DSD Properties की professional service ₹5,000 में हर कदम पर सहयोग करती है — कोई छिपा खर्च नहीं।</p>
+</div>
+<h2 style="margin-top: 44px; font-size: 25px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 16px; line-height: 1.35;">DSD Properties कैसे मदद करता है</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 18px;">अगर आप खुद यह सब करने का समय या ताकत नहीं रखते — तो हम पूरी प्रक्रिया आपके लिए handle कर सकते हैं। हमारी ₹5,000 की service में शामिल है:</p>
+<div class="dsd-highlight">
+<h4>हमारी प्रॉपर्टी ट्रांसफर सर्विस में क्या मिलेगा</h4>
+<ul>
+<li><strong>सभी कागज़ों की checklist और तैयारी</strong> — हम आपकी फाइल पहले से check करते हैं ताकि कोई कमी न रहे</li>
+<li><strong>Legal Heir Certificate के लिए तहसील में आवेदन</strong> — SDM/तहसीलदार office में submission और follow-up</li>
+<li><strong>दाखिल खारिज ऑनलाइन और offline दोनों</strong> — upbhulekh.gov.in पर submission, और तहसील में physical follow-up</li>
+<li><strong>NOC और Relinquishment Deed की drafting</strong> — SRO में रजिस्ट्रेशन सहित</li>
+<li><strong>Status tracking</strong> — हर हफ्ते आपको WhatsApp पर update</li>
+<li><strong>Lekhpal visit के समय हमारा प्रतिनिधि मौजूद</strong> — कोई गलत आपत्ति न हो</li>
+<li><strong>नई खतौनी की certified copy</strong> — आपको हाथ में deliver</li>
+<li><strong>48 घंटे में detailed PDF report</strong> — आपकी पूरी फाइल का गहन analysis</li>
+</ul>
+</div>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.95; margin-bottom: 24px;">सम्पर्क: <strong>+91-85950-02933</strong> या <strong>dsdproperties.in</strong>। पूरी सर्विस सिर्फ ₹5,000 में — कोई छिपा शुल्क नहीं, कोई बिचौलिया नहीं।</p>
+<h2 style="margin-top: 44px; font-size: 25px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 16px; line-height: 1.35;">सम्बंधित गाइड्स</h2>
+<div class="dsd-related-inline"><a href="https://dsdproperties.in/blog/dakhil-kharij-lucknow-mutation-process-guide" class="dsd-link-card">
+<div class="dsd-link-label">कानूनी गाइड</div>
+<div class="dsd-link-title">दाखिल खारिज लखनऊ 2026 — पूरी म्यूटेशन प्रक्रिया</div>
+</a><a href="https://dsdproperties.in/blog/bainama-vs-registry-vs-power-of-attorney-lucknow-2026" class="dsd-link-card">
+<div class="dsd-link-label">कानूनी गाइड</div>
+<div class="dsd-link-title">बैनामा vs रजिस्ट्री vs Power of Attorney</div>
+</a><a href="https://dsdproperties.in/blog/encumbrance-certificate-lucknow-how-to-apply-online" class="dsd-link-card">
+<div class="dsd-link-label">सत्यापन</div>
+<div class="dsd-link-title">Encumbrance Certificate लखनऊ — ऑनलाइन आवेदन गाइड</div>
+</a><a href="https://dsdproperties.in/blog/igrsup-lucknow-property-search-tutorial" class="dsd-link-card">
+<div class="dsd-link-label">tutorial</div>
+<div class="dsd-link-title">IGRSUP Property Search Tutorial</div>
+</a></div>
+{{CONSULTATION_BUTTON:आज ही कॉल करें — पूरी प्रक्रिया ₹5,000 में, 30-45 दिन में पूरी}}
+<section id="FAQs">
+<h2 style="margin-top: 44px; font-size: 25px; color: #011f4b; font-weight: bold; border-left: 5px solid #FF5C00; padding-left: 16px; line-height: 1.35;">अक्सर पूछे जाने वाले सवाल (FAQs)</h2>
+<h3>पिता की मृत्यु के बाद ज़मीन अपने नाम कैसे करें?</h3>
+<p style="display: none;">पिता की मृत्यु के बाद ज़मीन को अपने नाम करने के 6 कदम हैं: (1) मृत्यु प्रमाण पत्र हासिल करें — मृत्यु के 21 दिन के अंदर नगर निगम या ग्राम पंचायत में रजिस्ट्रेशन कराएं। (2) तहसीलदार/SDM से कानूनी वारिस प्रमाण पत्र (Legal Heir Certificate) बनवाएं — 15-30 दिन में मिलता है। (3) अगर एक वारिस को पूरी प्रॉपर्टी देनी है तो बाकी सभी Class I वारिसों से Notarised NOC या Registered Relinquishment Deed लें। (4) तहसील में दाखिल खारिज (Mutation/Namantaran) के लिए आवेदन करें — मूल रजिस्ट्री, Legal Heir Certificate, NOCs, सभी वारिसों के आधार के साथ। ग्रामीण ज़मीन के लिए upbhulekh.gov.in पर ऑनलाइन भी कर सकते हैं। (5) Lekhpal verification और 15-30 दिन का आपत्ति काल। (6) मुटेशन आदेश के बाद आपका नाम खतौनी में चढ़ जाता है। UP Revenue Code 2006 की धारा 34 के अनुसार पूरी प्रक्रिया 45 दिन में होनी चाहिए। कुल खर्च ₹2,500 - ₹5,000 आता है — Class I वारिसों पर कोई Stamp Duty नहीं।</p>
+<h3>क्या विरासत में मिली प्रॉपर्टी पर Stamp Duty लगती है?</h3>
+<p style="display: none;">नहीं — UP में जब Class I वारिस (पति/पत्नी, बेटे, बेटियाँ, माँ) को प्रॉपर्टी विरासत में मिलती है तो कोई Stamp Duty नहीं लगती। Inheritance Tax भी भारत में 1985 से ख़त्म है — Finance Act 1985 के तहत। लेकिन अगर बाद में आप वह प्रॉपर्टी बेचेंगे तो Stamp Duty लगेगी — पुरुष खरीदार के लिए 7%, महिला खरीदार के लिए 6% (₹1 करोड़ तक की प्रॉपर्टी पर), संयुक्त ownership 6.5%, और 1% registration fee। साथ में LTCG (Long-Term Capital Gains Tax) भी देना होगा — Budget 2024 के बाद 12.5% (without indexation), या 22 जुलाई 2024 से पहले की प्रॉपर्टी पर 20% with indexation का option। एक बड़ा फायदा — विरासत में मिली प्रॉपर्टी का holding period पिता के purchase date से गिना जाता है, आपकी inheritance date से नहीं।</p>
+<h3>अगर वसीयत नहीं है और कई वारिस हैं तो क्या होगा?</h3>
+<p style="display: none;">वसीयत न होने पर Hindu Succession Act 1956 (और 2005 के Amendment) के अनुसार सभी Class I वारिसों को बराबर हिस्सा मिलता है। Class I वारिस हैं: पत्नी (विधवा), बेटे, बेटियाँ (शादीशुदा या अविवाहित दोनों), माँ। 2005 के बाद बेटियों का बेटों के बराबर हक है — Supreme Court ने 2020 के Vineeta Sharma vs Rakesh Sharma फैसले में इसे और स्पष्ट किया कि बेटियों को पैतृक संपत्ति में जन्म से अधिकार है, चाहे पिता 2005 से पहले मरे हों या बाद में। उदाहरण: पिता की मृत्यु के बाद पत्नी + 2 बेटे + 1 बेटी जीवित हैं — तो प्रॉपर्टी 4 बराबर हिस्सों में बँटेगी, हर एक को 25%। अगर एक वारिस पूरी प्रॉपर्टी लेना चाहे तो बाकी सभी वारिसों से Registered Relinquishment Deed (अधिकार त्याग पत्र) लेनी होगी। विवाद होने पर civil court में बंटवारे का मुकदमा (Partition Suit) करना पड़ता है — इसमें 2 से 5 साल लग सकते हैं।</p>
+<h3>दाखिल खारिज में कितना समय और खर्च लगता है?</h3>
+<p style="display: none;">UP Revenue Code 2006 की धारा 34 के अनुसार तहसीलदार को 45 दिन के अंदर निर्णय लेना ज़रूरी है। व्यवहार में सीधे case (बिना विवाद, सही कागज़ों के साथ) में 30-60 दिन लगते हैं। विवाद, अधूरे कागज़, या अनुपस्थित वारिसों के case में 6 से 18 महीने भी लग सकते हैं। जुलाई 2025 में UP सरकार ने सख्त निर्देश दिए हैं कि गैर-विवादित दाखिल खारिज में देरी पर अधिकारी disciplinary action का सामना करेंगे — साथ ही Integrated Revenue System (IRS) से real-time tracking होगी। खर्च: ग्रामीण म्यूटेशन ₹200-2,500, कुछ schedules में sale deed mutation ₹10,000 और inheritance mutation ₹5,000 तक। LDA transfer fees scheme-specific होती हैं। LMC urban mutation में ₹500 के आसपास। कुल कुल खर्च (मृत्यु प्रमाण पत्र, Legal Heir Certificate, NOCs, mutation सब मिलाकर): ₹2,500 - ₹5,000 एक सीधे case में।</p>
+<h3>क्या NRI विरासत में प्रॉपर्टी ले सकते हैं?</h3>
+<p style="display: none;">हाँ — NRI को भारत में किसी भी प्रॉपर्टी (खेती की ज़मीन, plantation, farm house सहित) को विरासत में लेने का पूरा अधिकार है, बिना RBI की पूर्व अनुमति के। ज़रूरी कागज़: मृत्यु प्रमाण पत्र, Legal Heir Certificate, NRI passport कॉपी, OCI/PIO card (अगर है)। NOC या Power of Attorney NRI अपने देश के Indian Embassy या Consulate से notarised करवा सकते हैं — फिर इंडिया में District Collector के office से adjudicated और stamped होगा। अगर बाद में प्रॉपर्टी बेचनी हो तो NRI हर वित्तीय वर्ष में USD 1 million तक का अमाउंट अपने NRO/NRE account से अपने देश भेज सकते हैं — RBI rules के तहत, लागू TDS और LTCG काटने के बाद। NRI sellers पर TDS Section 195 के तहत ज़्यादा लगता है — Lower TDS Certificate के लिए Assessing Officer से आवेदन कर सकते हैं। NRI inheritance cases के लिए FEMA-compliance वाले CA से सलाह ज़रूरी है।</p>
+<h3>मृत्यु प्रमाण पत्र (Death Certificate) कब और कहाँ बनवाएं?</h3>
+<p style="display: none;">मृत्यु के 21 दिन के अंदर बनवाना ज़रूरी है — Registration of Births and Deaths Act 1969 के तहत यह अनिवार्य है। शहरी क्षेत्र (Lucknow Nagar Nigam या LDA क्षेत्र) में: lmc.up.nic.in या ज़ोनल कार्यालय में आवेदन करें। ग्रामीण क्षेत्र में: ग्राम पंचायत के Registrar से। अगर अस्पताल में मृत्यु हुई है तो अस्पताल Form 4 खुद जमा कर देता है — आपको सिर्फ certified copy लेनी होती है। घर पर मृत्यु हुई हो तो परिवार का सदस्य (Class I वारिस) — आधार कार्ड, doctor's certificate (मृत्यु का कारण), और स्थानीय affidavit के साथ — Registrar के पास जाए। फीस: साधारण कॉपी ₹20-50, urgent कॉपी ₹100-200। हमेशा कम से कम 6 certified copies लें — एक हर जगह माँगी जाती है (बैंक, LIC, मुटेशन, बिजली कनेक्शन)। 21 दिन के बाद रजिस्ट्रेशन पर लेट फीस, 30 दिन के बाद SDM से अनुमति, और 1 साल बाद कोर्ट order ज़रूरी है।</p>
+<h3>क्या रजिस्ट्री के बिना सिर्फ दाखिल खारिज से ज़मीन अपने नाम हो जाएगी?</h3>
+<p style="display: none;">हाँ — विरासत के case में रजिस्ट्री की ज़रूरत नहीं है। पिता की मूल रजिस्ट्री (Sale Deed) पहले से है — आपको सिर्फ खतौनी और सरकारी रिकॉर्ड्स में अपना नाम चढ़वाना है, जो दाखिल खारिज (mutation) से होता है। विरासत में कोई नई रजिस्ट्री नहीं होती क्योंकि कोई नया sale नहीं हुआ — सिर्फ ownership change हुआ है (mortis causa)। यह बिक्री से अलग है: बिक्री में buyer-seller के बीच रजिस्ट्री होती है (SRO में, स्टैम्प ड्यूटी के साथ), फिर mutation। विरासत में Class I वारिसों को कोई स्टैम्प ड्यूटी नहीं देनी पड़ती। हालाँकि — अगर आप विरासत में मिली प्रॉपर्टी को आगे बेचेंगे, तो वहाँ नई रजिस्ट्री होगी, और तब Stamp Duty + Registration Fee + LTCG लगेगा।</p>
+<h3>अगर एक वारिस NOC नहीं दे रहा तो क्या करें?</h3>
+<p style="display: none;">अगर कोई एक Class I वारिस NOC या Relinquishment Deed देने से मना करे, तो दो रास्ते हैं: (1) Mediation/समझौता — परिवार के बुज़ुर्गों, ग्राम प्रधान, या वकील के through आपसी समझौता। (2) Civil Court — अगर समझौता नहीं होता तो Lucknow Civil Court में Partition Suit (बंटवारे का मुकदमा) फाइल करें। आपके वकील Hindu Succession Act 1956 + 2005 Amendment के तहत प्रत्येक वारिस के हिस्से का calculation करेंगे। Civil court 2 से 5 साल लेता है, खर्च ₹50,000 से ₹3 लाख तक। तब तक तहसीलदार साधारण mutation नहीं कर सकते — लेकिन वे "joint mutation" कर सकते हैं जहाँ सभी वारिसों के नाम खतौनी में चढ़ जाते हैं। कोर्ट का final order आने पर individual mutation होगा। इसलिए सबसे अच्छा यह है कि पहले से ही mediation try करें और family elder को बीच में लाएँ।</p>
+<h3>क्या वसीयत registered न हो तो भी valid है?</h3>
+<p style="display: none;">हाँ — Indian Succession Act 1925 के तहत non-registered वसीयत भी legally valid है, अगर वो सही तरीके से लिखी गई हो: (1) मानसिक रूप से स्वस्थ व्यक्ति द्वारा, (2) 21 साल से ऊपर का, (3) 2 स्वतंत्र गवाहों के सामने हस्ताक्षरित, (4) गवाह उस वसीयत में नामित न हों। लेकिन रजिस्टर्ड और non-registered में बड़ा अंतर है — registered वसीयत SRO के official record में होती है, जिसे चुनौती देना बहुत मुश्किल है। Non-registered वसीयत पर बाद में Probate के लिए Civil Court में जाना पड़ सकता है — खासकर अगर कोई वारिस challenge करे। Probate process 2-12 महीने लेती है। रजिस्ट्रेशन की लागत सिर्फ ₹100 स्टैम्प ड्यूटी है — इसलिए हमेशा registered वसीयत बनवाना बेहतर है। पुख़्ता बनाने के लिए वसीयत के साथ video declaration रखें जहाँ आप कैमरे पर साफ़ कह रहे हों कि यह आपकी इच्छा है।</p>
+<h3>पैतृक और स्व-अर्जित प्रॉपर्टी में क्या फर्क है?</h3>
+<p style="display: none;">पैतृक (Ancestral) प्रॉपर्टी वह है जो परदादा, दादा, या पिता से चली आ रही है — कई पीढ़ियों से परिवार में है। स्व-अर्जित (Self-Acquired) प्रॉपर्टी वह है जिसे पिता ने खुद अपनी कमाई से खरीदा या बनाया। बड़ा फर्क: पैतृक प्रॉपर्टी पर बेटों और बेटियों (2005 के बाद) का जन्म से अधिकार है — पिता वसीयत से किसी और को नहीं दे सकते (बिना सभी Class I वारिसों की NOC के)। स्व-अर्जित प्रॉपर्टी पर पिता का पूरा अधिकार है — वे वसीयत से जिसे चाहें दे सकते हैं, चाहे वो Class I वारिसों को कुछ न दें। Supreme Court ने 2020 के Vineeta Sharma vs Rakesh Sharma फैसले में स्पष्ट किया कि पैतृक प्रॉपर्टी पर बेटियों का जन्म से अधिकार है, चाहे पिता 2005 से पहले मर गए हों या बाद में। फिर भी पिता द्वारा खुद खरीदी गई प्रॉपर्टी को वे वसीयत से किसी एक बेटे को भी दे सकते हैं — बाकी वारिसों के पास challenge करने के कानूनी आधार कम हैं।</p>
+<h3>दाखिल खारिज online कैसे करें?</h3>
+<p style="display: none;">UP में ग्रामीण ज़मीन के लिए दाखिल खारिज ऑनलाइन हो सकता है — upbhulekh.gov.in पर जाएं। प्रक्रिया: (1) "Online Application" section में जाएं → "Mutation/Namantaran" चुनें। (2) District: Lucknow, Tehsil (Sadar, Sarojini Nagar, Bakshi Ka Talab, Malihabad, Mohanlalganj — प्रॉपर्टी के अनुसार), Village, और Khasra/Gata number डालें। (3) Aadhaar से OTP verify करें। (4) "Inheritance" mutation type चुनें। (5) ज़रूरी documents scan करके upload करें: मृत्यु प्रमाण पत्र, Legal Heir Certificate, मूल रजिस्ट्री, सभी वारिसों की NOC, पुराना खतौनी, सभी वारिसों के आधार। (6) Application fee ₹200-500 ऑनलाइन payment। (7) Tracking number मिलेगा — इसी से status check कर सकते हैं। फिर lekhpal मौके पर verify करेंगे, 15-30 दिन का objection period खुलेगा, और सब सही पाए जाने पर mutation order जारी होगा। LDA flats के लिए ldalucknow.in पर registration.ldalucknow.in के through आवेदन करें। शहरी (Nagar Nigam क्षेत्र की) प्रॉपर्टी के लिए लखनऊ Nagar Nigam में offline ज़्यादा practical है।</p>
+</section>
+<script>
+(function(){
+  function initFAQ(){
+    document.querySelectorAll("#FAQs h3").forEach(function(q){
+      q.style.cursor="pointer";
+      q.addEventListener("click",function(){
+        var self=this,isOpen=self.classList.contains("active");
+        document.querySelectorAll("#FAQs h3.active").forEach(function(b){
+          b.classList.remove("active");
+          var a=b.nextElementSibling;
+          while(a&&a.tagName!=="P"){a=a.nextElementSibling;}
+          if(a){a.style.display="none";}
+        });
+        if(!isOpen){
+          self.classList.add("active");
+          var ans=self.nextElementSibling;
+          while(ans&&ans.tagName!=="P"){ans=ans.nextElementSibling;}
+          if(ans){ans.style.display="block";}
+        }
+      });
+    });
+  }
+  if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",initFAQ);}
+  else{initFAQ();}
+})();
+</script></article>

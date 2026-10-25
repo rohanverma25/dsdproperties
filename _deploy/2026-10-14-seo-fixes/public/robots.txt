@@ -1,0 +1,83 @@
+# ==========================================
+# DSD Properties — robots.txt
+# ==========================================
+# A crawler obeys only the most specific group that names it, so every group
+# below repeats the same private paths. Adding a bot to a group of its own
+# without them would open the admin area to it.
+
+# --- Search engines ---
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: Slurp
+User-agent: DuckDuckBot
+User-agent: Applebot
+User-agent: YandexBot
+Allow: /
+Disallow: /admin/
+Disallow: /blogseditor/
+Disallow: /seller/
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /password/
+Disallow: /dashboard/
+Disallow: /page-not-found
+
+# --- AI search and assistants: welcome, so articles can be cited ---
+# OpenAI: OAI-SearchBot = ChatGPT search, ChatGPT-User = live browsing, GPTBot = training
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+# Anthropic: Claude-SearchBot = search, Claude-User = live browsing, ClaudeBot = training
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+# Perplexity
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+# Google Gemini / Apple Intelligence training opt-in tokens
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+# Microsoft Copilot uses Bingbot (above); others
+User-agent: Amazonbot
+User-agent: meta-externalagent
+User-agent: MistralAI-User
+User-agent: DuckAssistBot
+User-agent: YouBot
+User-agent: CCBot
+User-agent: cohere-ai
+Allow: /
+Disallow: /admin/
+Disallow: /blogseditor/
+Disallow: /seller/
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /password/
+Disallow: /dashboard/
+Disallow: /page-not-found
+
+# --- Everyone else ---
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /blogseditor/
+Disallow: /seller/
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+Disallow: /password/
+Disallow: /dashboard/
+Disallow: /page-not-found
+
+# --- Sitemaps ---
+Sitemap: https://dsdproperties.in/sitemap.xml
+Sitemap: https://dsdproperties.in/sitemap-blogs.xml
+Sitemap: https://dsdproperties.in/sitemap-pages.xml
+Sitemap: https://dsdproperties.in/sitemap-news.xml
+Sitemap: https://dsdproperties.in/sitemap-seo.xml
+Sitemap: https://dsdproperties.in/sitemap-services.xml
+
+# AI-readable site guide
+# https://dsdproperties.in/llms.txt

@@ -1,0 +1,8 @@
+node_modules/
+auth/
+.env
+npm-debug.log*
+gateway.log
+keepalive.log
+history/
+lid-map.json

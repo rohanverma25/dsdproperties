@@ -1,0 +1,348 @@
+<style>
+:root{
+  --dsd-navy:#011f4b;
+  --dsd-teal:#008080;
+  --dsd-orange:#FF5C00;
+  --dsd-light-teal:#e0f7f7;
+  --dsd-bg:#f9fafb;
+  --dsd-border:#e2e8f0;
+  --dsd-text:#374151;
+  --dsd-muted:#6b7280;
+}
+.dsd-sources{font-size:13px;color:var(--dsd-muted);background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:8px;padding:12px 16px;margin:0 0 24px;line-height:1.7;}
+.dsd-sources strong{color:var(--dsd-navy);}
+.dsd-stats{display:flex;flex-wrap:wrap;gap:14px;margin:26px 0;}
+.dsd-stat{flex:1 1 160px;background:var(--dsd-navy);color:#fff;border-radius:10px;padding:16px 14px;text-align:center;}
+.dsd-stat b{display:block;font-size:22px;line-height:1.2;color:#fff;}
+.dsd-stat span{display:block;font-size:12.5px;margin-top:6px;color:#cbd5e1;}
+.dsd-infobox{background:var(--dsd-light-teal);border-left:5px solid var(--dsd-teal);border-radius:8px;padding:18px 20px;margin:26px 0;}
+.dsd-infobox h4{margin:0 0 8px;color:var(--dsd-navy);font-size:17px;}
+.dsd-infobox p{margin:0 0 8px;color:var(--dsd-text);}
+.dsd-infobox p:last-child{margin-bottom:0;}
+.dsd-card{background:#fff;border:1px solid var(--dsd-border);border-left:5px solid var(--dsd-orange);border-radius:10px;padding:18px 20px;margin:16px 0;box-shadow:0 1px 3px rgba(1,31,75,.06);}
+.dsd-card h3{margin:0 0 8px;color:var(--dsd-navy);font-size:18px;}
+.dsd-card p{margin:0 0 10px;color:var(--dsd-text);}
+.dsd-card p:last-child{margin-bottom:0;}
+.dsd-card .dsd-num{display:inline-block;background:var(--dsd-orange);color:#fff;font-size:13px;font-weight:600;border-radius:20px;padding:2px 11px;margin-bottom:8px;}
+.dsd-doc-step{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:10px;padding:16px 18px;margin:14px 0;position:relative;padding-left:60px;}
+.dsd-doc-step .dsd-step-no{position:absolute;left:16px;top:16px;width:30px;height:30px;border-radius:50%;background:var(--dsd-teal);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.dsd-doc-step h4{margin:0 0 6px;color:var(--dsd-navy);font-size:16px;}
+.dsd-doc-step p{margin:0;color:var(--dsd-text);font-size:15px;}
+.dsd-red{background:#fff5f5;border-left:5px solid #dc2626;border-radius:8px;padding:18px 20px;margin:16px 0;}
+.dsd-red h4{margin:0 0 8px;color:#991b1b;font-size:17px;}
+.dsd-red p{margin:0;color:var(--dsd-text);}
+.dsd-highlight{background:var(--dsd-navy);color:#fff;border-radius:12px;padding:24px 24px;margin:30px 0;}
+.dsd-highlight h3{color:#fff;margin:0 0 12px;font-size:20px;}
+.dsd-highlight p{color:#e2e8f0;margin:0 0 12px;}
+.dsd-highlight ul{margin:0 0 12px;padding-left:20px;color:#e2e8f0;}
+.dsd-highlight li{margin-bottom:7px;}
+.dsd-highlight a{color:#FFB38A;text-decoration:underline;}
+.dsd-table-wrap{overflow-x:auto;margin:22px 0;}
+.dsd-table{width:100%;border-collapse:collapse;font-size:15px;min-width:520px;}
+.dsd-table th{background:var(--dsd-navy);color:#fff;text-align:left;padding:11px 13px;font-weight:600;}
+.dsd-table td{border-bottom:1px solid var(--dsd-border);padding:11px 13px;color:var(--dsd-text);vertical-align:top;}
+.dsd-table tr:nth-child(even) td{background:var(--dsd-bg);}
+.dsd-related{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:22px 0;}
+.dsd-related a{display:block;background:#fff;border:1px solid var(--dsd-border);border-top:4px solid var(--dsd-teal);border-radius:10px;padding:15px 16px;text-decoration:none;color:var(--dsd-navy);font-weight:600;font-size:15px;line-height:1.45;}
+.dsd-related a span{display:block;font-weight:400;font-size:13px;color:var(--dsd-muted);margin-top:6px;}
+#FAQs h3{cursor:pointer;background:var(--dsd-bg);border:1px solid var(--dsd-border);border-left:4px solid var(--dsd-orange);border-radius:8px;padding:14px 44px 14px 16px;margin:10px 0 0;font-size:16.5px;color:var(--dsd-navy);position:relative;}
+#FAQs h3:after{content:"+";position:absolute;right:16px;top:12px;font-size:22px;color:var(--dsd-orange);font-weight:600;}
+#FAQs h3.dsd-open:after{content:"2013";}
+#FAQs p{background:#fff;border:1px solid var(--dsd-border);border-top:none;border-radius:0 0 8px 8px;padding:14px 16px;margin:0;color:var(--dsd-text);}
+</style>
+
+<p class="dsd-sources"><strong>Sources:</strong> Lucknow Development Authority official website (ldalucknow.in) &middot; LDA Vice Chairman Prathamesh Kumar statement reported 6 August 2026 &middot; UP Housing &amp; Urban Planning Department State Capital Region notification &middot; UP Cabinet decisions on the Mukhyamantri Shahri Vistarikaran / Naye Shahar Protsahan Yojana &middot; UPEIDA expressway project approvals &middot; DSD Properties field research, August 2026. Every figure below is dated. Nothing has been estimated or assumed.</p>
+
+<p>On 6 August 2026, the Lucknow Development Authority announced that it has finished the blueprint for a new scheme on the Agra Expressway called <strong>Vashishtha Nagar Yojana</strong>. LDA Vice Chairman Prathamesh Kumar said the scheme will cover roughly <strong>1,035 acres</strong>, that it will be developed under the Chief Minister&rsquo;s urban expansion scheme, and that the proposal has been sent to the state government for sanction.</p>
+
+<p>Within hours of that announcement, WhatsApp groups in Lucknow started circulating &ldquo;Vashishtha Nagar plot booking&rdquo; messages. That is the reason this guide exists. There is a very large gap between what LDA has actually said and what is already being sold in the market, and if you do not know exactly where that line sits, you can lose money on land that neither LDA nor anyone else can legally deliver to you as a scheme plot.</p>
+
+<p>This guide covers what is confirmed, what is not, how the six named villages overlap with the existing <a href="https://dsdproperties.in/blog/varun-vihar-yojana-lucknow-lda-plots-guide-2026" style="color:#008080;font-weight:600;">Varun Vihar Yojana</a>, the realistic timeline based on how LDA&rsquo;s other mega schemes have actually progressed, and the specific checks to run before you consider any land transaction in this belt.</p>
+
+<div class="dsd-stats">
+  <div class="dsd-stat"><b>1,035</b><span>acres identified (approx.)</span></div>
+  <div class="dsd-stat"><b>&#8377;1,328 Cr</b><span>estimated land assembly cost</span></div>
+  <div class="dsd-stat"><b>6</b><span>revenue villages named</span></div>
+  <div class="dsd-stat"><b>Proposal</b><span>stage as of 7 Aug 2026</span></div>
+</div>
+
+<div class="dsd-infobox">
+  <h4>Read this before anything else</h4>
+  <p>As of 7 August 2026, Vashishtha Nagar Yojana is a <strong>proposal sent by LDA to the state government</strong>. It has not been sanctioned. No land has been acquired for it. No layout has been notified. No sectors, plot sizes, or rates have been published. No registration or lottery window has opened.</p>
+  <p>That means one thing in practice: <strong>nobody can sell you a Vashishtha Nagar plot today</strong>, because no such plot exists yet. Anything being offered under that name right now is either agricultural land in one of the six villages, or a plot in some private layout nearby being marketed on the scheme&rsquo;s name.</p>
+</div>
+
+<h2 style="border-left:5px solid #FF5C00;padding-left:14px;color:#011f4b;">What LDA Has Actually Confirmed About Vashishtha Nagar Yojana</h2>
+
+<p>Here is everything on the record, point by point. Each item below comes from the LDA Vice Chairman&rsquo;s 6 August 2026 briefing or from LDA&rsquo;s own published scheme documentation.</p>
+
+<div class="dsd-card">
+  <span class="dsd-num">01</span>
+  <h3>Size: approximately 1,035 acres</h3>
+  <p>LDA has identified around 1,035 acres for the scheme. For scale, that is roughly one-sixth the size of Varun Vihar Yojana (about 6,580 acres) and a little over a quarter the size of <a href="https://dsdproperties.in/blog/naimish-nagar-yojana-lucknow-lda-plots-guide-2026" style="color:#008080;font-weight:600;">Naimish Nagar Yojana</a> on Sitapur Road (about 3,681 acres). Vashishtha Nagar is therefore a focused, single-purpose scheme rather than a sprawling new township.</p>
+</div>
+
+<div class="dsd-card">
+  <span class="dsd-num">02</span>
+  <h3>Location: Agra Expressway, on the opposite side from Varun Vihar</h3>
+  <p>This is the single most important locational fact and it came directly from the Vice Chairman: Varun Vihar Yojana will be developed on <strong>one side</strong> of the Agra Expressway, and Vashishtha Nagar Yojana on the <strong>other side</strong>. The two schemes face each other across the expressway. They are not the same project, and they are not phases of the same project.</p>
+</div>
+
+<div class="dsd-card">
+  <span class="dsd-num">03</span>
+  <h3>Character: industrial and logistics, not a housing colony</h3>
+  <p>This is where most buyers are getting it wrong. Vashishtha Nagar has been framed as an industrial, warehousing and logistics scheme. The stated purpose is to accelerate industrial, logistics and economic activity within the UP State Capital Region and to connect Lucknow to national and international supply chains. LDA has described the design brief as a modern industrial and logistics hub with a strong road network, world-class infrastructure and environmental balance. Nothing in the announcement described residential plots for individual buyers.</p>
+</div>
+
+<div class="dsd-card">
+  <span class="dsd-num">04</span>
+  <h3>Six revenue villages have been named</h3>
+  <p>The 1,035 acres has been identified across the villages of <strong>Rewari, Bhaliya, Gahalwara, Adampur Indwara, Bahru and Jaliyamau</strong>. Note that &ldquo;identified&rdquo; is not the same as &ldquo;acquired&rdquo; and not the same as &ldquo;notified&rdquo;. It means LDA has mapped which revenue villages the parcels sit in. The khasra-level list has not been published.</p>
+</div>
+
+<div class="dsd-card">
+  <span class="dsd-num">05</span>
+  <h3>Land assembly budgeted at roughly &#8377;1,328 crore</h3>
+  <p>LDA has estimated about &#8377;1,328 crore to assemble the land. Divided across 1,035 acres, that works out to roughly &#8377;1.28 crore per acre as an internal planning figure. Treat that as a budget line, not as a rate you can quote to a farmer or expect as compensation — the actual consent price is negotiated parcel by parcel and depends on circle rate, land classification and location within the block.</p>
+</div>
+
+<div class="dsd-card">
+  <span class="dsd-num">06</span>
+  <h3>Funding route: Chief Minister&rsquo;s urban expansion scheme</h3>
+  <p>The scheme is proposed under the Mukhyamantri Shahri Vistarikaran / Naye Shahar Protsahan Yojana, the state programme approved by the UP Cabinet in April 2023 under which development authorities, UPAVP and special area authorities can apply for state support to develop new townships. The same programme was used in June 2026 when the Cabinet cleared new cities at Agra, Bareilly and Prayagraj with a first instalment of &#8377;225 crore. That is the funding channel Vashishtha Nagar is queued in.</p>
+</div>
+
+<div class="dsd-card">
+  <span class="dsd-num">07</span>
+  <h3>Approval status: with the state government, not yet sanctioned</h3>
+  <p>The Vice Chairman said the proposal has been sent to <em>shasan</em> — the state government — for approval. Until that sanction comes through, LDA cannot begin land assembly, cannot notify a layout, and cannot open any allotment process. This is the gate everything else waits behind.</p>
+</div>
+
+<div class="dsd-card">
+  <span class="dsd-num">08</span>
+  <h3>Land will be assembled through farmer consent, after approval</h3>
+  <p>LDA has said that once state approval is received, land assembly will begin on the basis of consent from farmers and other means. This mirrors the approach LDA has used on Varun Vihar, where land is being purchased directly from farmers by agreement rather than through compulsory acquisition. Consent-based assembly is slower but far less litigious than forced acquisition.</p>
+</div>
+
+<div class="dsd-card">
+  <span class="dsd-num">09</span>
+  <h3>An international bus terminal is planned inside the scheme</h3>
+  <p>The Vice Chairman confirmed that an international bus terminal will be developed within Vashishtha Nagar. A terminal of that scale is a serious long-term value driver for surrounding land, but it is also the kind of component that typically arrives in the final phase of a scheme, not the first.</p>
+</div>
+
+<div class="dsd-card">
+  <span class="dsd-num">10</span>
+  <h3>Connectivity: four corridors named</h3>
+  <p>LDA has said the scheme will connect directly to the <strong>Agra Expressway</strong>, <strong>Mohan Road</strong>, the <strong>Link Expressway</strong> and <strong>Varun Vihar Yojana</strong>. The Link Expressway reference matters: UPEIDA is building a roughly 50 km greenfield link connecting the Agra&ndash;Lucknow Expressway to the Purvanchal Expressway so that through traffic bypasses Lucknow city entirely. A logistics park sitting at the junction of two expressways and a bypass link is a coherent industrial-planning idea, not a marketing line.</p>
+</div>
+
+<div class="dsd-card">
+  <span class="dsd-num">11</span>
+  <h3>The stated goal is employment inside the State Capital Region</h3>
+  <p>The Vice Chairman&rsquo;s framing was explicit: realising the State Capital Region vision requires large-scale job creation in the region, and Vashishtha Nagar has been designed around industrial development, seamless connectivity and sustainability to deliver that. The UP State Capital Region covers Lucknow along with Unnao, Raebareli, Barabanki, Hardoi and Sitapur — about 27,826 sq km with a population of roughly 2.29 crore as per the 2011 Census — and is administered through the State Capital Region Development Authority.</p>
+</div>
+
+<div class="dsd-card">
+  <span class="dsd-num">12</span>
+  <h3>Environmental balance is written into the brief</h3>
+  <p>LDA listed environmental balance alongside road network and infrastructure as a design pillar. On Varun Vihar, the comparable commitment is concrete: over 980 acres reserved for green belts, parks and water bodies out of 6,580 acres. Vashishtha Nagar has no published green reservation yet, but the precedent on the adjacent scheme is a reasonable indicator of LDA&rsquo;s current planning norms.</p>
+</div>
+
+<div class="dsd-card">
+  <span class="dsd-num">13</span>
+  <h3>The scheme is meant to attract outside investment</h3>
+  <p>The rationale LDA gave is that world-class industrial infrastructure will attract external investment and generate employment at scale. In plain terms: this is a land-and-infrastructure play aimed at manufacturers, warehousing operators and third-party logistics companies, with the expectation that housing demand follows the jobs rather than leading them.</p>
+</div>
+
+<div class="dsd-card">
+  <span class="dsd-num">14</span>
+  <h3>What has NOT been announced — and this list matters most</h3>
+  <p>No sector plan. No plot sizes. No plot rates or reserve price. No registration date, lottery date or first-come-first-served window. No <a href="https://dsdproperties.in/blog/understanding-rera-guide-lucknow-property-buyers-C7ECl" style="color:#008080;font-weight:600;">RERA registration</a>. No khasra list. No phasing plan. No completion timeline. No confirmation that residential plots will be offered to individual buyers at all. If a broker gives you any of these numbers today, they are not quoting LDA — they are quoting themselves.</p>
+</div>
+
+<h2 style="border-left:5px solid #FF5C00;padding-left:14px;color:#011f4b;">Vashishtha Nagar vs Varun Vihar vs Naimish Nagar: The Comparison Buyers Keep Getting Wrong</h2>
+
+<p>Three LDA mega schemes are running in parallel right now, and two of them sit on the Agra Expressway. Confusing them is the most common and most expensive mistake being made in Lucknow this month. Here is the clean separation, using LDA&rsquo;s own published figures.</p>
+
+<div class="dsd-table-wrap">
+<table class="dsd-table">
+<tr><th>Parameter</th><th>Vashishtha Nagar</th><th>Varun Vihar</th><th>Naimish Nagar</th></tr>
+<tr><td><strong>Corridor</strong></td><td>Agra Expressway</td><td>Agra Expressway (opposite side)</td><td>Sitapur Road</td></tr>
+<tr><td><strong>Area</strong></td><td>~1,035 acres</td><td>~6,580 acres</td><td>~3,681.69 acres (1,486.689 ha)</td></tr>
+<tr><td><strong>Primary use</strong></td><td>Industrial, warehousing, logistics</td><td>Residential-led, mixed use</td><td>Residential-led township</td></tr>
+<tr><td><strong>Tehsil / block</strong></td><td>Six villages named (Sadar &amp; Sarojini Nagar belt)</td><td>Sadar &amp; Sarojini Nagar tehsils, 12 villages</td><td>B.K.T. tehsil, 18 villages</td></tr>
+<tr><td><strong>Land cost</strong></td><td>~&#8377;1,328 crore (estimated)</td><td>&#8377;300 crore compensation already paid</td><td>~&#8377;4,785 crore (board approved)</td></tr>
+<tr><td><strong>Acquisition progress</strong></td><td>Not started — awaiting state sanction</td><td>~450 bighas registered; 105 bighas in possession; 22,403 farmers in process</td><td>First site office built at Purwa village</td></tr>
+<tr><td><strong>Plots announced</strong></td><td>None</td><td>25 sectors, 15,000+ plots planned</td><td>Housing for ~3 lakh people planned</td></tr>
+<tr><td><strong>Can you buy today?</strong></td><td>No</td><td>Not yet allotted; land assembly ongoing</td><td>Not yet allotted; land assembly ongoing</td></tr>
+</table>
+</div>
+
+<h2 style="border-left:5px solid #FF5C00;padding-left:14px;color:#011f4b;">The Village Overlap Nobody Is Explaining to Buyers</h2>
+
+<p>Compare the two published village lists carefully and something jumps out.</p>
+
+<p>LDA&rsquo;s official village list for <strong>Varun Vihar Yojana</strong> covers twelve villages in Sadar and Sarojini Nagar tehsils: Bhaliya, Adampur Indwara, Bahru, Jaliyamau, Madarpur, Ibrahimganj, Naktaura, Gahlwara, Tejkrishna Khera, Rewari, Sakra and Dona.</p>
+
+<p>The six villages named for <strong>Vashishtha Nagar Yojana</strong> are: Rewari, Bhaliya, Gahalwara, Adampur Indwara, Bahru and Jaliyamau.</p>
+
+<p>All six Vashishtha Nagar villages also appear on the Varun Vihar list. That is not a contradiction — a revenue village is an administrative unit that can easily straddle an expressway, and the Vice Chairman explicitly said the two schemes sit on opposite sides of the Agra Expressway. The land parcels are different; the village names are shared.</p>
+
+<div class="dsd-infobox">
+  <h4>Why this matters for your due diligence</h4>
+  <p>It means <strong>village-level verification is useless here</strong>. Being told &ldquo;this plot is in Bahru, and Bahru is in the LDA scheme&rdquo; tells you nothing about which scheme, which side of the expressway, or whether that specific khasra falls inside a scheme boundary at all.</p>
+  <p>The only verification that works in this belt is at the <strong>khasra and gata number</strong> level, cross-referenced against the notified layout once one exists. Until LDA publishes khasra-wise boundaries, no one — including us — can tell you with certainty whether a given parcel falls inside Vashishtha Nagar, inside Varun Vihar, or outside both.</p>
+</div>
+
+<h2 style="border-left:5px solid #FF5C00;padding-left:14px;color:#011f4b;">How an LDA Scheme Actually Travels From Announcement to Allotment</h2>
+
+<p>Buyers consistently underestimate this timeline because announcements are loud and the years in between are quiet. Here is the real sequence, drawn from how Varun Vihar and Naimish Nagar have actually moved.</p>
+
+<div class="dsd-doc-step"><span class="dsd-step-no">1</span><h4>Blueprint and internal proposal</h4><p>LDA&rsquo;s planning, engineering and acquisition wings identify land, map revenue villages and cost the assembly. Vashishtha Nagar cleared this stage on 6 August 2026.</p></div>
+
+<div class="dsd-doc-step"><span class="dsd-step-no">2</span><h4>State government sanction</h4><p>The proposal goes to the state government under the CM urban expansion scheme. Funding allocation and in-principle approval come at this stage. Vashishtha Nagar is sitting here right now.</p></div>
+
+<div class="dsd-doc-step"><span class="dsd-step-no">3</span><h4>Authority board approval and budget line</h4><p>The LDA Board approves the land acquisition cost formally. Naimish Nagar&rsquo;s &#8377;4,785 crore figure, for instance, is board-approved. Only after this can money move.</p></div>
+
+<div class="dsd-doc-step"><span class="dsd-step-no">4</span><h4>Land assembly through farmer consent</h4><p>The longest stage by far. LDA negotiates rates village by village, executes bainamas, and takes possession parcel by parcel. Varun Vihar has been in this stage since 2025 and has registered roughly 450 bighas out of thousands of acres, against 22,403 farmers still in process.</p></div>
+
+<div class="dsd-doc-step"><span class="dsd-step-no">5</span><h4>Layout notification and sector planning</h4><p>Only once contiguous land is in hand can LDA notify a layout, cut sectors, and fix plot sizes. This is the first moment a &ldquo;plot&rdquo; legally exists.</p></div>
+
+<div class="dsd-doc-step"><span class="dsd-step-no">6</span><h4>Development works and infrastructure</h4><p>Roads, drainage, underground services, STP, green belts. For an industrial scheme this also means power load provisioning and heavy-vehicle road specification.</p></div>
+
+<div class="dsd-doc-step"><span class="dsd-step-no">7</span><h4>Registration, allotment and possession</h4><p>Registration opens through registration.ldalucknow.in, allotment happens by lottery or first-come-first-served, and possession follows after payment schedules complete. This is the only stage at which you can legitimately buy.</p></div>
+
+<p>Realistically, a scheme that entered stage 2 in August 2026 is several years away from stage 7. Varun Vihar was announced in 2025 and is still deep in stage 4. Anyone promising you Vashishtha Nagar allotment in the near term is either confused or counting on you being confused.</p>
+
+{{CONSULTATION_BUTTON}}
+
+<h2 style="border-left:5px solid #FF5C00;padding-left:14px;color:#011f4b;">Red Flags: What Is Already Being Sold Under This Name</h2>
+
+<div class="dsd-red">
+  <h4>&ldquo;Book your Vashishtha Nagar plot now, pre-launch rate&rdquo;</h4>
+  <p>There is no launch, therefore no pre-launch. LDA has not created a single plot in this scheme. Any booking amount you pay against this phrase buys you a receipt from a private party, not a claim against LDA.</p>
+</div>
+
+<div class="dsd-red">
+  <h4>Agricultural land sold as &ldquo;future scheme land&rdquo;</h4>
+  <p>Land in Rewari, Bhaliya, Gahalwara, Adampur Indwara, Bahru and Jaliyamau is largely agricultural. Buying agricultural land does not entitle you to a scheme plot. If LDA later acquires it, you receive compensation at the rate LDA negotiates — which may be well below what you paid a broker, and you have no say in the timing.</p>
+</div>
+
+<div class="dsd-red">
+  <h4>Plots without Section 143 conversion</h4>
+  <p>Agricultural land must be converted to non-agricultural use under Section 143 of the UP Zamindari Abolition and Land Reforms Act before it can lawfully be used or sold as residential or commercial. Sellers in this belt routinely say conversion is &ldquo;in process&rdquo;. Check the actual order on the Bhulekh record, not the promise.</p>
+</div>
+
+<div class="dsd-red">
+  <h4>Private colonies borrowing the scheme name</h4>
+  <p>Expect layouts within a few kilometres to rebrand themselves around Vashishtha Nagar in their hoardings and brochures. Proximity to a proposed government scheme is not approval. Check whether the colony appears on LDA&rsquo;s illegal colony list and whether its layout has an actual LDA sanction.</p>
+</div>
+
+<div class="dsd-red">
+  <h4>Power of Attorney sales instead of registered sale deeds</h4>
+  <p>In land belts under acquisition pressure, PoA-based transfers spike because the underlying title is messy. A PoA is not ownership. If the seller cannot execute a registered sale deed in your name, walk away.</p>
+</div>
+
+<div class="dsd-red">
+  <h4>Prices quoted against the &#8377;1,328 crore figure</h4>
+  <p>Brokers are already converting LDA&rsquo;s internal budget into a per-bigha &ldquo;guaranteed compensation&rdquo; number. It is not a guarantee, it is not per-parcel, and LDA has not committed to any specific rate for any specific khasra. Treat any such calculation as sales fiction.</p>
+</div>
+
+<h2 style="border-left:5px solid #FF5C00;padding-left:14px;color:#011f4b;">Special Cases Worth Understanding</h2>
+
+<p><strong>If you already own land in one of the six villages.</strong> You are in a genuinely different position from a prospective buyer. Your priority is documentation quality: clean khatauni entries in your name, mutation completed, no undivided family disputes, boundary demarcation done, and an <a href="https://dsdproperties.in/blog/encumbrance-certificate-lucknow-how-to-apply-online" style="color:#008080;font-weight:600;">encumbrance certificate</a> on record. Farmers with clean papers get through LDA&rsquo;s consent process faster and negotiate better. Farmers with disputed or unmutated holdings are the ones whose files stall for years.</p>
+
+<p><strong>If you are considering land as a long-horizon industrial bet.</strong> The logistics thesis here is credible — expressway frontage plus a bypass link plus a proposed bus terminal is a real infrastructure stack, and the Varun Vihar scheme already reserves about 300 acres for a logistics park. But a credible thesis and a buyable asset are different things. The disciplined move is to wait for the notified layout and buy an allotted plot from LDA, not to front-run acquisition on agricultural land.</p>
+
+<p><strong>If you are an NRI buyer.</strong> Note that agricultural land in India cannot be purchased by NRIs and OCIs. Any proposal to buy &ldquo;farmland now, convert later&rdquo; in this belt is not available to you regardless of how it is structured. Wait for LDA to offer non-agricultural scheme plots, which are open to NRI applicants under the scheme&rsquo;s own terms.</p>
+
+<p><strong>If someone shows you a &ldquo;map&rdquo; of Vashishtha Nagar.</strong> LDA has not published a layout. Any map circulating right now is either a hand-drawn approximation of the six villages or a repurposed Varun Vihar sector map. Cross-check anything you are shown against LDA&rsquo;s own OneMap Sector Explorer at gis.ldalucknow.in before you treat it as real.</p>
+
+<div class="dsd-highlight">
+  <h3>How DSD Properties Can Help With This Belt</h3>
+  <p>We are not a listing portal and we do not sell scheme plots. What we do is verification, and this corridor is exactly the kind of situation verification exists for.</p>
+  <ul>
+    <li><strong>Khasra-level location check</strong> — we pull the Bhulekh record for the specific gata number and establish which revenue village, tehsil and side of the expressway the parcel actually sits on, rather than accepting the seller&rsquo;s description.</li>
+    <li><strong>Land classification and Section 143 status</strong> — whether the land is still agricultural, whether a conversion order genuinely exists, and whether the seller&rsquo;s name matches the khatauni.</li>
+    <li><strong>Ownership chain via IGRSUP</strong> — every registered sale deed, mortgage, gift and partition on the parcel, so undisclosed transactions surface before you pay.</li>
+    <li><strong>LDA scheme and illegal colony cross-check</strong> — whether the layout is LDA-sanctioned, whether it appears on the LDA unauthorised colony list, and what the OneMap sector record shows.</li>
+    <li><strong>Encumbrance and dispute check</strong> — pending loans, court matters and third-party claims attached to the land.</li>
+  </ul>
+  <p>Our <a href="https://dsdproperties.in/services/property-verification-lucknow" style="color:#008080;font-weight:600;">Property Verification</a> Service costs &#8377;5,000 and delivers a written PDF report within 48 hours with a clear verdict. For a quick preliminary opinion before you pay any advance in this belt, message our founder Dheer directly on <strong>+91-85950-02933</strong>.</p>
+  <p>Our honest advice on Vashishtha Nagar specifically: <strong>there is nothing here to buy yet.</strong> Track it, understand it, and be ready when LDA notifies the layout. Do not pay a broker to hold a place in a queue that does not exist.</p>
+</div>
+
+<h2 style="border-left:5px solid #FF5C00;padding-left:14px;color:#011f4b;">Related Guides</h2>
+
+<div class="dsd-related">
+  <a href="https://dsdproperties.in/blog/varun-vihar-yojana-lucknow-hindi-2026">Varun Vihar Yojana Guide<span>The 6,580-acre scheme directly across the Agra Expressway — sectors, villages and logistics park.</span></a>
+  <a href="https://dsdproperties.in/lda-schemes">All LDA Schemes 2026<span>Live directory of every active and upcoming LDA scheme with registration status.</span></a>
+  <a href="https://dsdproperties.in/blog/lda-online-property-verification-lucknow-2026">LDA Online Property Verification<span>Step-by-step portal checks before paying any token money on an LDA property.</span></a>
+  <a href="https://dsdproperties.in/blog/lda-illegal-colony-list-lucknow-2026">241 Illegal Colonies in Lucknow<span>The full LDA no-map list — check whether a layout near this corridor is blacklisted.</span></a>
+</div>
+
+<p>Also useful before any land transaction in the Sadar or Sarojini Nagar belt: our <a href="https://dsdproperties.in/blog/igrsup-lucknow-property-search-tutorial">IGRSUP property search tutorial</a> for tracing the ownership chain, our <a href="https://dsdproperties.in/blog/dakhil-kharij-lucknow-mutation-process-guide">Dakhil Kharij mutation guide</a> for confirming the seller&rsquo;s name is actually on record, and our <a href="https://dsdproperties.in/blog/how-to-check-lda-approved-map-lucknow-2026">LDA approved map verification guide</a> for checking whether a layout has genuine sanction.</p>
+
+{{CONSULTATION_BUTTON}}
+
+<section id="FAQs">
+<h2 style="border-left:5px solid #FF5C00;padding-left:14px;color:#011f4b;">Frequently Asked Questions</h2>
+
+<h3>What is Vashishtha Nagar Yojana?</h3>
+<p>Vashishtha Nagar Yojana is a proposed Lucknow Development Authority scheme spread over approximately 1,035 acres on the Agra Expressway. LDA announced the blueprint on 6 August 2026. It is planned as an industrial, warehousing and logistics scheme intended to drive economic activity in the UP State Capital Region, and includes a proposed international bus terminal. The proposal has been sent to the state government for approval under the Chief Minister&rsquo;s urban expansion scheme.</p>
+
+<h3>Can I buy a plot in Vashishtha Nagar Yojana right now?</h3>
+<p>No. As of August 2026 the scheme has not been sanctioned, no land has been acquired, no layout has been notified and no plots exist. There is no registration window, no lottery and no allotment process. Anyone offering a Vashishtha Nagar plot today is not offering an LDA plot.</p>
+
+<h3>Which villages fall under Vashishtha Nagar Yojana?</h3>
+<p>LDA has named six revenue villages: Rewari, Bhaliya, Gahalwara, Adampur Indwara, Bahru and Jaliyamau. All six also appear on the village list for Varun Vihar Yojana, because revenue villages span both sides of the Agra Expressway. The khasra-wise boundary for Vashishtha Nagar has not been published.</p>
+
+<h3>Is Vashishtha Nagar the same as Varun Vihar Yojana?</h3>
+<p>No. They are separate schemes on opposite sides of the Agra Expressway. Varun Vihar is a residential-led scheme of about 6,580 acres with 25 sectors and 15,000-plus planned plots. Vashishtha Nagar is about 1,035 acres and is planned as an industrial and logistics scheme. LDA&rsquo;s Vice Chairman confirmed the two will sit on either side of the expressway.</p>
+
+<h3>How much will land in Vashishtha Nagar cost?</h3>
+<p>LDA has estimated approximately &#8377;1,328 crore for the entire land assembly across 1,035 acres. That is an internal budget figure, not a per-bigha compensation rate and not a plot price. LDA has published no plot rates for this scheme because no plots have been created.</p>
+
+<h3>When will Vashishtha Nagar plots be launched?</h3>
+<p>No launch date has been announced. Based on how comparable LDA schemes have progressed, the sequence is state sanction, then board approval, then multi-year land assembly through farmer consent, then layout notification, then development, then registration. Varun Vihar has been in the land assembly stage since 2025 and has not yet reached allotment, which gives a realistic sense of the timeline.</p>
+
+<h3>Will Vashishtha Nagar have residential plots?</h3>
+<p>LDA has not said so. The announcement described industrial infrastructure, warehousing, logistics and an international bus terminal. Residential components have not been mentioned in any official statement to date. Treat claims about residential plots in this scheme as unverified until LDA publishes a layout.</p>
+
+<h3>How will LDA acquire the land for this scheme?</h3>
+<p>LDA has said land assembly will begin after state government approval, based on consent from farmers and other means. This is the same consent-purchase approach being used on Varun Vihar, where LDA buys directly from farmers by agreement rather than through compulsory acquisition.</p>
+
+<h3>I own agricultural land in one of these six villages — what should I do?</h3>
+<p>Get your paperwork clean before any acquisition process starts. That means confirming the khatauni entry is in your name, completing mutation if it is pending, resolving any family or co-heir disputes, having boundaries demarcated, and obtaining an encumbrance certificate. Clean records move faster and negotiate better when LDA opens consent talks.</p>
+
+<h3>Is Vashishtha Nagar registered with UP RERA?</h3>
+<p>No, and it would not be at this stage. RERA registration applies to projects being offered for sale to buyers. Vashishtha Nagar has not reached that stage. If anyone shows you a RERA number for a Vashishtha Nagar project, verify it directly on up-rera.in before believing it.</p>
+
+<h3>How do I verify a plot being sold near the Agra Expressway in this belt?</h3>
+<p>Verify at the khasra level, not the village level. Pull the Bhulekh record for the exact gata number, check land classification and whether a Section 143 conversion order actually exists, trace the ownership chain on IGRSUP, cross-check the layout against LDA&rsquo;s OneMap Sector Explorer and the LDA illegal colony list, and obtain an encumbrance certificate. DSD Properties delivers all of this as a single 48-hour PDF report for &#8377;5,000.</p>
+</section>
+
+<script>
+(function(){
+  function initFaq(){
+    var qs = document.querySelectorAll('#FAQs h3');
+    for (var i = 0; i < qs.length; i++) {
+      (function(h){
+        var a = h.nextElementSibling;
+        if (!a || a.tagName !== 'P') return;
+        a.style.display = 'none';
+        h.addEventListener('click', function(){
+          var open = a.style.display === 'block';
+          a.style.display = open ? 'none' : 'block';
+          if (open) { h.classList.remove('dsd-open'); } else { h.classList.add('dsd-open'); }
+        });
+      })(qs[i]);
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFaq);
+  } else {
+    initFaq();
+  }
+})();
+</script>

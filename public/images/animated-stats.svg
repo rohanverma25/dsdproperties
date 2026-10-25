@@ -1,0 +1,96 @@
+<!-- Animated Stats Counter -->
+<svg width="800" height="200" viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes countUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scaleIn {
+      0% { transform: scale(0); }
+      100% { transform: scale(1); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    @keyframes drawLine {
+      0% { stroke-dashoffset: 100; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .count-up { animation: countUp 0.8s ease-out forwards; }
+    .count-up-1 { animation-delay: 0.1s; opacity: 0; }
+    .count-up-2 { animation-delay: 0.3s; opacity: 0; }
+    .count-up-3 { animation-delay: 0.5s; opacity: 0; }
+    .count-up-4 { animation-delay: 0.7s; opacity: 0; }
+    .scale-in { animation: scaleIn 0.5s ease-out forwards; }
+    .pulse-icon { animation: pulse 2s ease-in-out infinite; }
+    .draw-line { stroke-dasharray: 100; animation: drawLine 1s ease-out forwards; }
+  </style>
+  
+  <!-- Stat 1: Properties Valued -->
+  <g transform="translate(100, 100)">
+    <circle cx="0" cy="0" r="50" fill="#008080" opacity="0.1" class="scale-in"/>
+    <circle cx="0" cy="0" r="40" fill="#008080" opacity="0.2" class="scale-in" style="animation-delay: 0.1s;"/>
+    <g class="pulse-icon">
+      <!-- Building Icon -->
+      <rect x="-15" y="-15" width="30" height="35" fill="#008080" rx="2"/>
+      <rect x="-10" y="-10" width="8" height="8" fill="white"/>
+      <rect x="2" y="-10" width="8" height="8" fill="white"/>
+      <rect x="-10" y="2" width="8" height="8" fill="white"/>
+      <rect x="2" y="2" width="8" height="8" fill="white"/>
+    </g>
+    <text x="0" y="75" font-family="Arial" font-size="28" font-weight="bold" fill="#011f4b" text-anchor="middle" class="count-up count-up-1">10K+</text>
+    <text x="0" y="95" font-family="Arial" font-size="12" fill="#6b7280" text-anchor="middle" class="count-up count-up-1">Properties Valued</text>
+  </g>
+  
+  <!-- Connector Line 1 -->
+  <line x1="170" y1="100" x2="230" y2="100" stroke="#008080" stroke-width="2" opacity="0.3" class="draw-line" style="animation-delay: 0.5s;"/>
+  
+  <!-- Stat 2: Accuracy -->
+  <g transform="translate(300, 100)">
+    <circle cx="0" cy="0" r="50" fill="#FF5C00" opacity="0.1" class="scale-in" style="animation-delay: 0.2s;"/>
+    <circle cx="0" cy="0" r="40" fill="#FF5C00" opacity="0.2" class="scale-in" style="animation-delay: 0.3s;"/>
+    <g class="pulse-icon" style="animation-delay: 0.3s;">
+      <!-- Target/Check Icon -->
+      <circle cx="0" cy="0" r="18" stroke="#FF5C00" stroke-width="3" fill="none"/>
+      <circle cx="0" cy="0" r="10" stroke="#FF5C00" stroke-width="2" fill="none"/>
+      <circle cx="0" cy="0" r="4" fill="#FF5C00"/>
+    </g>
+    <text x="0" y="75" font-family="Arial" font-size="28" font-weight="bold" fill="#011f4b" text-anchor="middle" class="count-up count-up-2">95%</text>
+    <text x="0" y="95" font-family="Arial" font-size="12" fill="#6b7280" text-anchor="middle" class="count-up count-up-2">Accuracy Rate</text>
+  </g>
+  
+  <!-- Connector Line 2 -->
+  <line x1="370" y1="100" x2="430" y2="100" stroke="#FF5C00" stroke-width="2" opacity="0.3" class="draw-line" style="animation-delay: 0.7s;"/>
+  
+  <!-- Stat 3: Localities -->
+  <g transform="translate(500, 100)">
+    <circle cx="0" cy="0" r="50" fill="#008080" opacity="0.1" class="scale-in" style="animation-delay: 0.4s;"/>
+    <circle cx="0" cy="0" r="40" fill="#008080" opacity="0.2" class="scale-in" style="animation-delay: 0.5s;"/>
+    <g class="pulse-icon" style="animation-delay: 0.6s;">
+      <!-- Location Pin -->
+      <path d="M0 -20 C-12 -20 -20 -10 -20 5 C-20 20 0 35 0 35 C0 35 20 20 20 5 C20 -10 12 -20 0 -20 Z" fill="#008080"/>
+      <circle cx="0" cy="0" r="6" fill="white"/>
+    </g>
+    <text x="0" y="75" font-family="Arial" font-size="28" font-weight="bold" fill="#011f4b" text-anchor="middle" class="count-up count-up-3">50+</text>
+    <text x="0" y="95" font-family="Arial" font-size="12" fill="#6b7280" text-anchor="middle" class="count-up count-up-3">Localities</text>
+  </g>
+  
+  <!-- Connector Line 3 -->
+  <line x1="570" y1="100" x2="630" y2="100" stroke="#008080" stroke-width="2" opacity="0.3" class="draw-line" style="animation-delay: 0.9s;"/>
+  
+  <!-- Stat 4: Free -->
+  <g transform="translate(700, 100)">
+    <circle cx="0" cy="0" r="50" fill="#FF5C00" opacity="0.1" class="scale-in" style="animation-delay: 0.6s;"/>
+    <circle cx="0" cy="0" r="40" fill="#FF5C00" opacity="0.2" class="scale-in" style="animation-delay: 0.7s;"/>
+    <g class="pulse-icon" style="animation-delay: 0.9s;">
+      <!-- Free/Gift Icon -->
+      <rect x="-18" y="-5" width="36" height="25" rx="3" fill="#FF5C00"/>
+      <rect x="-20" y="-12" width="40" height="10" rx="2" fill="#ff8c42"/>
+      <path d="M-8 -12 L0 -20 L8 -12" stroke="white" stroke-width="2" fill="none"/>
+      <line x1="0" y1="-20" x2="0" y2="-5" stroke="white" stroke-width="2"/>
+    </g>
+    <text x="0" y="75" font-family="Arial" font-size="28" font-weight="bold" fill="#011f4b" text-anchor="middle" class="count-up count-up-4">FREE</text>
+    <text x="0" y="95" font-family="Arial" font-size="12" fill="#6b7280" text-anchor="middle" class="count-up count-up-4">For Everyone</text>
+  </g>
+</svg>

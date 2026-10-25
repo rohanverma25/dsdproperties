@@ -1,0 +1,873 @@
+<style>
+:root{
+  --dsd-navy:#011f4b;
+  --dsd-teal:#008080;
+  --dsd-orange:#FF5C00;
+  --dsd-light-teal:#e0f7f7;
+  --dsd-bg:#f9fafb;
+  --dsd-border:#e2e8f0;
+  --dsd-text:#374151;
+  --dsd-muted:#6b7280;
+}
+
+.dsd-stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;background:var(--dsd-navy);border-radius:12px;overflow:hidden;margin:28px 0;box-shadow:0 4px 20px rgba(1,31,75,0.18);}
+.dsd-stat-item{padding:18px 14px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
+.dsd-stat-item:last-child{border-right:none;}
+.dsd-stat-num{font-size:22px;font-weight:700;color:#20B2AA;display:block;line-height:1.1;font-family:'Poppins',sans-serif;}
+.dsd-stat-label{font-size:11px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.06em;margin-top:4px;display:block;font-family:'Poppins',sans-serif;}
+
+.dsd-pullquote{border-left:4px solid var(--dsd-orange);background:#fff8f5;padding:18px 22px;margin:24px 0;border-radius:0 10px 10px 0;}
+.dsd-pullquote p{font-size:16px;font-style:italic;color:var(--dsd-navy);line-height:1.75;margin:0 0 6px;}
+.dsd-pullquote cite{font-size:12px;color:var(--dsd-muted);font-style:normal;font-family:'Poppins',sans-serif;}
+
+.dsd-highlight{background:var(--dsd-light-teal);border:1px solid rgba(0,128,128,0.2);border-radius:12px;padding:20px 24px;margin:22px 0;}
+.dsd-highlight h4{color:var(--dsd-navy);font-size:15px;font-weight:700;margin:0 0 12px;}
+.dsd-highlight ul{padding-left:0;list-style:none;margin:0;}
+.dsd-highlight ul li{padding:6px 0 6px 22px;position:relative;font-size:14.5px;color:var(--dsd-text);border-bottom:1px solid rgba(0,128,128,0.1);line-height:1.75;}
+.dsd-highlight ul li:last-child{border-bottom:none;}
+.dsd-highlight ul li::before{content:'✓';position:absolute;left:0;color:var(--dsd-teal);font-weight:700;}
+
+.dsd-infobox{background:#fff8f0;border:1px solid rgba(255,92,0,0.2);border-left:4px solid var(--dsd-orange);border-radius:0 12px 12px 0;padding:16px 20px;margin:22px 0;}
+.dsd-infobox h4{color:var(--dsd-orange);font-size:15px;font-weight:700;margin:0 0 10px;}
+.dsd-infobox ul{list-style:none;padding:0;margin:0;}
+.dsd-infobox ul li{font-size:14px;color:var(--dsd-text);padding:5px 0 5px 18px;position:relative;line-height:1.75;}
+.dsd-infobox ul li::before{content:'→';position:absolute;left:0;color:var(--dsd-orange);}
+
+.dsd-village-grid{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0;}
+.dsd-village-tag{background:var(--dsd-light-teal);border:1px solid rgba(0,128,128,0.25);color:var(--dsd-navy);padding:6px 14px;border-radius:20px;font-size:13.5px;font-weight:500;}
+
+.dsd-zone-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin:20px 0;}
+.dsd-zone-card{background:#fff;border:1px solid var(--dsd-border);border-top:3px solid var(--dsd-teal);border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.dsd-zone-card.orange{border-top-color:var(--dsd-orange);}
+.dsd-zone-card h5{color:var(--dsd-navy);font-size:14px;font-weight:700;margin:0 0 6px;}
+.dsd-zone-card p{font-size:13px;color:var(--dsd-muted);margin:0;line-height:1.6;}
+
+.dsd-inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0;}
+.dsd-inv-card{border-radius:12px;padding:18px 16px;border:1px solid;}
+.dsd-inv-card.pro{background:#f0fdf4;border-color:rgba(0,128,128,0.25);}
+.dsd-inv-card.con{background:#fff8f0;border-color:rgba(255,92,0,0.25);}
+.dsd-inv-card h4{font-size:15px;font-weight:700;margin-bottom:12px;}
+.dsd-inv-card.pro h4{color:var(--dsd-teal);}
+.dsd-inv-card.con h4{color:var(--dsd-orange);}
+.dsd-inv-card ul{list-style:none;padding:0;margin:0;}
+.dsd-inv-card ul li{font-size:13.5px;padding:5px 0 5px 18px;position:relative;color:var(--dsd-text);border-bottom:1px solid rgba(0,0,0,0.05);line-height:1.75;}
+.dsd-inv-card ul li:last-child{border-bottom:none;}
+.dsd-inv-card.pro ul li::before{content:'✓';color:var(--dsd-teal);font-weight:700;position:absolute;left:0;}
+.dsd-inv-card.con ul li::before{content:'!';color:var(--dsd-orange);font-weight:700;position:absolute;left:0;}
+
+.dsd-table-wrap{overflow-x:auto;margin:20px 0;}
+
+.dsd-chart-wrap{background:#fff;border:1px solid var(--dsd-border);border-radius:12px;padding:20px;margin:28px 0;box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+.dsd-chart-title{font-size:14px;font-weight:700;color:var(--dsd-navy);margin:0 0 4px;}
+.dsd-chart-sub{font-size:12px;color:var(--dsd-muted);margin:0 0 16px;}
+.dsd-chart-legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+.dsd-chart-legend span{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--dsd-muted);}
+.dsd-chart-legend span i{width:10px;height:10px;border-radius:2px;display:inline-block;flex-shrink:0;}
+
+.dsd-steps{margin:24px 0;}
+.dsd-step-row{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px;}
+.dsd-step-num{width:36px;height:36px;border-radius:50%;background:var(--dsd-teal);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Poppins',sans-serif;}
+.dsd-step-num.orange{background:var(--dsd-orange);}
+.dsd-step-body{background:#fff;border:1px solid var(--dsd-border);border-radius:10px;padding:12px 16px;flex:1;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
+.dsd-step-title{font-size:14px;font-weight:700;color:var(--dsd-navy);margin:0 0 4px;}
+.dsd-step-desc{font-size:13px;color:var(--dsd-muted);margin:0;line-height:1.6;}
+.dsd-step-connector{width:2px;height:12px;background:rgba(0,128,128,0.3);margin-left:17px;}
+
+.dsd-related-inline{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:22px 0;}
+.dsd-link-card{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:10px;padding:14px 16px;text-decoration:none;display:block;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;}
+.dsd-link-card:hover{border-color:var(--dsd-teal);box-shadow:0 4px 16px rgba(0,128,128,0.1);transform:translateY(-2px);}
+.dsd-link-card .dsd-link-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dsd-teal);font-weight:600;margin-bottom:5px;font-family:'Poppins',sans-serif;}
+.dsd-link-card .dsd-link-title{font-size:14px;font-weight:600;color:var(--dsd-navy);line-height:1.45;}
+
+#FAQs h3{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-left:4px solid var(--dsd-teal);padding:14px 18px;border-radius:0 10px 10px 0;cursor:pointer;color:var(--dsd-navy);font-size:15px;font-weight:600;margin-bottom:0;position:relative;transition:background 0.2s;}
+#FAQs h3:hover{background:#e0f7f7;}
+#FAQs h3::after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--dsd-teal);font-weight:400;}
+#FAQs h3.active::after{content:'−';}
+#FAQs h3+p{display:none;background:#fff;border:1px solid var(--dsd-border);border-top:none;border-radius:0 0 10px 10px;padding:14px 18px;font-size:14.5px;color:var(--dsd-text);margin-top:0;margin-bottom:12px;line-height:1.85;}
+
+@media(max-width:600px){
+  .dsd-stats-bar{grid-template-columns:repeat(2,1fr);}
+  .dsd-inv-grid{grid-template-columns:1fr;}
+  .dsd-zone-grid{grid-template-columns:1fr 1fr;}
+  .dsd-related-inline{grid-template-columns:1fr;}
+}
+</style>
+<p style="font-size: 13px; color: #6b7280; margin: 0 0 28px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0;">Sources: LDA Official Website (ldalucknow.in), News9Live, Magicbricks, PropNewsTime, Indian Masterminds, Economic Times, The Daily Jagran — September 2025</p>
+<!-- ══════════════════════════════════════════
+     HERO STATS BANNER
+══════════════════════════════════════════ -->
+<div class="dsd-stats-bar">
+<div class="dsd-stat-item"><span class="dsd-stat-num">6,580 Acres</span><span class="dsd-stat-label">≈ 10,613 Bigha Total</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">15,000+</span><span class="dsd-stat-label">Plots Planned</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">25 Sectors, International</span><span class="dsd-stat-label"> Standards</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">980 Acres</span><span class="dsd-stat-label">Green Belt &amp; Parks</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">300 Acres Logistics</span><span class="dsd-stat-label"> Park</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">4 Lakh+</span><span class="dsd-stat-label">Population Planned</span></div>
+</div>
+<div class="dsd-infobox" style="margin-bottom: 24px;">
+<h4>🔴 Latest Updates — Varun Vihar Yojana (Sep 25, 2026)</h4>
+<ul>
+<li>LDA has officially launched the <strong>Varun Vihar residential scheme</strong> near the Agra Expressway in Lucknow, with online registration beginning on <strong>24 September 2026</strong>. The first phase includes <strong>2,847 plots</strong>, with sizes ranging from <strong>112.5 to 450 sq m</strong> at an official rate of <strong>₹2,800 per sq ft</strong>. Registration is open until <strong>24 October 2026</strong>.</li>
+<li data-section-id="1gtvdpm" data-start="227" data-end="431">The scheme is planned over approximately <strong data-start="270" data-end="285">6,580 acres</strong>. In the first phase, LDA will launch around <strong data-start="330" data-end="357">1,926 residential plots</strong>, including <strong data-start="369" data-end="430">1,218 plots in Kailash Khand and 708 plots in Kashi Khand</strong>.</li>
+<li data-section-id="1aodc3m" data-start="433" data-end="703">Plot sizes under the scheme will range from <strong data-start="479" data-end="514">72 sq. meters to 450 sq. meters</strong>. The development will include more than <strong data-start="555" data-end="606">800 acres of green belt, parks and water bodies</strong>, along with an <strong data-start="622" data-end="702">international-level golf course, central park, and a 300-acre logistics park</strong>.</li>
+<li><strong>₹5,148 crore LDA budget approved</strong> for 2026-27 — Varun Vihar among key schemes allocated funds. <span style="font-size: 12px; color: #6b7280;">— TV9 Hindi, 21 March 2026</span></li>
+<li><strong>550 acres acquired</strong> through mutual agreement with farmers — acquisition momentum confirmed before March 2026 Board meeting. <span style="font-size: 12px; color: #6b7280;">— eAuctionsIndia, March 2026</span></li>
+<li><strong>105 bigha physical possession</strong> handed over to LDA — registry (<a href="https://dsdproperties.in/blog/bainama-vs-registry-vs-power-of-attorney-lucknow-2026" style="color:#008080;font-weight:600;">Bainama</a>) of 450 bighas complete, ₹300 crore compensation distributed to farmers. <span style="font-size: 12px; color: #6b7280;">— LDA Official Website, ldalucknow.in</span></li>
+<li><strong>22,403 farmers</strong> in phased land registration process — acquisition ongoing across 12 villages in Sadar and Sarojini Nagar tehsils. <span style="font-size: 12px; color: #6b7280;">— LDA Official Website, ldalucknow.in</span></li>
+<li><strong>Public lottery not yet announced</strong> — monitor <strong>ldalucknow.in</strong> for registration dates. <span style="font-size: 12px; color: #6b7280;">— LDA Official, March 2026</span></li>
+</ul>
+</div>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.85; margin-bottom: 16px;">Lucknow is getting its biggest township ever — and it's not on <a href="https://dsdproperties.in/blog/plots-sultanpur-road-lucknow-2026" style="color:#008080;font-weight:600;">Sultanpur Road</a> this time. The <strong>Lucknow Development Authority (LDA)</strong> is building <strong>Varun Vihar Yojana</strong> on the <strong>Agra Expressway</strong> — spread across a massive <strong>6,580 acres (≈ 10,613 bigha)</strong>. This is officially the largest residential scheme ever planned by LDA in the state of Uttar Pradesh.</p>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.85; margin-bottom: 20px;">Unlike IT City or Wellness City which are focused on one theme — technology or health — Varun Vihar is different. It's a <strong>complete self-sustaining township</strong>: housing for 4 lakh people, a 300-acre logistics park, an ISBT, an international golf course, 980 acres of green belt, and 15,000+ plots across all income categories. This blog covers every verified detail.</p>
+<p>[gallery:varun-vihar-lucknow-latest-newspaper-coverage]</p>
+<!-- TOC -->
+<h2 id="toc_id">📋 Table of Contents</h2>
+<ul>
+<li><a href="#what-is">What is Varun Vihar Yojana?</a></li>
+<li><a href="#launch-date">Launch Date &amp; Registration — When Does It Open?</a></li>
+<li><a href="#price">Plot Price — How Much Will a Plot Cost?</a></li>
+<li><a href="#location">Location — Agra Expressway Corridor</a></li>
+<li><a href="#villages">The 12 Villages Under Acquisition</a></li>
+<li><a href="#master-plan">Master Plan — Zones &amp; Area Breakdown</a></li>
+<li><a href="#logistics">300-Acre Logistics Park — What It Means</a></li>
+<li><a href="#sectors">25 Sectors — Infrastructure &amp; Amenities</a></li>
+<li><a href="#green">980 Acres Green Belt, Golf Course &amp; Central Park</a></li>
+<li><a href="#land-acquisition">Land Acquisition — Current Status</a></li>
+<li><a href="#plots">Plots &amp; Housing — Who Can Apply</a></li>
+<li><a href="#investment">Investment Analysis — Should You Buy?</a></li>
+<li><a href="#vs-others">Varun Vihar vs IT City vs Wellness City</a></li>
+<li><a href="#verify-checklist">Verify Before You Buy — Checklist</a></li>
+<li><a href="#FAQs">FAQs</a></li>
+</ul>
+<!-- SECTION 1 -->
+<h2 id="what-is">What is Varun Vihar Yojana Lucknow?</h2>
+<p>Varun Vihar Yojana is LDA's most ambitious project to date — officially described by the authority as <strong>"the largest residential scheme in the state."</strong> It is not just a housing colony. It is a fully planned urban township designed to be self-sufficient from day one.</p>
+<p>LDA Vice-Chairman Prathamesh Kumar — the same official behind IT City and Wellness City — is personally overseeing the project. He visited the proposed site at Dona village and directed officials to fast-track the land acquisition process.</p>
+<div class="dsd-pullquote">
+<p>"Varun Vihar will not only provide homes to lakhs of families but will also open up new opportunities in employment and investment. We want to develop it on international standards."</p>
+<cite>— Prathamesh Kumar, Vice-Chairman, Lucknow Development Authority (Economic Times, September 2025)</cite></div>
+<p>The project is part of LDA's <strong>Master Plan 2031</strong> — the same plan that includes IT City, Wellness City, <a href="https://dsdproperties.in/blog/anant-nagar-yojana-lucknow-lda-2026" style="color:#008080;font-weight:600;">Anant Nagar</a> (Education City) and Prabandh Nagar. Varun Vihar is the biggest of them all by a wide margin.</p>
+<p>Read about LDA's other flagship projects: <a href="https://dsdproperties.in/blog/it-city-lucknow-lda-plots-guide-2026" target="_blank" style="color: #008080; font-weight: 600;" rel="noopener">IT City Lucknow 2026: Complete Buyer's Guide →</a></p>
+
+<!-- SECTION: LAUNCH DATE -->
+<h2 id="launch-date">Launch Date &amp; Registration — When Does Varun Vihar Yojana Open?</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.85; margin-bottom: 16px;"><strong>As of May 2026, LDA has not announced a confirmed public registration date for Varun Vihar Yojana.</strong> The scheme is still in its land acquisition phase. Several media reports point to a <strong>Phase 1 launch around June 2026</strong>, but this date is not officially confirmed by LDA and should be treated as an estimate, not a commitment.</p>
+<div class="dsd-highlight">
+<h4>\ud83d\udcc5 Varun Vihar Yojana — Launch &amp; Registration Status (May 2026)</h4>
+<ul>
+<li><strong>Public registration date:</strong> Not yet announced — listed as "TBA" on LDA's scheme tracker</li>
+<li><strong>Phase 1 estimate:</strong> Media reports suggest around June 2026 for the first phase — unconfirmed</li>
+<li><strong>Phase 1 size:</strong> Approximately 2,100 plots expected in the first phase, out of 15,000+ total</li>
+<li><strong>Allotment method:</strong> Transparent computerised lottery (draw) system — LDA's standard for plotted schemes</li>
+<li><strong>Where it will be announced:</strong> Official notification on <strong>ldalucknow.in</strong> and <strong>registration.ldalucknow.in</strong></li>
+<li><strong>Current stage:</strong> Land acquisition ongoing — registry of ~450 bigha complete, 105 bigha in <a href="https://dsdproperties.in/blog/property-possession-meaning-types-legal-importance-lucknow-2026" style="color:#008080;font-weight:600;">physical possession</a></li>
+</ul>
+</div>
+<p>For context, here is how LDA's other 2026 schemes have moved — it helps set a realistic expectation for Varun Vihar:</p>
+<div class="dsd-table-wrap">
+<table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
+<thead>
+<tr style="background: #011f4b; color: #fff;">
+<th style="padding: 10px 12px; text-align: left;">LDA Scheme</th>
+<th style="padding: 10px 12px; text-align: left;">2026 Status</th>
+<th style="padding: 10px 12px; text-align: left;">Allotment</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom: 1px solid #e2e8f0;">
+<td style="padding: 9px 12px;"><strong>Anant Nagar Phase 4</strong></td>
+<td style="padding: 9px 12px;">Lottery completed — 30 Jan 2026</td>
+<td style="padding: 9px 12px;">Lottery</td>
+</tr>
+<tr style="border-bottom: 1px solid #e2e8f0; background: #f9fafb;">
+<td style="padding: 9px 12px;"><strong>IT City Phase 1</strong></td>
+<td style="padding: 9px 12px;">Lottery completed — March 2026</td>
+<td style="padding: 9px 12px;">Lottery</td>
+</tr>
+<tr style="border-bottom: 1px solid #e2e8f0;">
+<td style="padding: 9px 12px;"><strong>Park View Apartments</strong></td>
+<td style="padding: 9px 12px;">Lottery completed — April 2026</td>
+<td style="padding: 9px 12px;">Lottery</td>
+</tr>
+<tr style="background: #fff8f0;">
+<td style="padding: 9px 12px;"><strong>Varun Vihar Yojana</strong></td>
+<td style="padding: 9px 12px;">Land acquisition — date TBA</td>
+<td style="padding: 9px 12px;">Lottery (expected)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Every LDA scheme that completed its lottery in 2026 had already finished land acquisition and infrastructure planning. Varun Vihar has not reached that stage yet — which is why the registration date remains genuinely uncertain. <strong>Be cautious of any agent, broker or website claiming a "confirmed" Varun Vihar registration date or selling pre-launch bookings.</strong> Until LDA publishes an official notification, no booking is valid.</p>
+<p>Want to be alerted the moment LDA opens Varun Vihar registration? We track every LDA scheme notification as it is published. <a href="../../lda-schemes" target="_blank" style="color: #008080; font-weight: 600;" rel="noopener">See all live LDA scheme dates and prices →</a></p>
+
+<!-- SECTION 2 -->
+<h2>Location &amp; Map — Agra Expressway Corridor</h2>
+<p>Varun Vihar's location is its biggest differentiator from LDA's other townships. While IT City and Wellness City are on Sultanpur Road, Varun Vihar is on the <strong>Agra Expressway (Agra-Lucknow Expressway)</strong> — on the southern side of Lucknow, in the <strong>Sadar and Sarojini Nagar tehsils.</strong></p>
+<div class="dsd-highlight">
+<h4>📍 Varun Vihar — Location &amp; Connectivity</h4>
+<ul>
+<li><strong>Agra Expressway (Agra-Lucknow Expressway)</strong> — direct frontage, high-speed connectivity</li>
+<li><strong>Kisan Path (Outer Ring Road)</strong> — direct connection, bypasses city traffic entirely</li>
+<li>Chaudhary Charan Singh International Airport — well connected via <a href="https://dsdproperties.in/blog/kisan-path-lucknow-investment-map-2026" style="color:#008080;font-weight:600;">Kisan Path</a></li>
+<li>City centre (Hazratganj) — accessible via ring road without urban congestion</li>
+<li><strong>ISBT (Inter-State Bus Terminal)</strong> — proposed within the scheme itself</li>
+<li>Sadar and Sarojini Nagar tehsils — rapidly developing southern Lucknow corridor</li>
+<li>Strategic location for logistics — direct expressway access makes it UP's future logistics hub</li>
+</ul>
+</div>
+<div class="dsd-infobox" style="background: #f0fdf4; border-color: rgba(0,128,128,0.25); border-left-color: #008080;">
+<h4 style="color: #008080;">\ud83d\uddfa\ufe0f Varun Vihar Yojana Location Map — How to View the Official Layout</h4>
+<ul>
+<li>The official Varun Vihar layout plan was prepared by <strong>Arinem Consultancy Services Pvt. Ltd. in July 2025</strong> for LDA — it shows all 25 sectors, zone types, the road network, green belts and water bodies along the Agra Expressway.</li>
+<li>You can view the full master-plan map embedded further down this page in the <strong>"Official Layout Plan"</strong> section — open it in full screen on mobile or desktop.</li>
+<li>For the latest official map and any revised layout, always check the Varun Vihar Yojana page on <strong>ldalucknow.in</strong> directly — LDA updates layout PDFs there as the scheme progresses.</li>
+<li><strong>Important:</strong> a downloadable PDF map circulating on third-party sites may be outdated or unofficial. Before relying on any map to identify a specific plot, confirm the sector and khasra number against LDA's current records.</li>
+</ul>
+</div>
+<p>The direct Agra Expressway frontage is what makes the 300-acre logistics park viable. No other LDA township has this — and it's why Varun Vihar will attract industrial and commercial investment that the others cannot.</p>
+
+
+<!-- SECTION 3 -->
+<h2 id="villages">The 12 Villages Under Acquisition</h2>
+<p>Varun Vihar's land is being acquired from <strong>12 villages</strong> spread across Sadar and Sarojini Nagar tehsils of Lucknow district. These are the officially confirmed villages as per LDA records and News9Live (September 2025):</p>
+<div class="dsd-village-grid"><span class="dsd-village-tag">Bhalia</span> <span class="dsd-village-tag">Adampur Indwara</span> <span class="dsd-village-tag">Bahru</span> <span class="dsd-village-tag">Jaliyamau</span> <span class="dsd-village-tag">Madarpur</span> <span class="dsd-village-tag">Ibrahimganj</span> <span class="dsd-village-tag">Nakataura</span> <span class="dsd-village-tag">Gehlwara</span> <span class="dsd-village-tag">Tejkrishna Kheda</span> <span class="dsd-village-tag">Rewari</span> <span class="dsd-village-tag">Sakra</span> <span class="dsd-village-tag">Dona</span></div>
+<div class="dsd-infobox">
+<h4>⚠️ Critical for Landowners in These Villages</h4>
+<ul>
+<li>Land acquisition is <strong>consent-based</strong> — LDA is buying land directly from farmers, not compulsory acquisition</li>
+<li>In Dona village alone, 4 farmers received <strong>₹6.9 crore compensation for 10 bighas</strong> — per Indian Masterminds (Sep 2025)</li>
+<li>Proposals for <strong>148 acres</strong> already submitted and under evaluation by LDA</li>
+<li>Registry (Bainama) of <strong>approximately 450 bighas</strong> already completed</li>
+<li>Possession acquired for <strong>105 bighas</strong> — development groundwork underway</li>
+<li>22,403 farmers are part of the phased land registration process</li>
+<li><strong>₹300 crore in compensation</strong> already distributed to farmers — LDA official data</li>
+<li>Private land transactions in acquisition zones may face scrutiny — verify before any sale</li>
+</ul>
+</div>
+<p>If your land is in or near these villages: <a href="https://dsdproperties.in/blog/transforming-agricultural-land-residential-property-lucknow" target="_blank" style="color: #008080; font-weight: 600;" rel="noopener">Agricultural to Residential Land Conversion in Lucknow: 2026 Guide →</a></p>
+
+<!-- ═══════════════════════════════════════
+     OFFICIAL LAYOUT MAP — VARUN VIHAR
+═══════════════════════════════════════ -->
+<div class="my-8 space-y-4">
+<h2 class="text-xl font-bold text-gray-900">Official Layout Plan — Varun Vihar (Udyog Nagar, Agra Expressway)</h2>
+<p class="text-sm text-gray-600 leading-relaxed">The layout below is the <strong class="text-gray-800">official master plan prepared by Arinem Consultancy Services Pvt. Ltd. in July 2025</strong> for LDA. It shows all 22+ sectors, zone types, road network, green belts, water bodies, and key landmarks along the Agra Expressway corridor.</p>
+<!-- varun-vihar-map (Leaflet; layout georeferenced by DSD Properties, Oct 2026) -->
+<div id="vvmap-wrap" style="margin:26px 0;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 4px 18px rgba(1,31,75,.08);">
+  <div style="padding:16px 18px 10px;">
+    <p style="margin:0 0 6px;font-size:18px;font-weight:700;color:#011f4b;">🗺️ Varun Vihar on the Map — Official LDA Layout</p>
+    <p style="margin:0;font-size:14px;color:#4b5563;line-height:1.7;">LDA's official layout plan (July 2025) placed in its exact location on the map. Zoom in, switch to the satellite view to see what is on the ground today, and use the slider to fade the plan in and out.</p>
+  </div>
+  <div id="vvmap-box" style="position:relative;height:520px;background:#e5e7eb;">
+    <div id="vvmap" style="position:absolute;inset:0;"></div>
+    <div id="vvmap-loading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#6b7280;font-size:14px;">Loading map…</div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:12px 18px;border-top:1px solid #eef2f7;background:#f9fafb;">
+    <label style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:#011f4b;font-weight:600;">Layout plan visibility
+      <input id="vvmap-op" type="range" min="0" max="100" value="75" style="width:150px;accent-color:#008080;"></label>
+    <button id="vvmap-fs" type="button" style="border:1px solid #cbd5e1;background:#fff;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;color:#011f4b;cursor:pointer;">⛶ Full screen</button>
+    <a href="https://dsdproperties.in/public/images/maps/varun-vihar-layout.pdf" target="_blank" rel="noopener" style="border:1px solid #008080;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;color:#008080;text-decoration:none;">📄 Open official PDF</a>
+  </div>
+  <div style="padding:12px 18px 4px;"><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#e53935;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>Commercial</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#3949ab;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>Institutional</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#f3d9a4;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>Residential</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#f39c4a;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>Mixed use</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#8bc34a;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>Green</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#4dd0e1;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>Water body</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#c9a227;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>Existing abadi</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#6b6b6b;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>Transport Nagar / MSME (Sector 15)</span></div>
+  <div style="padding:6px 18px 4px;">
+    <p style="margin:6px 0 2px;font-size:14px;font-weight:700;color:#011f4b;">Straight-line distance from the scheme centre</p>
+    <ul style="margin:0 0 4px;padding-left:20px;"><li style="margin:3px 0;font-size:14px;color:#374151;"><strong>Expressway Lucknow end</strong> — 8.7 km</li><li style="margin:3px 0;font-size:14px;color:#374151;"><strong>CCS Airport (Amausi)</strong> — 17.2 km</li><li style="margin:3px 0;font-size:14px;color:#374151;"><strong>Charbagh Railway Station</strong> — 18.7 km</li><li style="margin:3px 0;font-size:14px;color:#374151;"><strong>Hazratganj</strong> — 21.5 km</li></ul>
+    <p style="margin:0 0 8px;font-size:12.5px;color:#6b7280;">Road distance will be longer.</p>
+  </div>
+  <p style="margin:0;padding:10px 18px 14px;font-size:12px;color:#6b7280;line-height:1.6;border-top:1px solid #eef2f7;">Source: LDA layout plan "Udyog Nagar (Agra Expressway) Housing Scheme", Arinem Consultancy, July 2025. DSD Properties matched it to satellite imagery; the outline is accurate to roughly 50 m. Use it to understand the location — not to identify a particular plot. Confirm sector and khasra numbers with LDA.</p>
+</div>
+<style>
+#vvmap-wrap.vv-fs{position:fixed;inset:0;z-index:10000;border-radius:0;margin:0;overflow:auto;}
+#vvmap-wrap.vv-fs #vvmap-box{height:calc(100vh - 150px);}
+#vvmap .leaflet-tooltip.vv-label{background:rgba(1,31,75,.85);color:#fff;border:0;font-weight:600;font-size:12px;box-shadow:none;}
+@media(max-width:640px){#vvmap-box{height:420px;}}
+</style>
+<script>
+(function () {
+  var CFG = {"img": "https://dsdproperties.in/public/images/maps/varun-vihar-layout-overlay.webp", "bounds": [[26.795866, 80.689377], [26.847495, 80.765213]], "outline": [[26.847301, 80.691775], [26.84643, 80.70333], [26.845071, 80.710143], [26.842788, 80.718047], [26.840214, 80.729767], [26.841189, 80.735489], [26.842457, 80.745299], [26.843286, 80.754455], [26.842658, 80.76492], [26.823591, 80.75866], [26.819213, 80.7573], [26.816294, 80.756756], [26.81143, 80.757303], [26.807539, 80.75894], [26.803259, 80.76183], [26.800725, 80.748042], [26.799261, 80.735235], [26.798773, 80.731692], [26.797313, 80.728422], [26.796096, 80.726243], [26.796825, 80.725043], [26.797068, 80.725697], [26.79877, 80.723517], [26.799743, 80.722426], [26.802662, 80.721607], [26.804121, 80.721334], [26.806067, 80.720243], [26.807525, 80.718608], [26.809957, 80.718061], [26.811903, 80.717952], [26.814335, 80.717515], [26.816281, 80.716696], [26.81774, 80.716151], [26.819199, 80.715332], [26.821144, 80.713696], [26.822602, 80.711516], [26.824304, 80.710152], [26.826006, 80.708789], [26.827464, 80.706063], [26.828922, 80.704428], [26.830381, 80.703337], [26.83111, 80.701156], [26.832325, 80.698431], [26.83427, 80.69625], [26.836214, 80.694069], [26.838159, 80.69216], [26.84059, 80.691233], [26.842292, 80.690796], [26.84448, 80.689705], [26.845696, 80.689596], [26.846814, 80.690522]], "centroid": [26.824706, 80.732125], "expressway": [[26.85191, 80.66083], [26.85124, 80.66575], [26.85106, 80.66834], [26.85033, 80.6722], [26.85004, 80.67473], [26.84908, 80.67827], [26.84869, 80.68138], [26.84834, 80.68551], [26.84817, 80.69022], [26.84765, 80.69879], [26.84717, 80.70127], [26.84658, 80.70544], [26.8459, 80.70832], [26.84444, 80.71466], [26.84288, 80.72129], [26.84156, 80.72667], [26.84111, 80.72919], [26.84098, 80.73178], [26.84184, 80.7353], [26.84249, 80.73774], [26.84365, 80.75064], [26.84399, 80.75429], [26.84396, 80.75683], [26.84376, 80.75978], [26.84317, 80.76301], [26.84232, 80.76881], [26.83984, 80.78409], [26.83763, 80.79634], [26.83535, 80.80864], [26.83503, 80.81118], [26.83474, 80.81384], [26.83422, 80.81639], [26.83289, 80.81872]], "exend": [26.83293, 80.81885], "scheme": "Varun Vihar (LDA)", "popup": "<b>Varun Vihar Yojana (LDA)</b><br>Between the Agra–Lucknow Expressway (north) and Fatehganj–Mohan Road (south).<br>Phase 1: about 2,847 plots, ₹2,800/sq ft, registration till 24 Oct 2026 (Amar Ujala).", "ex": "Agra–Lucknow Expressway", "exendTxt": "Expressway's Lucknow end — meets the Outer Ring Road (Kisan Path)", "sat": "Satellite", "street": "Street map", "attSat": "Imagery © Esri, Maxar, Earthstar Geographics", "attOsm": "© OpenStreetMap contributors"};
+  var started = false;
+  function css(href) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = href; document.head.appendChild(l); }
+  function js(src, cb) { var s = document.createElement('script'); s.src = src; s.onload = cb; document.head.appendChild(s); }
+  function init() {
+    if (started) return; started = true;
+    css('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css');
+    js('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js', build);
+  }
+  function build() {
+    var L = window.L; document.getElementById('vvmap-loading').style.display = 'none';
+    var map = L.map('vvmap', { scrollWheelZoom: false, zoomControl: true });
+    var sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: CFG.attSat });
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: CFG.attOsm });
+    osm.addTo(map);   // street map by default; satellite is one click away
+    var plan = L.imageOverlay(CFG.img, CFG.bounds, { opacity: 0.75 }).addTo(map);
+    L.polygon(CFG.outline, { color: '#d84315', weight: 3, dashArray: '7 5', fill: false }).addTo(map);
+    L.polyline(CFG.expressway, { color: '#1565c0', weight: 4, opacity: .8 }).addTo(map)
+      .bindTooltip(CFG.ex, { sticky: true, className: 'vv-label' });
+    L.marker(CFG.centroid).addTo(map).bindPopup(CFG.popup)
+      .bindTooltip(CFG.scheme, { permanent: true, direction: 'top', offset: [-15, -12], className: 'vv-label' });
+    L.circleMarker(CFG.exend, { radius: 7, color: '#fff', weight: 2, fillColor: '#ff5c00', fillOpacity: 1 }).addTo(map)
+      .bindPopup(CFG.exendTxt);
+    var layers = {}; layers[CFG.street] = osm; layers[CFG.sat] = sat;
+    L.control.layers(layers, null, { collapsed: false }).addTo(map);
+    L.control.scale({ metric: true, imperial: false }).addTo(map);
+    var view = L.latLngBounds(CFG.bounds).extend(CFG.exend);
+    map.fitBounds(view, { padding: [20, 20] });
+    map.on('click', function () { map.scrollWheelZoom.enable(); });
+    document.getElementById('vvmap-op').addEventListener('input', function () { plan.setOpacity(this.value / 100); });
+    var wrap = document.getElementById('vvmap-wrap');
+    document.getElementById('vvmap-fs').addEventListener('click', function () {
+      wrap.classList.toggle('vv-fs'); document.body.style.overflow = wrap.classList.contains('vv-fs') ? 'hidden' : '';
+      setTimeout(function () { map.invalidateSize(); map.fitBounds(view, { padding: [20, 20] }); }, 150);
+    });
+  }
+  var el = document.getElementById('vvmap-wrap');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { io.disconnect(); init(); } }, { rootMargin: '300px' });
+    io.observe(el);
+  } else { init(); }
+})();
+</script>
+
+</div>
+<!-- SECTION 4 -->
+<h2 id="master-plan">Master Plan — Zones &amp; Area Breakdown</h2>
+<p>Here is the complete verified zone breakdown for Varun Vihar Yojana as per LDA official data and confirmed media sources:</p>
+<div class="dsd-table-wrap">
+<table>
+<thead>
+<tr>
+<th>Zone / Component</th>
+<th>Area</th>
+<th>Key Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Total Varun Vihar</strong></td>
+<td><strong>6,580 Acres (≈ 10,613 Bigha)</strong></td>
+<td>Largest LDA scheme in UP history</td>
+</tr>
+<tr>
+<td>Residential Plots</td>
+<td>Part of 25 sectors</td>
+<td>15,000+ plots — EWS, LIG, MIG, HIG</td>
+</tr>
+<tr>
+<td>Group Housing</td>
+<td>Dedicated sectors</td>
+<td>Flats for all income groups via PPP</td>
+</tr>
+<tr>
+<td>Logistics Park</td>
+<td>300 Acres</td>
+<td>Direct Agra Expressway + Kisan Path access</td>
+</tr>
+<tr>
+<td>Green Belt, Parks &amp; Water Bodies</td>
+<td>980 Acres</td>
+<td>Central park + international golf course</td>
+</tr>
+<tr>
+<td>Commercial &amp; Mixed Use</td>
+<td>Dedicated sectors</td>
+<td>Sectoral shopping centres, markets</td>
+</tr>
+<tr>
+<td>ISBT (Inter-State Bus Terminal)</td>
+<td>Dedicated zone</td>
+<td>Regional transport hub</td>
+</tr>
+<tr>
+<td>Institutional</td>
+<td>Dedicated sectors</td>
+<td>Education, health, community centres</td>
+</tr>
+<tr>
+<td>Roads &amp; Infrastructure</td>
+<td>Grid layout</td>
+<td>Underground cables, international standards</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Land Use Chart -->
+<div class="dsd-chart-wrap">
+<p class="dsd-chart-title">Varun Vihar — Key Zone Highlights</p>
+<p class="dsd-chart-sub">Major components by area (select zones, verified data)</p>
+<div class="dsd-chart-legend"><span><i style="background: #008080;"></i>Residential + Housing</span> <span><i style="background: #2e7d32;"></i>Green Belt 800 ac</span> <span><i style="background: #FF5C00;"></i>Logistics Park 300 ac</span> <span><i style="background: #1565c0;"></i>Roads &amp; Infra</span> <span><i style="background: #6a1b9a;"></i>Commercial + ISBT</span></div>
+<div style="position: relative; width: 100%; height: 300px;"><canvas id="vv_zone_chart"></canvas></div>
+</div>
+<p>One number stands out — <strong>980 acres dedicated to green belt, parks and water bodies.</strong> That's more than the entire Wellness City township's residential plot area. This is what makes Varun Vihar a genuine quality-of-life project, not just a housing scheme.</p>
+<!-- SECTION 5 -->
+<h2 id="logistics">300-Acre Logistics Park — The Game Changer</h2>
+<p>No other LDA township has this. The <strong>300-acre logistics park</strong> is what separates Varun Vihar from every other housing project in Lucknow's history.</p>
+<p>Most housing schemes have shopping centres and schools. Varun Vihar has those too — but it also has a <strong>dedicated industrial-grade logistics hub</strong> with direct access to two of UP's most important transport arteries.</p>
+<div class="dsd-highlight">
+<h4>🏭 Logistics Park — Key Facts</h4>
+<ul>
+<li><strong>300 acres</strong> exclusively for logistics and transport city development</li>
+<li>Direct connectivity to <strong>Agra Expressway</strong> — UP's busiest freight corridor</li>
+<li>Direct connectivity to <strong>Kisan Path (Outer Ring Road)</strong> — city bypass access</li>
+<li>Designed to make Lucknow a <strong>major logistics hub of North India</strong></li>
+<li>Will generate thousands of employment opportunities in warehousing, supply chain, trade</li>
+<li>Part of LDA <a href="https://dsdproperties.in/blog/lucknow-master-plan-2031-mahayojna-guide" style="color:#008080;font-weight:600;">Master Plan 2031</a> — central government supported infrastructure</li>
+<li>ISBT (Inter-State Bus Terminal) within the scheme for passenger transport hub</li>
+</ul>
+</div>
+<div class="dsd-pullquote">
+<p>"Varun Vihar Scheme is not just a housing project, but it will become one of the biggest development projects in Uttar Pradesh."</p>
+<cite>— Prathamesh Kumar, LDA Vice-Chairman</cite></div>
+<p>The logistics park's impact on property values will be significant. Areas near industrial and logistics hubs in Indian cities typically see 20-30% higher property appreciation than purely residential zones — because they generate constant employment demand for nearby housing.</p>
+
+<!-- SECTION 6 -->
+<h2 id="sectors">25 Sectors — World-Class Infrastructure</h2>
+<p>Varun Vihar will be divided into <strong>25 sectors</strong> — the largest sector-based township plan LDA has ever created. Each sector will have its own amenities and infrastructure.</p>
+<div class="dsd-zone-grid">
+<div class="dsd-zone-card">
+<h5>🏘️ Residential Sectors</h5>
+<p>Plots for EWS, LIG, MIG and HIG. All income groups in one integrated township.</p>
+</div>
+<div class="dsd-zone-card">
+<h5>🏢 Group Housing</h5>
+<p>Multi-storey flats via private builders on PPP model — 1BHK, 2BHK, 3BHK configurations.</p>
+</div>
+<div class="dsd-zone-card">
+<h5>🏪 Commercial Zones</h5>
+<p>Sectoral shopping centres in every sector. No need to travel to city for daily shopping.</p>
+</div>
+<div class="dsd-zone-card">
+<h5>🏫 Institutional Sector</h5>
+<p>Schools, colleges, medical facilities — all planned within the township boundaries.</p>
+</div>
+<div class="dsd-zone-card orange">
+<h5>🚌 ISBT Hub</h5>
+<p>Inter-State Bus Terminal — connecting Lucknow to all major UP cities from within the township.</p>
+</div>
+<div class="dsd-zone-card orange">
+<h5>🏭 Logistics &amp; Industry</h5>
+<p>300-acre logistics park with Agra Expressway access. UP's future logistics capital.</p>
+</div>
+</div>
+<div class="dsd-highlight">
+<h4>🔧 Infrastructure Standards — What's Planned</h4>
+<ul>
+<li><strong>Underground electric cabling</strong> throughout — no overhead wires anywhere in the township</li>
+<li><strong>Grid road system</strong> — wide, planned roads with international standards</li>
+<li>Solid waste management systems in every sector</li>
+<li>Community centres (baraat ghars) in each sector</li>
+<li>EduTech City component — education + technology hub</li>
+<li>Underground cable lines for telecom and utilities</li>
+<li>Water supply and sewage as per international norms</li>
+</ul>
+</div>
+<!-- SECTION 7 -->
+<h2 id="green">980 Acres Green — Golf Course, Central Park &amp; Water Bodies</h2>
+<p>Varun Vihar dedicates <strong>980+ acres — around 15% of the total area — to green belt, parks and water bodies.</strong> That's nearly as large as the entire Anant Nagar township (785 acres).</p>
+<p>Two specific recreational features confirmed by LDA Vice-Chairman Prathamesh Kumar (News9Live, September 2025):</p>
+<div class="dsd-highlight">
+<h4>🌳 Green &amp; Recreation — Confirmed Features</h4>
+<ul>
+<li><strong>980+ acres</strong> of green belt, parks and water bodies — around 15% of total township</li>
+<li><strong>International-level golf course</strong> — confirmed by LDA Vice-Chairman Kumar</li>
+<li><strong>Central park</strong> — large-scale central recreation area for all residents</li>
+<li>Water bodies integrated into green belt design</li>
+<li>Tree-lined roads throughout all 25 sectors</li>
+<li>Walking and cycling tracks within green corridors</li>
+</ul>
+</div>
+<p>An international-level golf course in a planned LDA township is unprecedented. This signals that Varun Vihar is being positioned as a premium township — not just affordable housing.</p>
+<!-- SECTION 8 -->
+
+<h2 id="land-acquisition">Land Acquisition — Current Status (2026)</h2>
+<p>This is the most important section for any potential buyer or investor. <strong>Where exactly is Varun Vihar in its development journey?</strong> Here is the verified status based on LDA official data:</p>
+<div class="dsd-table-wrap">
+<table>
+<thead>
+<tr>
+<th>Milestone</th>
+<th>Status</th>
+<th>Verified Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LDA Board Approval</td>
+<td>✅ Approved</td>
+<td>LDA Official Website</td>
+</tr>
+<tr>
+<td>Land identified (12 villages)</td>
+<td>✅ Complete</td>
+<td>News9Live, LDA</td>
+</tr>
+<tr>
+<td>Bainama (Registry) completed</td>
+<td>✅ ~450 Bigha</td>
+<td>LDA Official</td>
+</tr>
+<tr>
+<td>Physical possession acquired</td>
+<td>✅ 105 Bigha</td>
+<td>LDA Official</td>
+</tr>
+<tr>
+<td>Farmer compensation distributed</td>
+<td>✅ ₹300 Crore paid</td>
+<td>LDA Official</td>
+</tr>
+<tr>
+<td>Farmer registration ongoing</td>
+<td>🔄 22,403 farmers</td>
+<td>LDA Official</td>
+</tr>
+<tr>
+<td>Plots launched for public</td>
+<td>❌ Not yet launched</td>
+<td>LDA Official</td>
+</tr>
+<tr>
+<td>Construction started</td>
+<td>❌ Pending acquisition completion</td>
+<td>Multiple sources</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="dsd-infobox">
+<h4>⚠️ Important: Current Stage of Development</h4>
+<ul>
+<li>Varun Vihar is currently in the <strong>land acquisition phase</strong> — development has not started</li>
+<li>No public lottery has been announced as of March 2026 — monitor <strong>ldalucknow.in</strong></li>
+<li>Resale plots being offered in this area right now may NOT be LDA-allotted — verify carefully</li>
+<li>Private land in the 12 villages is subject to acquisition proceedings — buy only after status check</li>
+<li>Expected timeline for first plot allotment: 2026-2027 (unconfirmed)</li>
+</ul>
+</div>
+
+<!-- SECTION 9 -->
+<h2 id="plots">Plots &amp; Housing — Who Can Apply</h2>
+<p>When launched, Varun Vihar will offer <strong>more than 15,000 plots</strong> across residential, commercial and group housing categories. Based on LDA's standard pattern for all its schemes, here's what to expect:</p>
+<div class="dsd-highlight">
+<h4>🏠 Plot Categories Expected (Based on LDA Pattern)</h4>
+<ul>
+<li><strong>EWS (Economically Weaker Section)</strong> — Annual income up to ₹3 lakh</li>
+<li><strong>LIG (Lower Income Group)</strong> — Annual income ₹3 lakh to ₹6 lakh</li>
+<li><strong>MIG-I (Middle Income Group)</strong> — Annual income ₹6 lakh to ₹12 lakh</li>
+<li><strong>MIG-II (Middle Income Group)</strong> — Annual income ₹12 lakh to ₹18 lakh</li>
+<li><strong>HIG (Higher Income Group)</strong> — Above ₹18 lakh annual income</li>
+<li><strong>Commercial plots</strong> — For shops, offices, business use</li>
+<li><strong>Group Housing plots</strong> — For private builders (PPP model)</li>
+</ul>
+</div>
+<div class="dsd-highlight">
+<h4>📋 Eligibility Conditions (Standard LDA Pattern)</h4>
+<ul>
+<li>Must be a permanent resident of Uttar Pradesh</li>
+<li>Applicant or family must not own a residential property in Lucknow</li>
+<li>Must not have benefited from any other government housing scheme</li>
+<li>Income category must match the plot/flat category applied for</li>
+<li>NRIs also eligible under LDA rules</li>
+<li>Priority typically given to SC/ST/OBC, minorities, disabled persons</li>
+</ul>
+</div>
+<p>Already won an LDA plot in IT City or Anant Nagar? Understanding the next steps will help you prepare for Varun Vihar too: <a href="https://dsdproperties.in/blog/lda-plot-lottery-winner-guide-lucknow" target="_blank" style="color: #008080; font-weight: 600;" rel="noopener">Won an LDA Plot? Your Essential 2026 Next Steps Guide →</a></p>
+<!-- SECTION: PLOT PRICE -->
+<h2 id="price">Plot Price — How Much Will a Varun Vihar Plot Cost?</h2>
+<p style="font-size: 15.5px; color: #374151; line-height: 1.85; margin-bottom: 16px;">LDA has not released a final, category-wise price list for Varun Vihar Yojana plots. However, in LDA's published 2026 scheme pricing, <strong>Varun Vihar plots are indicated at a starting rate of around ₹3,252 per square foot</strong> — making it one of the more affordable LDA plotted schemes, positioned for middle-income buyers. Final rates for each category will be confirmed only in the official registration notification.</p>
+<div class="dsd-stats-bar">
+<div class="dsd-stat-item"><span class="dsd-stat-num">~₹3,252</span><span class="dsd-stat-label">Per Sq Ft (Indicative Start)</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">₹3,252–₹4,180</span><span class="dsd-stat-label">LDA Plot Rate Band 2026</span></div>
+<div class="dsd-stat-item"><span class="dsd-stat-num">EWS–HIG</span><span class="dsd-stat-label">All Income Categories</span></div>
+</div>
+<p>To put the indicative Varun Vihar rate in perspective, here is how it compares with other LDA plotted schemes priced in 2026:</p>
+<div class="dsd-table-wrap">
+<table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
+<thead>
+<tr style="background: #011f4b; color: #fff;">
+<th style="padding: 10px 12px; text-align: left;">LDA Plotted Scheme</th>
+<th style="padding: 10px 12px; text-align: left;">Corridor</th>
+<th style="padding: 10px 12px; text-align: left;">Indicative Rate (per sq ft)</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-bottom: 1px solid #e2e8f0; background: #fff8f0;">
+<td style="padding: 9px 12px;"><strong>Varun Vihar Yojana</strong></td>
+<td style="padding: 9px 12px;">Agra Expressway</td>
+<td style="padding: 9px 12px;">~₹3,252 (starting)</td>
+</tr>
+<tr style="border-bottom: 1px solid #e2e8f0;">
+<td style="padding: 9px 12px;"><strong>Naimish Nagar Yojana</strong></td>
+<td style="padding: 9px 12px;">Sitapur Road</td>
+<td style="padding: 9px 12px;">~₹3,345</td>
+</tr>
+<tr style="border-bottom: 1px solid #e2e8f0; background: #f9fafb;">
+<td style="padding: 9px 12px;"><strong>IT City</strong></td>
+<td style="padding: 9px 12px;">Sultanpur Road</td>
+<td style="padding: 9px 12px;">~₹4,180</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p style="font-size: 12.5px; color: #6b7280; margin-top: -8px;">Rates are indicative figures from LDA's 2026 scheme pricing as compiled by DSD Properties. They are not final allotment rates and are subject to change. Confirm the official price at ldalucknow.in when registration opens.</p>
+<div class="dsd-infobox">
+<h4>\ud83d\udcb0 What Decides Your Final Varun Vihar Plot Cost?</h4>
+<ul>
+<li><strong>Plot category</strong> — EWS and LIG plots are priced lower; MIG and HIG plots cost more per square foot</li>
+<li><strong>Plot size</strong> — expect sizes from compact EWS plots up to large HIG plots, following LDA's standard pattern</li>
+<li><strong>Location within the scheme</strong> — corner plots, park-facing plots and main-road plots usually carry a premium</li>
+<li><strong>Registration and one-time charges</strong> — add freehold, lease rent, corner charges and registry/<a href="https://dsdproperties.in/blog/stamp-duty-registration-charges-lucknow-2026" style="color:#008080;font-weight:600;">stamp duty</a> on top of the base rate</li>
+<li><strong>Payment plan</strong> — LDA typically offers a lump-sum option and an instalment plan; instalments may carry interest</li>
+</ul>
+</div>
+<p>A realistic way to budget: take the per-square-foot rate, multiply by your plot size in square feet, then add roughly 7–10% for stamp duty and registry charges. Home loans are available on LDA plots from most nationalised and major private banks, since LDA is a UP government authority.</p>
+<p>Not sure which category you are eligible for, or how much a specific plot size would actually cost you all-in? <a href="https://dsdproperties.in/blog/lda-plot-lottery-winner-guide-lucknow" target="_blank" style="color: #008080; font-weight: 600;" rel="noopener">Read our LDA plot allotment cost guide →</a></p>
+
+<!-- SECTION 10 -->
+<h2 id="investment">Investment Analysis — Should You Buy Near Varun Vihar?</h2>
+<p>Varun Vihar is a long-term play — land acquisition is still ongoing and no public lottery has been announced. But the opportunity for smart investors is in the surrounding area, not just the scheme itself. Here's the full picture:</p>
+<div class="dsd-inv-grid">
+<div class="dsd-inv-card pro">
+<h4>✅ Why Varun Vihar Could Be a Strong Investment</h4>
+<ul>
+<li>Largest LDA scheme in UP history — government backing at highest level</li>
+<li>300-acre logistics park = permanent employment and commercial demand</li>
+<li>980 acres green belt — premium livability, long-term appreciation</li>
+<li>International golf course — positions it as premium township</li>
+<li>Agra Expressway frontage — highest-grade connectivity in Lucknow</li>
+<li>ISBT within scheme — transport hub creates daily footfall from day one</li>
+<li>Master Plan 2031 — confirmed, approved, funded</li>
+<li>22,403 farmers in acquisition process — momentum is real</li>
+<li>LDA lottery system — transparent, lowest fraud risk</li>
+<li>4 lakh+ planned population = massive built-in demand</li>
+</ul>
+</div>
+<div class="dsd-inv-card con">
+<h4>⚠️ Risks to Consider</h4>
+<ul>
+<li>Still in land acquisition — no construction started yet</li>
+<li>No public lottery announced — timeline uncertain</li>
+<li>Only 105 bigha in possession of 6,580 acres — long way to go</li>
+<li>Possession after allotment could take 3-5+ years</li>
+<li>Large-scale LDA projects historically face delays</li>
+<li>Surrounding area has limited existing amenities</li>
+<li>Private land near scheme may be speculative — verify before buying</li>
+</ul>
+</div>
+</div>
+<p>For the broader Lucknow real estate market context: <a href="https://dsdproperties.in/blog/lucknow-investment-hotspots-2026" target="_blank" style="color: #008080; font-weight: 600;" rel="noopener">Lucknow Real Estate Market 2026–2027: Price Forecast &amp; Top Hotspots →</a></p>
+
+<!-- SECTION 11 -->
+<h2 id="vs-others">Varun Vihar vs IT City vs Wellness City — Which to Choose?</h2>
+<p>All three are LDA projects. All three are part of Master Plan 2031. But each serves a fundamentally different purpose and is at a different stage of development.</p>
+<div class="dsd-table-wrap">
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Varun Vihar</th>
+<th>IT City</th>
+<th>Wellness City</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total Area</td>
+<td>6,580 acres</td>
+<td>3,490 acres</td>
+<td>1,474 acres</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>Agra Expressway</td>
+<td>Sultanpur Road</td>
+<td>Sultanpur Road</td>
+</tr>
+<tr>
+<td>Core Theme</td>
+<td>Logistics + Residential</td>
+<td>IT + Technology</td>
+<td>Health + Wellness</td>
+</tr>
+<tr>
+<td>Plots</td>
+<td>15,000+</td>
+<td>549 (Phase 1)</td>
+<td>2,935</td>
+</tr>
+<tr>
+<td>Green Area</td>
+<td>980 acres</td>
+<td>130+ acres</td>
+<td>204 acres</td>
+</tr>
+<tr>
+<td>Unique Feature</td>
+<td>300-ac Logistics Park + Golf Course</td>
+<td>HCL + SEZ status</td>
+<td>150-ac Hospital Zone</td>
+</tr>
+<tr>
+<td>ISBT</td>
+<td>✅ Planned</td>
+<td>❌ No</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td>Current Stage</td>
+<td>Land Acquisition</td>
+<td>Phase 1 Allotted</td>
+<td>Pre-launch</td>
+</tr>
+<tr>
+<td>Buy Now?</td>
+<td>Wait for official launch</td>
+<td>Resale available</td>
+<td>Lottery expected</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- SVG Comparison -->
+<div class="dsd-chart-wrap" style="padding: 24px;">
+<p class="dsd-chart-title">Township Size Comparison — All Three LDA Projects</p>
+<p class="dsd-chart-sub">Block area proportional to total acreage</p>
+<svg width="100%" viewBox="0 0 700 220" style="display: block;">
+    
+    <rect x="10" y="5" width="330" height="200" rx="10" fill="#fff8f0" stroke="#FF5C00" stroke-width="1.5"></rect>
+    <text x="175" y="85" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="700" fill="#011f4b">Varun Vihar</text>
+    <text x="175" y="105" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12" fill="#FF5C00">6,580 acres</text>
+    <text x="175" y="123" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" fill="#6b7280">Agra Expressway · Logistics + Housing</text>
+    <text x="175" y="140" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" fill="#6b7280">15,000+ plots · 300ac Logistics Park</text>
+    
+    <rect x="350" y="20" width="160" height="160" rx="10" fill="#e6f1fb" stroke="#1565c0" stroke-width="1.5"></rect>
+    <text x="430" y="90" text-anchor="middle" font-family="Poppins,sans-serif" font-size="12" font-weight="700" fill="#011f4b">IT City</text>
+    <text x="430" y="108" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" fill="#1565c0">3,490 acres</text>
+    <text x="430" y="124" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" fill="#6b7280">HCL · SEZ</text>
+    
+    <rect x="525" y="55" width="160" height="110" rx="10" fill="#e0f7f7" stroke="#008080" stroke-width="1.5"></rect>
+    <text x="605" y="105" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="700" fill="#011f4b">Wellness City</text>
+    <text x="605" y="122" text-anchor="middle" font-family="Poppins,sans-serif" font-size="10" fill="#008080">1,474 acres</text>
+    <text x="605" y="138" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9" fill="#6b7280">Health Focus</text>
+  </svg></div>
+<p>The three projects are <strong>complementary, not competing.</strong> A logistics professional working in Varun Vihar's logistics park can access healthcare at Wellness City. An IT worker at IT City can invest in Varun Vihar for long-term appreciation. Together, they form Lucknow's new urban grid for 2031.</p>
+<!-- SECTION 12 — VERIFY CHECKLIST -->
+<h2 id="verify-checklist">✅ Verify Before You Buy — Varun Vihar Checklist</h2>
+<div style="background: #fff8f0; border: 1px solid rgba(255,92,0,0.2); border-left: 4px solid #FF5C00; border-radius: 0 12px 12px 0; padding: 16px 20px; margin: 22px 0;">
+<h4 style="color: #ff5c00; font-size: 15px; font-weight: bold; margin: 0 0 10px;">⚠️ Varun Vihar is in land acquisition — extra caution needed. Verify these 8 things before paying anyone.</h4>
+<ul style="list-style: none; padding: 0; margin: 0;">
+<li style="font-size: 14px; color: #374151; padding: 6px 0 6px 20px; position: relative; line-height: 1.75; border-bottom: 1px solid rgba(255,92,0,0.1);"><span style="position: absolute; left: 0; color: #ff5c00;">→</span> Is the plot actually within official LDA Varun Vihar scheme boundaries? — Verify with LDA at <strong>ldalucknow.in</strong></li>
+<li style="font-size: 14px; color: #374151; padding: 6px 0 6px 20px; position: relative; line-height: 1.75; border-bottom: 1px solid rgba(255,92,0,0.1);"><span style="position: absolute; left: 0; color: #ff5c00;">→</span> Has LDA officially allotted this plot? — No public lottery has been announced as of March 2026</li>
+<li style="font-size: 14px; color: #374151; padding: 6px 0 6px 20px; position: relative; line-height: 1.75; border-bottom: 1px solid rgba(255,92,0,0.1);"><span style="position: absolute; left: 0; color: #ff5c00;">→</span> Seller's name in Khatauni? — Check at <strong>upbhulekh.gov.in</strong></li>
+<li style="font-size: 14px; color: #374151; padding: 6px 0 6px 20px; position: relative; line-height: 1.75; border-bottom: 1px solid rgba(255,92,0,0.1);"><span style="position: absolute; left: 0; color: #ff5c00;">→</span> Is this land under LDA acquisition proceedings? — Land in the 12 villages may be restricted from private sale</li>
+<li style="font-size: 14px; color: #374151; padding: 6px 0 6px 20px; position: relative; line-height: 1.75; border-bottom: 1px solid rgba(255,92,0,0.1);"><span style="position: absolute; left: 0; color: #ff5c00;">→</span> No bank loan or encumbrance? — Get <a href="https://dsdproperties.in/blog/encumbrance-certificate-lucknow-how-to-apply-online" style="color:#008080;font-weight:600;">Encumbrance Certificate</a> from Sub-Registrar</li>
+<li style="font-size: 14px; color: #374151; padding: 6px 0 6px 20px; position: relative; line-height: 1.75; border-bottom: 1px solid rgba(255,92,0,0.1);"><span style="position: absolute; left: 0; color: #ff5c00;">→</span> Agricultural land? — Residential conversion mandatory before sale</li>
+<li style="font-size: 14px; color: #374151; padding: 6px 0 6px 20px; position: relative; line-height: 1.75; border-bottom: 1px solid rgba(255,92,0,0.1);"><span style="position: absolute; left: 0; color: #ff5c00;">→</span> <a href="https://dsdproperties.in/blog/dakhil-kharij-lucknow-mutation-process-guide" style="color:#008080;font-weight:600;">Dakhil-Kharij</a> done in seller's name? — Verify at Tehsil office</li>
+<li style="font-size: 14px; color: #374151; padding: 6px 0 6px 20px; position: relative; line-height: 1.75;"><span style="position: absolute; left: 0; color: #ff5c00;">→</span> No court case or government acquisition claim? — Most critical check for Varun Vihar area</li>
+</ul>
+</div>
+
+<!-- RELATED READS -->
+<h2 style="margin-top: 40px;">📚 Related Reads from DSD Properties</h2>
+<div class="dsd-related-inline"><a class="dsd-link-card" href="https://dsdproperties.in/blog/it-city-lucknow-lda-plots-guide-2026" target="_blank" rel="noopener">
+<div class="dsd-link-label">LDA Guide</div>
+<div class="dsd-link-title">IT City Lucknow 2026: LDA Plots, Price &amp; Complete Buyer's Guide</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/wellness-city-lucknow-lda-plots-guide-2026" target="_blank" rel="noopener">
+<div class="dsd-link-label">LDA Guide</div>
+<div class="dsd-link-title">Wellness City Lucknow 2026: LDA Plots, Price, 6 Villages &amp; Complete Buyer's Guide</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/lda-illegal-colony-list-lucknow-2026" target="_blank" rel="noopener">
+<div class="dsd-link-label">Legal Advice</div>
+<div class="dsd-link-title">LDA Illegal Colony List Lucknow 2026: 241+ Areas to Avoid</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/check-property-ownership-records-lucknow" target="_blank" rel="noopener">
+<div class="dsd-link-label">Verification Guide</div>
+<div class="dsd-link-title">How to Check Property Ownership Records in Lucknow Online</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/transforming-agricultural-land-residential-property-lucknow" target="_blank" rel="noopener">
+<div class="dsd-link-label">Legal Guide</div>
+<div class="dsd-link-title">Agricultural to Residential Land Conversion in Lucknow: 2026</div>
+</a><a class="dsd-link-card" href="https://dsdproperties.in/blog/lucknow-investment-hotspots-2026" target="_blank" rel="noopener">
+<div class="dsd-link-label">Market Trends</div>
+<div class="dsd-link-title">Lucknow Real Estate Market 2026–2027: Price Forecast &amp; Top Hotspots</div>
+</a></div>
+<!-- FAQs -->
+<h2 id="FAQs" style="margin-top: 40px;">❓ Frequently Asked Questions — Varun Vihar Yojana</h2>
+<h3>What is Varun Vihar Yojana Lucknow?</h3>
+<p>Varun Vihar Yojana is LDA's largest ever planned residential and infrastructure scheme — spread across <strong>6,580 acres (≈ 10,613 bigha)</strong> along the Agra Expressway in Lucknow. It will have 25 sectors, 15,000+ plots, a 300-acre logistics park, an ISBT, an international golf course, and 980 acres of green belt. It is officially described by LDA as "the largest residential scheme in the state."</p>
+<h3>Where exactly is Varun Vihar in Lucknow?</h3>
+<p>On the <strong>Agra Expressway</strong> — in the Sadar and Sarojini Nagar tehsils of Lucknow district. It spans 12 villages: Bhalia, Adampur Indwara, Bahru, Jaliyamau, Madarpur, Ibrahimganj, Nakataura, Gehlwara, Tejkrishna Kheda, Rewari, Sakra and Dona.</p>
+<h3>How many plots will Varun Vihar have?</h3>
+<p>LDA has confirmed <strong>more than 15,000 residential, commercial and group housing plots</strong> across all income categories — EWS, LIG, MIG and HIG. These will be allotted through a transparent computerised lottery system when launched.</p>
+<h3>What is the 300-acre logistics park in Varun Vihar?</h3>
+<p>A dedicated 300-acre industrial-grade logistics park with direct connectivity to the Agra Expressway and Kisan Path. It is designed to make Lucknow a major logistics hub of North India, generating thousands of employment opportunities in warehousing, supply chain and trade.</p>
+<h3>Has the Varun Vihar lottery been announced?</h3>
+<p>No. As of May 2026, Varun Vihar is in the <strong>land acquisition phase</strong>. LDA has completed registry of approximately 450 bigha and distributed ₹300 crore in farmer compensation — but no public lottery has been announced. Monitor <strong>ldalucknow.in</strong> for updates.</p>
+<h3>Is it safe to buy land near Varun Vihar right now?</h3>
+<p>Exercise extreme caution. Land in the 12 villages under acquisition may be subject to government proceedings. Always check the Khatauni (upbhulekh.gov.in), verify acquisition status with LDA, get an Encumbrance Certificate, and confirm no government claim exists before paying anyone. We strongly recommend a professional verification before any transaction.</p>
+<h3>What makes Varun Vihar different from IT City and Wellness City?</h3>
+<p>Three key differences: (1) It's the <strong>largest</strong> — 6,580 acres vs 3,490 for IT City and 1,474 for Wellness City. (2) It's on the <strong>Agra Expressway</strong> — not Sultanpur Road. (3) It has a unique <strong>300-acre logistics park</strong> — no other LDA township has this. It's a logistics + residential township, not a technology or health township.</p>
+<h3>What is the expected plot price in Varun Vihar?</h3>
+<p>LDA has not released a final category-wise price list. Its 2026 scheme pricing indicates a starting rate of around ₹3,252 per sq ft for Varun Vihar plots. Based on LDA's pattern with IT City and Wellness City, expect launch pricing below prevailing market rates for the area. Sultanpur Road corridor is ₹3,500–₹5,000/sqft — Agra Expressway corridor pricing will differ. Verify at <strong>ldalucknow.in</strong> when registration opens.</p>
+<h3>How many villages are in Varun Vihar?</h3>
+<p>12 villages: <strong>Bhalia, Adampur Indwara, Bahru, Jaliyamau, Madarpur, Ibrahimganj, Nakataura, Gehlwara, Tejkrishna Kheda, Rewari, Sakra and Dona</strong> — all in Sadar and Sarojini Nagar tehsils, Lucknow district.</p>
+<h3>Is Varun Vihar a good investment in 2026?</h3>
+<p>Varun Vihar has exceptional long-term fundamentals — India's largest LDA scheme, logistics park, golf course, 980 acres green belt, Agra Expressway connectivity. But it is a <strong>5-7 year horizon investment</strong>. Development has not started. Do not expect quick returns or early possession. Always verify any land or plot transaction with a professional before paying.</p>
+<h3>When is the Varun Vihar Yojana Lucknow launch date?</h3>
+<p>LDA has <strong>not announced a confirmed public registration date</strong> for Varun Vihar Yojana as of May 2026. The scheme is still in its land acquisition phase. Media reports point to a possible Phase 1 launch around June 2026 with roughly 2,100 plots, but this is an estimate, not an official date. The confirmed notification will appear on <strong>ldalucknow.in</strong> and registration.ldalucknow.in. Avoid any agent claiming a "confirmed" date or pre-launch booking.</p>
+<h3>What is the Varun Vihar Yojana plot price per sq ft?</h3>
+<p>LDA's 2026 scheme pricing indicates Varun Vihar plots starting at around <strong>₹3,252 per square foot</strong>, which makes it one of the more affordable LDA plotted schemes — cheaper than IT City (~₹4,180/sqft). This is an indicative figure, not a final allotment rate. Actual prices vary by category (EWS, LIG, MIG, HIG), plot size and location within the scheme, and will be confirmed only in the official registration notification.</p>
+
+<!-- CHART.JS -->
+<p></p>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  var vvCtx = document.getElementById('vv_zone_chart');
+  if (vvCtx) {
+    var e = Chart.getChart(vvCtx);
+    if (e) e.destroy();
+    new Chart(vvCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Green Belt\n& Parks', 'Logistics\nPark', 'Residential\nPlots', 'Group\nHousing', 'Commercial\n& ISBT', 'Roads &\nInfra'],
+        datasets: [{
+          label: 'Acres (approx)',
+          data: [800, 300, 500, 600, 200, 400],
+          backgroundColor: ['#2e7d32','#FF5C00','#008080','#1565c0','#6a1b9a','#546e7a'],
+          borderRadius: 6,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(ctx) { return ' ~' + ctx.raw + ' acres (indicative)'; }
+            }
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 11 } } },
+          y: {
+            grid: { color: 'rgba(0,0,0,0.06)' },
+            ticks: { color: '#6b7280', font: { size: 11 }, callback: function(v) { return v + ' ac'; } },
+            title: { display: true, text: 'Area in Acres (indicative)', color: '#6b7280', font: { size: 11 } }
+          }
+        }
+      }
+    });
+  }
+
+  document.querySelectorAll('#FAQs h3').forEach(function(h) {
+    h.addEventListener('click', function() {
+      this.classList.toggle('active');
+      var p = this.nextElementSibling;
+      if (p && p.tagName === 'P') {
+        p.style.display = p.style.display === 'block' ? 'none' : 'block';
+      }
+    });
+  });
+
+});
+</script>
+<p></p>

@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ | Admin panel design system.
+ | Brand palette comes from tailwind.config.js:
+ |   brandNavy #011f4b — sidebar, headings, primary text
+ |   brandTeal #05ede3 — active state, primary actions
+ |   brandOrange #FFA500 — overdue / needs attention
+ |
+ | Utilities are used directly in the markup (standard Tailwind practice).
+ | Only genuinely repeated patterns are promoted to components here.
+ */
+
+@layer base {
+    html { -webkit-text-size-adjust: 100%; }
+    body { @apply bg-slate-50 text-slate-800 antialiased; }
+    /* Tap targets stay comfortable on a phone. */
+    button, [type='button'], [type='submit'], a.btn { touch-action: manipulation; }
+}
+
+@layer components {
+
+    /* ---- Buttons ---- */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3
+               text-sm font-semibold leading-none min-h-[48px]
+               transition-colors duration-150 select-none
+               focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+               focus-visible:ring-brandTeal disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+    .btn-primary   { @apply btn bg-brandNavy text-white hover:bg-[#02306f]; }
+    .btn-teal      { @apply btn bg-brandTeal text-brandNavy hover:bg-[#0fd4cb]; }
+    .btn-success   { @apply btn bg-emerald-600 text-white hover:bg-emerald-700; }
+    .btn-outline   { @apply btn border border-slate-300 bg-white text-slate-700 hover:bg-slate-50; }
+    .btn-danger    { @apply btn bg-rose-600 text-white hover:bg-rose-700; }
+    .btn-ghost     { @apply btn bg-transparent text-slate-600 hover:bg-slate-100; }
+    .btn-sm        { @apply px-3 py-2 text-xs min-h-[38px] rounded-lg; }
+
+    /* ---- Surfaces ---- */
+    .card {
+        @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+    }
+    .card-p { @apply card p-4 sm:p-5; }
+
+    /* ---- Forms ---- */
+    .label { @apply mb-1.5 block text-sm font-semibold text-slate-700; }
+    .input {
+        @apply block w-full rounded-xl border-slate-300 bg-white text-slate-900
+               placeholder:text-slate-400 shadow-sm min-h-[48px] text-base
+               focus:border-brandTeal focus:ring-brandTeal;
+    }
+    .input-sm { @apply min-h-[40px] text-sm rounded-lg; }
+    .help     { @apply mt-1 text-xs text-slate-500; }
+
+    /* ---- Badges ---- */
+    .badge {
+        @apply inline-flex items-center rounded-full px-2.5 py-0.5
+               text-[11px] font-semibold uppercase tracking-wide;
+    }
+    .badge-slate { @apply badge bg-slate-100 text-slate-600; }
+    .badge-teal  { @apply badge bg-brandTeal/15 text-[#046b67]; }
+    .badge-amber { @apply badge bg-amber-100 text-amber-800; }
+    .badge-rose  { @apply badge bg-rose-100 text-rose-700; }
+    .badge-green { @apply badge bg-emerald-100 text-emerald-700; }
+
+    /* ---- Sidebar ---- */
+    .nav-item {
+        @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium
+               text-slate-300 transition-colors hover:bg-white/10 hover:text-white;
+    }
+    .nav-item-active { @apply bg-brandTeal text-brandNavy font-semibold hover:bg-brandTeal hover:text-brandNavy; }
+    .nav-item i { @apply w-5 shrink-0 text-center; }
+
+    /* ---- Alerts ---- */
+    .alert { @apply rounded-xl border px-4 py-3 text-sm; }
+    .alert-success { @apply alert border-emerald-200 bg-emerald-50 text-emerald-800; }
+    .alert-info    { @apply alert border-sky-200 bg-sky-50 text-sky-800; }
+    .alert-danger  { @apply alert border-rose-200 bg-rose-50 text-rose-800; }
+}

@@ -1,0 +1,370 @@
+<style>
+:root{
+  --dsd-navy:#011f4b;
+  --dsd-teal:#008080;
+  --dsd-orange:#FF5C00;
+  --dsd-light-teal:#e0f7f7;
+  --dsd-bg:#f9fafb;
+  --dsd-border:#e2e8f0;
+  --dsd-text:#374151;
+  --dsd-muted:#6b7280;
+}
+.dsd-hindi{font-family:'Noto Sans Devanagari','Poppins',sans-serif;line-height:1.95;font-size:15.5px;color:#374151;}
+.dsd-hindi p{margin-bottom:1.15rem;}
+
+.dsd-stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;background:var(--dsd-navy);border-radius:12px;overflow:hidden;margin:28px 0;box-shadow:0 4px 20px rgba(1,31,75,0.18);}
+.dsd-stat-item{padding:18px 14px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
+.dsd-stat-item:last-child{border-right:none;}
+.dsd-stat-num{font-size:20px;font-weight:700;color:#20B2AA;display:block;line-height:1.1;font-family:'Poppins',sans-serif;}
+.dsd-stat-label{font-size:11px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.06em;margin-top:4px;display:block;font-family:'Poppins',sans-serif;}
+
+.dsd-pullquote{border-left:4px solid var(--dsd-orange);background:#fff8f5;padding:18px 22px;margin:24px 0;border-radius:0 10px 10px 0;}
+.dsd-pullquote p{font-size:15.5px;font-style:italic;color:var(--dsd-navy);line-height:1.75;margin:0 0 6px;}
+.dsd-pullquote cite{font-size:12px;color:var(--dsd-muted);font-style:normal;font-family:'Poppins',sans-serif;}
+
+.dsd-highlight{background:var(--dsd-light-teal);border:1px solid rgba(0,128,128,0.2);border-radius:12px;padding:20px 24px;margin:22px 0;}
+.dsd-highlight h4{color:var(--dsd-navy);font-size:15px;font-weight:700;margin:0 0 12px;}
+.dsd-highlight ul{padding-left:0;list-style:none;margin:0;}
+.dsd-highlight ul li{padding:6px 0 6px 22px;position:relative;font-size:14.5px;color:var(--dsd-text);border-bottom:1px solid rgba(0,128,128,0.1);line-height:1.75;}
+.dsd-highlight ul li:last-child{border-bottom:none;}
+.dsd-highlight ul li::before{content:'✓';position:absolute;left:0;color:var(--dsd-teal);font-weight:700;}
+
+.dsd-infobox{background:#fff8f0;border:1px solid rgba(255,92,0,0.2);border-left:4px solid var(--dsd-orange);border-radius:0 12px 12px 0;padding:16px 20px;margin:22px 0;}
+.dsd-infobox h4{color:var(--dsd-orange);font-size:15px;font-weight:700;margin:0 0 10px;}
+.dsd-infobox ul{list-style:none;padding:0;margin:0;}
+.dsd-infobox ul li{font-size:14px;color:var(--dsd-text);padding:5px 0 5px 18px;position:relative;line-height:1.75;}
+.dsd-infobox ul li::before{content:'→';position:absolute;left:0;color:var(--dsd-orange);}
+
+.dsd-village-grid{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0;}
+.dsd-village-tag{background:var(--dsd-light-teal);border:1px solid rgba(0,128,128,0.25);color:var(--dsd-navy);padding:6px 14px;border-radius:20px;font-size:13.5px;font-weight:500;}
+
+.dsd-zone-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin:20px 0;}
+.dsd-zone-card{background:#fff;border:1px solid var(--dsd-border);border-top:3px solid var(--dsd-teal);border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+.dsd-zone-card.orange{border-top-color:var(--dsd-orange);}
+.dsd-zone-card h5{color:var(--dsd-navy);font-size:14px;font-weight:700;margin:0 0 6px;}
+.dsd-zone-card p{font-size:13px;color:var(--dsd-muted);margin:0;line-height:1.6;}
+
+.dsd-inv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0;}
+.dsd-inv-card{border-radius:12px;padding:18px 16px;border:1px solid;}
+.dsd-inv-card.pro{background:#f0fdf4;border-color:rgba(0,128,128,0.25);}
+.dsd-inv-card.con{background:#fff8f0;border-color:rgba(255,92,0,0.25);}
+.dsd-inv-card h4{font-size:15px;font-weight:700;margin-bottom:12px;}
+.dsd-inv-card.pro h4{color:var(--dsd-teal);}
+.dsd-inv-card.con h4{color:var(--dsd-orange);}
+.dsd-inv-card ul{list-style:none;padding:0;margin:0;}
+.dsd-inv-card ul li{font-size:13.5px;padding:5px 0 5px 18px;position:relative;color:var(--dsd-text);border-bottom:1px solid rgba(0,0,0,0.05);line-height:1.75;}
+.dsd-inv-card ul li:last-child{border-bottom:none;}
+.dsd-inv-card.pro ul li::before{content:'✓';color:var(--dsd-teal);font-weight:700;position:absolute;left:0;}
+.dsd-inv-card.con ul li::before{content:'!';color:var(--dsd-orange);font-weight:700;position:absolute;left:0;}
+
+.dsd-table-wrap{overflow-x:auto;margin:20px 0;}
+
+.dsd-chart-wrap{background:#fff;border:1px solid var(--dsd-border);border-radius:12px;padding:20px;margin:28px 0;box-shadow:0 2px 12px rgba(0,0,0,0.04);}
+.dsd-chart-title{font-size:14px;font-weight:700;color:var(--dsd-navy);margin:0 0 4px;}
+.dsd-chart-sub{font-size:12px;color:var(--dsd-muted);margin:0 0 16px;}
+.dsd-chart-legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;}
+.dsd-chart-legend span{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--dsd-muted);}
+.dsd-chart-legend span i{width:10px;height:10px;border-radius:2px;display:inline-block;flex-shrink:0;}
+
+.dsd-related-inline{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:22px 0;}
+.dsd-link-card{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-radius:10px;padding:14px 16px;text-decoration:none;display:block;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;}
+.dsd-link-card:hover{border-color:var(--dsd-teal);box-shadow:0 4px 16px rgba(0,128,128,0.1);transform:translateY(-2px);}
+.dsd-link-card .dsd-link-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--dsd-teal);font-weight:600;margin-bottom:5px;font-family:'Poppins',sans-serif;}
+.dsd-link-card .dsd-link-title{font-size:14px;font-weight:600;color:var(--dsd-navy);line-height:1.45;}
+
+#FAQs h3{background:var(--dsd-bg);border:1px solid var(--dsd-border);border-left:4px solid var(--dsd-teal);padding:14px 18px;border-radius:0 10px 10px 0;cursor:pointer;color:var(--dsd-navy);font-size:15px;font-weight:600;margin-bottom:0;position:relative;transition:background 0.2s;}
+#FAQs h3:hover{background:#e0f7f7;}
+#FAQs h3::after{content:'+';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--dsd-teal);font-weight:400;}
+#FAQs h3.active::after{content:'−';}
+#FAQs h3+p{display:none;background:#fff;border:1px solid var(--dsd-border);border-top:none;border-radius:0 0 10px 10px;padding:14px 18px;font-size:14.5px;color:var(--dsd-text);margin-top:0;margin-bottom:12px;line-height:1.85;}
+
+@media(max-width:600px){
+  .dsd-stats-bar{grid-template-columns:repeat(2,1fr);}
+  .dsd-inv-grid{grid-template-columns:1fr;}
+  .dsd-zone-grid{grid-template-columns:1fr 1fr;}
+  .dsd-related-inline{grid-template-columns:1fr;}
+}
+</style>
+
+<p style="font-size:13px;color:#6b7280;margin:0 0 24px;padding-bottom:14px;border-bottom:1px solid #e2e8f0;">स्रोत: <a href="https://www.ldalucknow.in/varun-vihar-yojna/" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">एलडीए की आधिकारिक वेबसाइट</a>, <a href="https://www.etvbharat.com/hi/state/lda-lucknow-launches-varun-vihar-naimish-nagar-schemes-4000-plots-booking-price-sizes-ups26092501968" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">ईटीवी भारत</a>, <a href="https://www.amarujala.com/lucknow/up-dream-of-owning-a-home-capital-to-be-realized-naimish-nagar-varun-vihar-schemes-launched-find-out-2026-09-24" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">अमर उजाला</a>, <a href="https://bhaskardigital.com/those-makingin-both-lda-houwill-up-to-6-discount-apply-by-october-24/" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">भास्कर डिजिटल</a> और एलडीए का लेआउट प्लान (जुलाई 2025)। अपडेट: 16 अक्टूबर 2026</p>
+
+<!-- key-facts -->
+<div class="dsd-key-facts" style="background:#f0fdfa;border:1px solid rgba(0,128,128,0.25);border-left:4px solid #008080;border-radius:0 12px 12px 0;padding:16px 20px;margin:0 0 24px;">
+  <p style="margin:0 0 8px;font-weight:700;color:#011f4b;font-size:16px;">मुख्य बातें (अपडेट: 16 अक्टूबर 2026)</p>
+  <ul style="margin:0;padding-left:20px;">
+    <li style="margin:5px 0;line-height:1.7;">वरुण विहार एलडीए की <strong>आगरा–लखनऊ एक्सप्रेसवे</strong> के पास करीब <strong>6,580 एकड़</strong> (2,664 हेक्टेयर) की आवासीय योजना है, जो सदर और सरोजिनी नगर तहसील के 12 गांवों में बस रही है।</li>
+    <li style="margin:5px 0;line-height:1.7;"><strong>पहले चरण में 2,847 भूखंड</strong> (काशी खंड, कैलाश खंड फेज-1 और फेज-2), दर <strong>₹2,800 प्रति वर्गफुट</strong>। साइज 112.5 से 450 वर्ग मीटर।</li>
+    <li style="margin:5px 0;line-height:1.7;">पंजीकरण <strong>24 सितंबर से 24 अक्टूबर 2026</strong> तक registration.ldalucknow.in पर। बुकलेट ₹1,100, पंजीकरण राशि भूखंड की कीमत का 5% (आरक्षित वर्ग 2.5%)।</li>
+    <li style="margin:5px 0;line-height:1.7;">सबसे छोटा भूखंड (112.5 वर्ग मीटर) करीब <strong>₹33.9 लाख</strong> का है; पंजीकरण के लिए करीब ₹1.7 लाख जमा करने होंगे।</li>
+    <li style="margin:5px 0;line-height:1.7;">एलडीए के अनुसार पूरी योजना में 25 सेक्टर, 15,000 से ज्यादा भूखंड, करीब 300 एकड़ का लॉजिस्टिक्स पार्क और गोल्फ कोर्स समेत बड़ा हरित क्षेत्र प्रस्तावित है।</li>
+  </ul>
+</div>
+
+<div class="dsd-stats-bar">
+  <div class="dsd-stat-item"><span class="dsd-stat-num">~6,580 एकड़</span><span class="dsd-stat-label">कुल क्षेत्रफल</span></div>
+  <div class="dsd-stat-item"><span class="dsd-stat-num">2,847</span><span class="dsd-stat-label">पहले चरण के भूखंड</span></div>
+  <div class="dsd-stat-item"><span class="dsd-stat-num">₹2,800/sqft</span><span class="dsd-stat-label">एलडीए दर</span></div>
+  <div class="dsd-stat-item"><span class="dsd-stat-num">24 अक्टूबर</span><span class="dsd-stat-label">पंजीकरण की आखिरी तारीख</span></div>
+</div>
+
+<div class="dsd-infobox" style="margin-bottom:24px;">
+  <h4>🔴 ताज़ा अपडेट — वरुण विहार योजना (16 अक्टूबर 2026)</h4>
+  <ul>
+    <li><strong>26 सितंबर 2026:</strong> जो आवेदक पूरा भुगतान एकमुश्त करने का विकल्प चुनेंगे, उनकी लॉटरी पहले निकलेगी, उसके बाद बाकी आवेदकों की। (<a href="https://bhaskardigital.com/those-makingin-both-lda-houwill-up-to-6-discount-apply-by-october-24/" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">भास्कर डिजिटल</a>)</li>
+    <li><strong>24 सितंबर 2026:</strong> मुख्यमंत्री योगी आदित्यनाथ ने वरुण विहार और नैमिष नगर योजना लॉन्च की। वरुण विहार के पहले चरण में <strong>2,847 भूखंड</strong>, दर <strong>₹2,800 प्रति वर्गफुट</strong>। पंजीकरण <strong>24 सितंबर से 24 अक्टूबर 2026</strong> तक। (<a href="https://www.etvbharat.com/hi/state/lda-lucknow-launches-varun-vihar-naimish-nagar-schemes-4000-plots-booking-price-sizes-ups26092501968" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">ईटीवी भारत</a>, <a href="https://www.amarujala.com/lucknow/up-dream-of-owning-a-home-capital-to-be-realized-naimish-nagar-varun-vihar-schemes-launched-find-out-2026-09-24" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">अमर उजाला</a>)</li>
+    <li><strong>16 अप्रैल 2026:</strong> एलडीए ने 853 हेक्टेयर जमीन पर किसानों से सहमति पत्र और 335 हेक्टेयर की रजिस्ट्री एलडीए के नाम होने की जानकारी दी। तब कैलाश खंड और काशी खंड के करीब 2,100 भूखंड जून में खोलने की तैयारी थी — योजना बाद में सितंबर में 2,847 भूखंडों के साथ लॉन्च हुई। (<a href="https://www.etvbharat.com/hi/state/lda-lucknow-largest-residential-project-varun-vihar-scheme-connected-city-registration-dates-final-plots-uttar-pradesh-news-ups26041600413" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">ईटीवी भारत</a>)</li>
+  </ul>
+</div>
+
+<p>लखनऊ विकास प्राधिकरण (एलडीए) की <strong>वरुण विहार योजना</strong> आगरा–लखनऊ एक्सप्रेसवे के पास बस रही है। ईटीवी भारत ने इसे एलडीए की अब तक की सबसे बड़ी आवासीय योजना बताया है। पहले चरण के <strong>2,847 भूखंडों</strong> का ऑनलाइन पंजीकरण <strong>24 अक्टूबर 2026 तक</strong> खुला है। इस गाइड में योजना की लोकेशन, गांव, भूखंडों के साइज और कीमत, भुगतान की शर्तें और आवेदन का तरीका — सब आधिकारिक स्रोतों के साथ है।</p>
+
+{{CONSULTATION_BUTTON:वरुण विहार में आवेदन से पहले फ्री सलाह लें}}
+
+<h2 id="kya-hai">वरुण विहार योजना क्या है?</h2>
+<p>एलडीए की वेबसाइट के अनुसार वरुण विहार करीब <strong>6,580 एकड़</strong> में प्रस्तावित है। योजना में <strong>25 सेक्टर</strong> (भूमिगत सेवाओं के साथ) और <strong>15,000 से ज्यादा भूखंड</strong> होंगे — आवासीय, व्यावसायिक, मिश्रित उपयोग, संस्थागत और ग्रुप हाउसिंग। (<a href="https://www.ldalucknow.in/varun-vihar-yojna/" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">एलडीए</a>)</p>
+<p>पूरी योजना बनने पर यहां करीब <strong>3 लाख लोगों</strong> के रहने का अनुमान है (<a href="https://www.etvbharat.com/hi/state/lda-lucknow-launches-varun-vihar-naimish-nagar-schemes-4000-plots-booking-price-sizes-ups26092501968" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">ईटीवी भारत, सितंबर 2026</a>); अप्रैल 2026 की रिपोर्ट में यह आंकड़ा 4 लाख बताया गया था। एलडीए के लेआउट प्लान (जुलाई 2025) में इस योजना का नाम "उद्योग नगर (आगरा एक्सप्रेसवे) हाउसिंग स्कीम" लिखा है — बाद में इसे वरुण विहार नाम दिया गया।</p>
+
+<h2 id="location">वरुण विहार कहां है?</h2>
+<p>एलडीए के लेआउट प्लान के अनुसार योजना के <strong>उत्तर में आगरा–लखनऊ एक्सप्रेसवे</strong> और <strong>दक्षिण में फतेहगंज–मोहन रोड</strong> है। एक्सप्रेसवे का लखनऊ वाला छोर, जहां वह आउटर रिंग रोड (किसान पथ) से मिलता है, योजना के बीच से करीब 8.7 किमी (सीधी दूरी) पर है।</p>
+<p>ईटीवी भारत (अप्रैल 2026) के अनुसार हैदर नहर के किनारे करीब <strong>11 किमी लंबी एलिवेटेड रोड</strong> से योजना को शहर से जोड़ने का प्रस्ताव है, जिससे हजरतगंज तक का सफर करीब 50 मिनट से घटकर 20 मिनट होने की बात कही गई है। (<a href="https://www.etvbharat.com/hi/state/lda-lucknow-largest-residential-project-varun-vihar-scheme-connected-city-registration-dates-final-plots-uttar-pradesh-news-ups26041600413" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">ईटीवी भारत</a>) यह अभी प्रस्ताव है।</p>
+<!-- varun-vihar-map (Leaflet; layout georeferenced by DSD Properties, Oct 2026) -->
+<div id="vvmap-wrap" style="margin:26px 0;border:1px solid #e2e8f0;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 4px 18px rgba(1,31,75,.08);">
+  <div style="padding:16px 18px 10px;">
+    <p style="margin:0 0 6px;font-size:18px;font-weight:700;color:#011f4b;">🗺️ नक्शे पर वरुण विहार — LDA का आधिकारिक लेआउट</p>
+    <p style="margin:0;font-size:14px;color:#4b5563;line-height:1.7;">LDA का आधिकारिक लेआउट प्लान (जुलाई 2025) नक्शे पर अपनी सही जगह पर रखा गया है। ज़ूम करें, आज ज़मीन पर क्या है यह देखने के लिए सैटेलाइट व्यू चुनें, और स्लाइडर से प्लान को हल्का-गहरा करें।</p>
+  </div>
+  <div id="vvmap-box" style="position:relative;height:520px;background:#e5e7eb;">
+    <div id="vvmap" style="position:absolute;inset:0;"></div>
+    <div id="vvmap-loading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#6b7280;font-size:14px;">नक्शा लोड हो रहा है…</div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:12px 18px;border-top:1px solid #eef2f7;background:#f9fafb;">
+    <label style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:#011f4b;font-weight:600;">लेआउट प्लान कितना दिखे
+      <input id="vvmap-op" type="range" min="0" max="100" value="75" style="width:150px;accent-color:#008080;"></label>
+    <button id="vvmap-fs" type="button" style="border:1px solid #cbd5e1;background:#fff;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;color:#011f4b;cursor:pointer;">⛶ फुल स्क्रीन</button>
+    <a href="https://dsdproperties.in/public/images/maps/varun-vihar-layout.pdf" target="_blank" rel="noopener" style="border:1px solid #008080;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:600;color:#008080;text-decoration:none;">📄 आधिकारिक PDF खोलें</a>
+  </div>
+  <div style="padding:12px 18px 4px;"><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#e53935;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>व्यावसायिक</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#3949ab;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>संस्थागत</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#f3d9a4;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>आवासीय</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#f39c4a;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>मिश्रित उपयोग</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#8bc34a;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>हरित क्षेत्र</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#4dd0e1;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>जल निकाय</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#c9a227;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>मौजूदा आबादी</span><span style="display:inline-flex;align-items:center;gap:6px;margin:4px 12px 4px 0;font-size:13px;color:#374151;"><i style="width:14px;height:14px;border-radius:3px;background:#6b6b6b;display:inline-block;border:1px solid rgba(0,0,0,.15);"></i>ट्रांसपोर्ट नगर / MSME (सेक्टर 15)</span></div>
+  <div style="padding:6px 18px 4px;">
+    <p style="margin:6px 0 2px;font-size:14px;font-weight:700;color:#011f4b;">योजना के बीच से सीधी (हवाई) दूरी</p>
+    <ul style="margin:0 0 4px;padding-left:20px;"><li style="margin:3px 0;font-size:14px;color:#374151;"><strong>एक्सप्रेसवे का लखनऊ छोर</strong> — 8.7 किमी</li><li style="margin:3px 0;font-size:14px;color:#374151;"><strong>अमौसी एयरपोर्ट</strong> — 17.2 किमी</li><li style="margin:3px 0;font-size:14px;color:#374151;"><strong>चारबाग रेलवे स्टेशन</strong> — 18.7 किमी</li><li style="margin:3px 0;font-size:14px;color:#374151;"><strong>हजरतगंज</strong> — 21.5 किमी</li></ul>
+    <p style="margin:0 0 8px;font-size:12.5px;color:#6b7280;">सड़क से दूरी इससे ज्यादा होगी।</p>
+  </div>
+  <p style="margin:0;padding:10px 18px 14px;font-size:12px;color:#6b7280;line-height:1.6;border-top:1px solid #eef2f7;">स्रोत: LDA लेआउट प्लान "उद्योग नगर (आगरा एक्सप्रेसवे) हाउसिंग स्कीम", Arinem Consultancy, जुलाई 2025। DSD Properties ने इसे सैटेलाइट तस्वीर से मिलाकर रखा है; सीमा लगभग 50 मीटर तक सही है। इसे लोकेशन समझने के लिए इस्तेमाल करें, किसी खास प्लॉट की पहचान के लिए नहीं — सेक्टर और खसरा नंबर LDA से पुष्टि करें।</p>
+</div>
+<style>
+#vvmap-wrap.vv-fs{position:fixed;inset:0;z-index:10000;border-radius:0;margin:0;overflow:auto;}
+#vvmap-wrap.vv-fs #vvmap-box{height:calc(100vh - 150px);}
+#vvmap .leaflet-tooltip.vv-label{background:rgba(1,31,75,.85);color:#fff;border:0;font-weight:600;font-size:12px;box-shadow:none;}
+@media(max-width:640px){#vvmap-box{height:420px;}}
+</style>
+<script>
+(function () {
+  var CFG = {"img": "https://dsdproperties.in/public/images/maps/varun-vihar-layout-overlay.webp", "bounds": [[26.795866, 80.689377], [26.847495, 80.765213]], "outline": [[26.847301, 80.691775], [26.84643, 80.70333], [26.845071, 80.710143], [26.842788, 80.718047], [26.840214, 80.729767], [26.841189, 80.735489], [26.842457, 80.745299], [26.843286, 80.754455], [26.842658, 80.76492], [26.823591, 80.75866], [26.819213, 80.7573], [26.816294, 80.756756], [26.81143, 80.757303], [26.807539, 80.75894], [26.803259, 80.76183], [26.800725, 80.748042], [26.799261, 80.735235], [26.798773, 80.731692], [26.797313, 80.728422], [26.796096, 80.726243], [26.796825, 80.725043], [26.797068, 80.725697], [26.79877, 80.723517], [26.799743, 80.722426], [26.802662, 80.721607], [26.804121, 80.721334], [26.806067, 80.720243], [26.807525, 80.718608], [26.809957, 80.718061], [26.811903, 80.717952], [26.814335, 80.717515], [26.816281, 80.716696], [26.81774, 80.716151], [26.819199, 80.715332], [26.821144, 80.713696], [26.822602, 80.711516], [26.824304, 80.710152], [26.826006, 80.708789], [26.827464, 80.706063], [26.828922, 80.704428], [26.830381, 80.703337], [26.83111, 80.701156], [26.832325, 80.698431], [26.83427, 80.69625], [26.836214, 80.694069], [26.838159, 80.69216], [26.84059, 80.691233], [26.842292, 80.690796], [26.84448, 80.689705], [26.845696, 80.689596], [26.846814, 80.690522]], "centroid": [26.824706, 80.732125], "expressway": [[26.85191, 80.66083], [26.85124, 80.66575], [26.85106, 80.66834], [26.85033, 80.6722], [26.85004, 80.67473], [26.84908, 80.67827], [26.84869, 80.68138], [26.84834, 80.68551], [26.84817, 80.69022], [26.84765, 80.69879], [26.84717, 80.70127], [26.84658, 80.70544], [26.8459, 80.70832], [26.84444, 80.71466], [26.84288, 80.72129], [26.84156, 80.72667], [26.84111, 80.72919], [26.84098, 80.73178], [26.84184, 80.7353], [26.84249, 80.73774], [26.84365, 80.75064], [26.84399, 80.75429], [26.84396, 80.75683], [26.84376, 80.75978], [26.84317, 80.76301], [26.84232, 80.76881], [26.83984, 80.78409], [26.83763, 80.79634], [26.83535, 80.80864], [26.83503, 80.81118], [26.83474, 80.81384], [26.83422, 80.81639], [26.83289, 80.81872]], "exend": [26.83293, 80.81885], "scheme": "वरुण विहार (LDA)", "popup": "<b>वरुण विहार योजना (LDA)</b><br>उत्तर में आगरा–लखनऊ एक्सप्रेसवे और दक्षिण में फतेहगंज–मोहन रोड के बीच।<br>पहला चरण: करीब 2,847 भूखंड, ₹2,800/वर्गफुट, पंजीकरण 24 अक्टूबर 2026 तक (अमर उजाला)।", "ex": "आगरा–लखनऊ एक्सप्रेसवे", "exendTxt": "एक्सप्रेसवे का लखनऊ छोर — यहां आउटर रिंग रोड (किसान पथ) से मिलता है", "sat": "सैटेलाइट", "street": "सड़क नक्शा", "attSat": "Imagery © Esri, Maxar, Earthstar Geographics", "attOsm": "© OpenStreetMap contributors"};
+  var started = false;
+  function css(href) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = href; document.head.appendChild(l); }
+  function js(src, cb) { var s = document.createElement('script'); s.src = src; s.onload = cb; document.head.appendChild(s); }
+  function init() {
+    if (started) return; started = true;
+    css('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css');
+    js('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js', build);
+  }
+  function build() {
+    var L = window.L; document.getElementById('vvmap-loading').style.display = 'none';
+    var map = L.map('vvmap', { scrollWheelZoom: false, zoomControl: true });
+    var sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: CFG.attSat });
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: CFG.attOsm });
+    osm.addTo(map);   // street map by default; satellite is one click away
+    var plan = L.imageOverlay(CFG.img, CFG.bounds, { opacity: 0.75 }).addTo(map);
+    L.polygon(CFG.outline, { color: '#d84315', weight: 3, dashArray: '7 5', fill: false }).addTo(map);
+    L.polyline(CFG.expressway, { color: '#1565c0', weight: 4, opacity: .8 }).addTo(map)
+      .bindTooltip(CFG.ex, { sticky: true, className: 'vv-label' });
+    L.marker(CFG.centroid).addTo(map).bindPopup(CFG.popup)
+      .bindTooltip(CFG.scheme, { permanent: true, direction: 'top', offset: [-15, -12], className: 'vv-label' });
+    L.circleMarker(CFG.exend, { radius: 7, color: '#fff', weight: 2, fillColor: '#ff5c00', fillOpacity: 1 }).addTo(map)
+      .bindPopup(CFG.exendTxt);
+    var layers = {}; layers[CFG.street] = osm; layers[CFG.sat] = sat;
+    L.control.layers(layers, null, { collapsed: false }).addTo(map);
+    L.control.scale({ metric: true, imperial: false }).addTo(map);
+    var view = L.latLngBounds(CFG.bounds).extend(CFG.exend);
+    map.fitBounds(view, { padding: [20, 20] });
+    map.on('click', function () { map.scrollWheelZoom.enable(); });
+    document.getElementById('vvmap-op').addEventListener('input', function () { plan.setOpacity(this.value / 100); });
+    var wrap = document.getElementById('vvmap-wrap');
+    document.getElementById('vvmap-fs').addEventListener('click', function () {
+      wrap.classList.toggle('vv-fs'); document.body.style.overflow = wrap.classList.contains('vv-fs') ? 'hidden' : '';
+      setTimeout(function () { map.invalidateSize(); map.fitBounds(view, { padding: [20, 20] }); }, 150);
+    });
+  }
+  var el = document.getElementById('vvmap-wrap');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { io.disconnect(); init(); } }, { rootMargin: '300px' });
+    io.observe(el);
+  } else { init(); }
+})();
+</script>
+
+<h2 id="villages">वरुण विहार के 12 गांव</h2>
+<p>एलडीए के अनुसार योजना सदर और सरोजिनी नगर तहसील के इन 12 गांवों की जमीन पर बन रही है (<a href="https://www.ldalucknow.in/varun-vihar-yojna/" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">एलडीए</a>):</p>
+<div class="dsd-village-grid"><span class="dsd-village-tag">भलिया</span><span class="dsd-village-tag">आदमपुर इंदवारा</span><span class="dsd-village-tag">बहरू</span><span class="dsd-village-tag">जलियामऊ</span><span class="dsd-village-tag">मदारपुर</span><span class="dsd-village-tag">इब्राहिमगंज</span><span class="dsd-village-tag">नकटौरा</span><span class="dsd-village-tag">गहलवारा</span><span class="dsd-village-tag">तेजकृष्ण खेड़ा</span><span class="dsd-village-tag">रेवरी</span><span class="dsd-village-tag">सकरा</span><span class="dsd-village-tag">डोना</span></div>
+<p>जमीन किसानों से सहमति के आधार पर खरीदी जा रही है। एलडीए की वेबसाइट पर करीब 450 बीघा की रजिस्ट्री, 105 बीघा पर कब्जा, ₹300 करोड़ का मुआवजा और 22,403 किसानों के चरणबद्ध पंजीकरण की जानकारी दी गई है (पेज पर तारीख नहीं लिखी)। अप्रैल 2026 की रिपोर्ट में 853 हेक्टेयर पर सहमति पत्र और 335 हेक्टेयर की रजिस्ट्री एलडीए के नाम बताई गई। (<a href="https://www.etvbharat.com/hi/state/lda-lucknow-largest-residential-project-varun-vihar-scheme-connected-city-registration-dates-final-plots-uttar-pradesh-news-ups26041600413" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">ईटीवी भारत</a>)</p>
+
+<h2 id="plots">पहले चरण के भूखंड — साइज, संख्या और कीमत</h2>
+<p>पहले चरण में <strong>काशी खंड, कैलाश खंड फेज-1 और कैलाश खंड फेज-2</strong> में कुल 2,847 भूखंड हैं। दर <strong>₹2,800 प्रति वर्गफुट</strong> है। (<a href="https://www.etvbharat.com/hi/state/lda-lucknow-launches-varun-vihar-naimish-nagar-schemes-4000-plots-booking-price-sizes-ups26092501968" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">ईटीवी भारत</a>)</p>
+<div class="dsd-table-wrap">
+<table>
+  <thead><tr><th>भूखंड का साइज</th><th>भूखंडों की संख्या</th><th>अनुमानित कीमत</th><th>पंजीकरण राशि (5%)</th></tr></thead>
+  <tbody>
+<tr><td><strong>112.5 वर्ग मीटर</strong> (करीब 1,211 वर्गफुट)</td><td>1,517</td><td>₹33.9 लाख</td><td>₹1.7 लाख</td></tr>
+<tr><td><strong>162 वर्ग मीटर</strong> (करीब 1,744 वर्गफुट)</td><td>460</td><td>₹48.8 लाख</td><td>₹2.4 लाख</td></tr>
+<tr><td><strong>200 वर्ग मीटर</strong> (करीब 2,153 वर्गफुट)</td><td>612</td><td>₹60.3 लाख</td><td>₹3.0 लाख</td></tr>
+<tr><td><strong>288 वर्ग मीटर</strong> (करीब 3,100 वर्गफुट)</td><td>68</td><td>₹86.8 लाख</td><td>₹4.3 लाख</td></tr>
+<tr><td><strong>300 वर्ग मीटर</strong> (करीब 3,229 वर्गफुट)</td><td>81</td><td>₹90.4 लाख</td><td>₹4.5 लाख</td></tr>
+<tr><td><strong>450 वर्ग मीटर</strong> (करीब 4,844 वर्गफुट)</td><td>109</td><td>₹1.36 करोड़</td><td>₹6.8 लाख</td></tr>
+  </tbody>
+</table>
+</div>
+<p style="font-size:13px;color:#6b7280;">कीमत का अनुमान: साइज × ₹2,800 प्रति वर्गफुट। कॉर्नर/पार्क-फेसिंग शुल्क और रजिस्ट्री के समय 12% फ्रीहोल्ड शुल्क अलग से। आरक्षित वर्ग के लिए पंजीकरण राशि 2.5% है। सही कीमत एलडीए की बुकलेट में देखें।</p>
+
+<h2 id="payment">भुगतान, किस्तें और छूट</h2>
+<div class="dsd-highlight">
+  <h4>भुगतान की शर्तें (वरुण विहार और नैमिष नगर दोनों पर लागू)</h4>
+  <ul>
+    <li><strong>बुकलेट</strong> — ₹1,100</li>
+    <li><strong>पंजीकरण राशि</strong> — भूखंड की कीमत का 5% (आरक्षित वर्ग के लिए 2.5%)</li>
+    <li><strong>किस्तें</strong> — 36 मासिक किस्तें, 9.7% ब्याज के साथ</li>
+    <li><strong>एकमुश्त भुगतान पर छूट</strong> — 45 दिन में पूरा भुगतान: 6%, 60 दिन में: 5%, 90 दिन में: 4%</li>
+    <li><strong>एकमुश्त भुगतान वालों को वरीयता</strong> — उनकी लॉटरी पहले निकलेगी (<a href="https://bhaskardigital.com/those-makingin-both-lda-houwill-up-to-6-discount-apply-by-october-24/" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">भास्कर डिजिटल</a>)</li>
+    <li><strong>फ्रीहोल्ड शुल्क</strong> — रजिस्ट्री के समय 12%</li>
+    <li><strong>पंजीकरण निरस्त कराने पर</strong> — 20% कटौती</li>
+  </ul>
+</div>
+<p style="font-size:13px;color:#6b7280;">शर्तों का स्रोत: <a href="https://www.amarujala.com/lucknow/up-dream-of-owning-a-home-capital-to-be-realized-naimish-nagar-varun-vihar-schemes-launched-find-out-2026-09-24" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">अमर उजाला, 24 सितंबर 2026</a></p>
+
+<h2 id="apply">पात्रता और आवेदन कैसे करें</h2>
+<p>पंजीकरण सिर्फ ऑनलाइन <strong>registration.ldalucknow.in</strong> पर होगा। अमर उजाला के अनुसार आवेदक की उम्र कम से कम 18 साल हो और उसे पहले एलडीए या किसी आवास प्राधिकरण से भूखंड/मकान आवंटित न हुआ हो। आरक्षण की श्रेणियां, आय प्रमाण पत्र और जरूरी दस्तावेजों के लिए हमारी <a href="https://dsdproperties.in/blog/lda-yojana-ews-lig-mig-aarakshan-aay-praman-patra-hindi-2026" style="color:#008080;font-weight:600;">एलडीए आरक्षण और आय प्रमाण पत्र गाइड</a> पढ़ें।</p>
+<div class="dsd-infobox">
+  <h4>ध्यान दें</h4>
+  <ul>
+    <li>पंजीकरण सिर्फ एलडीए की वेबसाइट पर करें। "एलडीए का प्लॉट दिलवा देंगे" कहने वाले किसी दलाल को पैसा न दें।</li>
+    <li>भूखंड का आवंटन लॉटरी से होगा। लॉटरी की तारीख एलडीए घोषित करेगा।</li>
+  </ul>
+</div>
+
+{{CONSULTATION_BUTTON:कौन सा साइज और श्रेणी चुनें? फ्री एक्सपर्ट सलाह}}
+
+<h2 id="masterplan">मास्टर प्लान में क्या-क्या है</h2>
+<p>एलडीए की वेबसाइट और ईटीवी भारत की रिपोर्टों के अनुसार योजना में ये सुविधाएं प्रस्तावित हैं:</p>
+<div class="dsd-highlight">
+  <ul>
+    <li><strong>करीब 300 एकड़ का लॉजिस्टिक्स पार्क</strong> (<a href="https://www.ldalucknow.in/varun-vihar-yojna/" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">एलडीए</a>) — लेआउट प्लान में सेक्टर 15 "ट्रांसपोर्ट नगर / गैर-प्रदूषणकारी उद्योग (MSME)" और लॉजिस्टिक्स हब के रूप में दिखाया गया है।</li>
+    <li><strong>हरित क्षेत्र</strong> — एलडीए की वेबसाइट पर 980 एकड़ से ज्यादा (पार्क, जल निकाय, गोल्फ कोर्स, खेल सुविधा, सेंट्रल और सेक्टर पार्क) लिखा है; ईटीवी भारत (अप्रैल 2026) ने 800 एकड़ बताया।</li>
+    <li><strong>अंतरराष्ट्रीय स्तर का गोल्फ कोर्स, करीब 70 एकड़ की प्राकृतिक झील और स्पोर्ट्स हब</strong> (<a href="https://www.etvbharat.com/hi/state/lda-lucknow-launches-varun-vihar-naimish-nagar-schemes-4000-plots-booking-price-sizes-ups26092501968" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">ईटीवी भारत</a>)</li>
+    <li><strong>25 सेक्टर, भूमिगत सेवाओं के साथ</strong> (<a href="https://www.ldalucknow.in/varun-vihar-yojna/" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">एलडीए</a>)</li>
+  </ul>
+</div>
+<p>पूरा लेआउट ऊपर के नक्शे में देखें या <a href="https://dsdproperties.in/public/images/maps/varun-vihar-layout.pdf" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">आधिकारिक लेआउट प्लान (PDF)</a> खोलें।</p>
+
+<h2 id="compare">वरुण विहार बनाम नैमिष नगर</h2>
+<p>दोनों योजनाएं 24 सितंबर 2026 को एक साथ लॉन्च हुईं और दोनों का पंजीकरण 24 अक्टूबर तक है।</p>
+<div class="dsd-table-wrap">
+<table>
+  <thead><tr><th>विशेषता</th><th>वरुण विहार</th><th><a href="https://dsdproperties.in/blog/naimish-nagar-yojana-lucknow-lda-plots-guide-2026-hindi" style="color:#008080;font-weight:600;">नैमिष नगर</a></th></tr></thead>
+  <tbody>
+    <tr><td><strong>स्थान</strong></td><td>आगरा एक्सप्रेसवे के पास</td><td>सीतापुर रोड, बीकेटी</td></tr>
+    <tr><td><strong>कुल क्षेत्रफल</strong></td><td>करीब 6,580 एकड़</td><td>करीब 4,100 एकड़</td></tr>
+    <tr><td><strong>एलडीए दर</strong></td><td>₹2,800/वर्गफुट</td><td>₹3,800/वर्गफुट</td></tr>
+    <tr><td><strong>पहले चरण के भूखंड</strong></td><td>2,847</td><td>1,673</td></tr>
+    <tr><td><strong>भूखंड साइज</strong></td><td>112.5–450 वर्ग मीटर</td><td>72–450 वर्ग मीटर</td></tr>
+    <tr><td><strong>सबसे छोटा भूखंड (अनुमानित)</strong></td><td>112.5 वर्ग मीटर — करीब ₹33.9 लाख</td><td>72 वर्ग मीटर — करीब ₹29.5 लाख</td></tr>
+  </tbody>
+</table>
+</div>
+<p style="font-size:13px;color:#6b7280;">स्रोत: <a href="https://www.amarujala.com/lucknow/lucknow-naimish-nagar-varun-vihar-schemes-gifted-to-the-city-residents-with-plots-and-multi-storey-projects-2026-09-23" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">अमर उजाला, 23 सितंबर 2026</a>, <a href="https://www.etvbharat.com/hi/state/lda-lucknow-launches-varun-vihar-naimish-nagar-schemes-4000-plots-booking-price-sizes-ups26092501968" style="color:#008080;font-weight:600;" target="_blank" rel="noopener">ईटीवी भारत</a></p>
+
+<h2 id="savdhani">योजना के आसपास निजी जमीन खरीद रहे हैं? पहले ये जांचें</h2>
+<p>यह जांच उनके लिए है जो योजना क्षेत्र के आसपास किसी निजी विक्रेता से जमीन खरीद रहे हैं। एलडीए की योजना में भूखंड लेने वालों को सिर्फ registration.ldalucknow.in पर आवेदन करना है।</p>
+<div class="dsd-infobox">
+  <ul>
+    <li>जमीन वरुण विहार की सीमा (12 गांव) में तो नहीं है? — एलडीए से पुष्टि करें; योजना की जमीन एलडीए किसानों से खरीद रहा है</li>
+    <li>विक्रेता का नाम खतौनी में है? — upbhulekh.gov.in पर जांचें</li>
+    <li>कोई कर्ज या बंधक तो नहीं? — <a href="https://dsdproperties.in/blog/encumbrance-certificate-lucknow-how-to-apply-online" style="color:#008080;font-weight:600;">भार मुक्त प्रमाण पत्र (EC)</a> लें</li>
+    <li>पुरानी रजिस्ट्री की चेन देखें — <a href="https://dsdproperties.in/blog/igrsup-lucknow-property-search-tutorial-hindi" style="color:#008080;font-weight:600;">IGRSUP पर सम्पत्ति विवरण</a></li>
+    <li>खेती की जमीन है? — <a href="https://dsdproperties.in/blog/dhara-80-krishi-bhumi-aawasiya-hindi-lucknow-2026" style="color:#008080;font-weight:600;">धारा 80</a> के बिना उस पर नक्शा पास नहीं होगा</li>
+    <li>दाखिल-खारिज विक्रेता के नाम पर है? — तहसील से जांचें</li>
+    <li>कोई कोर्ट केस तो नहीं? — वकील से जांच करवाएं</li>
+  </ul>
+</div>
+
+{{CONSULTATION_BUTTON:पैसे देने से पहले — हम जांचते हैं। फ्री प्रॉपर्टी चेक}}
+
+<!-- RELATED READS -->
+<h2 style="margin-top:40px;">📚 ये भी पढ़ें</h2>
+<div class="dsd-related-inline">
+  <a class="dsd-link-card" href="https://dsdproperties.in/blog/naimish-nagar-yojana-lucknow-lda-plots-guide-2026-hindi">
+    <div class="dsd-link-label">योजना गाइड</div>
+    <div class="dsd-link-title">नैमिष नगर योजना लखनऊ 2026: 1,673 प्लॉट, ₹3,800/वर्गफुट, पंजीकरण 24 अक्टूबर तक</div>
+  </a>
+  <a class="dsd-link-card" href="https://dsdproperties.in/blog/lda-yojana-ews-lig-mig-aarakshan-aay-praman-patra-hindi-2026">
+    <div class="dsd-link-label">आवेदन गाइड</div>
+    <div class="dsd-link-title">एलडीए योजनाओं में EWS, LIG, MIG श्रेणी, आरक्षण और आय प्रमाण पत्र</div>
+  </a>
+  <a class="dsd-link-card" href="https://dsdproperties.in/blog/it-city-lucknow-lda-plots-guide-hindi-2026" target="_blank">
+    <div class="dsd-link-label">LDA गाइड</div>
+    <div class="dsd-link-title">आईटी सिटी लखनऊ 2026: LDA प्लॉट, कीमत, 11 गाँव और पूरी जानकारी</div>
+  </a>
+  <a class="dsd-link-card" href="https://dsdproperties.in/blog/wellness-city-lucknow-lda-guide-hindi-2026" target="_blank">
+    <div class="dsd-link-label">LDA गाइड</div>
+    <div class="dsd-link-title">Wellness City लखनऊ 2026: LDA प्लॉट, कीमत, 6 गाँव और पूरी जानकारी</div>
+  </a>
+  <a class="dsd-link-card" href="https://dsdproperties.in/blog/lda-illegal-colony-list-lucknow-2026" target="_blank">
+    <div class="dsd-link-label">कानूनी जानकारी</div>
+    <div class="dsd-link-title">लखनऊ की 241 अवैध कॉलोनियाँ — खरीदने से पहले यह लिस्ट देखें</div>
+  </a>
+  <a class="dsd-link-card" href="https://dsdproperties.in/blog/check-property-ownership-records-lucknow-hindi" target="_blank">
+    <div class="dsd-link-label">वेरिफिकेशन गाइड</div>
+    <div class="dsd-link-title">लखनऊ में प्रॉपर्टी मालिकाना हक ऑनलाइन कैसे जाँचें — 2026 गाइड</div>
+  </a>
+  <a class="dsd-link-card" href="https://dsdproperties.in/blog/transforming-agricultural-land-residential-property-lucknow" target="_blank">
+    <div class="dsd-link-label">कानूनी गाइड</div>
+    <div class="dsd-link-title">लखनऊ में खेती की ज़मीन को आवासीय में कैसे बदलें</div>
+  </a>
+  <a class="dsd-link-card" href="https://dsdproperties.in/blog/lucknow-real-estate-market-predictions-2026-2027-hindi" target="_blank">
+    <div class="dsd-link-label">बाज़ार रुझान</div>
+    <div class="dsd-link-title">लखनऊ रियल एस्टेट 2026-2027: कीमत पूर्वानुमान और टॉप हॉटस्पॉट</div>
+  </a>
+</div>
+
+<section id="FAQs">
+<h2 style="margin-top:40px;">❓ अक्सर पूछे जाने वाले सवाल — वरुण विहार योजना</h2>
+<h3>वरुण विहार योजना में आवेदन की आखिरी तारीख क्या है?</h3>
+<p style="display:none">पहले चरण के 2,847 भूखंडों का पंजीकरण 24 सितंबर से 24 अक्टूबर 2026 तक registration.ldalucknow.in पर चल रहा है।</p>
+<h3>वरुण विहार में भूखंड की कीमत कितनी है?</h3>
+<p style="display:none">एलडीए ने दर ₹2,800 प्रति वर्गफुट तय की है। 112.5 वर्ग मीटर का भूखंड करीब ₹33.9 लाख और 450 वर्ग मीटर का करीब ₹1.36 करोड़ का है। कॉर्नर/पार्क-फेसिंग और 12% फ्रीहोल्ड शुल्क अलग हैं।</p>
+<h3>पंजीकरण के लिए कितना पैसा जमा करना होगा?</h3>
+<p style="display:none">₹1,100 की बुकलेट के बाद भूखंड की कीमत का 5% (आरक्षित वर्ग के लिए 2.5%) जमा करना होगा। 112.5 वर्ग मीटर के भूखंड के लिए यह करीब ₹1.7 लाख है।</p>
+<h3>क्या एकमुश्त भुगतान करने पर कोई फायदा है?</h3>
+<p style="display:none">हां। 45 दिन में पूरा भुगतान करने पर 6%, 60 दिन में 5% और 90 दिन में 4% छूट मिलती है। भास्कर डिजिटल के अनुसार एकमुश्त भुगतान चुनने वालों की लॉटरी पहले निकलेगी।</p>
+<h3>वरुण विहार लखनऊ में कहां है?</h3>
+<p style="display:none">आगरा–लखनऊ एक्सप्रेसवे के पास, सदर और सरोजिनी नगर तहसील में। योजना के उत्तर में आगरा–लखनऊ एक्सप्रेसवे और दक्षिण में फतेहगंज–मोहन रोड है।</p>
+<h3>वरुण विहार में कौन-कौन से गांव हैं?</h3>
+<p style="display:none">एलडीए के अनुसार 12 गांव: भलिया, आदमपुर इंदवारा, बहरू, जलियामऊ, मदारपुर, इब्राहिमगंज, नकटौरा, गहलवारा, तेजकृष्ण खेड़ा, रेवरी, सकरा और डोना।</p>
+<h3>पहले चरण में किन खंडों में भूखंड हैं?</h3>
+<p style="display:none">काशी खंड, कैलाश खंड फेज-1 और कैलाश खंड फेज-2 में कुल 2,847 भूखंड हैं — 112.5 वर्ग मीटर के 1,517, 162 के 460, 200 के 612, 288 के 68, 300 के 81 और 450 वर्ग मीटर के 109।</p>
+<h3>वरुण विहार में कौन आवेदन कर सकता है?</h3>
+<p style="display:none">अमर उजाला के अनुसार 18 साल से ज्यादा उम्र का कोई भी व्यक्ति, जिसे पहले एलडीए या किसी आवास प्राधिकरण से भूखंड/मकान न मिला हो। पूरी शर्तें एलडीए की बुकलेट में दी गई हैं।</p>
+</section>
+<script>
+// The site-wide script opens/closes #FAQs answers; this only keeps the +/− icon in sync.
+(function () {
+  function initFAQ() {
+    document.querySelectorAll("#FAQs h3").forEach(function (q) {
+      q.addEventListener("click", function () {
+        setTimeout(function () {
+          document.querySelectorAll("#FAQs h3").forEach(function (x) { x.classList.toggle("active", x.classList.contains("faq-open")); });
+        }, 0);
+      });
+    });
+  }
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", initFAQ); } else { initFAQ(); }
+})();
+</script>

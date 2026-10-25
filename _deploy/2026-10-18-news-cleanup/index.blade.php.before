@@ -1,0 +1,558 @@
+{{--
+    resources/views/news/index.blade.php
+    Redesigned: magazine-grid style matching blog design language.
+--}}
+
+@extends('layouts.app-article')
+
+@section('seo')
+    <title>Lucknow Real Estate News — LDA Updates, Price Trends & More | DSD Properties</title>
+    <meta name="description"  content="Stay updated with the latest Lucknow real estate news — LDA plot schemes, IT City updates, price trends, RERA updates and new projects. Updated daily by DSD Properties.">
+    <meta name="keywords"     content="Lucknow real estate news, LDA updates, IT City Lucknow, Gomti Nagar property news, Lucknow property prices, RERA Lucknow">
+    <link rel="canonical"     href="{{ url('/news') }}">
+    <meta name="robots"       content="index, follow">
+
+    <meta property="og:type"        content="website">
+    <meta property="og:title"       content="Lucknow Real Estate News | DSD Properties">
+    <meta property="og:description" content="Latest LDA updates, IT City news, property price trends in Lucknow. Updated daily.">
+    <meta property="og:url"         content="{{ url('/news') }}">
+    <meta property="og:site_name"   content="DSD Properties">
+    <meta property="og:image"       content="{{ asset('images/og-news.png') }}">
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="Lucknow Real Estate News | DSD Properties">
+    <meta name="twitter:description" content="Latest LDA updates, IT City news, price trends in Lucknow.">
+    <meta name="twitter:image"       content="{{ asset('images/og-news.png') }}">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Lucknow Real Estate News",
+        "description": "Latest Lucknow real estate news including LDA updates, IT City, price trends and new projects.",
+        "url": "{{ url('/news') }}",
+        "publisher": {
+            "@type": "Organization",
+            "name": "DSD Properties",
+            "url": "{{ url('/') }}",
+            "logo": { "@type": "ImageObject", "url": "{{ asset('images/logo.webp') }}" }
+        }
+    }
+    </script>
+
+    <style>
+        /* ─── Design tokens ─────────────────────────────── */
+        :root {
+            --np-navy:   #0f1f5c;
+            --np-blue:   #1a3a8f;
+            --np-orange: #FF5C00;
+            --np-teal:   #008080;
+        }
+
+        /* ─── Base ──────────────────────────────────────── */
+        .np { font-family:'Poppins',sans-serif; overflow-x:hidden; }
+        .np-c { max-width:1100px; margin:0 auto; padding:0 20px; }
+
+        /* ─── Scroll reveal ─────────────────────────────── */
+        .np-rv {
+            opacity:0; transform:translateY(22px);
+            transition:opacity .55s ease, transform .55s ease;
+            transition-delay:var(--rd,0s);
+        }
+        .np-rv.visible { opacity:1; transform:none; }
+
+        /* ─── HERO ──────────────────────────────────────── */
+        .np-hero {
+            position:relative; overflow:hidden;
+            background:linear-gradient(135deg,#0f1f5c 0%,#1a3a8f 50%,#2563eb 100%);
+            padding:72px 0 0;
+        }
+        .np-hero__grid {
+            position:absolute; inset:0;
+            background-image:
+                linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+                linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+            background-size:50px 50px;
+        }
+        @keyframes np-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+        .np-orb { position:absolute; border-radius:50%; filter:blur(80px); pointer-events:none; }
+        .np-orb--a { width:440px;height:440px;background:rgba(37,99,235,.3);top:-100px;right:-60px;animation:np-float 9s ease-in-out infinite; }
+        .np-orb--b { width:300px;height:300px;background:rgba(255,92,0,.14);bottom:0;left:-40px;animation:np-float 11s ease-in-out infinite 3s; }
+
+        .np-hero__inner { position:relative; z-index:2; text-align:center; padding-bottom:40px; }
+
+        .np-hero__badge {
+            display:inline-flex; align-items:center; gap:8px;
+            background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
+            border-radius:99px; padding:6px 16px; margin-bottom:18px;
+            font-size:11px; font-weight:500; color:rgba(255,255,255,.82);
+            backdrop-filter:blur(8px);
+        }
+        .np-hero__badge-dot { width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block; }
+
+        .np-hero__h1 {
+            font-size:clamp(1.9rem,4.5vw,3.1rem); font-weight:800; color:#fff;
+            line-height:1.13; margin-bottom:14px; letter-spacing:-.3px;
+        }
+        .np-hero__h1 em { font-style:normal; color:#FF5C00; }
+        .np-hero__sub {
+            font-size:.92rem; color:rgba(255,255,255,.68);
+            line-height:1.8; max-width:510px; margin:0 auto 32px;
+        }
+        .np-hero__stats {
+            display:flex; justify-content:center; gap:40px; flex-wrap:wrap;
+            padding-top:28px; border-top:1px solid rgba(255,255,255,.1);
+        }
+        .np-stat-val { font-size:1.55rem; font-weight:800; color:#fff; line-height:1; }
+        .np-stat-val em { font-style:normal; color:#FF5C00; }
+        .np-stat-lbl { font-size:.68rem; color:rgba(255,255,255,.5); margin-top:4px; text-transform:uppercase; letter-spacing:1px; }
+
+        /* wave */
+        .np-wave { line-height:0; position:relative; z-index:2; }
+        .np-wave svg { display:block; width:100%; }
+
+        /* ─── TICKER ─────────────────────────────────────── */
+        @keyframes np-marquee { from{transform:translateX(100vw)} to{transform:translateX(-100%)} }
+        .np-marquee { display:inline-block; white-space:nowrap; animation:np-marquee 38s linear infinite; }
+        .np-marquee:hover { animation-play-state:paused; }
+
+        /* ─── FILTER PILLS ───────────────────────────────── */
+        .np-pills-wrap { overflow-x:auto; -ms-overflow-style:none; scrollbar-width:none; }
+        .np-pills-wrap::-webkit-scrollbar { display:none; }
+        .np-pill {
+            white-space:nowrap; padding:7px 18px; border-radius:99px;
+            font-size:.78rem; font-weight:600; text-decoration:none;
+            border:1.5px solid #d1d5db; background:#fff; color:#4b5563;
+            display:inline-block; transition:all .2s;
+        }
+        .np-pill:hover { border-color:#0f1f5c; color:#0f1f5c; text-decoration:none; }
+        .np-pill--active { background:#0f1f5c !important; color:#fff !important; border-color:#0f1f5c !important; }
+
+        /* ─── Category tag badges ─────────────────────────── */
+        .tag-lda      { background:#f0fdf4; color:#16a34a; border-color:#bbf7d0; }
+        .tag-it-city  { background:#eff6ff; color:#2563eb; border-color:#bfdbfe; }
+        .tag-price    { background:#fff7ed; color:#ea580c; border-color:#fed7aa; }
+        .tag-projects { background:#faf5ff; color:#7c3aed; border-color:#e9d5ff; }
+        .tag-policy   { background:#fef2f2; color:#dc2626; border-color:#fecaca; }
+        .tag-rera     { background:#f0fdfa; color:#0d9488; border-color:#99f6e4; }
+        .tag-default  { background:#f9fafb; color:#6b7280; border-color:#e5e7eb; }
+        .np-tag { font-size:.67rem; font-weight:700; padding:2px 10px; border-radius:99px; border-width:1px; border-style:solid; }
+
+        .hot-badge { font-size:.62rem; font-weight:700; background:#fff5f5; color:#ef4444; border:1px solid #fecaca; padding:2px 8px; border-radius:99px; white-space:nowrap; }
+
+        /* ─── Section heading ────────────────────────────── */
+        .np-sec-label { font-size:10px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#008080; margin-bottom:6px; }
+        .np-sec-title { font-size:clamp(1.25rem,2.4vw,1.7rem); font-weight:800; color:#111827; line-height:1.2; }
+
+        /* ─── FEATURED CARD ──────────────────────────────── */
+        .np-featured {
+            background:#fff; border:1px solid #e5e7eb; border-radius:20px;
+            overflow:hidden; display:grid; grid-template-columns:260px 1fr;
+            box-shadow:0 8px 40px rgba(0,0,0,.07);
+            transition:transform .25s, box-shadow .25s;
+        }
+        .np-featured:hover { transform:translateY(-4px); box-shadow:0 20px 56px rgba(0,0,0,.11); }
+        @media(max-width:680px){ .np-featured{ grid-template-columns:1fr; } }
+
+        .np-featured__panel {
+            padding:32px 26px; display:flex; flex-direction:column;
+            justify-content:space-between; position:relative; overflow:hidden;
+        }
+        .np-featured__panel::before {
+            content:''; position:absolute; inset:0;
+            background:rgba(0,0,0,.28);
+        }
+        .np-featured__panel::after {
+            content:''; position:absolute; inset:0;
+            background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+                             linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+            background-size:32px 32px;
+        }
+        .np-featured__panel > * { position:relative; z-index:1; }
+        .np-featured__panel-eyebrow { font-size:.62rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.65); margin-bottom:6px; }
+        .np-featured__panel-num { font-size:5rem; font-weight:900; color:rgba(255,255,255,.15); line-height:1; margin-bottom:auto; }
+        .np-featured__panel-label { font-size:.82rem; font-weight:700; color:#fff; }
+        .np-featured__panel-date  { font-size:.7rem; color:rgba(255,255,255,.5); margin-top:3px; }
+
+        .np-featured__body { padding:32px 28px; display:flex; flex-direction:column; }
+        @media(max-width:680px){ .np-featured__body{ padding:22px 20px; } }
+
+        .np-featured__meta { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+        .np-featured__title {
+            font-size:1.3rem; font-weight:800; color:#111827; line-height:1.35;
+            margin-bottom:12px; text-decoration:none; display:block; transition:color .2s;
+        }
+        .np-featured__title:hover { color:#0f1f5c; text-decoration:none; }
+        .np-featured__summary { font-size:.875rem; color:#6b7280; line-height:1.78; margin-bottom:22px; flex:1; }
+        .np-featured__footer { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:auto; }
+
+        /* ─── NEWS GRID CARDS ────────────────────────────── */
+        .np-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+        @media(max-width:900px){ .np-grid{ grid-template-columns:1fr 1fr; } }
+        @media(max-width:560px){ .np-grid{ grid-template-columns:1fr; } }
+
+        .np-card {
+            background:#fff; border:1px solid #e5e7eb; border-radius:16px;
+            overflow:hidden; display:flex; flex-direction:column;
+            transition:transform .25s, box-shadow .25s, border-color .25s;
+        }
+        .np-card:hover { transform:translateY(-5px); box-shadow:0 16px 44px rgba(0,0,0,.09); }
+
+        .np-card__header {
+            padding:18px 20px 16px; position:relative; overflow:hidden;
+        }
+        .np-card__header::after {
+            content:''; position:absolute; inset:0;
+            background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+                             linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+            background-size:24px 24px;
+        }
+        .np-card__header > * { position:relative; z-index:1; }
+        .np-card__cat-label { font-size:.62rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.75); }
+        .np-card__header-title {
+            font-size:.92rem; font-weight:700; color:#fff;
+            line-height:1.35; margin-top:6px;
+            display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+        }
+
+        .np-card__body { padding:16px 20px 20px; display:flex; flex-direction:column; flex:1; }
+        .np-card__meta { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
+        .np-card__summary { font-size:.8rem; color:#6b7280; line-height:1.68; margin-bottom:16px; flex:1; }
+        .np-card__footer { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px; margin-top:auto; }
+
+        /* ─── Buttons ────────────────────────────────────── */
+        .np-btn {
+            display:inline-flex; align-items:center; gap:8px; font-weight:700;
+            border-radius:10px; text-decoration:none; padding:11px 22px;
+            font-size:.83rem; background:linear-gradient(135deg,#FF5C00,#ff8840);
+            color:#fff; box-shadow:0 5px 18px rgba(255,92,0,.28); transition:all .22s; border:none; cursor:pointer;
+        }
+        .np-btn:hover { transform:translateY(-2px); box-shadow:0 8px 26px rgba(255,92,0,.4); color:#fff; text-decoration:none; }
+
+        .np-read-link {
+            display:inline-flex; align-items:center; gap:5px;
+            font-size:.78rem; font-weight:600; color:#FF5C00;
+            text-decoration:none; transition:gap .2s;
+        }
+        .np-read-link:hover { gap:9px; text-decoration:none; color:#FF5C00; }
+
+        /* ─── Mobile buy/sell bar ────────────────────────── */
+        .mob-cta-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:10px 14px;background:#fff;border-top:1px solid #e5e7eb;box-shadow:0 -4px 18px rgba(0,0,0,.12);gap:10px}
+        @media(max-width:1023px){.mob-cta-bar{display:flex}body{padding-bottom:72px}}
+        .mob-cta-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:13px 10px;border-radius:10px;font-weight:700;font-size:.88rem;text-decoration:none;letter-spacing:.1px;transition:opacity .15s}
+        .mob-cta-bar a:hover{opacity:.88;text-decoration:none}
+        .mob-cta-buy{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff !important}
+        .mob-cta-sell{background:linear-gradient(135deg,#011f4b,#013870);color:#fff !important}
+    </style>
+@endsection
+
+@section('content')
+
+@php
+    $categories = [
+        'all'      => 'All',
+        'lda'      => 'LDA Updates',
+        'it-city'  => 'IT City',
+        'price'    => 'Price Trends',
+        'projects' => 'New Projects',
+        'policy'   => 'Policy',
+        'rera'     => 'RERA',
+    ];
+    $activeCategory = $category ?? 'all';
+
+    $catColor = [
+        'lda'      => '#16a34a',
+        'it-city'  => '#2563eb',
+        'price'    => '#ea580c',
+        'projects' => '#7c3aed',
+        'policy'   => '#dc2626',
+        'rera'     => '#0d9488',
+    ];
+    $catGradient = [
+        'lda'      => 'linear-gradient(135deg,#16a34a,#0f7a32)',
+        'it-city'  => 'linear-gradient(135deg,#2563eb,#1440a8)',
+        'price'    => 'linear-gradient(135deg,#ea580c,#c04508)',
+        'projects' => 'linear-gradient(135deg,#7c3aed,#5a22c8)',
+        'policy'   => 'linear-gradient(135deg,#dc2626,#b01a1a)',
+        'rera'     => 'linear-gradient(135deg,#0d9488,#0a766d)',
+        'default'  => 'linear-gradient(135deg,#0f1f5c,#1a3a8f)',
+    ];
+    $tagClass = [
+        'lda'      => 'tag-lda',
+        'it-city'  => 'tag-it-city',
+        'price'    => 'tag-price',
+        'projects' => 'tag-projects',
+        'policy'   => 'tag-policy',
+        'rera'     => 'tag-rera',
+    ];
+
+    $allItems  = collect($articles->items());
+    $featured  = $allItems->first();
+    $restItems = $allItems->slice(1);
+@endphp
+
+{{-- ══ HERO ════════════════════════════════════════════════ --}}
+<section class="np np-hero">
+    <div class="np-hero__grid"></div>
+    <div class="np-orb np-orb--a"></div>
+    <div class="np-orb np-orb--b"></div>
+
+    <div class="np-c np-hero__inner">
+        <div class="np-hero__badge">
+            <span class="np-hero__badge-dot"></span>
+            Updated Daily — Lucknow Real Estate
+        </div>
+
+        <h1 class="np-hero__h1">
+            Lucknow Property <em>News</em>
+        </h1>
+        <p class="np-hero__sub">
+            LDA updates, IT City announcements, price trends and new projects —
+            everything a Lucknow property buyer needs to know.
+        </p>
+
+        <div class="np-hero__stats">
+            <div>
+                <div class="np-stat-val">{{ $articles->total() }}<em>+</em></div>
+                <div class="np-stat-lbl">Stories</div>
+            </div>
+            <div>
+                <div class="np-stat-val">6</div>
+                <div class="np-stat-lbl">Categories</div>
+            </div>
+            <div>
+                <div class="np-stat-val">Daily</div>
+                <div class="np-stat-lbl">Updates</div>
+            </div>
+            <div>
+                <div class="np-stat-val">100<em>%</em></div>
+                <div class="np-stat-lbl">Lucknow Only</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="np-wave">
+        <svg viewBox="0 0 1440 52" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M0 52L1440 52L1440 26C1200 0 960 0 720 26C480 52 240 52 0 26L0 52Z" fill="#f9fafb"/>
+        </svg>
+    </div>
+</section>
+
+{{-- ══ BREAKING TICKER ═════════════════════════════════════ --}}
+@if($articles->count() > 0)
+<div style="background:#111827; overflow:hidden; padding:9px 0; display:flex; align-items:center; gap:12px; padding-left:16px;">
+    <span style="background:rgba(250,204,21,.12); color:#facc15; border:1px solid rgba(250,204,21,.3);
+                 font-size:9px; font-weight:800; letter-spacing:.18em; text-transform:uppercase;
+                 padding:3px 10px; border-radius:4px; white-space:nowrap; flex-shrink:0;">
+        LIVE
+    </span>
+    <div style="overflow:hidden; flex:1;">
+        <div class="np-marquee" style="color:#d1d5db; font-size:11.5px;">
+            @foreach($articles->take(6) as $t)
+                {{ $t->title }} &nbsp;&nbsp;·&nbsp;&nbsp;
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
+
+{{-- ══ FILTER PILLS ════════════════════════════════════════ --}}
+<div style="background:#f9fafb; border-bottom:1px solid #e5e7eb; box-shadow:0 1px 4px rgba(0,0,0,.05);
+            position:sticky; top:68px; z-index:30;">
+    <div class="np-pills-wrap np-c" style="padding-top:10px; padding-bottom:10px;">
+        <div style="display:flex; gap:8px; width:max-content;">
+            @foreach($categories as $key => $label)
+                <a href="{{ $key === 'all' ? route('news.index') : route('news.index', ['category' => $key]) }}"
+                   class="np-pill {{ $activeCategory === $key ? 'np-pill--active' : '' }}">
+                    {{ $label }}
+                </a>
+            @endforeach
+        </div>
+    </div>
+</div>
+
+{{-- ══ MAIN CONTENT ════════════════════════════════════════ --}}
+<div style="background:#f9fafb; padding:44px 0 80px;">
+<div class="np-c">
+
+    {{-- Section header --}}
+    <div style="margin-bottom:28px;" class="np-rv" style="--rd:.0s">
+        <p class="np-sec-label">Latest Updates</p>
+        <h2 class="np-sec-title">
+            @if($activeCategory !== 'all')
+                {{ $categories[$activeCategory] ?? 'News' }}
+            @else
+                All Stories
+            @endif
+            <span style="font-size:.9rem; font-weight:500; color:#9ca3af; margin-left:10px;">
+                ({{ $articles->total() }})
+            </span>
+        </h2>
+    </div>
+
+    @if($articles->isEmpty())
+        {{-- Empty state --}}
+        <div style="text-align:center; padding:80px 0; background:#fff; border-radius:20px; border:1px solid #e5e7eb;" class="np-rv">
+            <div style="font-size:3rem; margin-bottom:14px;">📰</div>
+            <p style="font-size:1.05rem; font-weight:700; color:#374151; margin-bottom:6px;">No articles yet</p>
+            <p style="font-size:.85rem; color:#9ca3af;">Check back soon — updated daily at 8 AM.</p>
+        </div>
+
+    @else
+
+        {{-- ── FEATURED ARTICLE ────────────────────────── --}}
+        @if($featured)
+        @php
+            $fCat      = $featured->category ?? 'default';
+            $fGrad     = $catGradient[$fCat] ?? $catGradient['default'];
+            $fTagCls   = $tagClass[$fCat] ?? 'tag-default';
+        @endphp
+        <div class="np-featured np-rv" style="margin-bottom:28px; --rd:.05s">
+
+            {{-- Coloured panel --}}
+            <div class="np-featured__panel" style="background:{{ $fGrad }};">
+                <div>
+                    <p class="np-featured__panel-eyebrow">{{ $featured->category_label }}</p>
+                    <div class="np-featured__panel-num">01</div>
+                </div>
+                <div>
+                    <p class="np-featured__panel-label">Latest Story</p>
+                    <p class="np-featured__panel-date">{{ $featured->created_at->format('M j, Y') }}</p>
+                </div>
+            </div>
+
+            {{-- Body --}}
+            <div class="np-featured__body">
+                <div class="np-featured__meta">
+                    <span class="np-tag {{ $fTagCls }}">{{ $featured->category_label }}</span>
+                    @if($featured->is_hot)
+                        <span class="hot-badge">🔥 HOT</span>
+                    @endif
+                    <span style="font-size:.72rem; color:#9ca3af;">{{ $featured->created_at->diffForHumans() }}</span>
+                </div>
+
+                <a href="{{ route('news.show', $featured->slug) }}" class="np-featured__title">
+                    {{ $featured->title }}
+                </a>
+                <p class="np-featured__summary">{{ $featured->summary }}</p>
+
+                <div class="np-featured__footer">
+                    @if($featured->source_name)
+                        <span style="font-size:.72rem; color:#9ca3af;">Source: {{ $featured->source_name }}</span>
+                    @else
+                        <span></span>
+                    @endif
+                    <a href="{{ route('news.show', $featured->slug) }}" class="np-btn">
+                        Read Article
+                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        @endif
+
+        {{-- ── MAGAZINE GRID ────────────────────────────── --}}
+        @if($restItems->count() > 0)
+        <div class="np-grid">
+            @foreach($restItems as $article)
+                @php
+                    $cat    = $article->category ?? 'default';
+                    $grad   = $catGradient[$cat] ?? $catGradient['default'];
+                    $tagCls = $tagClass[$cat] ?? 'tag-default';
+                    $delay  = $loop->index * 0.06;
+                @endphp
+                <div class="np-card np-rv" style="--rd:{{ $delay }}s">
+
+                    {{-- Coloured header --}}
+                    <div class="np-card__header" style="background:{{ $grad }};">
+                        <p class="np-card__cat-label">{{ $article->category_label }}</p>
+                        <p class="np-card__header-title">{{ $article->title }}</p>
+                    </div>
+
+                    {{-- White body --}}
+                    <div class="np-card__body">
+                        <div class="np-card__meta">
+                            <span class="np-tag {{ $tagCls }}">{{ $article->category_label }}</span>
+                            @if($article->is_hot)
+                                <span class="hot-badge">🔥</span>
+                            @endif
+                            <span style="font-size:.68rem; color:#9ca3af;">{{ $article->created_at->diffForHumans() }}</span>
+                        </div>
+                        <p class="np-card__summary">{{ Str::limit($article->summary, 110) }}</p>
+                        <div class="np-card__footer">
+                            @if($article->source_name)
+                                <span style="font-size:.67rem; color:#9ca3af;">{{ $article->source_name }}</span>
+                            @else
+                                <span></span>
+                            @endif
+                            <a href="{{ route('news.show', $article->slug) }}" class="np-read-link">
+                                Read more
+                                <svg width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        @endif
+
+        {{-- Pagination --}}
+        @if($articles->hasPages())
+            <div style="margin-top:40px;">
+                {{ $articles->appends(['category' => $activeCategory])->links() }}
+            </div>
+        @endif
+
+    @endif
+
+    {{-- ── CTA BANNER ──────────────────────────────────── --}}
+    <div class="np-rv" style="margin-top:60px; border-radius:20px; padding:44px 28px;
+                text-align:center; color:#fff; --rd:.08s; position:relative; overflow:hidden;
+                background:linear-gradient(135deg,#0f1f5c 0%,#1a3a8f 50%,#2563eb 100%);">
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;"></div>
+        <div style="position:relative; z-index:1;">
+            <p style="font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#93c5fd; margin-bottom:8px;">Free Service</p>
+            <h3 style="font-size:1.45rem; font-weight:800; margin-bottom:10px; color:#fff;">Know Your Property's True Value</h3>
+            <p style="font-size:.88rem; color:#bfdbfe; margin-bottom:28px; max-width:380px; margin-left:auto; margin-right:auto; line-height:1.75;">
+                Get an AI-assisted valuation for any Lucknow property in under 2 minutes.
+                No agent. No fee.
+            </p>
+            <a href="{{ url('/') }}"
+               style="display:inline-flex; align-items:center; gap:8px; background:#fff; color:#0f1f5c; font-weight:800;
+                      font-size:.88rem; padding:13px 32px; border-radius:99px; text-decoration:none;
+                      box-shadow:0 6px 24px rgba(0,0,0,.2); transition:all .2s;"
+               onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 32px rgba(0,0,0,.25)'"
+               onmouseout="this.style.transform='none';this.style.boxShadow='0 6px 24px rgba(0,0,0,.2)'">
+                Get Free Valuation →
+            </a>
+        </div>
+    </div>
+
+</div>
+</div>
+
+{{-- ══ MOBILE BUY / SELL BAR ════════════════════════════ --}}
+@include('components.mobile-cta-bar')
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                observer.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.np-rv').forEach(function(el) {
+        observer.observe(el);
+    });
+});
+</script>
+@endpush
+
+@endsection

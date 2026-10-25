@@ -1,0 +1,49 @@
+{
+  "name": "DSD Properties — Seller",
+  "short_name": "DSD Seller",
+  "description": "List and manage your properties with DSD Properties, Lucknow.",
+  "id": "/seller/dashboard",
+  "start_url": "/seller/dashboard",
+  "scope": "/seller/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f7fb",
+  "theme_color": "#011f4b",
+  "lang": "en-IN",
+  "dir": "ltr",
+  "categories": ["business", "productivity"],
+  "icons": [
+    {
+      "src": "/seller-app/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/seller-app/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/seller-app/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Post a new property",
+      "short_name": "Post property",
+      "url": "/seller/listings/create",
+      "icons": [{ "src": "/seller-app/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "My listings",
+      "short_name": "Listings",
+      "url": "/seller/listings",
+      "icons": [{ "src": "/seller-app/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

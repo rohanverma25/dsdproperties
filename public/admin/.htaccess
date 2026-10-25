@@ -1,0 +1,26 @@
+# Static assets for the installable admin web app.
+# These are real files, so Laravel's front controller never sees them.
+
+# Many shared hosts don't know the .webmanifest extension.
+<IfModule mod_mime.c>
+    AddType application/manifest+json .webmanifest
+</IfModule>
+
+<IfModule mod_headers.c>
+    # The service worker must never be served stale, or updates never reach
+    # installed phones. Revalidate on every request.
+    <FilesMatch "sw\.js$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Service-Worker-Allowed "/admin/"
+    </FilesMatch>
+
+    # Icons are content-hashed by name only when we bump them, so keep this modest.
+    <FilesMatch "\.(png|webmanifest)$">
+        Header set Cache-Control "public, max-age=86400"
+    </FilesMatch>
+</IfModule>
+
+# Never allow browsing this folder.
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>

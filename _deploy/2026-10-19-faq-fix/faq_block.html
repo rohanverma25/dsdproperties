@@ -1,0 +1,114 @@
+<style>
+/* ── Blog FAQ accordion (rewritten 2026-10-19) ─────────────────────────── */
+.faq-h3-trigger{cursor:pointer;position:relative;padding-right:28px;user-select:none}
+.faq-h3-trigger::after{content:'+';position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:1.2em;font-weight:400;color:#008080;transition:transform .25s}
+.faq-h3-trigger.faq-open::after{content:'−'}
+.faq-li-class.faq-open{background:#fff;box-shadow:0 5px 15px rgba(0,0,0,.1)}
+
+/* Questions that carry their own inline card styling: keep room for the +/− icon */
+.faq-h3-trigger[style]{padding-right:48px !important}
+.faq-h3-trigger[style]::after{right:18px}
+
+/* FAQs whose anchor sits on the heading: the script wraps the questions in .dsd-faq-auto */
+.dsd-faq-auto{margin:8px 0 20px}
+.dsd-faq-auto .faq-h3-trigger:not([style]){display:block;margin:12px 0 0 !important;padding:14px 48px 14px 18px !important;background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid #008080;border-radius:0 10px 10px 0;font-size:16px;line-height:1.5;color:#011f4b;font-weight:600}
+.dsd-faq-auto .faq-h3-trigger:not([style])::after{right:18px}
+.dsd-faq-auto .faq-h3-trigger:not([style]).faq-open{border-radius:0 10px 0 0;background:#f0fdfa}
+.dsd-faq-auto .faq-h3-trigger:not([style]) + .faq-auto-a{margin:0 0 4px !important;padding:12px 18px !important;background:#fff;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 10px 10px;font-size:15px;line-height:1.8}
+@media(max-width:640px){
+  .dsd-faq-auto .faq-h3-trigger:not([style]){font-size:15px;padding:13px 44px 13px 14px !important}
+  .dsd-faq-auto .faq-h3-trigger:not([style]) + .faq-auto-a{padding:11px 14px !important}
+  .faq-h3-trigger[style]{padding-right:44px !important}
+  .faq-h3-trigger[style]::after,.dsd-faq-auto .faq-h3-trigger:not([style])::after{right:14px}
+}
+
+/* Numbered FAQ cards (.dsd-faq-li): bold words inside answers must stay inline */
+.dsd-faq-li p strong,.dsd-faq-li p b{display:inline !important;font-size:inherit !important;clear:none !important}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    // FAQ blocks that already ship their own accordion are left alone.
+    var OWN = '.faq-q, .faq-question, .faq-item, summary, details, .faq-li-class';
+
+    // ── Structure 1: an element with id FAQs / faqs / faq / FAQ ──
+    var box = document.getElementById('FAQs') || document.getElementById('faqs')
+           || document.getElementById('faq')  || document.getElementById('FAQ');
+
+    // Anchor on a heading: gather the content that follows it (up to the next h2) into one wrapper
+    if (box && /^H[1-6]$/.test(box.tagName)) {
+        var items = [], n = box.nextElementSibling;
+        while (n && !/^(H1|H2|SECTION|ARTICLE|FOOTER)$/.test(n.tagName)) { items.push(n); n = n.nextElementSibling; }
+        var hasQ = items.some(function (el) { return /^H[34]$/.test(el.tagName) || el.querySelector('h3, h4'); });
+        if (hasQ) {
+            var wrap = document.createElement('div');
+            wrap.className = 'dsd-faq-auto';
+            box.parentNode.insertBefore(wrap, items[0]);
+            items.forEach(function (el) { wrap.appendChild(el); });
+            box = wrap;
+        } else {
+            box = null;
+        }
+    }
+
+    if (box && !/^(SCRIPT|STYLE)$/.test(box.tagName)) {
+        var headers = Array.prototype.filter.call(box.querySelectorAll('h3, h4'), function (h) {
+            var a = h.nextElementSibling;
+            return a && !/^H[1-6]$/.test(a.tagName) && !h.closest(OWN) && !h.matches(OWN);
+        });
+        headers.forEach(function (h) {
+            var answer = h.nextElementSibling;
+            answer.style.display = 'none';
+            if (box.classList.contains('dsd-faq-auto')) answer.classList.add('faq-auto-a');
+            h.classList.add('faq-h3-trigger');
+            h.setAttribute('role', 'button');
+            h.setAttribute('tabindex', '0');
+            h.setAttribute('aria-expanded', 'false');
+
+            function toggle() {
+                var isOpen = h.classList.contains('faq-open');
+                headers.forEach(function (hh) {
+                    hh.nextElementSibling.style.display = 'none';
+                    hh.classList.remove('faq-open');
+                    hh.setAttribute('aria-expanded', 'false');
+                });
+                if (!isOpen) {
+                    answer.style.display = 'block';
+                    h.classList.add('faq-open');
+                    h.setAttribute('aria-expanded', 'true');
+                }
+            }
+            h.addEventListener('click', toggle);
+            h.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+            });
+        });
+    }
+
+    // ── Structure 2: .faq-li-class (li with cursor:pointer) ──
+    // Items with a .faq-q question ship their own toggle in the article.
+    var faqItems = Array.prototype.filter.call(
+        document.querySelectorAll('.faq-li-class'),
+        function (li) { return !li.querySelector('.faq-q'); }
+    );
+    faqItems.forEach(function (item) {
+        var answer = item.querySelector('p, div, span');
+        if (!answer) return;
+        answer.style.display = 'none';
+
+        item.addEventListener('click', function () {
+            var isOpen = this.classList.contains('faq-open');
+            faqItems.forEach(function (li) {
+                var a = li.querySelector('p, div, span');
+                if (a) a.style.display = 'none';
+                li.classList.remove('faq-open');
+            });
+            if (!isOpen) {
+                answer.style.display = 'block';
+                this.classList.add('faq-open');
+            }
+        });
+    });
+
+});
+</script>

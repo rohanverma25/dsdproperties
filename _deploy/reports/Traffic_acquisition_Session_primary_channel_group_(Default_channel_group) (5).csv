@@ -1,0 +1,18 @@
+# ----------------------------------------
+# Traffic acquisition: Session primary channel group (Default channel group)
+# Account: DSD Properties
+# Property: DSD Properties
+# ----------------------------------------
+# 
+# All Users
+# Start date: 20261018
+# End date: 20261024
+Session primary channel group (Default channel group),Sessions,Engaged sessions,Engagement rate,Average engagement time per session,Events per session,Event count,Key events,Session key event rate,Total revenue
+Organic Search,7344,5464,0.7440087145969498,101.50408496732027,9.754901960784315,71640,1018,0.07339324618736383,0
+Direct,917,561,0.6117775354416576,82.89203925845148,9.510359869138496,8721,124,0.07088331515812432,0
+Unassigned,33,1,0.030303030303030304,23.303030303030305,3.878787878787879,128,6,0.12121212121212122,0
+AI Assistant,32,26,0.8125,100.75,11.53125,369,5,0.0625,0
+Email,16,5,0.3125,8.5,8.8125,141,6,0.0625,0
+Referral,13,8,0.6153846153846154,88.38461538461539,11.76923076923077,153,5,0.23076923076923078,0
+Mobile Push Notifications,6,5,0.8333333333333334,309,30.5,183,2,0.16666666666666666,0
+Organic Social,5,2,0.4,38.6,7.2,36,1,0.2,0
