@@ -142,6 +142,7 @@ Route::get('/sitemap.xml', function () {
         ['loc' => 'https://dsdproperties.in/sitemap-services.xml', 'lastmod' => null],
         ['loc' => 'https://dsdproperties.in/sitemap-seo.xml',      'lastmod' => null],
         ['loc' => 'https://dsdproperties.in/sitemap-news.xml',     'lastmod' => null],
+        ['loc' => 'https://dsdproperties.in/sitemap-circle-rate.xml', 'lastmod' => null],
     ];
     $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
     $xml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
@@ -226,7 +227,7 @@ Route::get('/sitemap-services.xml', function () {
 Route::get('/lda-schemes', [LdaSchemesController::class, 'index'])->name('lda.schemes');
 Route::view('/lda-plot-calculator', 'pages.lda-plot-calculator')->name('lda.plot.calculator');
 Route::view('/lucknow-circle-rate', 'pages.lucknow-circle-rate')->name('lucknow.circle.rate');
-// Every mohalla page. NOT yet listed in /sitemap.xml: add it there when the noindex on the mohalla pages is lifted.
+// Every mohalla page (indexed since 26 Oct 2026, listed in the /sitemap.xml index).
 Route::get('/sitemap-circle-rate.xml', function () {
     $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
     foreach (\App\Support\CircleRates::all() as $sro => $l) {
