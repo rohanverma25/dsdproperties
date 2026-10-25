@@ -16,7 +16,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-/_deploye
+/_deploy
 /.claude
 # Deployment bundles built for upload — never committed.
 /deploy
