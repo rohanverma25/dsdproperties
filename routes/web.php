@@ -165,6 +165,7 @@ Route::get('/sitemap-pages.xml', function () {
         ['url' => 'https://dsdproperties.in/properties',                                 'priority' => '0.8', 'changefreq' => 'daily'],
         ['url' => 'https://dsdproperties.in/tools/stamp-duty-calculator-lucknow',        'priority' => '0.8', 'changefreq' => 'monthly'],
         ['url' => 'https://dsdproperties.in/tools/stamp-duty-calculator-lucknow-hindi',  'priority' => '0.8', 'changefreq' => 'monthly'],
+        ['url' => 'https://dsdproperties.in/lucknow-circle-rate',                        'priority' => '0.8', 'changefreq' => 'monthly'],
         ['url' => 'https://dsdproperties.in/lda-demolition-tracker',                     'priority' => '0.8', 'changefreq' => 'weekly'],
         ['url' => 'https://dsdproperties.in/how-property-prices-are-calculated-in-lucknow', 'priority' => '0.6', 'changefreq' => 'monthly'],
         ['url' => 'https://dsdproperties.in/reviews',                                    'priority' => '0.6', 'changefreq' => 'weekly'],
@@ -225,7 +226,7 @@ Route::get('/sitemap-services.xml', function () {
 Route::get('/lda-schemes', [LdaSchemesController::class, 'index'])->name('lda.schemes');
 Route::view('/lda-plot-calculator', 'pages.lda-plot-calculator')->name('lda.plot.calculator');
 Route::view('/lucknow-circle-rate', 'pages.lucknow-circle-rate')->name('lucknow.circle.rate');
-// Every mohalla page. NOT yet listed in /sitemap.xml: add it there when the noindex on the circle-rate page is lifted.
+// Every mohalla page. NOT yet listed in /sitemap.xml: add it there when the noindex on the mohalla pages is lifted.
 Route::get('/sitemap-circle-rate.xml', function () {
     $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
     foreach (\App\Support\CircleRates::all() as $sro => $l) {
