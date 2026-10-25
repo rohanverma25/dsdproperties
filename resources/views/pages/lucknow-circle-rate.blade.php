@@ -63,6 +63,8 @@
 @section('canonical', $pageUrl)
 
 @push('head')
+{{-- Kept out of search on the user's request (26 Oct 2026) while all SROs are being added --}}
+<meta name="robots" content="noindex, nofollow">
 <script type="application/ld+json">
 {!! json_encode([
     '@context' => 'https://schema.org',

@@ -204,7 +204,6 @@ Route::get('/sitemap-services.xml', function () {
         ['url' => 'https://dsdproperties.in/services/property-registry-greater-noida','priority' => '0.9', 'changefreq' => 'monthly'],
         ['url' => 'https://dsdproperties.in/lda-schemes', 'priority' => '0.9', 'changefreq' => 'weekly'],
         ['url' => 'https://dsdproperties.in/lda-plot-calculator', 'priority' => '0.8', 'changefreq' => 'weekly'],
-        ['url' => 'https://dsdproperties.in/lucknow-circle-rate', 'priority' => '0.9', 'changefreq' => 'monthly'],
         ['url' => 'https://dsdproperties.in/awas-vikas-schemes', 'priority' => '0.9', 'changefreq' => 'weekly'],
         ['url' => 'https://dsdproperties.in/seller/register', 'priority' => '0.8', 'changefreq' => 'monthly'],
         ['url' => 'https://dsdproperties.in/buyer/register', 'priority' => '0.8', 'changefreq' => 'monthly'],
