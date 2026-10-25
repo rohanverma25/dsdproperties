@@ -1,0 +1,30 @@
+# Root .htaccess for hosting where the web root (public_html) is the Laravel project folder.
+# Every request is served from public/, so the app, .env, vendor/, storage/ and other source files are never
+# reachable directly. Links that already contain /public/ (asset() URLs, PDFs, build files) keep working.
+
+Options -Indexes
+
+# Never serve dot-files (.env, .git, .htaccess …). Root source files are already hidden by the rewrite below,
+# which sends every request into public/. (This rule also applies inside public/, so keep it to dot-files only.)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Pass the Authorization header through (APIs, Sanctum)
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Drop a trailing slash here, before the rewrite, so the redirect never exposes /public/ in the URL
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Already pointing inside public/ (existing asset and download links): leave it to public/.htaccess
+    RewriteRule ^public/ - [L]
+
+    # Everything else goes into public/; public/.htaccess then sends non-files to index.php
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
