@@ -27,8 +27,6 @@
     $fmt = fn ($v) => $v === null ? '–' : number_format($v);
     // Search placeholder and the mohalla the calculator opens with, per SRO
     $rows = array_map(fn ($r) => $r + ['list' => 0, 'id' => $r['sr']], $L['rows']);
-    // Mostly rural SROs, where land is bought by the bigha: offer bigha / biswa as area units (user's request, 26 Oct 2026)
-    $bighaSro = in_array($sel, ['mohanlalganj', 'sarojini-nagar', 'sarojini-nagar-dwitiya'], true);
     $examples = ['sadar-pratham' => ['Alambagh, Charbagh, Park Road, आलमबाग', 'Alambagh'],
                  'sadar-dwitiya' => ['Vibhuti Khand, Aminabad, Hazratganj, गोमतीनगर', 'Vibhuti Khand'],
                  'sadar-tritiya' => ['Indira Nagar, Mahanagar, Vikas Nagar, इन्दिरा नगर', 'Mahanagar Gol Market'],
@@ -213,9 +211,10 @@
                     <button type="button" data-v="flat">Flat</button>
                     <button type="button" data-v="house">House</button>
                     <button type="button" data-v="shop">Shop / office</button>
+                    <button type="button" data-v="agri" id="c-type-agri" hidden>Agricultural land (कृषि भूमि)</button>
                 </div>
             </div>
-            <div class="lcr-field">
+            <div class="lcr-field" id="f-road">
                 <label class="lcr-label" for="c-road">Road in front of the property</label>
                 <select id="c-road"></select>
             </div>
@@ -223,7 +222,7 @@
                 <label class="lcr-label" for="c-area" id="c-area-l">Plot area</label>
                 <div class="lcr-two">
                     <input id="c-area" class="num" type="number" inputmode="decimal" min="0" step="any" value="100">
-                    <select id="c-unit"><option value="sqm">sq m</option><option value="sqft">sq ft</option><option value="gaj">gaj (sq yd)</option>@if($bighaSro)<option value="bigha">bigha</option><option value="biswa">biswa</option>@endif</select>
+                    <select id="c-unit"></select>
                 </div>
             </div>
 
@@ -284,6 +283,19 @@
                 </div>
                 <label class="lcr-chk"><input type="checkbox" id="c-ac"> Air-conditioned, or in a shopping complex / mall / multiplex (+20%, no floor rebate)</label>
                 <p class="lcr-hint">For a shop inside a commercial building. Enter the carpet area. A stand-alone shop sold with its land is valued differently; ask us.</p>
+            </div>
+
+            {{-- agricultural land only --}}
+            <div id="g-agri" hidden>
+                <div class="lcr-field">
+                    <label class="lcr-label" for="c-apos">Where is the land?</label>
+                    <select id="c-apos"></select>
+                    <p class="lcr-hint">Agricultural rates are in ₹ lakh per hectare, by where the field lies. Abadi = houses or a settlement within 50 m.</p>
+                </div>
+                <div class="lcr-field">
+                    <label class="lcr-label" for="c-aadj">Next to both a road and abadi?</label>
+                    <select id="c-aadj"><option value="">No</option><option value="40">On a road with abadi within 50 m (+40%)</option><option value="30">50–200 m from the field next to abadi (+30%)</option></select>
+                </div>
             </div>
 
             {{-- plot + house --}}
@@ -502,10 +514,32 @@
             (gen.length ? '<optgroup label="Main roads with one rate for all mohallas">' + gen.map(function (x) { return opt(x, esc(x.name)); }).join('') + '</optgroup>' : '');
         if ([].some.call(road.options, function (o) { return o.value === prev; })) road.value = prev;
     }
+    // Agricultural land is bought by the bigha; everything else by sq m / sq ft / gaj (user's request, 26 Oct 2026)
+    var UNITS = { agri: [['bigha', 'bigha'], ['biswa', 'biswa']], other: [['sqm', 'sq m'], ['sqft', 'sq ft'], ['gaj', 'gaj (sq yd)']] };
+    var unitSet = '';
+    function setUnits(type) {
+        var want = type === 'agri' ? 'agri' : 'other';
+        if (want === unitSet) return;
+        unitSet = want;
+        $('c-unit').innerHTML = UNITS[want].map(function (u) { return '<option value="' + u[0] + '">' + u[1] + '</option>'; }).join('');
+        $('c-area').value = want === 'agri' ? 1 : 100;
+    }
+    var APOS_TXT = { district_road: 'On a district road (जनपदीय मार्ग)', link_road: 'On a link road (सम्पर्क मार्ग)', near_abadi: 'Next to abadi (आबादी से सटी)', general: 'Other land (सामान्य)' };
+    function fillAgri() {
+        var r = row(), prev = $('c-apos').value, opts = CRC.agriOptions(r);
+        $('c-type-agri').hidden = !opts.length;
+        $('c-apos').innerHTML = opts.map(function (o) {
+            return '<option value="' + o.v + '">' + (o.name ? 'On main road: ' + esc(o.name) : APOS_TXT[o.v]) + ' (₹' + inr(o.lakh) + ' lakh/ha)</option>';
+        }).join('');
+        if ([].some.call($('c-apos').options, function (o) { return o.value === prev; })) $('c-apos').value = prev;
+        if (!opts.length && pick('c-type') === 'agri') {            // this village has no agricultural rates: fall back to plot
+            [].forEach.call($('c-type').querySelectorAll('button'), function (x) { x.classList.toggle('on', x.getAttribute('data-v') === 'plot'); });
+        }
+    }
     function toSqm(v) { return CRC.toSqm(v, $('c-unit').value); }
     function sqmTxt(v) {
         var t = (Math.round(v * 100) / 100).toLocaleString('en-IN') + ' sq m', u = $('c-unit').value;
-        if (u === 'bigha' || u === 'biswa') t += ' (' + (Math.round(v / (u === 'bigha' ? CRC.BIGHA : CRC.BISWA) * 1000) / 1000).toLocaleString('en-IN') + ' ' + u + ')';
+        if (u === 'bigha' || u === 'biswa') t += ' = ' + (Math.round(v / CRC.BIGHA * 1000) / 1000).toLocaleString('en-IN') + ' bigha = ' + (Math.round(v / 100) / 100).toLocaleString('en-IN') + ' ha';
         return t;
     }
 
@@ -522,14 +556,19 @@
             case 'carpet': return ['Carpet: ' + sqmTxt(l.area) + ' × ₹' + inr(l.rate) + ' (' + l.use + (l.seg ? ', main road' : '') + ')', money(l.amount)];
             case 'shop_floor': return ['Floor (' + l.pct + '%)', '−' + money(l.amount)];
             case 'ac': return ['AC / shopping complex (+20%)', money(l.amount)];
+            case 'agri_na': return ['Valued as non-agricultural' + (l.pct !== 100 ? ' at ' + l.pct + '%' : '') + ': ' + sqmTxt(l.area) + ' × ₹' + inr(l.rate) + '/sq m', money(l.amount)];
+            case 'agri': return ['Agricultural: ' + sqmTxt(l.area) + ' × ₹' + inr(l.lakh) + ' lakh/ha', money(l.amount)];
+            case 'agri_adj': return ['Road + abadi adjoining (+' + l.pct + '%)', money(l.amount)];
         }
     }
 
     function calc() {
+        fillAgri(); setUnits(pick('c-type'));
         var r = row(), type = pick('c-type'), area = toSqm(parseFloat($('c-area').value) || 0), how = '';
+        $('g-agri').hidden = type !== 'agri'; $('f-road').hidden = type === 'agri';
         $('g-flat').hidden = type !== 'flat'; $('g-house').hidden = type !== 'house'; $('g-shop').hidden = type !== 'shop';
         $('g-extra').hidden = !(type === 'plot' || type === 'house');
-        $('c-area-l').textContent = { plot: 'Plot area', flat: 'Covered area of the flat', house: 'Plot (land) area', shop: 'Carpet area' }[type];
+        $('c-area-l').textContent = { plot: 'Plot area', flat: 'Covered area of the flat', house: 'Plot (land) area', shop: 'Carpet area', agri: 'Land area' }[type];
 
         var res = CRC.value({
             type: type, row: r, list: DATA.lists[r.list], road: road.value, area: area,
@@ -537,19 +576,25 @@
             fcat: pick('c-fcat'), floor: $('c-floor').value,
             built: toSqm(parseFloat($('c-built').value) || 0), ctype: $('c-ctype').value, cls: +pick('c-class'),
             age: parseInt($('c-age').value, 10) || 0,
-            use: pick('c-use'), sfloor: $('c-sfloor').value, ac: $('c-ac').checked
+            use: pick('c-use'), sfloor: $('c-sfloor').value, ac: $('c-ac').checked,
+            apos: $('c-apos').value || 'general', aadj: $('c-aadj').value
         });
         var value = res.value, lines = res.lines.map(lineTxt);
         if (res.flags.over1000) how = 'Area above 1,000 sq m is valued at 30% less. ';
         if (res.flags.landShare) how = 'Land share is taken at the minimum 30% of covered area; if the deed gives a larger undivided share, the value is higher. ';
         if (type === 'house') how = res.flags.noDep ? 'No depreciation for the first 20 years. ' : '';
+        if (type === 'agri') {
+            how = 'Agricultural land is valued at the DM list rate in ₹ lakh per hectare (1 hectare = 3.954 bigha). ';
+            if (res.flags.agriSmall) how += 'In villages classed ' + (r.category || '').toLowerCase() + ', the first ' + (r.category === 'Urban' ? '0.10 ha (and the next 0.05 ha at 70%)' : '0.05 ha') + ' is valued at the non-agricultural rate' + (res.flags.naRateSeg ? ' of the main road' : ' for roads under 9 m') + ' (DM list rule 12). ';
+            if (res.flags.noCategory) how += 'This list does not mark villages as urban or semi-urban, so the small-parcel rule 12 is not applied; for land next to a road or abadi in a built-up village the sub-registrar may value the first part at the non-agricultural rate. ';
+        }
 
         var deal = parseFloat($('c-deal').value) || 0, basis = Math.max(value, deal);
         var woman = pick('c-buyer') === 'f', D = CRC.duty(basis, woman ? 'f' : 'm');
         var sdRate = D.rate, sd = D.sd, reg = D.reg;
 
         $('r-val').textContent = money(value);
-        $('r-line').textContent = r.en + ' (' + r.hi + ') · ' + { plot: 'plot', flat: 'flat', house: 'house', shop: 'commercial unit' }[type] + ' · ' + sqmTxt(area);
+        $('r-line').textContent = r.en + ' (' + r.hi + ') · ' + { plot: 'plot', flat: 'flat', house: 'house', shop: 'commercial unit', agri: 'agricultural land' }[type] + ' · ' + sqmTxt(area);
         var html = lines.map(function (l) { return '<div class="lcr-row"><span>' + l[0] + '</span><span>' + l[1] + '</span></div>'; }).join('');
         html += '<div class="lcr-row"><span><strong>Circle-rate value</strong></span><span>' + money(value) + '</span></div>';
         if (deal) html += '<div class="lcr-row"><span>Stamp duty charged on ' + (deal > value ? 'the sale price' : 'the circle-rate value') + '</span><span>' + money(basis) + '</span></div>';
@@ -571,7 +616,7 @@
             calc();
         });
     });
-    ['c-road', 'c-area', 'c-unit', 'c-floor', 'c-built', 'c-ctype', 'c-age', 'c-sfloor', 'c-ac', 'c-park', 'c-corner', 'c-deal'].forEach(function (id) {
+    ['c-road', 'c-area', 'c-unit', 'c-floor', 'c-built', 'c-ctype', 'c-age', 'c-sfloor', 'c-ac', 'c-park', 'c-corner', 'c-deal', 'c-apos', 'c-aadj'].forEach(function (id) {
         $(id).addEventListener('input', calc); $(id).addEventListener('change', calc);
     });
     moh.addEventListener('change', function () { fillRoads(); calc(); track('circle_rate_calc', { mohalla: row().en }); });

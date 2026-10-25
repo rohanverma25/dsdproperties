@@ -74,6 +74,26 @@ window.CRC = (function () {
             lines.push({ k: 'house_build', area: o.built, rate: crate2, amount: cv2 });
             if (dep) lines.push({ k: 'depreciation', age: age, life: life, amount: dep });
             flags.noDep = age <= 20;
+        } else if (o.type === 'agri') {
+            // Agricultural land (कृषक भूमि), rates in ₹ lakh per hectare. o.apos: 'district_road' | 'link_road' |
+            // 'near_abadi' | 'general' | 'seg<i>' (a Form 3 road with an agri rate). o.aadj: '' | '40' | '30'.
+            var segA = o.apos.indexOf('seg') === 0 ? r.roads[+o.apos.slice(3)] : null;
+            var lakh = segA ? segA.agri : r.agri[o.apos], naRate = segA ? segA.plot : r.plot.lt9;
+            var ha = o.area / 10000, adj = o.aadj === '40' ? 0.40 : o.aadj === '30' ? 0.30 : 0;
+            var full = 0, part = 0;                                  // hectares at 100% and 70% of the non-agri rate
+            // Rule 12(अ): villages classed urban — first 0.100 ha at the non-agri rate, next 0.050 ha at 70% of it
+            if (r.category === 'Urban') { full = Math.min(ha, 0.10); part = Math.min(Math.max(ha - 0.10, 0), 0.05); }
+            // Rule 12(ब): semi-urban villages, land on a road / kharanja or next to abadi — first 0.050 ha at the non-agri rate
+            else if (r.category === 'Semi-urban' && o.apos !== 'general') full = Math.min(ha, 0.05);
+            var rest = Math.max(ha - full - part, 0);
+            if (full) lines.push({ k: 'agri_na', area: full * 10000, rate: naRate, pct: 100, amount: full * 10000 * naRate });
+            if (part) lines.push({ k: 'agri_na', area: part * 10000, rate: naRate, pct: 70, amount: part * 10000 * naRate * 0.7 });
+            var av = rest * lakh * 1e5;
+            if (rest) lines.push({ k: 'agri', area: rest * 10000, ha: rest, lakh: lakh, amount: av });
+            // Rules 13/14: land adjoining both a road and abadi +40%; 50–200 m from the abadi-adjoining gata +30%
+            if (rest && adj) lines.push({ k: 'agri_adj', pct: adj * 100, amount: av * adj });
+            v = (full * 10000 * naRate) + (part * 10000 * naRate * 0.7) + av * (1 + adj);
+            flags.agriSmall = full + part > 0; flags.noCategory = !r.category; flags.naRateSeg = !!segA;
         } else {
             var re = roadEntry(r, o.list, o.road), seg = !!re;
             var srate = seg ? re[o.use] : (r.commercial ? r.commercial[o.use] : 0);
@@ -99,7 +119,15 @@ window.CRC = (function () {
         };
     }
 
-    return { SQFT: SQFT, GAJ: GAJ, BIGHA: BIGHA, BISWA: BISWA, WOMAN_LIMIT: WOMAN_LIMIT, toSqm: toSqm, roads: roads, roadEntry: roadEntry,
+    // Agricultural rate choices for a village: its Form 4 columns that have a rate, then its Form 3 roads with an agri rate
+    var AGRI_COLS = ['district_road', 'link_road', 'near_abadi', 'general'];
+    function agriOptions(row) {
+        var out = row.agri ? AGRI_COLS.filter(function (c) { return row.agri[c] != null; }).map(function (c) { return { v: c, lakh: row.agri[c] }; }) : [];
+        row.roads.forEach(function (x, i) { if (x.agri) out.push({ v: 'seg' + i, lakh: x.agri, name: x.segment_en || x.segment }); });
+        return out;
+    }
+
+    return { SQFT: SQFT, GAJ: GAJ, BIGHA: BIGHA, BISWA: BISWA, agriOptions: agriOptions, WOMAN_LIMIT: WOMAN_LIMIT, toSqm: toSqm, roads: roads, roadEntry: roadEntry,
              landRate: landRate, value: value, duty: duty };
 })();
 </script>
