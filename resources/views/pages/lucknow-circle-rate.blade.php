@@ -217,11 +217,11 @@
             <div class="lcr-field">
                 <span class="lcr-label">Property type</span>
                 <div class="lcr-seg" id="c-type">
+                    <button type="button" data-v="agri" id="c-type-agri" hidden>Agricultural land (कृषि भूमि)</button>
                     <button type="button" class="on" data-v="plot">Plot</button>
                     <button type="button" data-v="flat">Flat</button>
                     <button type="button" data-v="house">House</button>
                     <button type="button" data-v="shop">Shop / office</button>
-                    <button type="button" data-v="agri" id="c-type-agri" hidden>Agricultural land (कृषि भूमि)</button>
                 </div>
             </div>
             <div class="lcr-field" id="f-road">

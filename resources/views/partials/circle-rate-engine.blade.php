@@ -120,7 +120,7 @@ window.CRC = (function () {
     }
 
     // Agricultural rate choices for a village: its Form 4 columns that have a rate, then its Form 3 roads with an agri rate
-    var AGRI_COLS = ['district_road', 'link_road', 'near_abadi', 'general'];
+    var AGRI_COLS = ['general', 'district_road', 'link_road', 'near_abadi'];   // सामान्य first: most fields (user's order, 26 Oct 2026)
     function agriOptions(row) {
         var out = row.agri ? AGRI_COLS.filter(function (c) { return row.agri[c] != null; }).map(function (c) { return { v: c, lakh: row.agri[c] }; }) : [];
         row.roads.forEach(function (x, i) { if (x.agri) out.push({ v: 'seg' + i, lakh: x.agri, name: x.segment_en || x.segment }); });
