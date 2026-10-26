@@ -819,13 +819,15 @@ h2.section-title {
             </div>
         </main>
 
-        {{-- Sidebar (Recent Posts + Form) --}}
+        {{-- Sidebar (Recent Posts + Form); none on info-only pages, see App\Support\InfoOnlyPages --}}
+        @unless(\App\Support\InfoOnlyPages::active())
         <aside class="blog-layout-aside w-full lg:w-1/4 space-y-6">
             <div class="sticky-sidebar">
                 {{-- Inquiry Form --}}
                 @include('components.inquiry-form')
             </div>
         </aside>
+        @endunless
     </div>
     @include('layouts.footer')
 
@@ -839,7 +841,9 @@ h2.section-title {
 .mob-cta-buy{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff !important}
 .mob-cta-sell{background:linear-gradient(135deg,#011f4b,#013870);color:#fff !important}
 </style>
+@unless(\App\Support\InfoOnlyPages::active())
 @include('components.mobile-cta-bar', ['ctaSlug' => $blog->slug ?? null, 'ctaTag' => $blog->tag ?? null])
+@endunless
     <script>
         document.addEventListener('DOMContentLoaded', function() {
                 // Mobile menu toggle
@@ -904,6 +908,7 @@ h2.section-title {
 
         });
 </script>
+@unless(\App\Support\InfoOnlyPages::active())
 {{-- ── Inquiry Popup (exit-intent) — posts to /blog-feedback, which stores into the shared `form_submissions` inbox ── --}}
 <style>
 #fbk-overlay {
@@ -1308,6 +1313,7 @@ h2.section-title {
     });
 })();
 </script>
+@endunless
 
 <script>
 @stack('scripts')
