@@ -7,7 +7,7 @@
      hit "Plots / Flats / Ballot Dates" — the three transactional buckets.
      ═══════════════════════════════════════════════════════════════ --}}
 @section('title', 'LDA Lucknow Complete Guide 2026 — Schemes, Registration & Latest News')
-@section('meta_description', 'LDA new schemes Lucknow 2026: IT City, Wellness City, Anant Nagar, Park View Basant Kunj, Naimish Nagar, Varun Vihar. Live prices ₹2,045–₹4,522/sqft, ballot dates, units available. Updated weekly.')
+@section('meta_description', 'LDA new schemes Lucknow 2026: IT City, Wellness City, Anant Nagar, Park View Basant Kunj, Naimish Nagar, Varun Vihar. Live prices ₹2,045–₹4,522/sqft, ballot dates, units available. Updated weekly. Free advisory by DSD Properties.')
 @section('meta_keywords', 'LDA new scheme 2026, LDA plot scheme Lucknow, LDA flats Lucknow, LDA new plot scheme 2026, LDA housing scheme, LDA lottery ballot date 2026, LDA online registration last date, LDA FCFS allotment, Lucknow Development Authority plots, Anant Nagar Yojna, IT City Sultanpur Road, Wellness City Lucknow, Park View Basant Kunj, Naimish Nagar Sitapur Road, Varun Vihar Faizabad Road, Atal Nagar Awasiya Yojana Phase II, LDA PMAY flats EWS LIG, LDA upcoming schemes, government plot scheme Lucknow')
 
 @push('head')
@@ -80,7 +80,7 @@
       "name": "What is the last date for LDA online registration in Lucknow?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Last dates vary per scheme. The current scheme registration windows are listed in the table on this page. Park View Basant Kunj registration closed on 25 April 2026. Anant Nagar Phase 4 registration is open. For the latest cutoff, always verify on ldalucknow.in or message DSD Properties on WhatsApp +91-85950-02933 for the live status."
+        "text": "Last dates vary per scheme. The current scheme registration windows are listed in the table on this page. Park View Basant Kunj registration closed on 25 April 2026. Anant Nagar Phase 4 registration is open. For the latest cutoff, always verify on ldalucknow.in or send us a query through the form on this page."
       }
     },
     {
@@ -732,6 +732,13 @@
                 Prices ₹2,045–₹4,522/sqft · ballot dates · units available · updated weekly.
             </p>
 
+            <div class="hero-cta-row">
+                <a href="#lda-enquiry" class="hero-btn-primary js-scheme-query"
+                   data-message="Hi, I would like a free consultation about LDA new schemes in Lucknow. Please guide me.">
+                    <i class="fas fa-calendar-check" aria-hidden="true"></i> Free Consultation
+                </a>
+            </div>
+
             <div class="hero-stats">
                 <span class="stat-pill"><i class="fas fa-check-circle" style="margin-right:.3rem;color:#34d399;" aria-hidden="true"></i>{{ $stats['active'] }} Active</span>
                 <span class="stat-pill"><i class="fas fa-clock" style="margin-right:.3rem;color:#fbbf24;" aria-hidden="true"></i>{{ $stats['upcoming'] }} Upcoming</span>
@@ -917,6 +924,16 @@
                     Read Full Guide
                 </a>
                 @endif
+
+                {{-- SECONDARY: Query — scrolls to the enquiry form at the bottom
+                     and pre-fills the message with this scheme's name. --}}
+                <a href="#lda-enquiry"
+                   class="btn-wa-scheme js-scheme-query"
+                   data-scheme="{{ $schemeName }}"
+                   aria-label="Send an enquiry about {{ $schemeName }}">
+                    <i class="fas fa-comment-dots" aria-hidden="true"></i>
+                    Query
+                </a>
 
                 {{-- TERTIARY: View on LDA — text-style, low visual weight (no longer primary) --}}
                 <a href="{{ $s['official_link'] ?? 'https://ldalucknow.in' }}"
@@ -1113,7 +1130,8 @@
             <i class="fas fa-info-circle" style="margin-right:.25rem;" aria-hidden="true"></i>
             Status updated: {{ $lastUpdated }}. Always verify the current registration window on
             <a href="https://ldalucknow.in" target="_blank" rel="noopener noreferrer" style="color:#011f4b;font-weight:600;">ldalucknow.in</a>
-            before applying.
+            before applying. For real-time guidance,
+            <a href="#lda-enquiry" class="js-scheme-query" data-message="Hi, I want to know the latest LDA flats registration status in Lucknow." style="color:#008080;font-weight:600;">send us your query</a>.
         </p>
     </section>
 
@@ -1131,6 +1149,129 @@
                 Whether you are looking for an <strong>affordable PMAY flat</strong>, a plotted scheme on Sultanpur Road, Sitapur Road, Agra Expressway or Mohan Road, or a ready-to-move apartment in Basant Kunj, this page tracks all active and upcoming LDA schemes in one place.
                 All pricing, availability, allotment type (lottery vs FCFS), and <strong>ballot dates</strong> are sourced from official LDA communications and updated regularly.
             </p>
+            <p>
+                For personalised guidance on applying to any LDA new scheme — including eligibility checks, documentation support, and home loan assistance — reach out to DSD Properties for a <strong>free consultation</strong>.
+            </p>
+            <div class="about-cta-row">
+                <a href="#lda-enquiry" class="about-btn-primary js-scheme-query"
+                   data-message="Hi, I would like to book a free consultation about LDA schemes in Lucknow — eligibility, documentation and home loan assistance.">
+                    <i class="fas fa-calendar-check" aria-hidden="true"></i> Book Free Consultation
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {{-- ══════════════════════════════════════════════════════════════
+         SCHEME ENQUIRY FORM — target of every card's "Query" button.
+         The card click pre-fills the message with the scheme name.
+         ══════════════════════════════════════════════════════════════ --}}
+    <style>
+    /* Two-column enquiry band: pitch on the left, form on the right.
+       A single centred column left large empty gutters on desktop. */
+    .lda-enq-wrap {
+        display: grid;
+        grid-template-columns: 1fr 480px;
+        gap: 2.5rem;
+        align-items: start;
+        max-width: 1080px;
+        margin: 3rem auto;
+        padding: 2rem;
+        background: linear-gradient(135deg, #f8fafc 0%, #eef4f7 100%);
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        scroll-margin-top: 110px;
+    }
+    .lda-enq-form { scroll-margin-top: 110px; }
+    .lda-enq-eyebrow {
+        display: inline-block;
+        font-size: .68rem; font-weight: 700; letter-spacing: 2px;
+        text-transform: uppercase; color: #008080;
+        background: rgba(0,128,128,.09);
+        border-radius: 999px; padding: .32rem .8rem; margin-bottom: .9rem;
+    }
+    .lda-enq-h2 {
+        font-size: 1.75rem; font-weight: 800; color: #011f4b;
+        line-height: 1.25; margin: 0 0 .75rem;
+    }
+    .lda-enq-lead { font-size: .92rem; color: #475569; line-height: 1.7; margin: 0 0 1.4rem; }
+    .lda-enq-list { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+    .lda-enq-list li {
+        display: flex; gap: .7rem; align-items: flex-start;
+        font-size: .86rem; color: #334155; line-height: 1.6; margin-bottom: .8rem;
+    }
+    .lda-enq-list i { color: #008080; font-size: .8rem; margin-top: .28rem; flex-shrink: 0; }
+    .lda-enq-list strong { color: #011f4b; font-weight: 700; }
+    .lda-enq-stats {
+        display: flex; flex-wrap: wrap; gap: .6rem;
+        padding-top: 1.2rem; border-top: 1px solid #dbe3ea;
+    }
+    .lda-enq-stat {
+        background: #fff; border: 1px solid #e2e8f0; border-radius: 10px;
+        padding: .55rem .85rem; min-width: 112px;
+    }
+    .lda-enq-stat b { display: block; font-size: 1.05rem; font-weight: 800; color: #011f4b; line-height: 1.2; }
+    .lda-enq-stat span { font-size: .68rem; color: #64748b; text-transform: uppercase; letter-spacing: .6px; }
+
+    @media (max-width: 980px) {
+        .lda-enq-wrap {
+            grid-template-columns: 1fr;
+            gap: 1.75rem;
+            padding: 1.5rem;
+            margin: 2rem auto;
+        }
+        .lda-enq-h2 { font-size: 1.4rem; }
+    }
+    </style>
+
+    <div id="lda-enquiry" class="lda-enq-wrap">
+
+        {{-- LEFT: what LDA schemes are and where we come in --}}
+        <div class="lda-enq-copy">
+            <span class="lda-enq-eyebrow">Free LDA Advisory</span>
+
+            <h2 class="lda-enq-h2">Confused About Which LDA Scheme to Apply For?</h2>
+
+            <p class="lda-enq-lead">
+                The Lucknow Development Authority releases plots and flats across IT City, Wellness City,
+                Anant Nagar, Park View, Naimish Nagar and Varun Vihar &mdash; each with its own registration
+                window, ballot date, eligibility rules and payment plan. Missing a cut-off date or picking
+                the wrong sector can cost you years of waiting.
+            </p>
+
+            <ul class="lda-enq-list">
+                <li>
+                    <i class="fas fa-check-circle" aria-hidden="true"></i>
+                    <span><strong>Scheme shortlisting</strong> &mdash; we compare rates, location, possession timeline
+                    and appreciation potential so you apply where your budget actually works.</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle" aria-hidden="true"></i>
+                    <span><strong>Registration &amp; ballot support</strong> &mdash; document checklist, online form
+                    filling, fee payment and reminders before every last date.</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle" aria-hidden="true"></i>
+                    <span><strong>Eligibility &amp; loan guidance</strong> &mdash; PMAY/EWS-LIG criteria, income
+                    certificates and home-loan tie-ups on LDA allotments.</span>
+                </li>
+                <li>
+                    <i class="fas fa-check-circle" aria-hidden="true"></i>
+                    <span><strong>After allotment</strong> &mdash; allotment letter verification, possession,
+                    registry and resale valuation whenever you decide to exit.</span>
+                </li>
+            </ul>
+
+            <div class="lda-enq-stats">
+                <div class="lda-enq-stat"><b>{{ $stats['active'] ?? 0 }}</b><span>Active schemes</span></div>
+                <div class="lda-enq-stat"><b>{{ $stats['upcoming'] ?? 0 }}</b><span>Upcoming</span></div>
+                <div class="lda-enq-stat"><b>24 hrs</b><span>Response time</span></div>
+                <div class="lda-enq-stat"><b>&#8377;0</b><span>Advisory fee</span></div>
+            </div>
+        </div>
+
+        {{-- RIGHT: the enquiry form (pre-filled by the card "Query" buttons) --}}
+        <div class="lda-enq-form">
+            @include('components.inquiry-form')
         </div>
     </div>
 
@@ -1166,7 +1307,7 @@
             <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
         </button>
         <div class="faq-a" id="faq-a3">
-            <strong>FCFS (First Come First Serve)</strong> is an LDA allotment method where units are allotted in the exact order applications are received until all units are sold. Unlike lottery schemes where every applicant has an equal chance, in FCFS speed matters — applying within the first hours of opening usually secures allotment. Most current LDA schemes (plots and premium flats) use the transparent computerised lottery system.
+            <strong>FCFS (First Come First Serve)</strong> is an LDA allotment method where units are allotted in the exact order applications are received until all units are sold. Unlike lottery schemes where every applicant has an equal chance, in FCFS speed matters — applying within the first hours of opening usually secures allotment. Most current LDA schemes (plots and premium flats) use the transparent computerised lottery system. You can <a href="#lda-enquiry" class="js-scheme-query" data-message="Hi, please alert me about upcoming LDA FCFS schemes in Lucknow." style="color:#008080;font-weight:600;">Send us a query</a> to get alerts on any future FCFS openings.
         </div>
     </div>
 
@@ -1176,7 +1317,7 @@
             <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
         </button>
         <div class="faq-a" id="faq-a4">
-            Last dates vary per scheme and are listed in the <a href="#lda-flats-status" style="color:#011f4b;font-weight:600;">LDA Flats Registration Status table</a> above. Key closures: Lake View Apartments (18 June 2026), Atal Nagar Phase II (17 May 2026), Park View Phase II (30 June 2026), Anant Nagar Phase 5 (9 September 2026). Registration for <strong>Varun Vihar</strong> and <strong>Naimish Nagar</strong> is expected to open on 24 September 2026. Always verify the latest cutoff on <a href="https://ldalucknow.in" target="_blank" rel="noopener noreferrer" style="color:#011f4b;font-weight:600;">ldalucknow.in</a> or message DSD Properties on WhatsApp +91-85950-02933 for the live status.
+            Last dates vary per scheme and are listed in the <a href="#lda-flats-status" style="color:#011f4b;font-weight:600;">LDA Flats Registration Status table</a> above. Key closures: Lake View Apartments (18 June 2026), Atal Nagar Phase II (17 May 2026), Park View Phase II (30 June 2026), Anant Nagar Phase 5 (9 September 2026). Registration for <strong>Varun Vihar</strong> and <strong>Naimish Nagar</strong> is expected to open on 24 September 2026. Always verify the latest cutoff on <a href="https://ldalucknow.in" target="_blank" rel="noopener noreferrer" style="color:#011f4b;font-weight:600;">ldalucknow.in</a> or <a href="#lda-enquiry" class="js-scheme-query" data-message="Hi, I want the latest registration cutoff for an LDA scheme." style="color:#011f4b;font-weight:600;">send us a query</a>.
         </div>
     </div>
 
@@ -1304,6 +1445,9 @@
             <a href="/blog/nri-buying-lda-plots-lucknow-2026" class="lda-link-card">
                 <i class="fas fa-globe-asia" aria-hidden="true"></i> NRI Guide to LDA Plots
             </a>
+            <a href="/services/property-advisory-lucknow" class="lda-link-card is-cta">
+                <i class="fas fa-headset" aria-hidden="true"></i> Free Property Advisory
+            </a>
         </div>
     </div>
 
@@ -1311,6 +1455,37 @@
 </div>
 
 <script>
+/* Scheme "Query" buttons and the consultation CTAs → scroll to the enquiry form
+   (above the FAQs) and pre-fill the message textarea. A button either carries a
+   ready-made data-message, or a data-scheme we build the scheme wording from.
+   Delegated so it also covers cards rendered later by the filter script below. */
+document.addEventListener('click', function (e) {
+    const btn = e.target.closest('.js-scheme-query');
+    if (!btn) return;
+
+    const wrap = document.getElementById('lda-enquiry');
+    const box  = wrap && wrap.querySelector('textarea[name="message"]');
+    if (!wrap || !box) return;   // fall through to the plain #anchor jump
+
+    e.preventDefault();
+    box.value = btn.dataset.message
+        || 'Hi, I have a query about ' + (btn.dataset.scheme || 'an LDA scheme')
+           + ' (LDA scheme, Lucknow). Please guide me.';
+
+    // On mobile the pitch column stacks above the form, so scroll straight to
+    // the form itself — otherwise the user lands on copy and has to scroll on.
+    const target = window.innerWidth < 980
+        ? (wrap.querySelector('.lda-enq-form') || wrap)
+        : wrap;
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Focus the name field once scrolling settles, so the user can start typing.
+    setTimeout(function () {
+        const name = wrap.querySelector('input[name="full_name"]');
+        if (name) name.focus({ preventScroll: true });
+    }, 600);
+});
+
 (function () {
     const cards = Array.from(document.querySelectorAll('#lda-grid .lda-card'));
     const noRes = document.getElementById('no-results');
@@ -1371,7 +1546,6 @@ document.addEventListener('DOMContentLoaded', function () {
             popupAnchor: [0, -10]
         });
 
-        const waMsg    = encodeURIComponent('Hi, I have a query about ' + s.name + ' LDA scheme in Lucknow. Please guide me.');
         const priceHtml = s.price_per_sqft
             ? '<span style="font-size:.74rem;color:#374151;margin-left:.4rem;">&#8377;' + Number(s.price_per_sqft).toLocaleString('en-IN') + '/sqft</span>'
             : '';
@@ -1391,6 +1565,7 @@ document.addEventListener('DOMContentLoaded', function () {
             + '</div>'
             + '<div style="display:flex;gap:.4rem;flex-wrap:wrap;">'
             +   readBtn
+            +   '<a href="#lda-enquiry" class="js-scheme-query" data-scheme="' + s.name.replace(/"/g, '&quot;') + '" style="font-size:.72rem;padding:.28rem .65rem;background:#FF5C00;color:#fff;border-radius:6px;text-decoration:none;font-weight:600;white-space:nowrap;">Query</a>'
             +   anchor
             + '</div>'
             + '</div>';

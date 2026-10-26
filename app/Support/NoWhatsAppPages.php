@@ -3,13 +3,16 @@
 namespace App\Support;
 
 /**
- * Pages that only inform: no lead CTAs at all (user, 27 Oct 2026).
- * On these pages the layouts drop the sidebar inquiry form, the exit-intent popup, the mobile sticky
- * buy/sell bar, the header call button and the footer WhatsApp button, and blog content loses its
- * consultation / verification buttons. Add a path here to switch a page over; remove it to undo.
+ * Pages that must not open WhatsApp (user, 27 Oct 2026: too many casual chats). Leads are still welcome
+ * through the inquiry form, so every WhatsApp CTA on these pages scrolls to the form instead: content
+ * buttons and links, the consultation shortcode and the mobile sticky bar. The footer WhatsApp button is
+ * hidden. Add a path here to switch a page over; remove it to undo.
  */
-class InfoOnlyPages
+class NoWhatsAppPages
 {
+    /** Where WhatsApp CTAs go instead: the sidebar inquiry form (components/inquiry-form). */
+    public const FORM_ANCHOR = '#ebook-form-container';
+
     /** Request paths, without the leading slash. */
     public const PATHS = [
         'lda-schemes',
@@ -36,22 +39,13 @@ class InfoOnlyPages
         return in_array(trim(request()->path(), '/'), self::PATHS, true);
     }
 
-    /**
-     * Strip lead CTAs from blog content_html. Removes the shared verification boxes, the
-     * {{CONSULTATION_BUTTON}} shortcode and the sample-report link, and turns any remaining link to a
-     * service page, WhatsApp or a phone number into plain text, so the sentence still reads.
-     */
+    /** Point WhatsApp links in blog content_html at the inquiry form. */
     public static function cleanContent(string $html): string
     {
-        $html = preg_replace('~<div class="(?:dsd-verify-cta|dsd-cta-box)"[^>]*>(?:(?!</div>).)*</div>~su', '', $html);
-        $html = preg_replace('~<p class="dsd-sample-link"[^>]*>.*?</p>~su', '', $html);
-        $html = preg_replace('~\{\{CONSULTATION_BUTTON(?::.*?)?\}\}~u', '', $html);
-        $html = preg_replace('~<p[^>]*>\s*</p>~u', '', $html);
-        $html = preg_replace(
-            '~<a\b[^>]*href="(?:https?://(?:www\.)?dsdproperties\.in)?/services/[^"]*"[^>]*>(.*?)</a>|<a\b[^>]*href="(?:https://wa\.me/|https://api\.whatsapp\.com/|tel:)[^"]*"[^>]*>(.*?)</a>~su',
-            '$1$2',
+        return preg_replace_callback(
+            '~<a\b([^>]*)href="(?:https://wa\.me/|https://api\.whatsapp\.com/)[^"]*"([^>]*)>~i',
+            fn($m) => '<a' . preg_replace('~\s(?:target|rel)="[^"]*"~i', '', $m[1] . 'href="' . self::FORM_ANCHOR . '"' . $m[2]) . '>',
             $html
         );
-        return $html;
     }
 }

@@ -27,7 +27,13 @@
             && !preg_match('~whatsapp|find a verified|verified (property shortlist|site visit|price)|market value|sky-limit|ट्रांसफर|पूरी प्रक्रिया|नियमितीकरण|देरी~iu', $text);
     @endphp
 
-    @if($isVerify)
+    @if(!$isVerify && \App\Support\NoWhatsAppPages::active())
+    {{-- No-WhatsApp page: the same button scrolls to the inquiry form --}}
+    <a href="{{ \App\Support\NoWhatsAppPages::FORM_ANCHOR }}" data-cta-kind="form"
+       class="consultationBtn not-prose inline-flex items-center gap-3 bg-accent hover:bg-orange-600 text-white font-semibold py-2 px-8 rounded-lg transition duration-300 no-underline text-[18px] !no-underline">
+        {{ $text }}
+    </a>
+    @elseif($isVerify)
     <a href="{{ url('/services/property-verification-lucknow') }}" data-cta-kind="verify"
        class="consultationBtn not-prose inline-flex items-center gap-3 bg-accent hover:bg-orange-600 text-white font-semibold py-2 px-8 rounded-lg transition duration-300 no-underline text-[18px] !no-underline">
         {{ $text }}

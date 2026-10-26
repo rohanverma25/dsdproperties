@@ -425,9 +425,9 @@
         @php
             $content = $blog->content_html;
 
-            // Info-only pages carry no lead CTAs (App\Support\InfoOnlyPages)
-            if (\App\Support\InfoOnlyPages::active()) {
-                $content = \App\Support\InfoOnlyPages::cleanContent($content);
+            // No-WhatsApp pages: WhatsApp links go to the inquiry form (App\Support\NoWhatsAppPages)
+            if (\App\Support\NoWhatsAppPages::active()) {
+                $content = \App\Support\NoWhatsAppPages::cleanContent($content);
             }
 
             // Consultation button shortcode: {{CONSULTATION_BUTTON}} or {{CONSULTATION_BUTTON:custom text}}

@@ -3,7 +3,14 @@
     Usage: @include('components.mobile-cta-bar', ['ctaSlug' => $blog->slug ?? null, 'ctaTag' => $blog->tag ?? null])
     Styles (.mob-cta-bar / .mob-cta-buy / .mob-cta-sell) live in the including page.
 --}}
-@php $cta = \App\Support\PageCta::resolve($ctaSlug ?? null, $ctaTag ?? null); @endphp
+@php
+    $cta = \App\Support\PageCta::resolve($ctaSlug ?? null, $ctaTag ?? null);
+    // No-WhatsApp pages: a WhatsApp button scrolls to the inquiry form instead
+    if ($cta['external'] && \App\Support\NoWhatsAppPages::active()) {
+        $cta['url'] = \App\Support\NoWhatsAppPages::FORM_ANCHOR;
+        $cta['external'] = false;
+    }
+@endphp
 <div class="mob-cta-bar">
     <a href="{{ $cta['url'] }}"
        class="{{ $cta['kind'] === 'buy' ? 'mob-cta-buy' : 'mob-cta-sell' }}"
