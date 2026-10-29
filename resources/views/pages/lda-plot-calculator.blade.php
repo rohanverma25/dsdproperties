@@ -28,7 +28,7 @@
 .lpc h1{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800;color:var(--n);line-height:1.2;margin:0 0 8px;text-wrap:balance}
 .lpc .sub{color:var(--g);font-size:15px;line-height:1.7;margin:0 0 22px;max-width:720px}
 .lpc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:22px;align-items:start}
-@media(max-width:860px){.lpc-grid{grid-template-columns:1fr}}
+@media(max-width:860px){.lpc-grid{grid-template-columns:minmax(0,1fr)}}
 .lpc-box{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(1,31,75,.06)}
 .lpc-label{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--g);margin:0 0 7px}
 .lpc-field{margin-bottom:18px}
@@ -83,7 +83,28 @@
 .lpc-notes{margin:28px 0 0;font-size:13.5px;color:#475569;line-height:1.75}
 .lpc-notes h2{font-size:20px;color:var(--n);margin:0 0 10px}
 .lpc-notes ul{padding-left:20px;margin:0 0 14px}
-.lpc-tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:460px}
+.lpc-tbl{width:100%;border-collapse:collapse;font-size:14px}
+/* Tap-to-pick cards for scheme and size (user, 29 Oct 2026): no dropdowns to open on a phone */
+.lpc-pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.lpc-pick button{text-align:left;padding:10px 12px;border:1.5px solid var(--line);border-radius:12px;background:#fff;font:inherit;cursor:pointer;color:#334155;line-height:1.35}
+.lpc-pick button b{display:block;font-size:14px;color:var(--n)}
+.lpc-pick button small{display:block;font-size:12px;color:var(--g)}
+.lpc-pick button.on{border-color:var(--t);background:#effaf9;box-shadow:inset 0 0 0 1px var(--t)}
+.lpc-pick button:focus-visible{outline:2px solid var(--t);outline-offset:2px}
+.lpc-sizes{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}
+.lpc-sizes button{text-align:center;padding:9px 6px}
+.lpc-sizes button b{font-size:13.5px}
+.lpc-more{margin:24px 0 0;border:1px solid var(--line);border-radius:14px;background:#fff;padding:14px 16px}
+.lpc-more summary{cursor:pointer;font-weight:700;color:var(--n);font-size:15px}
+.lpc-more ul{margin:10px 0 0}
+@media(max-width:560px){
+    .lpc-box{padding:16px}
+    .lpc-pick{grid-template-columns:1fr 1fr}
+    .lpc-sizes{grid-template-columns:repeat(3,1fr)}
+    .lpc-seg button{font-size:13px;padding:10px 4px}
+    .lpc-tbl{font-size:13px}.lpc-tbl th,.lpc-tbl td{padding:8px 7px}
+    .lpc-price{padding:18px}
+}
 .lpc-tbl th{background:var(--n);color:#fff;text-align:left;padding:9px 10px}
 .lpc-tbl td{padding:9px 10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
 </style>
@@ -92,37 +113,39 @@
 @section('content')
 <div class="lpc">
     <h1>LDA Plot Cost Calculator</h1>
-    <p class="sub">Pick a scheme and a plot size to see the full cost: plot price, registration deposit, lump-sum discount, instalment EMI and freehold charge. Sizes and rates are in square metres. Prices are in lakh (L) and crore (Cr).</p>
+    <p class="sub">Tap a scheme and a plot size to see the full cost: deposit, lump-sum price and EMI.</p>
 
     <div class="lpc-grid">
         {{-- Inputs --}}
         <div class="lpc-box">
             <div class="lpc-field">
-                <label class="lpc-label" for="lpc-scheme"><span class="lpc-step">1</span>LDA scheme</label>
-                <select id="lpc-scheme"></select>
+                <span class="lpc-label"><span class="lpc-step">1</span>LDA scheme</span>
+                <div class="lpc-pick" id="lpc-schemes" role="group" aria-label="LDA scheme"></div>
+                <select id="lpc-scheme" hidden></select>
             </div>
 
             <div id="lpc-open">
                 <div class="lpc-field">
-                    <label class="lpc-label" for="lpc-size"><span class="lpc-step">2</span>Plot size (sq m)</label>
-                    <select id="lpc-size"></select>
+                    <span class="lpc-label"><span class="lpc-step">2</span>Plot size</span>
+                    <div class="lpc-pick lpc-sizes" id="lpc-sizes" role="group" aria-label="Plot size"></div>
+                    <select id="lpc-size" hidden></select>
                 </div>
                 <div class="lpc-field">
                     <span class="lpc-label"><span class="lpc-step">3</span>Your category</span>
                     <div class="lpc-seg" id="lpc-cat">
-                        <button type="button" class="on" data-v="0.05">General (5% deposit)</button>
+                        <button type="button" class="on" data-v="0.05">General (5%)</button>
                         <button type="button" data-v="0.025">Reserved (2.5%)</button>
                     </div>
                 </div>
                 <div class="lpc-field">
                     <span class="lpc-label"><span class="lpc-step">4</span>If you pay in full, within</span>
                     <div class="lpc-seg" id="lpc-days">
-                        <button type="button" class="on" data-v="0.06">45 days (6% off)</button>
+                        <button type="button" class="on" data-v="0.06">45 days (6%)</button>
                         <button type="button" data-v="0.05">60 days (5%)</button>
                         <button type="button" data-v="0.04">90 days (4%)</button>
                     </div>
                 </div>
-                <div class="lpc-meta" id="lpc-meta"></div>
+
             </div>
 
         </div>
@@ -196,7 +219,11 @@
     </div>
 
     <div class="lpc-notes">
-        <h2>How the numbers are worked out</h2>
+        <h2>Plot sizes and prices</h2>
+        <div style="overflow-x:auto;margin-bottom:14px"><table class="lpc-tbl" id="lpc-tbl"></table></div>
+
+        <details class="lpc-more">
+        <summary>How the numbers are worked out</summary>
         <ul>
             <li><strong>Plot price</strong> = size in sq m × the scheme rate per sq m. Example: a 112.5 sq m (1,211 sq ft) plot in Varun Vihar at ₹30,139/sq m (₹2,800/sq ft) comes to about ₹33.9 L. Sq ft figures use 1 sq m = 10.7639 sq ft.</li>
             <li><strong>Anant Nagar Phase 5</strong> uses ₹44,731/sq m, the latest rate LDA published for the scheme (Phase 4). <strong>Wellness City</strong> and <strong>IT City</strong> are not open to the public yet: Wellness City uses the rate reported by Amar Ujala and IT City uses our expected rate, so treat both as planning figures.</li>
@@ -207,9 +234,7 @@
             <li><strong>Not included:</strong> extra charges for corner or park-facing plots, stamp duty and registration fee at the registry, and any GST or maintenance. If you cancel your registration, LDA deducts 20%.</li>
             <li>Eligibility: 18 or older, with no earlier LDA allotment. Apply only on <a href="https://registration.ldalucknow.in" target="_blank" rel="noopener" style="color:#008080;font-weight:600;">registration.ldalucknow.in</a>.</li>
         </ul>
-
-        <h2>Plot sizes and prices</h2>
-        <div style="overflow-x:auto;margin-bottom:14px"><table class="lpc-tbl" id="lpc-tbl"></table></div>
+        </details>
 
         <p>Sources: Amar Ujala (24 Sep and 19 Oct 2026), ETV Bharat (25 Sep 2026) and Zee Business, reporting the LDA registration booklets for Varun Vihar and Naimish Nagar; Amar Ujala and ETV Bharat (Aug–Oct 2026) on Anant Nagar Phase 5; Amar Ujala on the Wellness City rate. These are estimates for planning. Always check the final figures in the LDA booklet and allotment letter. Scheme guides:
             <a href="{{ url('/blog/varun-vihar-yojana-lucknow-lda-plots-guide-2026') }}" style="color:#008080;font-weight:600;">Varun Vihar</a> ·
@@ -265,6 +290,20 @@
         var o = document.createElement('option'); o.value = i; o.textContent = s.name;
         schemeSel.appendChild(o);
     });
+    var schemeBox = $('lpc-schemes'), sizeBox = $('lpc-sizes');
+    // The hidden selects keep the state; the cards only set them
+    function onOnly(box, i) { box.querySelectorAll('button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-i') === String(i)); b.setAttribute('aria-pressed', b.classList.contains('on')); }); }
+    schemeBox.innerHTML = SCHEMES.map(function (s, i) {
+        return '<button type="button" data-i="' + i + '"><b>' + s.name.replace(' Yojana', '') + '</b><small>' + s.area + '</small><small>' + perSqft(s.rate) + (s.basis ? ' · est.' : '') + '</small></button>';
+    }).join('');
+    schemeBox.addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        schemeSel.value = b.getAttribute('data-i'); fillSizes();
+    });
+    sizeBox.addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        sizeSel.value = b.getAttribute('data-i'); calc();
+    });
 
     function fillSizes() {
         var s = SCHEMES[schemeSel.value];
@@ -274,17 +313,18 @@
             o.textContent = sqm(z) + ' (' + sqft(z) + ')  ·  ' + money(z * s.rate);
             sizeSel.appendChild(o);
         });
-        $('lpc-meta').innerHTML = '<div><strong>₹' + inr(s.rate) + '/sq m</strong>rate · ' + perSqft(s.rate) + '</div><div><strong>' + s.area + '</strong>location</div>';
+        sizeBox.innerHTML = s.sizes.map(function (z, i) { return '<button type="button" data-i="' + i + '"><b>' + sqm(z) + '</b><small>' + sqft(z) + '</small></button>'; }).join('');
+        onOnly(schemeBox, schemeSel.value);
         renderTable();
         calc();
     }
 
     function renderTable() {
         var s = SCHEMES[schemeSel.value];
-        var h = '<thead><tr><th>Plot size</th><th>Price (approx.)</th><th>5% deposit</th></tr></thead><tbody>';
+        var h = '<thead><tr><th>Plot size</th><th>Price</th><th>5% deposit</th></tr></thead><tbody>';
         s.sizes.forEach(function (z, i) {
             var p = z * s.rate;
-            h += '<tr data-i="' + i + '" title="Tap to calculate this size"><td>' + sqm(z) + ' <small style="color:#64748b">(' + sqft(z) + ')</small></td><td>' + money(p) + '</td><td>' + money(p * 0.05) + '</td></tr>';
+            h += '<tr data-i="' + i + '" title="Tap to calculate this size"><td>' + sqm(z) + '<small style="display:block;color:#64748b">' + sqft(z) + '</small></td><td>' + money(p) + '</td><td>' + money(p * 0.05) + '</td></tr>';
         });
         $('lpc-tbl').innerHTML = h + '</tbody>';
         $('lpc-tbl').querySelectorAll('tbody tr').forEach(function (tr) {
@@ -331,6 +371,7 @@
         $('r-save').innerHTML = '💰 <span>Paying in full within ' + { 0.06: 45, 0.05: 60, 0.04: 90 }[discPct] +
             ' days saves about <strong>' + money(instTotal - lsTotal) + '</strong> compared with 36 instalments.</span>';
         markRow();
+        onOnly(sizeBox, sizeSel.value);
     }
 
     ['lpc-cat', 'lpc-days'].forEach(function (g) {

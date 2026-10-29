@@ -46,9 +46,9 @@
         $bigha = fn ($lakh) => $lakh * 1e5 * CRS::BIGHA_SQM / 1e4;
         // Worked examples (same arithmetic as the calculator; checked against it by the test in _deploy)
         $ex = [];
-        $ex[] = ['100 gaj (83.61 sq m) plot on a road under 9 m wide', CRS::plotValue($M, 100 * CRS::GAJ_SQM)];
-        $ex[] = ['1,000 sq ft (92.90 sq m) plot on a road under 9 m wide', CRS::plotValue($M, 1000 * CRS::SQFT_SQM)];
-        if (($g = CRS::agriGeneralValue($M, CRS::BIGHA_SQM)) !== null) $ex[] = ['1 bigha (2,529 sq m) of agricultural land, सामान्य भूमि', $g];
+        $ex[] = ['100 gaj (83.61 sq m) plot on a road under 9 m wide', CRS::plotValue($M, 100 * CRS::GAJ_SQM), '100 gaj plot'];
+        $ex[] = ['1,000 sq ft (92.90 sq m) plot on a road under 9 m wide', CRS::plotValue($M, 1000 * CRS::SQFT_SQM), '1,000 sq ft plot'];
+        if (($g = CRS::agriGeneralValue($M, CRS::BIGHA_SQM)) !== null) $ex[] = ['1 bigha (2,529 sq m) of agricultural land, सामान्य भूमि', $g, '1 bigha farm land'];
         // Other mohallas of the same ward / pargana first, then alphabetical neighbours
         $same = array_values(array_filter($rows, fn ($r) => $r['ward_name'] === $M['ward_name'] && $r['sr'] !== $M['sr']));
         if (count($same) < 12) {
@@ -149,7 +149,7 @@
 .lcr-card button:hover{background:#effaf9}
 .lcr-empty{padding:18px;border:1px dashed var(--line);border-radius:14px;color:var(--g);font-size:14px;line-height:1.7}
 .lcr-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
-@media(max-width:860px){.lcr-grid{grid-template-columns:1fr}}
+@media(max-width:860px){.lcr-grid{grid-template-columns:minmax(0,1fr)}}
 .lcr-label{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--g);margin:0 0 7px}
 .lcr-field{margin-bottom:16px}
 .lcr select,.lcr .num{width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid var(--line);border-radius:11px;background:var(--soft);font:inherit;font-size:16px;color:var(--n);font-weight:600}
@@ -171,9 +171,38 @@
 .lcr-how{font-size:12.5px;color:var(--g);line-height:1.6;margin:10px 0 0}
 .lcr-crumb{font-size:13px;color:var(--g);margin:0 0 8px}.lcr-crumb a{color:var(--t);font-weight:600}
 .lcr-m{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:18px;margin:0 0 26px}
-@media(max-width:860px){.lcr-m{grid-template-columns:1fr}}
+@media(max-width:860px){.lcr-m{grid-template-columns:minmax(0,1fr)}}
 .lcr-m h2{font-size:17px;margin:0 0 10px}
 .lcr-m .lcr-rates td:first-child{color:#334155}
+.lcr-rt-wrap{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.lcr-rt{width:100%;border-collapse:collapse;font-size:13.5px}
+.lcr-rt thead th{background:var(--n);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-align:right;padding:10px 10px;white-space:nowrap}
+.lcr-rt thead th:first-child{text-align:left}
+.lcr-rt td{padding:9px 10px;border-bottom:1px dashed var(--line);color:#334155;cursor:pointer;transition:background .15s}
+.lcr-rt td+td{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lcr-rt td:nth-child(2){font-weight:700;color:var(--n)}
+.lcr-rt td:nth-child(3){color:var(--g);font-weight:600}
+.lcr-rt tr.h th{background:var(--soft);color:var(--t);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+.lcr-rt tr.h th span{text-transform:none;letter-spacing:0;font-weight:500;color:var(--g)}
+.lcr-rt tr.h.road th{background:#fff7ed;color:#9a3412;text-transform:none;letter-spacing:0;font-size:12.5px;line-height:1.45}
+.lcr-rt tbody tr:not(.h):hover td{background:#effaf9}
+.lcr-rt tbody tr.on td{background:#ccfbf1;color:var(--n)}
+.lcr-rt tbody tr.on td:first-child{box-shadow:inset 3px 0 0 var(--t)}
+@media(max-width:420px){.lcr-rt{font-size:12.5px}.lcr-rt td,.lcr-rt thead th{padding:8px 7px}}
+/* Phones: the rates table uses the full width, no card padding around it */
+@media(max-width:560px){.lcr-m .lcr-ratebox{padding:0;border:0;box-shadow:none;background:none}.lcr-ratebox h2{margin-bottom:8px}.lcr-rt td:first-child,.lcr-rt thead th:first-child,.lcr-rt tr.h th{padding-left:10px}}
+.lcr-h1hi{display:block;font-size:.6em;font-weight:700;color:#475569;margin-top:4px}
+.lcr-meta{font-size:13px;color:var(--g);margin:0 0 16px;line-height:1.6}.lcr-meta a{color:var(--t);font-weight:700}
+.lcr-ex-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-weight:700;color:var(--n)}
+.lcr-ex-top b{font-size:18px;color:var(--o);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lcr-ex small{display:block;font-size:12.5px;color:var(--g);line-height:1.5}
+.lcr-ex small b{color:var(--n)}
+.lcr-go{display:block;text-align:center;margin-top:12px;padding:11px;border:1.5px solid var(--t);border-radius:10px;color:var(--t);font-weight:700;font-size:14px;text-decoration:none}
+.lcr-go:hover{background:#effaf9}
+.lcr-more{margin:18px 0 0;border:1px solid var(--line);border-radius:14px;background:#fff;padding:14px 16px}
+.lcr-more summary{cursor:pointer;font-weight:700;color:var(--n);font-size:15px}
+.lcr-more[open] summary{margin-bottom:4px}
+.lcr-more .lcr-box{box-shadow:none;border:0;padding:8px 0 0}
 .lcr-ex{list-style:none;margin:0;padding:0}
 .lcr-ex li{border-bottom:1px dashed var(--line);padding:10px 0;font-size:14px;line-height:1.55}
 .lcr-ex li:last-child{border-bottom:0}
@@ -192,6 +221,30 @@
 .lcr-agri tr.on td:last-child{font-weight:800;color:var(--n)}
 .lcr-agri input{accent-color:var(--t);margin:0 6px 0 0;vertical-align:-2px}
 .lcr-agri small{display:block;color:var(--g);font-size:11.5px}
+.lcr-find select{width:100%}
+.lcr-all small.m{display:none}
+.lcr-all .lcr-tbl th{white-space:nowrap}
+.lcr-all .lcr-tbl a{color:var(--n);font-weight:600;text-decoration-color:#99d6d6;text-underline-offset:3px}
+@media(max-width:640px){
+    .lcr-all{max-height:520px}
+    .lcr-all .lcr-tbl{min-width:0;font-size:12.5px}
+    .lcr-all .x,.lcr-all.agri .fl{display:none}
+    .lcr-all .lcr-tbl th,.lcr-all .lcr-tbl td{padding:8px 6px}
+    .lcr-all .lcr-tbl td:nth-child(2){white-space:normal}
+    .lcr-all small.m{display:block;color:var(--g);font-size:11.5px}
+    .lcr-results{grid-template-columns:minmax(0,1fr)}
+    .lcr-find{padding:14px}
+}
+/* Phones: calculator fits the screen; type buttons wrap 3 per row (farm land on its own row), farm-land table drops
+   the lakh/ha column (the rates table above already shows it) so it needs no sideways scroll */
+@media(max-width:560px){
+    .lcr-grid .lcr-box{padding:14px}
+    .lcr-seg button{flex:1 1 calc(33.33% - 6px);font-size:13px;padding:10px 4px}
+    .lcr-seg #c-type-agri{flex-basis:100%}
+    .lcr-agri{min-width:0;font-size:12.5px}
+    .lcr-agri th,.lcr-agri td{padding:8px 6px}
+    .lcr-agri th:nth-child(2),.lcr-agri td:nth-child(2){display:none}
+}
 .lcr-cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 @media(max-width:560px){.lcr-cta{grid-template-columns:1fr}}
 .lcr-cta a{display:flex;align-items:center;justify-content:center;padding:13px;border-radius:12px;font-weight:700;font-size:14.5px;text-decoration:none;text-align:center}
@@ -217,45 +270,43 @@
 
 @section('content')
 <div class="lcr">
-    <form class="lcr-sro" method="get" action="{{ url('/lucknow-circle-rate') }}">
-        <label for="lcr-sro">SRO (उप निबंधक कार्यालय)</label>
-        <select id="lcr-sro" name="sro" onchange="this.form.submit()">
-            @foreach($all as $slug => $l)
-                <option value="{{ $slug }}" @selected($slug === $sel)>{{ $l['sro'] }} ({{ $l['sro_hi'] }})</option>
-            @endforeach
-        </select>
-        <noscript><button type="submit">Show</button></noscript>
-        <span>Choose the sub-registrar office your property is registered in. More SROs are being added.</span>
-    </form>
     @if($mRow)
+    {{-- Mohalla page: the rates come first; the SRO menu, source strip and long intros are left out (user, 28 Oct 2026) --}}
     <nav class="lcr-crumb"><a href="{{ $sroUrl }}">Lucknow circle rate · {{ $L['sro'] }}</a> › {{ $M['en'] }}</nav>
-    <h1>{{ $M['en'] }} Circle Rate ({{ $M['hi'] }} सर्किल रेट)</h1>
-    <p class="sub">{{ $M['category'] ?? '' }}{{ !empty($M['category']) ? ' · ' : '' }}{{ $place }} · {{ $L['sro'] }} sub-registrar office, Lucknow. Every figure below is copied from the District Magistrate's valuation list, without rounding.</p>
+    <h1>{{ $M['en'] }} Circle Rate <span class="lcr-h1hi">{{ $M['hi'] }} सर्किल रेट</span></h1>
+    <p class="lcr-meta">{{ $place }} · {{ $L['sro'] }} SRO · DM list in force from {{ $effLabel }} · <a href="{{ $lists[0]['pdf'] }}" target="_blank" rel="noopener">official PDF</a></p>
     @include('pages.partials.circle-rate-mohalla')
     @else
-    <h1>Lucknow Circle Rate: {{ $L['sro'] }}</h1>
-    @endif
-    <p class="sub">Search your mohalla to see the official minimum value per square metre for plots, flats, shops and offices, then calculate the circle-rate value and stamp duty for your property. Every rate below is copied from the District Magistrate's valuation list, without any rounding or changes.</p>
+    {{-- SRO page: title, one meta line, then SRO + search in one box, so the search is on the first screen (user, 29 Oct 2026) --}}
+    <h1>Lucknow Circle Rate <span class="lcr-h1hi">{{ $L['sro'] }} · {{ $L['sro_hi'] }}</span></h1>
+    <p class="lcr-meta">{{ $count }} mohallas · DM list in force from {{ $effLabel }}@if(!empty($L['amendment'])) · some rates revised 4 June 2026 (<a href="{{ asset('downloads/circle-rate/Lucknow-Circle-Rate-Revision-Order-1952-04-06-2026.pdf') }}" target="_blank" rel="noopener">DM order {{ $L['amendment']['no'] }}</a>)@endif · <a href="{{ $lists[0]['pdf'] }}" target="_blank" rel="noopener">official PDF</a></p>
 
-    <div class="lcr-src">
-        <span><strong>SRO:</strong> {{ $sroName }}, {{ $count }} mohallas</span>
-        <span><strong>In force from:</strong> {{ $effLabel }}@if(!empty($L['amendment'])), revised rates for some areas from 4 June 2026 (<a href="{{ asset('downloads/circle-rate/Lucknow-Circle-Rate-Revision-Order-1952-04-06-2026.pdf') }}" target="_blank" rel="noopener">DM order {{ $L['amendment']['no'] }}</a>)@endif</span>
-        <span><strong>Source:</strong> DM Lucknow valuation list (मूल्यांकन सूची) · <a href="{{ $lists[0]['pdf'] }}" target="_blank" rel="noopener">official PDF</a></span>
-    </div>
-
-    {{-- Search --}}
-    <div class="lcr-box">
-        <label class="lcr-label" for="lcr-q">Find your mohalla</label>
+    <div class="lcr-box lcr-find">
+        <form class="lcr-sro2" method="get" action="{{ url('/lucknow-circle-rate') }}">
+            <label class="lcr-label" for="lcr-sro">1. Sub-registrar office (SRO)</label>
+            <select id="lcr-sro" name="sro" onchange="this.form.submit()">
+                @foreach($all as $slug => $l)
+                    <option value="{{ $slug }}" @selected($slug === $sel)>{{ $l['sro'] }} ({{ $l['sro_hi'] }})</option>
+                @endforeach
+            </select>
+            <noscript><button type="submit">Show</button></noscript>
+        </form>
+        <label class="lcr-label" for="lcr-q" style="margin-top:14px">2. Your mohalla or village</label>
         <div class="lcr-search">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-            <input id="lcr-q" type="search" autocomplete="off" placeholder="e.g. {{ $examples[0] }}">
+            <input id="lcr-q" type="search" autocomplete="off" placeholder="e.g. {{ $examples[1] }}">
         </div>
-        <p class="lcr-hint">Type in English or Hindi. All rates are in ₹ per square metre (sq m), as in the official list; ₹ per sq ft is shown in grey.</p>
+        <p class="lcr-hint">English or Hindi. Rates are ₹ per sq m; ₹ per sq ft in grey.</p>
         <div id="lcr-results" class="lcr-results"></div>
     </div>
+    @endif
 
     {{-- Calculator --}}
+    @if($mRow)
+    <h2 id="calculator">Calculate for your property in {{ $M['en'] }}</h2>
+    @else
     <h2 id="calculator">Circle rate value and stamp duty calculator</h2>
+    @endif
     <div class="lcr-grid">
         <div class="lcr-box">
             <div class="lcr-field">
@@ -337,7 +388,7 @@
                 </div>
                 <div class="lcr-field">
                     <label class="lcr-label" for="c-sfloor">Floor</label>
-                    <select id="c-sfloor"><option value="100">Ground / upper ground / lower ground</option><option value="90">Basement or 1st floor (90%)</option><option value="80">2nd, 3rd or 4th floor (80%)</option><option value="70">5th floor and above (70%)</option></select>
+                    <select id="c-sfloor"><option value="100">Ground / upper / lower ground</option><option value="90">Basement or 1st floor (90%)</option><option value="80">2nd, 3rd or 4th floor (80%)</option><option value="70">5th floor and above (70%)</option></select>
                 </div>
                 <label class="lcr-chk"><input type="checkbox" id="c-ac"> Air-conditioned, or in a shopping complex / mall / multiplex (+20%, no floor rebate)</label>
                 <p class="lcr-hint">For a shop inside a commercial building. Enter the carpet area. A stand-alone shop sold with its land is valued differently; ask us.</p>
@@ -352,7 +403,7 @@
                 </div>
                 <div class="lcr-field">
                     <label class="lcr-label" for="c-aadj">Next to both a road and abadi?</label>
-                    <select id="c-aadj"><option value="">No</option><option value="40">On a road with abadi within 50 m (+40%)</option><option value="30">50–200 m from the field next to abadi (+30%)</option></select>
+                    <select id="c-aadj"><option value="">No</option><option value="40">Road + abadi within 50 m (+40%)</option><option value="30">50–200 m from abadi-side field (+30%)</option></select>
                 </div>
             </div>
 
@@ -395,24 +446,61 @@
         </div>
     </div>
 
+    @if($mRow)
+    {{-- Mohalla page: search + nearby instead of the full SRO table (that lives on the SRO page) --}}
+    <h2>Check another mohalla</h2>
+    <div class="lcr-box">
+        <div class="lcr-search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="lcr-q" type="search" autocomplete="off" aria-label="Search mohalla" placeholder="Type a mohalla in English or Hindi">
+        </div>
+        <div id="lcr-results" class="lcr-results"></div>
+        @if(count($nearby))
+        <p class="lcr-label" style="margin:16px 0 0">Nearby in {{ $M['ward_name'] }}</p>
+        <div class="lcr-near">
+            @foreach($nearby as $r)<a href="{{ CRS::url($sel, $r) }}">{{ $r['en'] }}</a>@endforeach
+            <a href="{{ $sroUrl }}#all-rates"><b>All {{ $count }} mohallas →</b></a>
+        </div>
+        @endif
+    </div>
+
+    @if(count($lists[0]['general_roads']))
+    <details class="lcr-more" id="main-roads">
+        <summary>Main roads of {{ $L['sro'] }} with one rate for every mohalla ({{ count($lists[0]['general_roads']) }})</summary>
+        <div class="lcr-tbl-wrap" style="max-height:none;margin-top:12px">
+            <table class="lcr-tbl" style="min-width:560px">
+                <thead><tr><th>Road segment</th><th class="r">Plot</th><th class="r">Shop</th><th class="r">Office</th><th class="r">Godown</th></tr></thead>
+                <tbody>
+                @foreach($lists[0]['general_roads'] as $g)
+                    <tr><td style="white-space:normal">{{ $g['segment'] }}</td><td class="r">{{ $fmt($g['plot']) }}</td><td class="r">{{ $fmt($g['shop']) }}</td><td class="r">{{ $fmt($g['office']) }}</td><td class="r">{{ $fmt($g['godown']) }}</td></tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </details>
+    @endif
+    @else
     {{-- Full table --}}
     <h2 id="all-rates">All {{ $count }} mohallas of {{ $L['sro'] }}</h2>
-    <p class="sub">Plot rates by road width, flat construction rates and commercial carpet rates, in ₹ per sq m. Mohallas on a main road segment have a higher rate for that road; see the search results.</p>
-    <div class="lcr-tbl-wrap">
+    <p class="sub">₹ per sq m. Tap a mohalla for all its rates, sq ft figures and stamp duty.</p>
+    {{-- Phones show only Mohalla · Plot · Flat · Shop (class "x" columns hide); the mohalla page has the rest --}}
+    @php $hasAgri = collect($rows)->contains(fn ($r) => !empty($r['agri'])); @endphp
+    {{-- SROs with villages get a farm-land column (सामान्य भूमि, ₹ lakh/ha); on phones it takes the Flat column's place --}}
+    <div class="lcr-tbl-wrap lcr-all{{ $hasAgri ? ' agri' : '' }}">
         <table class="lcr-tbl">
             <thead><tr>
-                <th>#</th><th>Mohalla</th><th>मोहल्ला</th><th>Ward</th>
-                <th class="r">Plot, road &lt;9 m</th><th class="r">9–12 m</th><th class="r">12–18 m</th><th class="r">18 m+</th>
-                <th class="r">Flat (ordinary)</th><th class="r">Flat (premium)</th>
-                <th class="r">Shop</th><th class="r">Office</th><th class="r">Godown</th>
+                <th class="x">#</th><th>Mohalla</th>@if($hasAgri)<th class="r fm">Farm ₹L/ha</th>@endif<th class="x">मोहल्ला</th><th class="x">Ward</th>
+                <th class="r">Plot<span class="x">, road</span> &lt;9 m</th><th class="r x">9–12 m</th><th class="r x">12–18 m</th><th class="r x">18 m+</th>
+                <th class="r fl">Flat<span class="x"> (ordinary)</span></th><th class="r x">Flat (premium)</th>
+                <th class="r">Shop</th><th class="r x">Office</th><th class="r x">Godown</th>
             </tr></thead>
             <tbody>
             @foreach($rows as $r)
                 <tr>
-                    <td>{{ $r['id'] }}</td><td><a href="{{ CRS::url($sel, $r) }}">{{ $r['en'] }}</a></td><td>{{ $r['hi'] }}</td><td>{{ $r['ward'] }} {{ $r['ward_name'] }}</td>
-                    <td class="r">{{ $fmt($r['plot']['lt9']) }}</td><td class="r">{{ $fmt($r['plot']['9_12']) }}</td><td class="r">{{ $fmt($r['plot']['12_18']) }}</td><td class="r">{{ $fmt($r['plot']['gt18']) }}</td>
-                    <td class="r">{{ $fmt($r['flat']['ordinary']) }}</td><td class="r">{{ $fmt($r['flat']['premium']) }}</td>
-                    <td class="r">{{ $fmt($r['commercial']['shop'] ?? null) }}</td><td class="r">{{ $fmt($r['commercial']['office'] ?? null) }}</td><td class="r">{{ $fmt($r['commercial']['godown'] ?? null) }}</td>
+                    <td class="x">{{ $r['id'] }}</td><td><a href="{{ CRS::url($sel, $r) }}">{{ $r['en'] }}</a><small class="m">{{ $r['hi'] }}</small></td>@if($hasAgri)<td class="r fm">{{ !empty($r['agri']) ? $r['agri']['general'] : '–' }}</td>@endif<td class="x">{{ $r['hi'] }}</td><td class="x">{{ $r['ward'] }} {{ $r['ward_name'] }}</td>
+                    <td class="r">{{ $fmt($r['plot']['lt9']) }}</td><td class="r x">{{ $fmt($r['plot']['9_12']) }}</td><td class="r x">{{ $fmt($r['plot']['12_18']) }}</td><td class="r x">{{ $fmt($r['plot']['gt18']) }}</td>
+                    <td class="r fl">{{ $fmt($r['flat']['ordinary']) }}</td><td class="r x">{{ $fmt($r['flat']['premium']) }}</td>
+                    <td class="r">{{ $fmt($r['commercial']['shop'] ?? null) }}</td><td class="r x">{{ $fmt($r['commercial']['office'] ?? null) }}</td><td class="r x">{{ $fmt($r['commercial']['godown'] ?? null) }}</td>
                 </tr>
             @endforeach
             </tbody>
@@ -420,10 +508,11 @@
     </div>
 
     @if(count($lists[0]['general_roads']))
-    <h2 id="main-roads">Main roads with one rate for every mohalla along them</h2>
-    <p class="sub">The {{ $L['sro'] }} list gives these roads a single rate for all revenue villages and mohallas on both sides. Rates in ₹ per sq m.</p>
-    <div class="lcr-tbl-wrap" style="max-height:none">
-        <table class="lcr-tbl" style="min-width:720px">
+    <details class="lcr-more" id="main-roads">
+    <summary>Main roads with one rate for every mohalla along them ({{ count($lists[0]['general_roads']) }})</summary>
+    <p class="lcr-hint">Rates in ₹ per sq m, for all mohallas and villages on both sides of the road.</p>
+    <div class="lcr-tbl-wrap" style="max-height:none;margin-top:10px">
+        <table class="lcr-tbl" style="min-width:560px">
             <thead><tr><th>Road segment (as in the official list)</th><th class="r">Plot</th><th class="r">Shop</th><th class="r">Office</th><th class="r">Godown</th></tr></thead>
             <tbody>
             @foreach($lists[0]['general_roads'] as $g)
@@ -432,10 +521,13 @@
             </tbody>
         </table>
     </div>
+    </details>
+    @endif
     @endif
 
-    {{-- Rules --}}
-    <h2>How the DM list values a property</h2>
+    {{-- Rules: folded on both pages, they are long and most visitors only want the rate --}}
+    <details class="lcr-more">
+    <summary>How the DM list values a property (rules)</summary>
     <div class="lcr-box lcr-rules">
         <ul>
             <li><strong>Plot:</strong> area × the rate for the mohalla and the width of the road in front. Park facing +10%; road on more than one side: the higher road rate +10%; both +20%. Area above 1,000 sq m is valued at 30% less.</li>
@@ -450,11 +542,12 @@
             <li><strong>Papers the deed needs:</strong> road width and name in the boundary, a route map (नक्शा नजरी), a geo-tagged photo with latitude and longitude, and for built property a map of the construction.</li>
         </ul>
     </div>
+    </details>
 
-    {{-- FAQ --}}
+    {{-- FAQ (a mohalla page shows the same questions as its FAQPage schema) --}}
     <h2>Frequently asked questions</h2>
     <div class="lcr-faq">
-        @foreach($faqs as $f)
+        @foreach($mRow ? $mFaqs : $faqs as $f)
             <details><summary>{{ $f[0] }}</summary><p>{{ $f[1] }}</p></details>
         @endforeach
     </div>
@@ -555,7 +648,7 @@
     // ── Calculator ─────────────────────────────────────
     var moh = $('c-moh'), road = $('c-road');
     ROWS.slice().sort(function (a, b) { return a.en.localeCompare(b.en); }).forEach(function (r) {
-        var o = document.createElement('option'); o.value = r.id; o.textContent = r.en + ' · ' + r.hi; moh.appendChild(o);
+        var o = document.createElement('option'); o.value = r.id; var t = r.en + ' · ' + r.hi; if (t.length > 36) t = r.en.length > 36 ? r.en.slice(0, 35) + '…' : r.en; o.textContent = t; o.title = r.en + ' · ' + r.hi; moh.appendChild(o);
     });
     var first = ROWS.filter(function (r) { return @json($mRow ? $mRow['en'] : $examples[1]) === r.en; })[0] || ROWS[0];
     var SRO = @json($sel), BASE = @json(url('/lucknow-circle-rate'));
@@ -567,11 +660,15 @@
     var WIDTH_TXT = { lt9: 'Under 9 m wide', '9_12': '9 to 12 m', '12_18': '12 to 18 m', gt18: 'Above 18 m' };
     function fillRoads() {
         var r = row(), prev = road.value, list = DATA.lists[r.list], all = CRC.roads(r, list);
-        var opt = function (x, txt) { return '<option value="' + x.v + '">' + txt + ' (₹' + inr(x.rate) + '/sq m)</option>'; };
+        // Road names are long; an open dropdown is as wide as its longest line, so trim them to fit a phone (full name in the tooltip)
+        var opt = function (x, txt) {
+            var s = txt.length > 30 ? txt.slice(0, 29).replace(/[\s\/,(·-]+$/, '') + '…' : txt;
+            return '<option value="' + x.v + '" title="' + esc(txt) + '">' + esc(s) + ' (₹' + inr(x.rate) + '/sq m)</option>';
+        };
         var gen = all.filter(function (x) { return x.kind === 'gen'; });
         road.innerHTML = all.filter(function (x) { return x.kind === 'width'; }).map(function (x) { return opt(x, WIDTH_TXT[x.v]); }).join('') +
-            all.filter(function (x) { return x.kind === 'seg'; }).map(function (x) { return opt(x, 'On main road: ' + esc(x.name)); }).join('') +
-            (gen.length ? '<optgroup label="Main roads with one rate for all mohallas">' + gen.map(function (x) { return opt(x, esc(x.name)); }).join('') + '</optgroup>' : '');
+            all.filter(function (x) { return x.kind === 'seg'; }).map(function (x) { return opt(x, 'Main road: ' + x.name); }).join('') +
+            (gen.length ? '<optgroup label="Main roads, one rate for all">' + gen.map(function (x) { return opt(x, x.name); }).join('') + '</optgroup>' : '');
         if ([].some.call(road.options, function (o) { return o.value === prev; })) road.value = prev;
     }
     // Agricultural land is bought by the bigha; everything else by sq m / sq ft / gaj (user's request, 26 Oct 2026)

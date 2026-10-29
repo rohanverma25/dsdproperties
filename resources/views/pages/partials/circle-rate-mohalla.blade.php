@@ -1,72 +1,91 @@
 {{--
     The server-rendered part of a mohalla page (/lucknow-circle-rate/{sro}/{mohalla}): the mohalla's rates from the
-    DM list, worked stamp-duty examples, and links to nearby mohallas. Variables come from pages/lucknow-circle-rate.
+    DM list and worked stamp-duty examples. Nearby mohallas sit under the calculator (pages/lucknow-circle-rate). Variables come from pages/lucknow-circle-rate.
     Every rate is printed straight from the JSON; examples use App\Support\CircleRates (same arithmetic as the calculator).
 --}}
 @php
     use App\Support\CircleRates as CRS;
-    $sqft = fn ($v) => '₹' . CRS::inr($v * CRS::SQFT_SQM) . '/sq ft';
     $wid = ['lt9' => 'Road under 9 m', '9_12' => 'Road 9–12 m', '12_18' => 'Road 12–18 m', 'gt18' => 'Road above 18 m'];
     $acol = ['general' => 'सामान्य भूमि (other fields)', 'district_road' => 'जनपदीय मार्ग से सटी (district road)', 'link_road' => 'सम्पर्क मार्ग से सटी (link road)', 'near_abadi' => 'आबादी से सटी (next to abadi)'];
     $waMsg = 'Hi, I think a rate on your ' . $M['en'] . ' (' . $L['sro'] . ') circle rate page may be wrong: ';
 @endphp
 <div class="lcr-m">
-    <div class="lcr-box">
+    <div class="lcr-box lcr-ratebox">
         <h2>{{ $M['en'] }} circle rates (₹ per sq m)</h2>
-        <table class="lcr-rates">
-            <tr class="h"><td colspan="2">Residential plot (non-agricultural)</td></tr>
-            @foreach($wid as $k => $t)
-                @if($p[$k] !== null)
-                <tr><td>{{ $t }}</td><td>₹{{ CRS::inr($p[$k]) }} <small>{{ $sqft($p[$k]) }}</small></td></tr>
-                @endif
-            @endforeach
+        @php
+            $row = fn ($t, $v) => '<tr><td>' . e($t) . '</td><td>₹' . CRS::inr($v) . '</td><td>₹' . CRS::inr($v * CRS::SQFT_SQM) . '</td></tr>';
+        @endphp
+        <div class="lcr-rt-wrap">
+        <table class="lcr-rt" id="lcr-rt">
+            <thead><tr><th scope="col">Property type</th><th scope="col">₹ per sq m</th><th scope="col">₹ per sq ft</th></tr></thead>
+            <tbody>
+            {{-- Villages: agricultural land first, it is what most visitors to these pages look for (user, 28 Oct 2026) --}}
             @if($a)
-            <tr class="h"><td colspan="2">Agricultural land (₹ lakh per hectare · per bigha)</td></tr>
+            <tr class="h"><th colspan="3" scope="rowgroup">Agricultural land <span>(₹ lakh per hectare · per bigha)</span></th></tr>
             @foreach($acol as $k => $t)
-                <tr><td>{{ $t }}</td><td>₹{{ $a[$k] }} L <small>{{ CRS::money($bigha($a[$k])) }}/bigha</small></td></tr>
+                <tr><td>{{ $t }}</td><td>₹{{ $a[$k] }} L/ha</td><td>{{ CRS::money($bigha($a[$k])) }}/bigha</td></tr>
             @endforeach
             @endif
-            <tr class="h"><td colspan="2">Flat construction rate</td></tr>
-            <tr><td>Ordinary · Premium</td><td>₹{{ CRS::inr($M['flat']['ordinary']) }} · ₹{{ CRS::inr($M['flat']['premium']) }}</td></tr>
+            <tr class="h"><th colspan="3" scope="rowgroup">Residential plot (non-agricultural)</th></tr>
+            @foreach($wid as $k => $t)
+                @if($p[$k] !== null){!! $row($t, $p[$k]) !!}@endif
+            @endforeach
+            <tr class="h"><th colspan="3" scope="rowgroup">Flat construction rate</th></tr>
+            {!! $row('Flat · ordinary', $M['flat']['ordinary']) !!}
+            {!! $row('Flat · premium', $M['flat']['premium']) !!}
             @if(!empty($M['commercial']))
-            <tr class="h"><td colspan="2">Commercial carpet area</td></tr>
-            <tr><td>Shop · Office · Godown</td><td>₹{{ CRS::inr($M['commercial']['shop']) }} · ₹{{ CRS::inr($M['commercial']['office']) }} · ₹{{ CRS::inr($M['commercial']['godown']) }}</td></tr>
+            <tr class="h"><th colspan="3" scope="rowgroup">Commercial carpet area</th></tr>
+            {!! $row('Shop', $M['commercial']['shop']) !!}
+            {!! $row('Office', $M['commercial']['office']) !!}
+            {!! $row('Godown', $M['commercial']['godown']) !!}
             @endif
+            @foreach($M['roads'] as $rd)
+            <tr class="h road"><th colspan="3" scope="rowgroup">On {{ $rd['segment_en'] ?? $rd['segment'] }}@if(!empty($rd['segment_en'])) <span>({{ $rd['segment'] }})</span>@endif</th></tr>
+            {!! $row('Plot', $rd['plot']) !!}
+            {!! $row('Shop', $rd['shop']) !!}
+            {!! $row('Office', $rd['office']) !!}
+            {!! $row('Godown', $rd['godown']) !!}
+            @if(!empty($rd['agri']))<tr><td>Agricultural land</td><td>₹{{ $rd['agri'] }} L/ha</td><td>{{ CRS::money($bigha($rd['agri'])) }}/bigha</td></tr>@endif
+            @endforeach
+            </tbody>
         </table>
-        @foreach($M['roads'] as $rd)
-            <div class="lcr-road"><strong>On {{ $rd['segment_en'] ?? $rd['segment'] }}</strong>{{ !empty($rd['segment_en']) ? ' (' . $rd['segment'] . ')' : '' }}: plot ₹{{ CRS::inr($rd['plot']) }}/sq m · shop ₹{{ CRS::inr($rd['shop']) }} · office ₹{{ CRS::inr($rd['office']) }} · godown ₹{{ CRS::inr($rd['godown']) }}@if(!empty($rd['agri'])) · agricultural ₹{{ $rd['agri'] }} lakh/ha ({{ CRS::money($bigha($rd['agri'])) }}/bigha)@endif</div>
-        @endforeach
+        </div>
+        <script>
+        (function () {
+            var t = document.getElementById('lcr-rt');
+            if (!t) return;
+            t.addEventListener('click', function (e) {
+                var tr = e.target.closest('tbody tr');
+                if (!tr || tr.classList.contains('h')) return;
+                var on = tr.classList.contains('on');
+                t.querySelectorAll('tr.on').forEach(function (r) { r.classList.remove('on'); });
+                if (!on) tr.classList.add('on');
+            });
+        })();
+        </script>
         @if(count($L['general_roads'] ?? []))
-            <p class="lcr-hint">Property on one of the <a href="#main-roads">{{ count($L['general_roads']) }} main roads of {{ $L['sro'] }}</a> takes that road's rate instead.</p>
+            <p class="lcr-hint">On a <a href="#main-roads" onclick="document.getElementById('main-roads').open=true">main road of {{ $L['sro'] }}</a>? That road's rate applies instead.</p>
         @endif
         @if(!empty($M['amended']))
-            <div class="lcr-note">Rates for this {{ $isVillage ? 'village' : 'mohalla' }} were revised by DM Lucknow order 1952 dated 04.06.2026; the figures above are the revised ones.</div>
+            <div class="lcr-note">Revised rates (DM order 1952, 4 June 2026).</div>
         @endif
         @if(!empty($M['note']))
             <div class="lcr-note">{{ $M['note'] }}</div>
         @endif
     </div>
     <div class="lcr-box">
-        <h2>Stamp duty in {{ $M['en'] }}: worked examples</h2>
+        <h2>Registry cost in {{ $M['en'] }}</h2>
         <ul class="lcr-ex">
-            @foreach($ex as [$label, $val])
+            @foreach($ex as [$label, $val, $short])
                 @php $d = CRS::duty($val); $dw = CRS::duty($val, true); @endphp
-                <li data-ex="{{ round($val) }}"><b>{{ $label }}</b><br>
-                    Circle-rate value <b>{{ CRS::money($val) }}</b> · stamp duty {{ CRS::money($d['sd']) }} (7%) + registration {{ CRS::money($d['reg']) }} = <b>{{ CRS::money($d['total']) }}</b>
-                    @if($dw['rate'] < $d['rate'])<br><small>Woman buyer: stamp duty {{ CRS::money($dw['sd']) }} (6%) + registration {{ CRS::money($dw['reg']) }} = {{ CRS::money($dw['total']) }}</small>@endif
+                <li data-ex="{{ round($val) }}" title="{{ $label }}">
+                    <div class="lcr-ex-top"><span>{{ $short }}</span><b>{{ CRS::money($d['total']) }}</b></div>
+                    <small>Value {{ CRS::money($val) }} · stamp duty 7% {{ CRS::money($d['sd']) }} · registration 1% {{ CRS::money($d['reg']) }}</small>
+                    @if($dw['rate'] < $d['rate'])<small>Woman buyer (6%): <b>{{ CRS::money($dw['total']) }}</b></small>@endif
                 </li>
             @endforeach
         </ul>
-        <p class="lcr-hint">Use the calculator below for your exact size, road, flat or house. Stamp duty is on the circle-rate value or the sale price, whichever is higher.</p>
-        <p class="lcr-report">See a rate that does not match the official list? <a href="https://wa.me/918595002933?text={{ rawurlencode($waMsg) }}" target="_blank" rel="noopener">Tell us on WhatsApp</a> · <a href="{{ $lists[0]['pdf'] }}" target="_blank" rel="noopener">official PDF</a></p>
+        <a class="lcr-go" href="#calculator">Calculate for your size, flat or house ↓</a>
+        <p class="lcr-report">Rate looks wrong? <a href="https://wa.me/918595002933?text={{ rawurlencode($waMsg) }}" target="_blank" rel="noopener">Tell us</a></p>
     </div>
 </div>
-@if(count($nearby))
-<div class="lcr-box" style="margin:0 0 26px">
-    <h2 style="font-size:17px;margin:0">Nearby in {{ $M['ward_name'] }} and {{ $L['sro'] }}</h2>
-    <div class="lcr-near">
-        @foreach($nearby as $r)<a href="{{ CRS::url($sel, $r) }}">{{ $r['en'] }} · {{ $r['hi'] }}</a>@endforeach
-        <a href="{{ $sroUrl }}#all-rates">All {{ $count }} mohallas of {{ $L['sro'] }} →</a>
-    </div>
-</div>
-@endif
