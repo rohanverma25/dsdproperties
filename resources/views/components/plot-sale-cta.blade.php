@@ -6,11 +6,13 @@
     Usage: @include('components.plot-sale-cta', ['focus' => 'it-city', 'from' => 'news-story'])
            focus:  saumitra | it-city | wellness | null — that scheme's card is shown first.
            verify: false hides the verification strip (the /news sidebar has its own box).
+           plain:  true draws white cards with a coloured edge instead of gradients (the /news list page).
 --}}
 @php
     $wa = '918595002933';
     $from = $from ?? 'news';
     $verify = $verify ?? true;
+    $plain = $plain ?? false;
     $schemes = [
         'saumitra' => [
             'name'  => 'Saumitra Vihar',
@@ -39,7 +41,7 @@
         $schemes = [$focus => $schemes[$focus]] + $schemes;
     }
 @endphp
-<div class="psc">
+<div class="psc{{ $plain ? ' psc--plain' : '' }}">
     <div class="psc__head">
         <p class="psc__kicker">Buy a Plot</p>
         <p class="psc__title">Looking to buy a plot?</p>
@@ -118,5 +120,22 @@
     .psc__vtext strong { color:#c2410c; }
     .psc__vgo { margin-left:auto; font-weight:800; color:#FF5C00; }
     .psc__note { font-size:.72rem; color:#9ca3af; margin:12px 0 0; }
+
+    /* Plain variant: white cards, a thin coloured edge, green WhatsApp button text */
+    .psc--plain { box-shadow:none; }
+    .psc--plain .psc__kicker { background:none; padding:0; color:#64748b; }
+    .psc--plain .psc__list { grid-template-columns:minmax(0,1fr); gap:8px; }
+    .psc--plain .psc__card { background:#fff; color:#0f172a !important; border:1px solid #e5e7eb; border-left:4px solid var(--psc-c); padding:12px 14px; }
+    .psc--plain .psc__card::after { display:none; }
+    .psc--plain .psc__card:hover { box-shadow:none; border-color:var(--psc-c); }
+    .psc--plain .psc__card--saumitra { --psc-c:#6d28d9; }
+    .psc--plain .psc__card--it-city  { --psc-c:#0369a1; }
+    .psc--plain .psc__card--wellness { --psc-c:#047857; }
+    .psc--plain .psc__badge { background:none; border:none; padding:0; color:#64748b; }
+    .psc--plain .psc__name { font-size:1.05rem; }
+    .psc--plain .psc__line { color:#64748b; margin-bottom:8px; }
+    .psc--plain .psc__btn { background:none; padding:0; color:#128C7E !important; }
+    .psc--plain .psc__verify { background:#fff; border-color:#e5e7eb; color:#0f172a !important; }
+    .psc--plain .psc__verify:hover { border-color:#FF5C00; }
 </style>
 @endonce
