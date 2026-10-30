@@ -13,24 +13,24 @@
     $verify = $verify ?? true;
     $schemes = [
         'saumitra' => [
-            'name'  => 'सौमित्र विहार',
-            'badge' => 'आवास विकास · RERA मंज़ूरी',
-            'line'  => 'पहले चरण में 2,000 से ज़्यादा प्लॉट',
-            'btn'   => 'प्लॉट की जानकारी लें',
+            'name'  => 'Saumitra Vihar',
+            'badge' => 'Awas Vikas · RERA approved',
+            'line'  => '2,000+ plots in phase 1',
+            'btn'   => 'Get plot details',
             'msg'   => 'Hi, I want to buy a plot in Saumitra Vihar. Please share available plot sizes and rates.',
         ],
         'it-city' => [
-            'name'  => 'आईटी सिटी',
-            'badge' => 'LDA योजना',
-            'line'  => 'किसानों के प्लॉट और लैंड-पूलिंग ज़मीन',
-            'btn'   => 'रेट और साइज़ पूछें',
+            'name'  => 'IT City',
+            'badge' => 'LDA scheme',
+            'line'  => 'Farmer-quota plots and land-pooling land',
+            'btn'   => 'Ask rates & sizes',
             'msg'   => 'Hi, I want to buy a plot in IT City Lucknow. Please share available plots and rates.',
         ],
         'wellness' => [
-            'name'  => 'वेलनेस सिटी',
-            'badge' => 'LDA योजना',
-            'line'  => 'नई योजना में उपलब्ध प्लॉट और रेट',
-            'btn'   => 'उपलब्धता जानें',
+            'name'  => 'Wellness City',
+            'badge' => 'LDA scheme',
+            'line'  => 'Available plots and rates in the new scheme',
+            'btn'   => 'Check availability',
             'msg'   => 'Hi, I want to buy a plot in Wellness City Lucknow. Please share which plots are available.',
         ],
     ];
@@ -42,8 +42,8 @@
 <div class="psc">
     <div class="psc__head">
         <p class="psc__kicker">Buy a Plot</p>
-        <p class="psc__title">प्लॉट खरीदना है?</p>
-        <p class="psc__text">योजना चुनें, WhatsApp पर सीधे हमसे बात करें।</p>
+        <p class="psc__title">Looking to buy a plot?</p>
+        <p class="psc__text">Pick a scheme and chat with us directly on WhatsApp.</p>
     </div>
     <div class="psc__list">
         @foreach($schemes as $key => $s)
@@ -51,7 +51,7 @@
                href="https://wa.me/{{ $wa }}?text={{ rawurlencode($s['msg'].' (from dsdproperties.in '.$from.')') }}">
                 <span class="psc__tags">
                     <span class="psc__badge">{{ $s['badge'] }}</span>
-                    @if($key === $focus)<span class="psc__ribbon">इस खबर से जुड़ी</span>@endif
+                    @if($key === $focus)<span class="psc__ribbon">In this story</span>@endif
                 </span>
                 <span class="psc__name">{{ $s['name'] }}</span>
                 <span class="psc__line">{{ $s['line'] }}</span>
@@ -68,21 +68,21 @@
         <span class="psc__vicon" aria-hidden="true">
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.2-3 7.7-7 9-4-1.3-7-4.8-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
         </span>
-        <span class="psc__vtext">कहीं और ले रहे हैं? खरीदने से पहले <strong>₹5,000</strong> में पूरी जाँच</span>
+        <span class="psc__vtext">Buying elsewhere? Full check before you buy for <strong>₹5,000</strong></span>
         <span class="psc__vgo" aria-hidden="true">→</span>
     </a>
     @endif
-    <p class="psc__note">स्वतंत्र रीसेल सेवा; LDA या आवास विकास से संबद्ध नहीं।</p>
+    <p class="psc__note">Independent resale service; not affiliated with LDA or Awas Vikas.</p>
 </div>
 
 @once
 <style>
-    .psc { background:#fff; border:1px solid #e5e7eb; border-radius:18px; padding:20px; font-family:'Hind','Mukta','Plus Jakarta Sans',sans-serif;
+    .psc { background:#fff; border:1px solid #e5e7eb; border-radius:18px; padding:20px; font-family:'Plus Jakarta Sans',sans-serif;
            box-shadow:0 10px 30px -18px rgba(15,31,92,.35); }
     .psc__head { margin-bottom:14px; }
     .psc__kicker { display:inline-block; font-family:'Plus Jakarta Sans',sans-serif; font-size:.64rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
                    color:#128C7E; background:#e7f8f2; border-radius:999px; padding:3px 10px; margin:0 0 8px; }
-    .psc__title { font-family:'Poppins','Mukta',sans-serif; font-size:1.2rem; font-weight:700; color:#0b1e5b; line-height:1.3; margin:0 0 2px; }
+    .psc__title { font-family:'Plus Jakarta Sans',sans-serif; font-size:1.2rem; font-weight:700; color:#0b1e5b; line-height:1.3; margin:0 0 2px; }
     .psc__text { font-size:.9rem; line-height:1.5; color:#6b7280; margin:0; }
 
     .psc__list { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:10px; }
@@ -99,7 +99,7 @@
     .psc__ribbon { font-size:.7rem; font-weight:700; background:#FF5C00; color:#fff; border-radius:999px; padding:2px 9px; }
     .psc__badge { font-size:.7rem; font-weight:600; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.25);
                   border-radius:999px; padding:1px 9px; }
-    .psc__name { font-family:'Poppins','Mukta',sans-serif; font-size:1.18rem; font-weight:700; line-height:1.3; }
+    .psc__name { font-family:'Plus Jakarta Sans',sans-serif; font-size:1.18rem; font-weight:700; line-height:1.3; }
     .psc__line { font-size:.86rem; line-height:1.45; color:rgba(255,255,255,.85); margin-bottom:10px; }
     .psc__btn { display:flex; align-items:center; gap:8px; margin-top:auto; background:#fff; border-radius:10px; padding:8px 12px;
                 font-size:.88rem; font-weight:700; }

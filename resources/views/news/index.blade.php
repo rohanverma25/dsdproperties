@@ -2,27 +2,27 @@
     resources/views/news/index.blade.php
     Newsroom layout (redesigned 2026-10-20, restyled 2026-10-31): gradient hero with the top three
     headlines, coloured category chips, lead story, story cards grouped by date, sidebar with the
-    plot-sale cards, the verification offer and guides. Hindi text uses Poppins (headlines) + Hind.
+    plot-sale cards, the verification offer and guides. Page text is English; the Hindi story titles and summaries fall back to Poppins / Hind.
 --}}
 
 @extends('layouts.app-article')
 
 @section('seo')
-    <title>लखनऊ प्रॉपर्टी न्यूज़: LDA, आवास विकास, RERA की ताज़ा खबरें | Lucknow Property News</title>
-    <meta name="description"  content="लखनऊ प्रॉपर्टी की ताज़ा खबरें हिंदी में: LDA योजना, प्लॉट पंजीकरण, आवास विकास, RERA, अवैध निर्माण पर कार्रवाई और रजिस्ट्री। हर खबर मूल रिपोर्ट से जांची हुई। Lucknow property news.">
+    <title>लखनऊ प्रॉपर्टी न्यूज़: LDA, आवास विकास, RERA की Latestें | Lucknow Property News</title>
+    <meta name="description"  content="लखनऊ प्रॉपर्टी की Latestें हिंदी में: LDA योजना, प्लॉट पंजीकरण, आवास विकास, RERA, अवैध निर्माण पर कार्रवाई और रजिस्ट्री। हर खबर मूल रिपोर्ट से जांची हुई। Lucknow property news.">
     <meta name="keywords"     content="Lucknow real estate news, LDA updates, IT City Lucknow, Gomti Nagar property news, Lucknow property prices, RERA Lucknow">
     <link rel="canonical"     href="{{ url('/news') }}">
     <meta name="robots"       content="index, follow">
 
     <meta property="og:type"        content="website">
     <meta property="og:title"       content="लखनऊ प्रॉपर्टी न्यूज़ | Lucknow Property News">
-    <meta property="og:description" content="LDA योजना, आवास विकास, RERA और प्लॉट की ताज़ा खबरें, मूल रिपोर्ट से जांची हुई।">
+    <meta property="og:description" content="LDA योजना, आवास विकास, RERA और प्लॉट की Latestें, मूल रिपोर्ट से जांची हुई।">
     <meta property="og:url"         content="{{ url('/news') }}">
     <meta property="og:site_name"   content="DSD Properties">
     <meta property="og:image"       content="{{ asset('images/og-news.png') }}">
     <meta name="twitter:card"        content="summary_large_image">
     <meta name="twitter:title"       content="लखनऊ प्रॉपर्टी न्यूज़ | Lucknow Property News">
-    <meta name="twitter:description" content="LDA योजना, आवास विकास, RERA और प्लॉट की ताज़ा खबरें।">
+    <meta name="twitter:description" content="LDA योजना, आवास विकास, RERA और प्लॉट की Latestें।">
     <meta name="twitter:image"       content="{{ asset('images/og-news.png') }}">
 
     <script type="application/ld+json">
@@ -31,7 +31,7 @@
         "@type": "CollectionPage",
         "name": "लखनऊ प्रॉपर्टी न्यूज़ (Lucknow Property News)",
         "inLanguage": "hi",
-        "description": "लखनऊ प्रॉपर्टी की ताज़ा खबरें: LDA योजना, आवास विकास, RERA, अवैध निर्माण पर कार्रवाई और नए प्रोजेक्ट।",
+        "description": "लखनऊ प्रॉपर्टी की Latestें: LDA योजना, आवास विकास, RERA, अवैध निर्माण पर कार्रवाई और नए प्रोजेक्ट।",
         "url": "{{ url('/news') }}",
         "publisher": {
             "@type": "Organization",
@@ -57,12 +57,12 @@
             --nr-bg:     #f4f6fb;
             --nr-navy:   #0b1e5b;
             --nr-orange: #FF5C00;
-            font-family:'Hind','Plus Jakarta Sans',sans-serif;
+            font-family:'Plus Jakarta Sans','Hind',sans-serif;
             color:var(--nr-body);
             background:var(--nr-bg);
         }
-        .nr-hi { font-family:'Hind','Plus Jakarta Sans',sans-serif; }
-        .nr-hd { font-family:'Poppins','Hind',sans-serif; }
+        .nr-hi { font-family:'Plus Jakarta Sans','Hind',sans-serif; }
+        .nr-hd { font-family:'Plus Jakarta Sans','Poppins',sans-serif; }
         .nr-c  { max-width:1180px; margin:0 auto; padding:0 16px; }
 
         /* ─── Hero masthead ──────────────────────────────── */
@@ -94,7 +94,7 @@
         @media (prefers-reduced-motion:reduce) { .nr-pill__dot::after { animation:none; } }
 
         .nr-mast__h1 {
-            font-family:'Poppins','Hind',sans-serif; font-size:clamp(2.2rem,5.4vw,3.6rem);
+            font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size:clamp(2.2rem,5.4vw,3.6rem);
             font-weight:800; line-height:1.15; color:#fff; margin:18px 0 0; letter-spacing:-.01em;
         }
         .nr-mast__h1 span {
@@ -107,7 +107,7 @@
             background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); backdrop-filter:blur(6px);
         }
         .nr-fact__icon { display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:8px; flex-shrink:0; }
-        .nr-fact__num { font-family:'Poppins',sans-serif; font-size:1rem; font-weight:700; color:#fff; line-height:1.1; display:block; }
+        .nr-fact__num { font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size:1rem; font-weight:700; color:#fff; line-height:1.1; display:block; }
         .nr-fact__lbl { font-size:.76rem; color:rgba(255,255,255,.65); line-height:1.2; display:block; }
 
         /* Headlines card in the hero */
@@ -117,12 +117,12 @@
         }
         @media (max-width:700px) { .nr-top { display:none; } }  /* phones go straight to the lead story */
         .nr-top__head { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
-        .nr-top__label { font-family:'Poppins',sans-serif; font-size:.98rem; font-weight:700; color:var(--nr-navy); margin:0; }
+        .nr-top__label { font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size:.98rem; font-weight:700; color:var(--nr-navy); margin:0; }
         .nr-top__live { font-family:'Plus Jakarta Sans',sans-serif; font-size:.64rem; font-weight:800; letter-spacing:.12em; color:#dc2626; background:#fef2f2; border-radius:999px; padding:3px 9px; }
         .nr-top ol { list-style:none; margin:0; padding:0; counter-reset:top; }
         .nr-top li { display:flex; gap:12px; padding:12px 0; border-top:1px solid var(--nr-line); }
         .nr-top li:first-child { border-top:none; }
-        .nr-top__n { font-family:'Poppins',sans-serif; font-size:1.3rem; font-weight:800; line-height:1; color:var(--c); min-width:28px; }
+        .nr-top__n { font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size:1.3rem; font-weight:800; line-height:1; color:var(--c); min-width:28px; }
         .nr-top a { font-size:.95rem; font-weight:600; line-height:1.45; color:var(--nr-ink); text-decoration:none;
                     display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
         .nr-top a:hover { color:var(--nr-orange); }
@@ -176,7 +176,7 @@
         .nr-lead__art::after { content:''; position:absolute; width:180px; height:180px; right:-60px; bottom:-60px; border-radius:50%; background:rgba(255,255,255,.12); }
         .nr-lead__art svg { width:46px; height:46px; opacity:.95; }
         .nr-lead__label { font-family:'Plus Jakarta Sans',sans-serif; font-size:.66rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; opacity:.85; }
-        .nr-lead__day  { font-family:'Poppins',sans-serif; font-size:2.6rem; font-weight:800; line-height:1; }
+        .nr-lead__day  { font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size:2.6rem; font-weight:800; line-height:1; }
         .nr-lead__mon  { font-size:.95rem; font-weight:600; opacity:.9; }
         @media (max-width:700px) {
             .nr-lead__art { flex-direction:row; align-items:center; padding:16px 18px; }
@@ -185,7 +185,7 @@
         .nr-lead__body { padding:26px 28px 24px; }
         @media (max-width:600px) { .nr-lead__body { padding:18px; } }
         .nr-lead__title {
-            display:block; font-family:'Poppins','Hind',sans-serif; font-size:clamp(1.35rem,2.6vw,1.8rem);
+            display:block; font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size:clamp(1.35rem,2.6vw,1.8rem);
             font-weight:700; line-height:1.4; color:var(--nr-ink); text-decoration:none; margin:12px 0 10px;
         }
         .nr-lead__title:hover { color:var(--nr-navy); text-decoration:none; background:linear-gradient(transparent 88%, color-mix(in srgb, var(--c) 35%, transparent) 0); }
@@ -203,7 +203,7 @@
         .nr-day__head { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
         .nr-day__date {
             display:inline-flex; align-items:center; gap:8px; margin:0; padding:6px 14px; border-radius:10px;
-            background:var(--nr-navy); color:#fff; font-family:'Poppins',sans-serif; font-size:.95rem; font-weight:600;
+            background:var(--nr-navy); color:#fff; font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size:.95rem; font-weight:600;
         }
         .nr-day__line { flex:1; height:1px; background:linear-gradient(90deg,var(--nr-line),transparent); }
         .nr-day__count { font-size:.8rem; font-weight:600; color:var(--nr-muted); }
@@ -220,7 +220,7 @@
         .nr-story__top { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
         .nr-story__top .nr-ico { width:38px; height:38px; border-radius:10px; }
         .nr-story__title {
-            font-family:'Poppins','Hind',sans-serif; font-size:1.06rem; font-weight:600;
+            font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size:1.06rem; font-weight:600;
             line-height:1.5; color:var(--nr-ink); text-decoration:none; margin:0 0 8px;
         }
         .nr-story__title::after { content:''; position:absolute; inset:0; }  /* whole card clickable */
@@ -243,7 +243,7 @@
         @media (max-width:1020px) { .nr-mobile-only { display:block; } .nr-side .psc { display:none; } }
         .nr-box { background:var(--nr-paper); border:1px solid var(--nr-line); border-radius:18px; padding:22px; }
         .nr-box__kicker { display:inline-block; font-family:'Plus Jakarta Sans',sans-serif; font-size:.64rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--nr-orange); margin-bottom:8px; }
-        .nr-box__title { font-family:'Poppins','Hind',sans-serif; font-size:1.1rem; font-weight:700; color:var(--nr-ink); line-height:1.4; margin-bottom:8px; }
+        .nr-box__title { font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size:1.1rem; font-weight:700; color:var(--nr-ink); line-height:1.4; margin-bottom:8px; }
         .nr-box__text { font-size:.9rem; line-height:1.6; color:var(--nr-muted); margin-bottom:14px; }
         .nr-box--verify {
             position:relative; overflow:hidden; border:none; color:#fff;
@@ -251,8 +251,8 @@
         }
         .nr-box--verify .nr-box__kicker { color:#fdba74; }
         .nr-box--verify .nr-box__title { color:#fff; }
-        .nr-price { font-family:'Poppins',sans-serif; font-size:2.1rem; font-weight:800; color:#fff; line-height:1; margin:6px 0 4px; }
-        .nr-price small { font-family:'Hind',sans-serif; font-size:.85rem; font-weight:500; color:rgba(255,255,255,.65); }
+        .nr-price { font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size:2.1rem; font-weight:800; color:#fff; line-height:1; margin:6px 0 4px; }
+        .nr-price small {  font-size:.85rem; font-weight:500; color:rgba(255,255,255,.65); }
         .nr-checks { list-style:none; padding:0; margin:14px 0 18px; }
         .nr-checks li { display:flex; gap:9px; align-items:flex-start; font-size:.9rem; color:rgba(255,255,255,.88); margin-bottom:8px; }
         .nr-checks li::before { content:'✓'; display:flex; align-items:center; justify-content:center; width:18px; height:18px; flex-shrink:0; margin-top:2px;
@@ -288,20 +288,20 @@
 
 @php
     $categories = [
-        'all'      => 'सभी खबरें',
+        'all'      => 'All News',
         'lda'      => 'LDA',
-        'it-city'  => 'आईटी सिटी',
-        'projects' => 'नए प्रोजेक्ट',
-        'price'    => 'कीमतें',
-        'policy'   => 'नीति',
+        'it-city'  => 'IT City',
+        'projects' => 'New Projects',
+        'price'    => 'Prices',
+        'policy'   => 'Policy',
         'rera'     => 'RERA',
     ];
     $catHindi = [
-        'lda'      => 'LDA अपडेट',
-        'it-city'  => 'आईटी सिटी',
-        'projects' => 'नए प्रोजेक्ट',
-        'price'    => 'कीमतें',
-        'policy'   => 'नीति',
+        'lda'      => 'LDA Update',
+        'it-city'  => 'IT City',
+        'projects' => 'New Projects',
+        'price'    => 'Prices',
+        'policy'   => 'Policy',
         'rera'     => 'RERA',
     ];
     $catColor = [
@@ -341,10 +341,10 @@
 <header class="nr-mast">
     <div class="nr-c nr-mast__grid">
         <div>
-            <span class="nr-pill"><span class="nr-pill__dot"></span> Lucknow Property News · हिंदी</span>
-            <h1 class="nr-mast__h1">लखनऊ प्रॉपर्टी <span>न्यूज़</span></h1>
+            <span class="nr-pill"><span class="nr-pill__dot"></span> Verified Lucknow Property News</span>
+            <h1 class="nr-mast__h1">Lucknow Property <span>News</span></h1>
             <p class="nr-mast__sub nr-hi">
-                LDA, आवास विकास, आईटी सिटी और RERA की वो खबरें जो लखनऊ में प्लॉट या फ्लैट खरीदने वालों के काम की हैं।
+                LDA, Awas Vikas, IT City and RERA updates that matter if you are buying a plot or flat in Lucknow.
             </p>
             <div class="nr-mast__facts nr-hi">
                 @if($lastUpdate)
@@ -352,20 +352,20 @@
                     <span class="nr-fact__icon" style="background:rgba(255,92,0,.2); color:#ffb37a;">
                         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
                     </span>
-                    <span><span class="nr-fact__num">{{ $lastUpdate->copy()->locale('hi')->translatedFormat('j F') }}</span><span class="nr-fact__lbl">आखिरी अपडेट</span></span>
+                    <span><span class="nr-fact__num">{{ $lastUpdate->format('j M') }}</span><span class="nr-fact__lbl">Last updated</span></span>
                 </div>
                 @endif
                 <div class="nr-fact">
                     <span class="nr-fact__icon" style="background:rgba(59,130,246,.22); color:#93c5fd;">
                         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h8"/></svg>
                     </span>
-                    <span><span class="nr-fact__num">{{ $articles->total() }}</span><span class="nr-fact__lbl">खबरें</span></span>
+                    <span><span class="nr-fact__num">{{ $articles->total() }}</span><span class="nr-fact__lbl">Stories</span></span>
                 </div>
                 <div class="nr-fact">
                     <span class="nr-fact__icon" style="background:rgba(34,197,94,.2); color:#86efac;">
                         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
                     </span>
-                    <span><span class="nr-fact__num">100%</span><span class="nr-fact__lbl">मूल स्रोत से जाँची</span></span>
+                    <span><span class="nr-fact__num">100%</span><span class="nr-fact__lbl">Source-checked</span></span>
                 </div>
             </div>
         </div>
@@ -373,7 +373,7 @@
         @if($topThree->isNotEmpty())
         <div class="nr-top nr-hi">
             <div class="nr-top__head">
-                <p class="nr-top__label">आज की सुर्खियाँ</p>
+                <p class="nr-top__label">Top Headlines</p>
                 <span class="nr-top__live">LATEST</span>
             </div>
             <ol>
@@ -412,36 +412,36 @@
     <main>
         @if($articles->isEmpty())
             <div class="nr-empty nr-hi">
-                <p class="nr-hd" style="font-size:1.2rem; font-weight:700; color:#0f172a; margin-bottom:6px;">इस श्रेणी में अभी कोई खबर नहीं है</p>
-                <p style="font-size:.98rem; color:#64748b; margin-bottom:18px;">बाकी खबरें देखें या हमारी गाइड पढ़ें।</p>
-                <a href="{{ route('news.index') }}" class="nr-btn">सभी खबरें देखें</a>
+                <p class="nr-hd" style="font-size:1.2rem; font-weight:700; color:#0f172a; margin-bottom:6px;">No stories in this category yet</p>
+                <p style="font-size:.98rem; color:#64748b; margin-bottom:18px;">See all news or read our guides.</p>
+                <a href="{{ route('news.index') }}" class="nr-btn">See all news</a>
             </div>
         @else
 
             {{-- ── Lead story ─────────────────────────── --}}
             @if($lead)
-            @php $lc = $catColor[$lead->category] ?? '#0b1e5b'; $ld = $lead->created_at->copy()->locale('hi'); @endphp
+            @php $lc = $catColor[$lead->category] ?? '#0b1e5b'; $ld = $lead->created_at; @endphp
             <article class="nr-lead nr-hi" style="--c:{{ $lc }}">
                 <div class="nr-lead__art">
-                    <span class="nr-lead__label">ताज़ा खबर</span>
+                    <span class="nr-lead__label">Latest</span>
                     {!! $icon($lead->category, 46) !!}
                     <span>
                         <span class="nr-lead__day" style="display:block;">{{ $ld->format('j') }}</span>
-                        <span class="nr-lead__mon">{{ $ld->translatedFormat('F Y') }}</span>
+                        <span class="nr-lead__mon">{{ $ld->format('F Y') }}</span>
                     </span>
                 </div>
                 <div class="nr-lead__body">
                     <div class="nr-meta">
-                        <span class="nr-tag" style="--c:{{ $lc }}">{{ $catHindi[$lead->category] ?? 'खबर' }}</span>
-                        @if($lead->is_hot)<span class="nr-hot">🔥 अहम</span>@endif
-                        <time datetime="{{ $lead->created_at->toIso8601String() }}">{{ $ld->translatedFormat('j F Y') }}</time>
+                        <span class="nr-tag" style="--c:{{ $lc }}">{{ $catHindi[$lead->category] ?? 'News' }}</span>
+                        @if($lead->is_hot)<span class="nr-hot">🔥 Important</span>@endif
+                        <time datetime="{{ $lead->created_at->toIso8601String() }}">{{ $ld->format('j F Y') }}</time>
                     </div>
                     <a href="{{ route('news.show', $lead->slug) }}" class="nr-lead__title">{{ $lead->title }}</a>
                     <p class="nr-lead__summary">{{ $lead->summary }}</p>
                     <div class="nr-lead__foot">
-                        <span class="nr-meta">@if($lead->source_name) स्रोत: {{ $lead->source_name }} @endif</span>
+                        <span class="nr-meta">@if($lead->source_name) Source: {{ $lead->source_name }} @endif</span>
                         <a href="{{ route('news.show', $lead->slug) }}" class="nr-btn">
-                            पूरी खबर पढ़ें
+                            Read full story
                             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                         </a>
                     </div>
@@ -456,15 +456,15 @@
 
             {{-- ── Stories grouped by day ─────────────── --}}
             @foreach($byDay as $day => $items)
-            @php $dayDate = \Carbon\Carbon::parse($day)->locale('hi'); @endphp
+            @php $dayDate = \Carbon\Carbon::parse($day); @endphp
             <section class="nr-day nr-hi">
                 <div class="nr-day__head">
                     <h2 class="nr-day__date">
                         <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-                        {{ $dayDate->translatedFormat('j F Y') }}
+                        {{ $dayDate->format('j F Y') }}
                     </h2>
                     <span class="nr-day__line"></span>
-                    <span class="nr-day__count">{{ $items->count() }} {{ $items->count() === 1 ? 'खबर' : 'खबरें' }}</span>
+                    <span class="nr-day__count">{{ $items->count() }} {{ $items->count() === 1 ? 'story' : 'stories' }}</span>
                 </div>
                 <div class="nr-grid">
                     @foreach($items as $article)
@@ -473,15 +473,15 @@
                         <div class="nr-story__top">
                             <span class="nr-ico">{!! $icon($article->category, 18) !!}</span>
                             <div class="nr-meta">
-                                <span class="nr-tag" style="--c:{{ $c }}">{{ $catHindi[$article->category] ?? 'खबर' }}</span>
-                                @if($article->is_hot)<span class="nr-hot">🔥 अहम</span>@endif
+                                <span class="nr-tag" style="--c:{{ $c }}">{{ $catHindi[$article->category] ?? 'News' }}</span>
+                                @if($article->is_hot)<span class="nr-hot">🔥 Important</span>@endif
                             </div>
                         </div>
                         <a href="{{ route('news.show', $article->slug) }}" class="nr-story__title">{{ $article->title }}</a>
                         <p class="nr-story__summary">{{ $article->summary }}</p>
                         <div class="nr-story__foot">
                             <span class="nr-meta">@if($article->source_name) {{ $article->source_name }} @endif</span>
-                            <span class="nr-more">पढ़ें →</span>
+                            <span class="nr-more">Read →</span>
                         </div>
                     </article>
                     @endforeach
@@ -502,36 +502,37 @@
         {{-- Shown by partials/onesignal only when push works here and this browser isn't subscribed yet. --}}
         <div class="nr-box" data-push-ask hidden>
             <p class="nr-box__kicker">Notifications</p>
-            <p class="nr-box__title">नई खबर आते ही जानें</p>
-            <p class="nr-box__text">LDA, आवास विकास और RERA की ज़रूरी खबरें — हफ्ते में 1–2 बार, सीधे आपके फोन या ब्राउज़र पर।</p>
+            <p class="nr-box__title">Get new stories first</p>
+            <p class="nr-box__text">Important LDA, Awas Vikas and RERA news, 1–2 times a week, straight to your phone or browser.</p>
             <button type="button" class="nr-cta nr-cta--orange" style="border:0; cursor:pointer;"
-                    onclick="window.dsdPushAsk && window.dsdPushAsk()">🔔 नोटिफिकेशन चालू करें</button>
+                    onclick="window.dsdPushAsk && window.dsdPushAsk()">🔔 Turn on notifications</button>
         </div>
 
         @include('components.plot-sale-cta', ['from' => 'news', 'verify' => false])
 
         <div class="nr-box nr-box--verify">
             <p class="nr-box__kicker">Property Verification</p>
-            <p class="nr-box__title">खरीदने से पहले प्रॉपर्टी की जाँच करवाएँ</p>
-            <div class="nr-price">₹5,000 <small>/ प्लॉट या फ्लैट</small></div>
+            <p class="nr-box__title">Get the property checked before you buy</p>
+            <div class="nr-price">₹5,000 <small>/ plot or flat</small></div>
             <ul class="nr-checks">
-                <li>मालिकाना हक और खतौनी की जाँच</li>
-                <li>LDA / RERA मंज़ूरी और नक्शा</li>
-                <li>48 घंटे में PDF रिपोर्ट</li>
+                <li>Ownership and khatauni check</li>
+                <li>LDA / RERA approval and map</li>
+                <li>PDF report in 48 hours</li>
             </ul>
             <a href="{{ url('/services/property-verification-lucknow') }}" class="nr-cta nr-cta--orange"
-               data-cta-kind="verify">जाँच बुक करें →</a>
+               data-cta-kind="verify">Book verification →</a>
         </div>
 
         <div class="nr-box">
             <p class="nr-box__kicker">Guides</p>
-            <p class="nr-box__title">विस्तार से पढ़ें</p>
+            <p class="nr-box__title">Read the guides</p>
             <ul class="nr-guides">
-                <li><a href="{{ url('/lda-schemes') }}">LDA की सभी योजनाएँ <span>→</span></a></li>
-                <li><a href="{{ url('/blog/varun-vihar-yojana-lucknow-hindi-2026') }}">वरुण विहार योजना गाइड <span>→</span></a></li>
-                <li><a href="{{ url('/blog/it-city-lucknow-lda-plots-guide-hindi-2026') }}">आईटी सिटी प्लॉट गाइड <span>→</span></a></li>
-                <li><a href="{{ url('/blog/lda-online-property-verification-lucknow-2026') }}">LDA ऑनलाइन वेरिफिकेशन <span>→</span></a></li>
-                <li><a href="{{ url('/blog') }}">सभी गाइड <span>→</span></a></li>
+                <li><a href="{{ url('/lda-schemes') }}">All LDA schemes <span>→</span></a></li>
+                <li><a href="{{ url('/blog/saumitra-vihar-yojana-lucknow-2026') }}">Saumitra Vihar guide <span>→</span></a></li>
+                <li><a href="{{ url('/blog/it-city-lucknow-lda-plots-guide-2026') }}">IT City plots guide <span>→</span></a></li>
+                <li><a href="{{ url('/blog/wellness-city-lucknow-lda-plots-guide-2026') }}">Wellness City plots guide <span>→</span></a></li>
+                <li><a href="{{ url('/blog/lda-online-property-verification-lucknow-2026') }}">LDA online verification <span>→</span></a></li>
+                <li><a href="{{ url('/blog') }}">All guides <span>→</span></a></li>
             </ul>
         </div>
     </aside>
