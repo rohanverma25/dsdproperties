@@ -208,9 +208,10 @@
         .nr-day__line { flex:1; height:1px; background:linear-gradient(90deg,var(--nr-line),transparent); }
         .nr-day__count { font-size:.8rem; font-weight:600; color:var(--nr-muted); }
 
-        .nr-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
-        @media (max-width:700px) { .nr-grid { grid-template-columns:minmax(0,1fr); } }
-        .nr-grid > .nr-story:last-child:nth-child(odd) { grid-column:1 / -1; }  /* a lone last card takes the full row */
+        /* 3 cards a row on desktop; a lone card keeps its card width instead of stretching across */
+        .nr-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+        @media (max-width:1020px) { .nr-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+        @media (max-width:700px)  { .nr-grid { grid-template-columns:minmax(0,1fr); } }
         .nr-story {
             position:relative; display:flex; flex-direction:column; background:var(--nr-paper); border:1px solid var(--nr-line);
             border-radius:16px; padding:18px 18px 16px; overflow:hidden; transition:transform .18s, box-shadow .18s, border-color .18s;
