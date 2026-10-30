@@ -116,7 +116,7 @@
 {{-- Plus Jakarta Sans has no Devanagari, so Hindi fell back to each device's own font.
      Mukta (same as the /news index) covers Hindi; English letters keep Plus Jakarta Sans. --}}
 @push('head')
-<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&family=Poppins:wght@600;700&family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>body{font-family:'Plus Jakarta Sans','Mukta',sans-serif;}</style>
 @endpush
 

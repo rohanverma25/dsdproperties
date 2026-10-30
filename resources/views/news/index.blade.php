@@ -1,8 +1,8 @@
 {{--
     resources/views/news/index.blade.php
-    Newsroom layout (redesigned 2026-10-20): compact masthead, lead story,
-    stories grouped by date, sidebar with the verification offer (WhatsApp box removed 26 Oct 2026).
-    Stories are written in Hindi, so headlines use Mukta (Devanagari).
+    Newsroom layout (redesigned 2026-10-20, restyled 2026-10-31): gradient hero with the top three
+    headlines, coloured category chips, lead story, story cards grouped by date, sidebar with the
+    plot-sale cards, the verification offer and guides. Hindi text uses Poppins (headlines) + Hind.
 --}}
 
 @extends('layouts.app-article')
@@ -42,177 +42,237 @@
     }
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* ─── Tokens ─────────────────────────────────────── */
         .nr {
-            --nr-ink:    #111827;
-            --nr-body:   #374151;
-            --nr-muted:  #6b7280;
-            --nr-faint:  #9ca3af;
-            --nr-line:   #e5e7eb;
+            --nr-ink:    #0f172a;
+            --nr-body:   #334155;
+            --nr-muted:  #64748b;
+            --nr-faint:  #94a3b8;
+            --nr-line:   #e2e8f0;
             --nr-paper:  #ffffff;
-            --nr-bg:     #f6f7f9;
-            --nr-navy:   #0f1f5c;
+            --nr-bg:     #f4f6fb;
+            --nr-navy:   #0b1e5b;
             --nr-orange: #FF5C00;
-            --nr-green:  #128C7E;
-            font-family:'Plus Jakarta Sans','Mukta',sans-serif;
+            font-family:'Hind','Plus Jakarta Sans',sans-serif;
             color:var(--nr-body);
             background:var(--nr-bg);
         }
-        .nr-hi { font-family:'Mukta','Plus Jakarta Sans',sans-serif; }
-        .nr-c  { max-width:1140px; margin:0 auto; padding:0 16px; }
+        .nr-hi { font-family:'Hind','Plus Jakarta Sans',sans-serif; }
+        .nr-hd { font-family:'Poppins','Hind',sans-serif; }
+        .nr-c  { max-width:1180px; margin:0 auto; padding:0 16px; }
 
-        /* ─── Masthead ───────────────────────────────────── */
-        .nr-mast { background:var(--nr-navy); color:#fff; padding:40px 0 30px; }
-        .nr-mast__row { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
-        .nr-mast__kicker {
-            font-size:.7rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
-            color:#93c5fd; margin-bottom:8px;
+        /* ─── Hero masthead ──────────────────────────────── */
+        .nr-mast {
+            position:relative; overflow:hidden; color:#fff; padding:52px 0 92px;
+            background:
+                radial-gradient(600px 300px at 88% 10%, rgba(255,92,0,.28), transparent 70%),
+                radial-gradient(500px 300px at 10% 100%, rgba(20,184,166,.30), transparent 70%),
+                linear-gradient(135deg,#0a1a4f 0%,#0d3270 50%,#0b5a6e 100%);
         }
+        .nr-mast::before {
+            content:''; position:absolute; inset:0; pointer-events:none;
+            background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+            background-size:44px 44px;
+            -webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 100%); mask-image:linear-gradient(180deg,#000 30%,transparent 100%);
+        }
+        .nr-mast__wave { position:absolute; left:0; right:0; bottom:-1px; width:100%; height:56px; display:block; }
+        .nr-mast__grid { position:relative; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); gap:40px; align-items:center; }
+        @media (max-width:960px) { .nr-mast__grid { grid-template-columns:minmax(0,1fr); gap:28px; } .nr-mast { padding:36px 0 76px; } }
+
+        .nr-pill {
+            display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px;
+            background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18);
+            font-family:'Plus Jakarta Sans',sans-serif; font-size:.74rem; font-weight:700; letter-spacing:.04em; color:#e2e8f0;
+        }
+        .nr-pill__dot { position:relative; width:8px; height:8px; border-radius:50%; background:#22c55e; }
+        .nr-pill__dot::after { content:''; position:absolute; inset:-4px; border-radius:50%; border:2px solid #22c55e; opacity:.6; animation:nrPing 1.8s ease-out infinite; }
+        @keyframes nrPing { from { transform:scale(.6); opacity:.7; } to { transform:scale(1.6); opacity:0; } }
+        @media (prefers-reduced-motion:reduce) { .nr-pill__dot::after { animation:none; } }
+
         .nr-mast__h1 {
-            font-family:'Mukta',sans-serif; font-size:clamp(2rem,4.6vw,3rem);
-            font-weight:800; line-height:1.1; color:#fff; margin:0;
+            font-family:'Poppins','Hind',sans-serif; font-size:clamp(2.2rem,5.4vw,3.6rem);
+            font-weight:800; line-height:1.15; color:#fff; margin:18px 0 0; letter-spacing:-.01em;
         }
-        .nr-mast__h1 span { color:var(--nr-orange); }
-        .nr-mast__sub { font-size:.92rem; color:rgba(255,255,255,.72); margin-top:10px; max-width:560px; line-height:1.7; }
-        .nr-mast__facts { display:flex; gap:10px; flex-wrap:wrap; }
-        .nr-mast__fact {
-            display:inline-flex; align-items:center; gap:8px;
-            border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06);
-            border-radius:8px; padding:8px 12px; font-size:.78rem; color:rgba(255,255,255,.85);
-            white-space:nowrap;
+        .nr-mast__h1 span {
+            background:linear-gradient(90deg,#ff7a1a,#ffb347); -webkit-background-clip:text; background-clip:text; color:transparent;
         }
-        .nr-mast__fact strong { color:#fff; font-weight:700; }
-        .nr-mast__fact svg { flex-shrink:0; color:#4ade80; }
+        .nr-mast__sub { font-size:1.06rem; color:rgba(255,255,255,.78); margin:14px 0 0; max-width:540px; line-height:1.7; }
+        .nr-mast__facts { display:flex; gap:10px; flex-wrap:wrap; margin-top:24px; }
+        .nr-fact {
+            display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px;
+            background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); backdrop-filter:blur(6px);
+        }
+        .nr-fact__icon { display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:8px; flex-shrink:0; }
+        .nr-fact__num { font-family:'Poppins',sans-serif; font-size:1rem; font-weight:700; color:#fff; line-height:1.1; display:block; }
+        .nr-fact__lbl { font-size:.76rem; color:rgba(255,255,255,.65); line-height:1.2; display:block; }
 
-        /* ─── Category tabs ──────────────────────────────── */
-        .nr-tabs {
-            background:var(--nr-paper); border-bottom:1px solid var(--nr-line);
-            position:sticky; top:68px; z-index:30;
+        /* Headlines card in the hero */
+        .nr-top {
+            background:rgba(255,255,255,.96); border-radius:18px; padding:20px 20px 8px; color:var(--nr-ink);
+            box-shadow:0 24px 50px -20px rgba(0,0,0,.55);
         }
+        @media (max-width:700px) { .nr-top { display:none; } }  /* phones go straight to the lead story */
+        .nr-top__head { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+        .nr-top__label { font-family:'Poppins',sans-serif; font-size:.98rem; font-weight:700; color:var(--nr-navy); margin:0; }
+        .nr-top__live { font-family:'Plus Jakarta Sans',sans-serif; font-size:.64rem; font-weight:800; letter-spacing:.12em; color:#dc2626; background:#fef2f2; border-radius:999px; padding:3px 9px; }
+        .nr-top ol { list-style:none; margin:0; padding:0; counter-reset:top; }
+        .nr-top li { display:flex; gap:12px; padding:12px 0; border-top:1px solid var(--nr-line); }
+        .nr-top li:first-child { border-top:none; }
+        .nr-top__n { font-family:'Poppins',sans-serif; font-size:1.3rem; font-weight:800; line-height:1; color:var(--c); min-width:28px; }
+        .nr-top a { font-size:.95rem; font-weight:600; line-height:1.45; color:var(--nr-ink); text-decoration:none;
+                    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+        .nr-top a:hover { color:var(--nr-orange); }
+
+        /* ─── Category chips ─────────────────────────────── */
+        .nr-tabs { position:sticky; top:68px; z-index:30; background:rgba(244,246,251,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--nr-line); }
         .nr-tabs__scroll { overflow-x:auto; scrollbar-width:none; }
         .nr-tabs__scroll::-webkit-scrollbar { display:none; }
-        .nr-tabs__list { display:flex; gap:4px; width:max-content; }
+        .nr-tabs__list { display:flex; gap:8px; width:max-content; padding:12px 0; }
         .nr-tab {
-            display:block; padding:14px 14px 12px; font-size:.86rem; font-weight:600;
-            color:var(--nr-muted); text-decoration:none; white-space:nowrap;
-            border-bottom:3px solid transparent; transition:color .15s, border-color .15s;
+            display:inline-flex; align-items:center; gap:7px; padding:7px 15px; border-radius:999px;
+            background:#fff; border:1px solid var(--nr-line); font-size:.9rem; font-weight:600;
+            color:var(--nr-body); text-decoration:none; white-space:nowrap; transition:all .15s;
         }
-        .nr-tab:hover { color:var(--nr-ink); text-decoration:none; }
-        .nr-tab--on { color:var(--nr-navy); border-bottom-color:var(--nr-orange); }
+        .nr-tab::before { content:''; width:8px; height:8px; border-radius:50%; background:var(--c); }
+        .nr-tab:hover { border-color:var(--c); color:var(--nr-ink); text-decoration:none; }
+        .nr-tab--on { background:var(--c); border-color:var(--c); color:#fff !important; box-shadow:0 6px 16px -8px var(--c); }
+        .nr-tab--on::before { background:#fff; }
 
         /* ─── Layout ─────────────────────────────────────── */
-        .nr-main { padding:32px 0 72px; }
-        .nr-layout { display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:32px; align-items:start; }
-        @media (max-width:960px) { .nr-layout { grid-template-columns:minmax(0,1fr); } }
+        .nr-main { padding:28px 0 72px; }
+        .nr-layout { display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:32px; align-items:start; }
+        @media (max-width:1020px) { .nr-layout { grid-template-columns:minmax(0,1fr); } }
 
-        /* ─── Category tag ───────────────────────────────── */
+        /* ─── Category chip + icon tile ──────────────────── */
         .nr-tag {
-            display:inline-flex; align-items:center; gap:6px;
-            font-size:.72rem; font-weight:700; letter-spacing:.02em; color:var(--c,#6b7280);
+            display:inline-flex; align-items:center; gap:6px; padding:2px 10px; border-radius:999px;
+            font-size:.76rem; font-weight:700; color:var(--c); background:color-mix(in srgb, var(--c) 12%, #fff);
         }
-        .nr-tag::before { content:''; width:8px; height:8px; border-radius:2px; background:var(--c,#6b7280); }
         .nr-hot {
-            font-size:.68rem; font-weight:700; color:#b91c1c; background:#fef2f2;
-            border:1px solid #fecaca; border-radius:4px; padding:1px 6px;
+            display:inline-flex; align-items:center; gap:4px; font-size:.72rem; font-weight:700; color:#fff;
+            background:linear-gradient(90deg,#ef4444,#f97316); border-radius:999px; padding:2px 9px;
         }
-        .nr-meta { display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:.76rem; color:var(--nr-faint); }
-        .nr-meta .sep { width:3px; height:3px; border-radius:50%; background:#d1d5db; }
+        .nr-meta { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:.8rem; color:var(--nr-faint); }
+        .nr-ico {
+            display:flex; align-items:center; justify-content:center; flex-shrink:0; width:44px; height:44px; border-radius:12px; color:#fff;
+            background:linear-gradient(135deg, var(--c), color-mix(in srgb, var(--c) 60%, #0b1e5b));
+            box-shadow:0 8px 18px -10px var(--c);
+        }
 
         /* ─── Lead story ─────────────────────────────────── */
         .nr-lead {
-            background:var(--nr-paper); border:1px solid var(--nr-line); border-radius:14px;
-            padding:28px 28px 24px; border-top:4px solid var(--c,#0f1f5c); margin-bottom:28px;
+            display:grid; grid-template-columns:200px minmax(0,1fr); background:var(--nr-paper); border-radius:20px; overflow:hidden;
+            box-shadow:0 18px 40px -26px rgba(15,31,92,.45); border:1px solid var(--nr-line); margin-bottom:30px;
         }
-        @media (max-width:600px) { .nr-lead { padding:20px 18px; } }
-        .nr-lead__label {
-            font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
-            color:var(--nr-orange); margin-bottom:10px;
+        @media (max-width:700px) { .nr-lead { grid-template-columns:minmax(0,1fr); } }
+        .nr-lead__art {
+            position:relative; display:flex; flex-direction:column; justify-content:space-between; gap:16px; padding:22px; color:#fff; overflow:hidden;
+            background:linear-gradient(160deg, var(--c), color-mix(in srgb, var(--c) 45%, #0b1e5b));
         }
+        .nr-lead__art::after { content:''; position:absolute; width:180px; height:180px; right:-60px; bottom:-60px; border-radius:50%; background:rgba(255,255,255,.12); }
+        .nr-lead__art svg { width:46px; height:46px; opacity:.95; }
+        .nr-lead__label { font-family:'Plus Jakarta Sans',sans-serif; font-size:.66rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; opacity:.85; }
+        .nr-lead__day  { font-family:'Poppins',sans-serif; font-size:2.6rem; font-weight:800; line-height:1; }
+        .nr-lead__mon  { font-size:.95rem; font-weight:600; opacity:.9; }
+        @media (max-width:700px) {
+            .nr-lead__art { flex-direction:row; align-items:center; padding:16px 18px; }
+            .nr-lead__day { font-size:1.8rem; }
+        }
+        .nr-lead__body { padding:26px 28px 24px; }
+        @media (max-width:600px) { .nr-lead__body { padding:18px; } }
         .nr-lead__title {
-            display:block; font-family:'Mukta',sans-serif; font-size:clamp(1.45rem,3vw,2rem);
-            font-weight:800; line-height:1.3; color:var(--nr-ink); text-decoration:none; margin:10px 0 12px;
+            display:block; font-family:'Poppins','Hind',sans-serif; font-size:clamp(1.35rem,2.6vw,1.8rem);
+            font-weight:700; line-height:1.4; color:var(--nr-ink); text-decoration:none; margin:12px 0 10px;
         }
-        .nr-lead__title:hover { color:var(--nr-navy); text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px; }
-        .nr-lead__summary { font-family:'Mukta',sans-serif; font-size:1.08rem; line-height:1.75; color:var(--nr-body); margin-bottom:20px; }
+        .nr-lead__title:hover { color:var(--nr-navy); text-decoration:none; background:linear-gradient(transparent 88%, color-mix(in srgb, var(--c) 35%, transparent) 0); }
+        .nr-lead__summary { font-size:1.06rem; line-height:1.75; color:var(--nr-body); margin:0 0 18px; }
         .nr-lead__foot { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
         .nr-btn {
-            display:inline-flex; align-items:center; gap:8px; padding:11px 20px; border-radius:8px;
-            background:var(--nr-navy); color:#fff; font-size:.85rem; font-weight:700; text-decoration:none;
-            transition:background .15s;
+            display:inline-flex; align-items:center; gap:8px; padding:11px 20px; border-radius:10px;
+            background:linear-gradient(135deg,#FF5C00,#ff8a3d); color:#fff !important; font-size:.92rem; font-weight:700; text-decoration:none;
+            box-shadow:0 10px 20px -10px rgba(255,92,0,.8); transition:transform .15s;
         }
-        .nr-btn:hover { background:#1a3a8f; color:#fff; text-decoration:none; }
+        .nr-btn:hover { transform:translateY(-1px); text-decoration:none; }
 
-        /* ─── Date groups + story rows ───────────────────── */
-        .nr-day { margin-bottom:28px; }
-        .nr-day__head {
-            display:flex; align-items:baseline; gap:12px; margin-bottom:6px;
-            padding-bottom:10px; border-bottom:2px solid var(--nr-ink);
+        /* ─── Date groups + story cards ──────────────────── */
+        .nr-day { margin-bottom:30px; }
+        .nr-day__head { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+        .nr-day__date {
+            display:inline-flex; align-items:center; gap:8px; margin:0; padding:6px 14px; border-radius:10px;
+            background:var(--nr-navy); color:#fff; font-family:'Poppins',sans-serif; font-size:.95rem; font-weight:600;
         }
-        .nr-day__date { font-family:'Mukta',sans-serif; font-size:1.15rem; font-weight:800; color:var(--nr-ink); }
-        .nr-day__count { font-size:.76rem; color:var(--nr-faint); }
+        .nr-day__line { flex:1; height:1px; background:linear-gradient(90deg,var(--nr-line),transparent); }
+        .nr-day__count { font-size:.8rem; font-weight:600; color:var(--nr-muted); }
 
+        .nr-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+        @media (max-width:700px) { .nr-grid { grid-template-columns:minmax(0,1fr); } }
+        .nr-grid > .nr-story:last-child:nth-child(odd) { grid-column:1 / -1; }  /* a lone last card takes the full row */
         .nr-story {
-            display:grid; grid-template-columns:minmax(0,1fr) auto; gap:6px 20px;
-            padding:18px 0; border-bottom:1px solid var(--nr-line);
+            position:relative; display:flex; flex-direction:column; background:var(--nr-paper); border:1px solid var(--nr-line);
+            border-radius:16px; padding:18px 18px 16px; overflow:hidden; transition:transform .18s, box-shadow .18s, border-color .18s;
         }
-        .nr-story:last-child { border-bottom:none; }
+        .nr-story::before { content:''; position:absolute; left:0; top:0; right:0; height:4px; background:linear-gradient(90deg, var(--c), color-mix(in srgb, var(--c) 40%, #fff)); }
+        .nr-story:hover { transform:translateY(-3px); box-shadow:0 16px 30px -20px rgba(15,31,92,.45); border-color:color-mix(in srgb, var(--c) 35%, #fff); }
+        .nr-story__top { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+        .nr-story__top .nr-ico { width:38px; height:38px; border-radius:10px; }
         .nr-story__title {
-            grid-column:1 / -1; font-family:'Mukta',sans-serif; font-size:1.22rem; font-weight:700;
-            line-height:1.4; color:var(--nr-ink); text-decoration:none; margin:4px 0 2px;
+            font-family:'Poppins','Hind',sans-serif; font-size:1.06rem; font-weight:600;
+            line-height:1.5; color:var(--nr-ink); text-decoration:none; margin:0 0 8px;
         }
-        .nr-story__title:hover { color:var(--nr-navy); text-decoration:underline; text-underline-offset:3px; }
+        .nr-story__title::after { content:''; position:absolute; inset:0; }  /* whole card clickable */
+        .nr-story:hover .nr-story__title { color:var(--nr-navy); }
         .nr-story__summary {
-            grid-column:1 / -1; font-family:'Mukta',sans-serif; font-size:.98rem; line-height:1.7;
-            color:var(--nr-muted); margin:0;
-            display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+            font-size:.95rem; line-height:1.65; color:var(--nr-muted); margin:0 0 14px;
+            display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
         }
-        .nr-story__foot { grid-column:1 / -1; display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:6px; flex-wrap:wrap; }
-        .nr-more { font-size:.8rem; font-weight:700; color:var(--nr-orange); text-decoration:none; white-space:nowrap; }
-        .nr-more:hover { text-decoration:underline; color:var(--nr-orange); }
-        .nr-list { background:var(--nr-paper); border:1px solid var(--nr-line); border-radius:14px; padding:6px 24px; }
-        @media (max-width:600px) { .nr-list { padding:4px 16px; } }
+        .nr-story__foot { margin-top:auto; display:flex; justify-content:space-between; align-items:center; gap:10px; padding-top:12px; border-top:1px dashed var(--nr-line); }
+        .nr-more { font-size:.84rem; font-weight:700; color:var(--c); white-space:nowrap; }
 
         /* ─── Empty state ────────────────────────────────── */
-        .nr-empty { background:var(--nr-paper); border:1px solid var(--nr-line); border-radius:14px; padding:56px 24px; text-align:center; }
+        .nr-empty { background:var(--nr-paper); border:1px solid var(--nr-line); border-radius:18px; padding:56px 24px; text-align:center; }
         .nr-empty p { margin:0; }
 
         /* ─── Sidebar ────────────────────────────────────── */
         .nr-side { display:flex; flex-direction:column; gap:20px; position:sticky; top:132px; }
-        @media (max-width:960px) { .nr-side { position:static; } }
+        @media (max-width:1020px) { .nr-side { position:static; } }
         .nr-mobile-only { display:none; }
-        @media (max-width:960px) { .nr-mobile-only { display:block; } .nr-side .psc { display:none; } }
-        .nr-box { background:var(--nr-paper); border:1px solid var(--nr-line); border-radius:14px; padding:22px; }
-        .nr-box__kicker { font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--nr-orange); margin-bottom:6px; }
-        .nr-box__title { font-size:1.08rem; font-weight:800; color:var(--nr-ink); line-height:1.35; margin-bottom:8px; }
-        .nr-box__text { font-size:.84rem; line-height:1.65; color:var(--nr-muted); margin-bottom:14px; }
-        .nr-box--verify { background:var(--nr-navy); border-color:var(--nr-navy); }
+        @media (max-width:1020px) { .nr-mobile-only { display:block; } .nr-side .psc { display:none; } }
+        .nr-box { background:var(--nr-paper); border:1px solid var(--nr-line); border-radius:18px; padding:22px; }
+        .nr-box__kicker { display:inline-block; font-family:'Plus Jakarta Sans',sans-serif; font-size:.64rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--nr-orange); margin-bottom:8px; }
+        .nr-box__title { font-family:'Poppins','Hind',sans-serif; font-size:1.1rem; font-weight:700; color:var(--nr-ink); line-height:1.4; margin-bottom:8px; }
+        .nr-box__text { font-size:.9rem; line-height:1.6; color:var(--nr-muted); margin-bottom:14px; }
+        .nr-box--verify {
+            position:relative; overflow:hidden; border:none; color:#fff;
+            background:radial-gradient(260px 160px at 100% 0%, rgba(255,92,0,.45), transparent 70%), linear-gradient(150deg,#0a1a4f,#0d3270 60%,#0b5a6e);
+        }
+        .nr-box--verify .nr-box__kicker { color:#fdba74; }
         .nr-box--verify .nr-box__title { color:#fff; }
-        .nr-box--verify .nr-box__text  { color:rgba(255,255,255,.72); }
-        .nr-price { font-size:1.9rem; font-weight:800; color:#fff; line-height:1; margin-bottom:4px; }
-        .nr-price small { font-size:.78rem; font-weight:500; color:rgba(255,255,255,.6); }
-        .nr-checks { list-style:none; padding:0; margin:12px 0 16px; }
-        .nr-checks li { position:relative; padding-left:22px; font-size:.82rem; color:rgba(255,255,255,.85); margin-bottom:6px; }
-        .nr-checks li::before { content:'✓'; position:absolute; left:0; color:#4ade80; font-weight:800; }
+        .nr-price { font-family:'Poppins',sans-serif; font-size:2.1rem; font-weight:800; color:#fff; line-height:1; margin:6px 0 4px; }
+        .nr-price small { font-family:'Hind',sans-serif; font-size:.85rem; font-weight:500; color:rgba(255,255,255,.65); }
+        .nr-checks { list-style:none; padding:0; margin:14px 0 18px; }
+        .nr-checks li { display:flex; gap:9px; align-items:flex-start; font-size:.9rem; color:rgba(255,255,255,.88); margin-bottom:8px; }
+        .nr-checks li::before { content:'✓'; display:flex; align-items:center; justify-content:center; width:18px; height:18px; flex-shrink:0; margin-top:2px;
+                                border-radius:50%; background:#22c55e; color:#fff; font-size:.7rem; font-weight:800; }
         .nr-cta {
             display:flex; align-items:center; justify-content:center; gap:8px; width:100%;
-            padding:12px 16px; border-radius:8px; font-size:.86rem; font-weight:700; text-decoration:none;
-            transition:opacity .15s;
+            padding:12px 16px; border-radius:10px; font-size:.92rem; font-weight:700; text-decoration:none; transition:transform .15s;
         }
-        .nr-cta:hover { opacity:.9; text-decoration:none; }
-        .nr-cta--orange { background:var(--nr-orange); color:#fff !important; }
-        .nr-cta--wa     { background:#25D366; color:#fff !important; }
-        .nr-guides { list-style:none; padding:0; margin:0; }
-        .nr-guides li { border-top:1px solid var(--nr-line); }
-        .nr-guides li:first-child { border-top:none; }
+        .nr-cta:hover { transform:translateY(-1px); text-decoration:none; }
+        .nr-cta--orange { background:linear-gradient(135deg,#FF5C00,#ff8a3d); color:#fff !important; box-shadow:0 10px 20px -10px rgba(255,92,0,.9); }
+        .nr-guides { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px; }
         .nr-guides a {
-            display:flex; justify-content:space-between; align-items:center; gap:10px;
-            padding:11px 0; font-size:.86rem; font-weight:600; color:var(--nr-ink); text-decoration:none;
+            display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px 12px; border-radius:10px;
+            background:#f8fafc; font-size:.92rem; font-weight:600; color:var(--nr-ink); text-decoration:none; transition:background .15s, color .15s;
         }
-        .nr-guides a:hover { color:var(--nr-orange); }
-        .nr-guides a span { color:var(--nr-faint); }
+        .nr-guides a:hover { background:#fff4ec; color:var(--nr-orange); }
+        .nr-guides a span { color:var(--nr-orange); font-weight:700; }
+
+        /* Pagination: Laravel's Tailwind links, recoloured */
+        .nr-pages nav span[aria-current="page"] > span { background:var(--nr-navy) !important; color:#fff !important; border-color:var(--nr-navy) !important; }
 
         /* ─── Mobile buy/sell bar ────────────────────────── */
         .mob-cta-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:10px 14px;background:#fff;border-top:1px solid #e5e7eb;box-shadow:0 -4px 18px rgba(0,0,0,.12);gap:10px}
@@ -245,6 +305,7 @@
         'rera'     => 'RERA',
     ];
     $catColor = [
+        'all'      => '#0b1e5b',
         'lda'      => '#16a34a',
         'it-city'  => '#2563eb',
         'price'    => '#ea580c',
@@ -252,6 +313,17 @@
         'policy'   => '#dc2626',
         'rera'     => '#0d9488',
     ];
+    // Inner SVG paths for each category's icon tile (24×24, stroke).
+    $catIcon = [
+        'lda'      => '<path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-5h6v5M9 11h.01M15 11h.01"/>',
+        'it-city'  => '<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
+        'projects' => '<path d="M3 21h18M6 21V10l6-5 6 5v11M10 21v-6h4v6"/><path d="M12 2v3"/>',
+        'price'    => '<path d="M7 5h10M7 9h10M13 5c2.5 0 4 1.8 4 4s-1.5 4-4 4H8l7 6"/>',
+        'policy'   => '<path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 006 0L7 7zM17 7l-3 7a3 3 0 006 0l-3-7zM8 21h8"/>',
+        'rera'     => '<path d="M12 3l7 3v6c0 4.2-3 7.7-7 9-4-1.3-7-4.8-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/>',
+        'default'  => '<path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/>',
+    ];
+    $icon = fn ($cat, $size = 20) => '<svg width="'.$size.'" height="'.$size.'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">'.($catIcon[$cat] ?? $catIcon['default']).'</svg>';
     $activeCategory = $category ?? 'all';
 
     $allItems  = collect($articles->items());
@@ -259,43 +331,72 @@
     $restItems = $lead ? $allItems->slice(1) : $allItems;
     $byDay     = $restItems->groupBy(fn ($a) => $a->created_at->format('Y-m-d'));
     $lastUpdate = $allItems->max('created_at');
+    $topThree  = $allItems->take(3);
 
 @endphp
 
 <div class="nr">
 
-{{-- ══ MASTHEAD ══════════════════════════════════════════ --}}
+{{-- ══ HERO MASTHEAD ════════════════════════════════════ --}}
 <header class="nr-mast">
-    <div class="nr-c nr-mast__row">
+    <div class="nr-c nr-mast__grid">
         <div>
-            <p class="nr-mast__kicker">Lucknow Property News</p>
+            <span class="nr-pill"><span class="nr-pill__dot"></span> Lucknow Property News · हिंदी</span>
             <h1 class="nr-mast__h1">लखनऊ प्रॉपर्टी <span>न्यूज़</span></h1>
             <p class="nr-mast__sub nr-hi">
                 LDA, आवास विकास, आईटी सिटी और RERA की वो खबरें जो लखनऊ में प्लॉट या फ्लैट खरीदने वालों के काम की हैं।
             </p>
+            <div class="nr-mast__facts nr-hi">
+                @if($lastUpdate)
+                <div class="nr-fact">
+                    <span class="nr-fact__icon" style="background:rgba(255,92,0,.2); color:#ffb37a;">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                    </span>
+                    <span><span class="nr-fact__num">{{ $lastUpdate->copy()->locale('hi')->translatedFormat('j F') }}</span><span class="nr-fact__lbl">आखिरी अपडेट</span></span>
+                </div>
+                @endif
+                <div class="nr-fact">
+                    <span class="nr-fact__icon" style="background:rgba(59,130,246,.22); color:#93c5fd;">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h8"/></svg>
+                    </span>
+                    <span><span class="nr-fact__num">{{ $articles->total() }}</span><span class="nr-fact__lbl">खबरें</span></span>
+                </div>
+                <div class="nr-fact">
+                    <span class="nr-fact__icon" style="background:rgba(34,197,94,.2); color:#86efac;">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+                    </span>
+                    <span><span class="nr-fact__num">100%</span><span class="nr-fact__lbl">मूल स्रोत से जाँची</span></span>
+                </div>
+            </div>
         </div>
-        <div class="nr-mast__facts">
-            @if($lastUpdate)
-            <span class="nr-mast__fact nr-hi">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-                अपडेट: <strong>{{ $lastUpdate->copy()->locale('hi')->translatedFormat('j F Y') }}</strong>
-            </span>
-            @endif
-            <span class="nr-mast__fact nr-hi">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
-                हर खबर मूल स्रोत से जाँची गई
-            </span>
+
+        @if($topThree->isNotEmpty())
+        <div class="nr-top nr-hi">
+            <div class="nr-top__head">
+                <p class="nr-top__label">आज की सुर्खियाँ</p>
+                <span class="nr-top__live">LATEST</span>
+            </div>
+            <ol>
+                @foreach($topThree as $i => $t)
+                <li style="--c:{{ $catColor[$t->category] ?? '#0b1e5b' }}">
+                    <span class="nr-top__n">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                    <a href="{{ route('news.show', $t->slug) }}">{{ $t->title }}</a>
+                </li>
+                @endforeach
+            </ol>
         </div>
+        @endif
     </div>
+    <svg class="nr-mast__wave" viewBox="0 0 1440 56" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 C 360 0, 1080 70, 1440 18 L1440 56 L0 56 Z" fill="#f4f6fb"/></svg>
 </header>
 
-{{-- ══ CATEGORY TABS ═════════════════════════════════════ --}}
+{{-- ══ CATEGORY CHIPS ════════════════════════════════════ --}}
 <nav class="nr-tabs" aria-label="News categories">
     <div class="nr-c nr-tabs__scroll">
         <div class="nr-tabs__list nr-hi">
             @foreach($categories as $key => $label)
                 <a href="{{ $key === 'all' ? route('news.index') : route('news.index', ['category' => $key]) }}"
-                   class="nr-tab {{ $activeCategory === $key ? 'nr-tab--on' : '' }}"
+                   class="nr-tab {{ $activeCategory === $key ? 'nr-tab--on' : '' }}" style="--c:{{ $catColor[$key] }}"
                    @if($activeCategory === $key) aria-current="page" @endif>
                     {{ $label }}
                 </a>
@@ -311,63 +412,76 @@
     <main>
         @if($articles->isEmpty())
             <div class="nr-empty nr-hi">
-                <p style="font-size:1.15rem; font-weight:700; color:#111827; margin-bottom:6px;">इस श्रेणी में अभी कोई खबर नहीं है</p>
-                <p style="font-size:.95rem; color:#6b7280; margin-bottom:18px;">बाकी खबरें देखें या हमारी गाइड पढ़ें।</p>
+                <p class="nr-hd" style="font-size:1.2rem; font-weight:700; color:#0f172a; margin-bottom:6px;">इस श्रेणी में अभी कोई खबर नहीं है</p>
+                <p style="font-size:.98rem; color:#64748b; margin-bottom:18px;">बाकी खबरें देखें या हमारी गाइड पढ़ें।</p>
                 <a href="{{ route('news.index') }}" class="nr-btn">सभी खबरें देखें</a>
             </div>
         @else
 
             {{-- ── Lead story ─────────────────────────── --}}
             @if($lead)
-            @php $lc = $catColor[$lead->category] ?? '#0f1f5c'; @endphp
-            <article class="nr-lead" style="--c:{{ $lc }}">
-                <p class="nr-lead__label nr-hi">ताज़ा खबर</p>
-                <div class="nr-meta nr-hi">
-                    <span class="nr-tag" style="--c:{{ $lc }}">{{ $catHindi[$lead->category] ?? 'खबर' }}</span>
-                    @if($lead->is_hot)<span class="nr-hot">अहम</span>@endif
-                    <span class="sep"></span>
-                    <time datetime="{{ $lead->created_at->toIso8601String() }}">{{ $lead->created_at->copy()->locale('hi')->translatedFormat('j F Y') }}</time>
-                </div>
-                <a href="{{ route('news.show', $lead->slug) }}" class="nr-lead__title">{{ $lead->title }}</a>
-                <p class="nr-lead__summary">{{ $lead->summary }}</p>
-                <div class="nr-lead__foot">
-                    <span class="nr-meta nr-hi">
-                        @if($lead->source_name) स्रोत: {{ $lead->source_name }} @endif
+            @php $lc = $catColor[$lead->category] ?? '#0b1e5b'; $ld = $lead->created_at->copy()->locale('hi'); @endphp
+            <article class="nr-lead nr-hi" style="--c:{{ $lc }}">
+                <div class="nr-lead__art">
+                    <span class="nr-lead__label">ताज़ा खबर</span>
+                    {!! $icon($lead->category, 46) !!}
+                    <span>
+                        <span class="nr-lead__day" style="display:block;">{{ $ld->format('j') }}</span>
+                        <span class="nr-lead__mon">{{ $ld->translatedFormat('F Y') }}</span>
                     </span>
-                    <a href="{{ route('news.show', $lead->slug) }}" class="nr-btn nr-hi">
-                        पूरी खबर पढ़ें
-                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                    </a>
+                </div>
+                <div class="nr-lead__body">
+                    <div class="nr-meta">
+                        <span class="nr-tag" style="--c:{{ $lc }}">{{ $catHindi[$lead->category] ?? 'खबर' }}</span>
+                        @if($lead->is_hot)<span class="nr-hot">🔥 अहम</span>@endif
+                        <time datetime="{{ $lead->created_at->toIso8601String() }}">{{ $ld->translatedFormat('j F Y') }}</time>
+                    </div>
+                    <a href="{{ route('news.show', $lead->slug) }}" class="nr-lead__title">{{ $lead->title }}</a>
+                    <p class="nr-lead__summary">{{ $lead->summary }}</p>
+                    <div class="nr-lead__foot">
+                        <span class="nr-meta">@if($lead->source_name) स्रोत: {{ $lead->source_name }} @endif</span>
+                        <a href="{{ route('news.show', $lead->slug) }}" class="nr-btn">
+                            पूरी खबर पढ़ें
+                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
+                    </div>
                 </div>
             </article>
             @endif
 
             {{-- On phones the sidebar sits below every story, so the plot CTA also shows here. --}}
-            <div class="nr-mobile-only" style="margin:0 0 24px;">
+            <div class="nr-mobile-only" style="margin:0 0 28px;">
                 @include('components.plot-sale-cta', ['from' => 'news'])
             </div>
 
             {{-- ── Stories grouped by day ─────────────── --}}
             @foreach($byDay as $day => $items)
             @php $dayDate = \Carbon\Carbon::parse($day)->locale('hi'); @endphp
-            <section class="nr-day">
-                <div class="nr-day__head nr-hi">
-                    <h2 class="nr-day__date">{{ $dayDate->translatedFormat('j F Y') }}</h2>
+            <section class="nr-day nr-hi">
+                <div class="nr-day__head">
+                    <h2 class="nr-day__date">
+                        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+                        {{ $dayDate->translatedFormat('j F Y') }}
+                    </h2>
+                    <span class="nr-day__line"></span>
                     <span class="nr-day__count">{{ $items->count() }} {{ $items->count() === 1 ? 'खबर' : 'खबरें' }}</span>
                 </div>
-                <div class="nr-list">
+                <div class="nr-grid">
                     @foreach($items as $article)
-                    @php $c = $catColor[$article->category] ?? '#6b7280'; @endphp
-                    <article class="nr-story">
-                        <div class="nr-meta nr-hi" style="grid-column:1 / -1;">
-                            <span class="nr-tag" style="--c:{{ $c }}">{{ $catHindi[$article->category] ?? 'खबर' }}</span>
-                            @if($article->is_hot)<span class="nr-hot">अहम</span>@endif
+                    @php $c = $catColor[$article->category] ?? '#64748b'; @endphp
+                    <article class="nr-story" style="--c:{{ $c }}">
+                        <div class="nr-story__top">
+                            <span class="nr-ico">{!! $icon($article->category, 18) !!}</span>
+                            <div class="nr-meta">
+                                <span class="nr-tag" style="--c:{{ $c }}">{{ $catHindi[$article->category] ?? 'खबर' }}</span>
+                                @if($article->is_hot)<span class="nr-hot">🔥 अहम</span>@endif
+                            </div>
                         </div>
                         <a href="{{ route('news.show', $article->slug) }}" class="nr-story__title">{{ $article->title }}</a>
                         <p class="nr-story__summary">{{ $article->summary }}</p>
-                        <div class="nr-story__foot nr-hi">
-                            <span class="nr-meta">@if($article->source_name) स्रोत: {{ $article->source_name }} @endif</span>
-                            <a href="{{ route('news.show', $article->slug) }}" class="nr-more">पढ़ें →</a>
+                        <div class="nr-story__foot">
+                            <span class="nr-meta">@if($article->source_name) {{ $article->source_name }} @endif</span>
+                            <span class="nr-more">पढ़ें →</span>
                         </div>
                     </article>
                     @endforeach
@@ -376,7 +490,7 @@
             @endforeach
 
             @if($articles->hasPages())
-                <div style="margin-top:32px;">
+                <div class="nr-pages" style="margin-top:32px;">
                     {{ $articles->appends($activeCategory !== 'all' ? ['category' => $activeCategory] : [])->links() }}
                 </div>
             @endif
@@ -384,36 +498,35 @@
     </main>
 
     {{-- ══ SIDEBAR ═══════════════════════════════════════ --}}
-    <aside class="nr-side">
+    <aside class="nr-side nr-hi">
         {{-- Shown by partials/onesignal only when push works here and this browser isn't subscribed yet. --}}
         <div class="nr-box" data-push-ask hidden>
             <p class="nr-box__kicker">Notifications</p>
-            <p class="nr-box__title nr-hi">नई खबर आते ही जानें</p>
-            <p class="nr-box__text nr-hi">LDA, आवास विकास और RERA की ज़रूरी खबरें — हफ्ते में 1–2 बार, सीधे आपके फोन या ब्राउज़र पर।</p>
-            <button type="button" class="nr-cta nr-cta--orange nr-hi" style="border:0; cursor:pointer;"
+            <p class="nr-box__title">नई खबर आते ही जानें</p>
+            <p class="nr-box__text">LDA, आवास विकास और RERA की ज़रूरी खबरें — हफ्ते में 1–2 बार, सीधे आपके फोन या ब्राउज़र पर।</p>
+            <button type="button" class="nr-cta nr-cta--orange" style="border:0; cursor:pointer;"
                     onclick="window.dsdPushAsk && window.dsdPushAsk()">🔔 नोटिफिकेशन चालू करें</button>
         </div>
 
-        @include('components.plot-sale-cta', ['from' => 'news'])
+        @include('components.plot-sale-cta', ['from' => 'news', 'verify' => false])
 
         <div class="nr-box nr-box--verify">
-            <p class="nr-box__kicker" style="color:#fdba74;">Property Verification</p>
-            <p class="nr-box__title nr-hi">खरीदने से पहले प्रॉपर्टी की जाँच करवाएँ</p>
+            <p class="nr-box__kicker">Property Verification</p>
+            <p class="nr-box__title">खरीदने से पहले प्रॉपर्टी की जाँच करवाएँ</p>
             <div class="nr-price">₹5,000 <small>/ प्लॉट या फ्लैट</small></div>
-            <ul class="nr-checks nr-hi">
+            <ul class="nr-checks">
                 <li>मालिकाना हक और खतौनी की जाँच</li>
                 <li>LDA / RERA मंज़ूरी और नक्शा</li>
                 <li>48 घंटे में PDF रिपोर्ट</li>
             </ul>
-            <a href="{{ url('/services/property-verification-lucknow') }}" class="nr-cta nr-cta--orange nr-hi"
+            <a href="{{ url('/services/property-verification-lucknow') }}" class="nr-cta nr-cta--orange"
                data-cta-kind="verify">जाँच बुक करें →</a>
         </div>
 
-
         <div class="nr-box">
             <p class="nr-box__kicker">Guides</p>
-            <p class="nr-box__title nr-hi">विस्तार से पढ़ें</p>
-            <ul class="nr-guides nr-hi">
+            <p class="nr-box__title">विस्तार से पढ़ें</p>
+            <ul class="nr-guides">
                 <li><a href="{{ url('/lda-schemes') }}">LDA की सभी योजनाएँ <span>→</span></a></li>
                 <li><a href="{{ url('/blog/varun-vihar-yojana-lucknow-hindi-2026') }}">वरुण विहार योजना गाइड <span>→</span></a></li>
                 <li><a href="{{ url('/blog/it-city-lucknow-lda-plots-guide-hindi-2026') }}">आईटी सिटी प्लॉट गाइड <span>→</span></a></li>
