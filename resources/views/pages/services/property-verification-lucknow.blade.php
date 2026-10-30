@@ -118,58 +118,6 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": "How to Get Property Verified in Lucknow",
-  "description": "Hire DSD Properties for independent property verification in Lucknow. Physical checks at LDA, Sub-Registrar, Tehsil, and courts. PDF report in 48 hours at ₹5,000.",
-  "totalTime": "PT48H",
-  "estimatedCost": {
-    "@type": "MonetaryAmount",
-    "currency": "INR",
-    "value": "5000"
-  },
-  "step": [
-    {
-      "@type": "HowToStep",
-      "position": 1,
-      "name": "WhatsApp Free Preliminary Check",
-      "text": "Send the property address and seller's name on WhatsApp to +91-8595002933. We do a free preliminary LDA and IGRSUP check within 2 hours and tell you honestly if a full verification is worth doing.",
-      "url": "https://dsdproperties.in/services/property-verification-lucknow"
-    },
-    {
-      "@type": "HowToStep",
-      "position": 2,
-      "name": "Share Available Documents",
-      "text": "Share sale deed, registry copy, allotment letter, Khatauni, RERA number — whatever you have. Even just the property address is enough to start.",
-      "url": "https://dsdproperties.in/services/property-verification-lucknow"
-    },
-    {
-      "@type": "HowToStep",
-      "position": 3,
-      "name": "Pay ₹5,000 Verification Fee",
-      "text": "Pay ₹5,000 for residential plots and flats, ₹7,000 for commercial properties, or ₹10,000 for the premium package with site visit. Payment via UPI or bank transfer. Invoice issued.",
-      "url": "https://dsdproperties.in/services/property-verification-lucknow"
-    },
-    {
-      "@type": "HowToStep",
-      "position": 4,
-      "name": "We Verify at Source",
-      "text": "Our team physically checks documents at the LDA office (Gomti Nagar), Sub-Registrar, relevant Tehsil, court records at Lucknow District Court and Allahabad HC Lucknow Bench, and the LDA Illegal Colony List — not just online portals.",
-      "url": "https://dsdproperties.in/services/property-verification-lucknow"
-    },
-    {
-      "@type": "HowToStep",
-      "position": 5,
-      "name": "Receive Detailed PDF Report in 48 Hours",
-      "text": "A clear PDF report with every check performed, any red flags found, and a final verdict: Safe to Buy or Do Not Proceed. Delivered within 48 hours of document receipt.",
-      "url": "https://dsdproperties.in/services/property-verification-lucknow"
-    }
-  ]
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Property Verification Service Lucknow — Hire LDA, Registry & Plot Verifier ₹5,000",
   "url": "https://dsdproperties.in/services/property-verification-lucknow",
@@ -260,6 +208,12 @@
 .pv-hero__card-btn { display: block; padding: 14px; background: #25D366; color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: .92rem; cursor: pointer; font-family: 'Poppins', sans-serif; text-align: center; text-decoration: none; transition: transform .2s, box-shadow .2s; box-shadow: 0 5px 18px rgba(37,211,102,.3); }
 .pv-hero__card-btn:hover { transform: translateY(-1px); color:#fff; text-decoration:none; box-shadow: 0 8px 22px rgba(37,211,102,.4); }
 .pv-hero__card-note { margin-top: 12px; font-size: .72rem; color: var(--pv-t3); text-align: center; line-height: 1.5; }
+
+.pv-hero__sample { display: block; max-width: 340px; justify-self: center; text-align: center; text-decoration: none; color: inherit; }
+.pv-hero__sample:hover { text-decoration: none; }
+.pv-hero__sample img { display: block; width: 100%; max-width: 230px; height: auto; aspect-ratio: 639 / 905; margin: 4px auto 18px; border-radius: 8px; border: 1px solid var(--pv-border); box-shadow: 0 10px 26px rgba(1,31,75,.15); transition: transform .2s; }
+.pv-hero__sample:hover img { transform: translateY(-3px); }
+@media(max-width:900px){ .pv-hero__sample { margin: 0 auto; } .pv-hero__sample img { max-width: 170px; } }
 
 .pv-hero__wave { position: absolute; bottom: 0; left: 0; right: 0; line-height: 0; }
 .pv-hero__wave svg { width: 100%; height: 56px; display: block; }
@@ -454,27 +408,13 @@
             </div>
         </div>
 
-        <div class="pv-hero__card">
-            <div class="pv-hero__card-tag">RESIDENTIAL PLOT / FLAT</div>
-            <div class="pv-hero__card-title">Hire a Lucknow Property Verifier</div>
-            <div class="pv-hero__card-sub">Trained verifier physically checks documents at LDA, Sub-Registrar, Tehsil and court records. Detailed PDF report in 48 hours.</div>
-
-            <div class="pv-hero__card-price">
-                <span class="pv-hero__card-price-amt">₹5,000</span>
-                <span class="pv-hero__card-price-lbl">all-inclusive · no hidden fees</span>
-            </div>
-
-            <ul class="pv-hero__card-list">
-                <li>LDA allotment + registry cross-check</li>
-                <li>30-year encumbrance certificate</li>
-                <li>RERA + court case search</li>
-                <li>Dakhil Kharij (mutation) verified</li>
-                <li>Final verdict: Safe to Buy or Walk Away</li>
-            </ul>
-
-            <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20%E2%82%B95%2C000%20property%20verification." class="pv-hero__card-btn">Book ₹5,000 Verification on WhatsApp</a>
-            <div class="pv-hero__card-note">🔒 100% confidential · Free preliminary check first</div>
-        </div>
+        <a class="pv-hero__card pv-hero__sample" href="{{ asset('downloads/DSD-Property-Verification-Sample-Report-Lucknow.pdf') }}" target="_blank" rel="noopener">
+            <div class="pv-hero__card-tag">SAMPLE REPORT</div>
+            <div class="pv-hero__card-title">See the report you'll get</div>
+            <img src="{{ asset('images/verification/sample-report-cover.webp') }}" alt="Cover page of a sample property verification report, Lucknow" width="639" height="905" fetchpriority="high">
+            <span class="pv-hero__card-btn">View Sample Report (PDF)</span>
+            <div class="pv-hero__card-note">Real report · names and personal details hidden</div>
+        </a>
     </div>
 
     <div class="pv-hero__wave">
@@ -492,71 +432,6 @@
             <div><div class="pv-metric__num">30 yr</div><div class="pv-metric__label">Title Chain Traced</div></div>
             <div><div class="pv-metric__num">48 hr</div><div class="pv-metric__label">PDF Report Delivery</div></div>
             <div><div class="pv-metric__num">₹5K</div><div class="pv-metric__label">vs ₹50L At Risk</div></div>
-        </div>
-    </div>
-</section>
-
-{{-- ═══════════ DIY VS HIRE ═══════════ --}}
-<section class="pv-section" style="background:var(--bg-primary,#fff)">
-    <div class="pv-container">
-        <span class="pv-slabel pv-rv">Honest Comparison</span>
-        <h2 class="pv-stitle pv-rv">Doing It Yourself vs. Hiring DSD Properties</h2>
-        <p class="pv-ssub pv-rv">You can verify property documents yourself — many buyers try. Here's an honest look at what you save by hiring us, and what you risk if you don't.</p>
-
-        <div class="pv-diy-table pv-rv">
-            <div class="pv-diy-head">
-                <div>What You Check</div>
-                <div>Doing It Yourself</div>
-                <div>Hiring DSD Properties</div>
-            </div>
-            <div class="pv-diy-row">
-                <div>Time required</div>
-                <div class="pv-diy-bad">2–3 weekends, multiple office visits</div>
-                <div class="pv-diy-good">48 hours, hands-off</div>
-            </div>
-            <div class="pv-diy-row">
-                <div>Cost</div>
-                <div>Free (your time + travel + fees)</div>
-                <div class="pv-diy-good">₹5,000 fixed</div>
-            </div>
-            <div class="pv-diy-row">
-                <div>LDA office verification</div>
-                <div class="pv-diy-bad">Online portal only</div>
-                <div class="pv-diy-good">Physical visit, Gomti Nagar</div>
-            </div>
-            <div class="pv-diy-row">
-                <div>Sub-Registrar encumbrance</div>
-                <div class="pv-diy-bad">Hard to extract for 30 years</div>
-                <div class="pv-diy-good">30-year certificate included</div>
-            </div>
-            <div class="pv-diy-row">
-                <div>Tehsil mutation (Dakhil Kharij)</div>
-                <div class="pv-diy-bad">Most buyers skip this</div>
-                <div class="pv-diy-good">Physically verified at Tehsil</div>
-            </div>
-            <div class="pv-diy-row">
-                <div>Court case search</div>
-                <div class="pv-diy-bad">Difficult without legal access</div>
-                <div class="pv-diy-good">District Court + HC Lucknow Bench</div>
-            </div>
-            <div class="pv-diy-row">
-                <div>Trained eye for fraud patterns</div>
-                <div class="pv-diy-bad">First-time buyer = blind spot</div>
-                <div class="pv-diy-good">Pattern recognition across cases</div>
-            </div>
-            <div class="pv-diy-row">
-                <div>Written evidence if dispute arises</div>
-                <div class="pv-diy-bad">None — verbal only</div>
-                <div class="pv-diy-good">PDF report admissible as evidence</div>
-            </div>
-        </div>
-
-        <div style="max-width:780px; margin:28px auto 0; padding:18px 22px; background:#f0f9f9; border:1px solid rgba(0,128,128,.2); border-radius:12px; font-size:.86rem; line-height:1.75; color:var(--pv-t2);">
-            <strong style="color:var(--pv-t1);">Honest take:</strong> If you have weekends to spare, legal connections, and have done this before — DIY is fine. For everyone else, ₹5,000 is the cheapest insurance you'll ever buy against a ₹50 lakh mistake.
-        </div>
-
-        <div style="text-align:center; margin-top:28px;">
-            <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20%E2%82%B95%2C000%20property%20verification." class="pv-btn pv-btn--primary">Hire Us — Book Verification →</a>
         </div>
     </div>
 </section>
@@ -744,23 +619,6 @@
                 <div class="pv-risk-banner-title">The Real Cost of Skipping Verification</div>
                 <div class="pv-risk-banner-text">₹5–10 lakh in legal fees · 2–5 years in court · Property becomes unsellable · Total investment at risk · Mental and family stress that never goes away</div>
             </div>
-        </div>
-    </div>
-</section>
-
-{{-- ═══════════ PROCESS ═══════════ --}}
-<section class="pv-section" style="background:var(--bg-primary,#fff)">
-    <div class="pv-container">
-        <span class="pv-slabel pv-rv">Simple Process</span>
-        <h2 class="pv-stitle pv-rv">How to Hire DSD for Property Verification — 5 Steps, 48 Hours</h2>
-        <p class="pv-ssub pv-rv">From first WhatsApp message to PDF report. Transparent at every step.</p>
-
-        <div class="pv-steps">
-            <div class="pv-step pv-rv"><div class="pv-step__num">1</div><div><h3>WhatsApp Free Preliminary Check</h3><p>Send the property address and seller's name on WhatsApp. We do a free preliminary LDA + IGRSUP check within 2 hours and tell you honestly if a full verification is worth doing.</p></div></div>
-            <div class="pv-step pv-rv" style="--rd:.06s"><div class="pv-step__num">2</div><div><h3>Share Available Documents</h3><p>Sale deed, registry copy, allotment letter, Khatauni, RERA number — whatever you have. Even just the address is enough to start.</p></div></div>
-            <div class="pv-step pv-rv" style="--rd:.12s"><div class="pv-step__num">3</div><div><h3>Pay Verification Fee</h3><p>₹5,000 for residential plots and flats, ₹7,000 for commercial, ₹10,000 for premium with site visit. UPI or bank transfer. Invoice issued.</p></div></div>
-            <div class="pv-step pv-rv" style="--rd:.18s"><div class="pv-step__num">4</div><div><h3>We Verify at Source</h3><p>Our team physically checks documents at LDA office, Sub-Registrar, Tehsil, court records and the LDA Illegal Colony List — not just online portals.</p></div></div>
-            <div class="pv-step pv-rv" style="--rd:.24s"><div class="pv-step__num">5</div><div><h3>Detailed PDF Report</h3><p>A clear report with every check performed, any red flags found, and a verdict: <strong>"Safe to Buy"</strong> or <strong>"Do Not Proceed."</strong> Delivered in 48 hours.</p></div></div>
         </div>
     </div>
 </section>
