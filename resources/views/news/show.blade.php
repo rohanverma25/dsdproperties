@@ -65,14 +65,8 @@
     </script>
 
     <style>
-        /* ── Category tag colours ─────────────────────────── */
-        .tag-lda      { background:#f0fdf4; color:#16a34a; border-color:#bbf7d0; }
-        .tag-it-city  { background:#eff6ff; color:#2563eb; border-color:#bfdbfe; }
-        .tag-price    { background:#fff7ed; color:#ea580c; border-color:#fed7aa; }
-        .tag-projects { background:#faf5ff; color:#7c3aed; border-color:#e9d5ff; }
-        .tag-policy   { background:#fef2f2; color:#dc2626; border-color:#fecaca; }
-        .tag-rera     { background:#f0fdfa; color:#0d9488; border-color:#99f6e4; }
-        .tag-default  { background:#f9fafb; color:#6b7280; border-color:#e5e7eb; }
+        /* ── Category tag colours (--c from NewsArticle::CATEGORIES) ── */
+        .news-tag { color:var(--c); background:color-mix(in srgb, var(--c) 8%, #fff); border-color:color-mix(in srgb, var(--c) 30%, #fff); }
 
         /* ── Article body typography ──────────────────────── */
         .article-body p      { margin-bottom: 1.25rem; line-height: 1.8; color: #374151; font-size: .95rem; }
@@ -165,20 +159,7 @@
                 {{-- Meta row: category tag + date + source --}}
                 <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:16px;">
 
-                    @php
-                        $tagMap = [
-                            'lda'      => 'tag-lda',
-                            'it-city'  => 'tag-it-city',
-                            'price'    => 'tag-price',
-                            'projects' => 'tag-projects',
-                            'policy'   => 'tag-policy',
-                            'rera'     => 'tag-rera',
-                        ];
-                        $tagCls = $tagMap[$article->category] ?? 'tag-default';
-                    @endphp
-
-                    <span class="{{ $tagCls }}"
-                          style="font-size:.7rem; font-weight:700; padding:3px 12px;
+                    <span class="news-tag" style="--c:{{ $article->category_color }}; font-size:.7rem; font-weight:700; padding:3px 12px;
                                  border-radius:999px; border-width:1px; border-style:solid;">
                         {{ $article->category_label }}
                     </span>
@@ -261,11 +242,10 @@
                             Related Articles
                         </h4>
                         @foreach($related as $item)
-                            @php $rc = $tagMap[$item->category] ?? 'tag-default'; @endphp
                             <a href="{{ route('news.show', $item->slug) }}" class="related-link">
                                 <div style="display:flex; align-items:center; gap:6px; margin-bottom:5px; flex-wrap:wrap;">
-                                    <span class="{{ $rc }}"
-                                          style="font-size:.62rem; font-weight:700; padding:2px 8px;
+                                    <span class="news-tag"
+                                          style="--c:{{ $item->category_color }}; font-size:.62rem; font-weight:700; padding:2px 8px;
                                                  border-radius:999px; border-width:1px; border-style:solid;">
                                         {{ $item->category_label }}
                                     </span>

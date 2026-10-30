@@ -520,8 +520,7 @@ USER;
 
     private function normaliseCategory(string $cat): string
     {
-        $allowed = ['lda', 'it-city', 'price', 'projects', 'policy', 'rera'];
-        return in_array($cat, $allowed) ? $cat : 'policy';
+        return isset(\App\Models\NewsArticle::CATEGORIES[$cat]) ? $cat : 'policy';
     }
 
     private function makeSlug(string $title): string

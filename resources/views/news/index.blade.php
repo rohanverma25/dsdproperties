@@ -271,8 +271,37 @@
         .nr-guides a:hover { background:#fff4ec; color:var(--nr-orange); }
         .nr-guides a span { color:var(--nr-orange); font-weight:700; }
 
-        /* Pagination: Laravel's Tailwind links, recoloured */
-        .nr-pages nav span[aria-current="page"] > span { background:var(--nr-navy) !important; color:#fff !important; border-color:var(--nr-navy) !important; }
+        /* ─── Pagination (news/_pagination.blade.php) ─────── */
+        .nr-pg { background:var(--nr-paper); border:1px solid var(--nr-line); border-radius:18px; padding:16px 18px;
+                 display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+        .nr-pg__info { margin:0; font-size:.88rem; color:var(--nr-muted); }
+        .nr-pg__info strong { color:var(--nr-ink); }
+        .nr-pg__row { display:flex; align-items:center; gap:8px; }
+        .nr-pg__nums { display:flex; align-items:center; gap:6px; }
+        .nr-pg__num, .nr-pg__dots {
+            display:inline-flex; align-items:center; justify-content:center; min-width:40px; height:40px; padding:0 8px;
+            border-radius:12px; font-size:.92rem; font-weight:700; text-decoration:none;
+        }
+        .nr-pg__num { color:var(--nr-ink); background:#f1f5f9; transition:background .15s, color .15s; }
+        .nr-pg__num:hover { background:#fff4ec; color:var(--nr-orange); text-decoration:none; }
+        .nr-pg__num.is-on { background:var(--nr-navy); color:#fff; box-shadow:0 8px 18px -10px var(--nr-navy); }
+        .nr-pg__dots { color:var(--nr-faint); min-width:24px; }
+        .nr-pg__btn {
+            display:inline-flex; align-items:center; height:40px; padding:0 16px; border-radius:12px; font-size:.9rem; font-weight:700;
+            color:var(--nr-navy); background:#fff; border:1px solid var(--nr-line); text-decoration:none; white-space:nowrap; transition:all .15s;
+        }
+        .nr-pg__btn:hover { border-color:var(--nr-navy); text-decoration:none; color:var(--nr-navy); }
+        .nr-pg__btn--next { background:linear-gradient(135deg,#FF5C00,#ff8a3d); color:#fff !important; border-color:transparent; box-shadow:0 10px 20px -12px rgba(255,92,0,.9); }
+        .nr-pg__btn--next:hover { border-color:transparent; transform:translateY(-1px); }
+        .nr-pg__btn.is-off { color:var(--nr-faint); background:#f8fafc; box-shadow:none; pointer-events:none; }
+        .nr-pg__mob { display:none; font-size:.9rem; font-weight:700; color:var(--nr-ink); }
+        @media (max-width:640px) {
+            .nr-pg { justify-content:center; text-align:center; }
+            .nr-pg__info { width:100%; }
+            .nr-pg__row { width:100%; justify-content:space-between; }
+            .nr-pg__nums { display:none; }
+            .nr-pg__mob { display:inline; }
+        }
 
         /* ─── Mobile buy/sell bar ────────────────────────── */
         .mob-cta-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;padding:10px 14px;background:#fff;border-top:1px solid #e5e7eb;box-shadow:0 -4px 18px rgba(0,0,0,.12);gap:10px}
@@ -287,34 +316,15 @@
 @section('content')
 
 @php
-    $categories = [
-        'all'      => 'All News',
-        'lda'      => 'LDA',
-        'it-city'  => 'IT City',
-        'projects' => 'New Projects',
-        'price'    => 'Prices',
-        'policy'   => 'Policy',
-        'rera'     => 'RERA',
-    ];
-    $catHindi = [
-        'lda'      => 'LDA Update',
-        'it-city'  => 'IT City',
-        'projects' => 'New Projects',
-        'price'    => 'Prices',
-        'policy'   => 'Policy',
-        'rera'     => 'RERA',
-    ];
-    $catColor = [
-        'all'      => '#0b1e5b',
-        'lda'      => '#16a34a',
-        'it-city'  => '#2563eb',
-        'price'    => '#ea580c',
-        'projects' => '#7c3aed',
-        'policy'   => '#dc2626',
-        'rera'     => '#0d9488',
-    ];
-    // Inner SVG paths for each category's icon tile (24×24, stroke).
+    // Tabs, labels and colours come from NewsArticle::CATEGORIES (the one list to edit).
+    $cats      = \App\Models\NewsArticle::CATEGORIES;
+    $catLabel  = array_map(fn ($c) => $c['label'], $cats);
+    $catColor  = ['all' => '#0b1e5b'] + array_map(fn ($c) => $c['color'], $cats);
+    $categories = ['all' => 'All News'] + array_map(fn ($c) => $c['tab'] ?? $c['label'], $cats);
+    // Inner SVG paths for each category's icon tile (24×24, stroke). A new category without one gets 'default'.
     $catIcon = [
+        'saumitra-vihar' => '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+        'wellness-city'  => '<path d="M20.8 8.6a5 5 0 00-8.8-3.2 5 5 0 00-8.8 3.2c0 5.4 8.8 11 8.8 11s8.8-5.6 8.8-11z"/><path d="M7 12h3l1.5-2.5 2 5L15 12h2"/>',
         'lda'      => '<path d="M3 21h18M5 21V8l7-4 7 4v13M9 21v-5h6v5M9 11h.01M15 11h.01"/>',
         'it-city'  => '<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
         'projects' => '<path d="M3 21h18M6 21V10l6-5 6 5v11M10 21v-6h4v6"/><path d="M12 2v3"/>',
@@ -432,7 +442,7 @@
                 </div>
                 <div class="nr-lead__body">
                     <div class="nr-meta">
-                        <span class="nr-tag" style="--c:{{ $lc }}">{{ $catHindi[$lead->category] ?? 'News' }}</span>
+                        <span class="nr-tag" style="--c:{{ $lc }}">{{ $catLabel[$lead->category] ?? 'News' }}</span>
                         @if($lead->is_hot)<span class="nr-hot">🔥 Important</span>@endif
                         <time datetime="{{ $lead->created_at->toIso8601String() }}">{{ $ld->format('j F Y') }}</time>
                     </div>
@@ -473,7 +483,7 @@
                         <div class="nr-story__top">
                             <span class="nr-ico">{!! $icon($article->category, 18) !!}</span>
                             <div class="nr-meta">
-                                <span class="nr-tag" style="--c:{{ $c }}">{{ $catHindi[$article->category] ?? 'News' }}</span>
+                                <span class="nr-tag" style="--c:{{ $c }}">{{ $catLabel[$article->category] ?? 'News' }}</span>
                                 @if($article->is_hot)<span class="nr-hot">🔥 Important</span>@endif
                             </div>
                         </div>
@@ -490,8 +500,8 @@
             @endforeach
 
             @if($articles->hasPages())
-                <div class="nr-pages" style="margin-top:32px;">
-                    {{ $articles->appends($activeCategory !== 'all' ? ['category' => $activeCategory] : [])->links() }}
+                <div style="margin-top:36px;">
+                    {{ $articles->appends($activeCategory !== 'all' ? ['category' => $activeCategory] : [])->links('news._pagination') }}
                 </div>
             @endif
         @endif

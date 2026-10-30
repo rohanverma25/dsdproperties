@@ -18,11 +18,11 @@ class NewsController extends Controller
         $query = NewsArticle::published()
             ->orderBy('created_at', 'desc');
 
-        if ($category && $category !== 'all') {
+        if ($category && isset(NewsArticle::CATEGORIES[$category])) {
             $query->byCategory($category);
         }
 
-        $articles = $query->paginate(10);
+        $articles = $query->paginate(20);
 
         return view('news.index', compact('articles', 'category'));
     }

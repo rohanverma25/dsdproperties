@@ -267,8 +267,7 @@ SYSTEM;
             }
 
             // Validate + normalise category
-            $allowed = ['lda', 'it-city', 'price', 'projects', 'policy', 'rera'];
-            if (!in_array($parsed['category'], $allowed)) {
+            if (!isset(\App\Models\NewsArticle::CATEGORIES[$parsed['category']])) {
                 $this->addLog('warn', "Unknown category '{$parsed['category']}'. Defaulting to 'policy'.");
                 $parsed['category'] = 'policy';
             }
