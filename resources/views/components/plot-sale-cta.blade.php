@@ -124,7 +124,7 @@
     /* Plain variant: white cards, a thin coloured edge, green WhatsApp button text */
     .psc--plain { box-shadow:none; }
     .psc--plain .psc__kicker { background:none; padding:0; color:#64748b; }
-    .psc--plain .psc__list { grid-template-columns:minmax(0,1fr); gap:8px; }
+    .psc--plain .psc__list { gap:10px; }
     .psc--plain .psc__card { background:#fff; color:#0f172a !important; border:1px solid #e5e7eb; border-left:4px solid var(--psc-c); padding:12px 14px; }
     .psc--plain .psc__card::after { display:none; }
     .psc--plain .psc__card:hover { box-shadow:none; border-color:var(--psc-c); }

@@ -144,8 +144,8 @@
 
         /* ─── Layout ─────────────────────────────────────── */
         .nr-main { padding:28px 0 72px; }
-        .nr-layout { display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:32px; align-items:start; }
-        @media (max-width:1020px) { .nr-layout { grid-template-columns:minmax(0,1fr); } }
+        /* No sidebar: stories use the full width; plot sales, verification and guides sit below the news. */
+        .nr-layout { display:grid; grid-template-columns:minmax(0,1fr); gap:40px; }
 
         /* ─── Category chip + icon tile ──────────────────── */
         .nr-tag {
@@ -237,10 +237,10 @@
         .nr-empty p { margin:0; }
 
         /* ─── Sidebar ────────────────────────────────────── */
-        .nr-side { display:flex; flex-direction:column; gap:20px; position:sticky; top:132px; }
-        @media (max-width:1020px) { .nr-side { position:static; } }
-        .nr-mobile-only { display:none; }
-        @media (max-width:1020px) { .nr-mobile-only { display:block; } .nr-side .psc { display:none; } }
+        .nr-side { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; align-items:start;
+                   padding-top:32px; border-top:1px solid var(--nr-line); }
+        .nr-side > .psc, .nr-side > [data-push-ask] { grid-column:1 / -1; }
+        @media (max-width:760px) { .nr-side { grid-template-columns:minmax(0,1fr); } }
         .nr-box { background:var(--nr-paper); border:1px solid var(--nr-line); border-radius:18px; padding:22px; }
         .nr-box__kicker { display:inline-block; font-family:'Plus Jakarta Sans',sans-serif; font-size:.64rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--nr-orange); margin-bottom:8px; }
         .nr-box__title { font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size:1.1rem; font-weight:700; color:var(--nr-ink); line-height:1.4; margin-bottom:8px; }
@@ -458,11 +458,6 @@
             </article>
             @endif
 
-            {{-- On phones the sidebar sits below every story, so the plot CTA also shows here. --}}
-            <div class="nr-mobile-only" style="margin:0 0 28px;">
-                @include('components.plot-sale-cta', ['from' => 'news', 'plain' => true])
-            </div>
-
             {{-- ── Stories grouped by day ─────────────── --}}
             @foreach($byDay as $day => $items)
             @php $dayDate = \Carbon\Carbon::parse($day); @endphp
@@ -505,7 +500,7 @@
         @endif
     </main>
 
-    {{-- ══ SIDEBAR ═══════════════════════════════════════ --}}
+    {{-- ══ BELOW THE NEWS: plot sales, verification, guides ══ --}}
     <aside class="nr-side nr-hi">
         {{-- Shown by partials/onesignal only when push works here and this browser isn't subscribed yet. --}}
         <div class="nr-box" data-push-ask hidden>
