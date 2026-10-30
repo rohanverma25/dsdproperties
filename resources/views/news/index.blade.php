@@ -182,6 +182,8 @@
         /* ─── Sidebar ────────────────────────────────────── */
         .nr-side { display:flex; flex-direction:column; gap:20px; position:sticky; top:132px; }
         @media (max-width:960px) { .nr-side { position:static; } }
+        .nr-mobile-only { display:none; }
+        @media (max-width:960px) { .nr-mobile-only { display:block; } .nr-side .psc { display:none; } }
         .nr-box { background:var(--nr-paper); border:1px solid var(--nr-line); border-radius:14px; padding:22px; }
         .nr-box__kicker { font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--nr-orange); margin-bottom:6px; }
         .nr-box__title { font-size:1.08rem; font-weight:800; color:var(--nr-ink); line-height:1.35; margin-bottom:8px; }
@@ -340,6 +342,11 @@
             </article>
             @endif
 
+            {{-- On phones the sidebar sits below every story, so the plot CTA also shows here. --}}
+            <div class="nr-mobile-only" style="margin:0 0 24px;">
+                @include('components.plot-sale-cta', ['from' => 'news'])
+            </div>
+
             {{-- ── Stories grouped by day ─────────────── --}}
             @foreach($byDay as $day => $items)
             @php $dayDate = \Carbon\Carbon::parse($day)->locale('hi'); @endphp
@@ -386,6 +393,8 @@
             <button type="button" class="nr-cta nr-cta--orange nr-hi" style="border:0; cursor:pointer;"
                     onclick="window.dsdPushAsk && window.dsdPushAsk()">🔔 नोटिफिकेशन चालू करें</button>
         </div>
+
+        @include('components.plot-sale-cta', ['from' => 'news'])
 
         <div class="nr-box nr-box--verify">
             <p class="nr-box__kicker" style="color:#fdba74;">Property Verification</p>

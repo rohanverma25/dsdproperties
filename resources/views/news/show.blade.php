@@ -224,6 +224,15 @@
                      {!! $article->full_content !!}
                 </div>
 
+                {{-- Plot sales + verification CTA; a story about one of the three schemes puts that scheme first --}}
+                @php
+                    $ctaFocus = collect(['saumitra' => 'saumitra', 'it-city' => 'it-city', 'wellness' => 'wellness'])
+                        ->first(fn ($k, $needle) => str_contains($article->slug, $needle));
+                @endphp
+                <div style="margin-top:28px;">
+                    @include('components.plot-sale-cta', ['focus' => $ctaFocus, 'from' => 'news/'.$article->slug])
+                </div>
+
                 {{-- Source attribution --}}
                 @if($article->source_url)
                     <div style="margin-top:28px; padding-top:16px; border-top:1px solid #e5e7eb;">
