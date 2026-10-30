@@ -69,12 +69,27 @@
         .news-tag { color:var(--c); background:color-mix(in srgb, var(--c) 8%, #fff); border-color:color-mix(in srgb, var(--c) 30%, #fff); }
 
         /* ── Article body typography ──────────────────────── */
-        .article-body p      { margin-bottom: 1.25rem; line-height: 1.8; color: #374151; font-size: .95rem; }
-        .article-body h2     { font-size: 1.25rem; font-weight: 700; color: #111827; margin: 2rem 0 .75rem; }
-        .article-body h3     { font-size: 1.05rem; font-weight: 700; color: #111827; margin: 1.5rem 0 .5rem; }
+        /* Stories are Hindi: Hind body text a size up, Poppins for Devanagari headings. */
+        .article-body        { font-family:'Plus Jakarta Sans','Hind',sans-serif; }
+        .article-body p      { margin-bottom: 1.25rem; line-height: 1.85; color: #334155; font-size: 1.05rem; }
+        .article-body h2     { font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size: 1.3rem; font-weight: 700; color: #0f172a; margin: 2rem 0 .75rem; }
+        .article-body h3     { font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 1.5rem 0 .5rem; }
         .article-body ul     { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
         .article-body ol     { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; }
-        .article-body li     { margin-bottom: .4rem; color: #374151; font-size: .95rem; }
+        .article-body li     { margin-bottom: .45rem; color: #334155; font-size: 1.02rem; line-height: 1.75; }
+
+        /* ── Share row + end-of-story links ───────────────── */
+        .story-share { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:-6px 0 22px; }
+        .story-share__lbl { font-size:.78rem; font-weight:600; color:#94a3b8; }
+        .story-share__btn { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:999px; font-size:.8rem; font-weight:700;
+                            text-decoration:none !important; border:1px solid #e2e8f0; background:#fff; color:#0b1e5b !important; cursor:pointer; transition:border-color .15s; }
+        .story-share__btn:hover { border-color:#0b1e5b; }
+        .story-share__btn--wa { background:#25D366; border-color:#25D366; color:#fff !important; }
+        .story-share__btn--wa:hover { border-color:#128C7E; background:#128C7E; }
+        .story-more { display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; }
+        .story-more a { display:inline-flex; align-items:center; gap:6px; padding:10px 16px; border-radius:12px; font-size:.88rem; font-weight:700;
+                        text-decoration:none !important; border:1px solid #e2e8f0; background:#fff; color:#0b1e5b !important; transition:border-color .15s; }
+        .story-more a:hover { border-color:#0b1e5b; }
         .article-body a      { color: #1d4ed8; text-decoration: underline; }
         .article-body strong { color: #111827; font-weight: 600; }
         .article-body table  { width:100%; border-collapse:collapse; margin-bottom:1.25rem; font-size:.88rem; }
@@ -183,10 +198,24 @@
                 </div>
 
                 {{-- H1 --}}
-                <h1 style="font-size:clamp(1.4rem,3.5vw,2rem); font-weight:800; color:#111827;
-                            line-height:1.3; margin-bottom:20px;">
+                <h1 style="font-family:'Plus Jakarta Sans','Poppins',sans-serif; font-size:clamp(1.45rem,3.5vw,2.05rem); font-weight:700; color:#0f172a;
+                            line-height:1.4; margin-bottom:20px;">
                     {{ $article->title }}
                 </h1>
+
+                {{-- Share: readers forward these stories on WhatsApp groups --}}
+                <div class="story-share">
+                    <span class="story-share__lbl">Share:</span>
+                    <a class="story-share__btn story-share__btn--wa" target="_blank" rel="noopener" data-cta-kind="share-whatsapp"
+                       href="https://wa.me/?text={{ rawurlencode($article->title.' '.$article->url) }}">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 005.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9 0-3.18-1.24-6.17-3.48-8.41A11.82 11.82 0 0012.05 0zm5.42 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35z"/></svg>
+                        WhatsApp
+                    </a>
+                    <button type="button" class="story-share__btn"
+                            onclick="navigator.clipboard && navigator.clipboard.writeText('{{ $article->url }}').then(() => { this.textContent = 'Link copied ✓'; })">
+                        Copy link
+                    </button>
+                </div>
 
                 {{-- Quick Summary box --}}
                 <div style="background:#eff6ff; border-left:4px solid #0f1f5c; border-radius:0 12px 12px 0;
@@ -195,7 +224,7 @@
                                text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px;">
                         Quick Summary
                     </p>
-                    <p style="font-size:.9rem; color:#1e40af; line-height:1.7; margin:0;">
+                    <p style="font-family:'Plus Jakarta Sans','Hind',sans-serif; font-size:1.02rem; color:#1e293b; line-height:1.75; margin:0;">
                         {{ $article->summary }}
                     </p>
                 </div>
@@ -227,6 +256,13 @@
                         </p>
                     </div>
                 @endif
+
+                <div class="story-more">
+                    <a href="{{ route('news.index') }}">← All news</a>
+                    @if(isset(\App\Models\NewsArticle::CATEGORIES[$article->category]))
+                        <a href="{{ route('news.index', ['category' => $article->category]) }}">More {{ $article->category_label }} news →</a>
+                    @endif
+                </div>
 
             </article>
 
