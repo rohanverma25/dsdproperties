@@ -74,7 +74,7 @@ class NewsletterController extends Controller
     public function preview(NewsletterCampaign $campaign)
     {
         Newsletter::useSiteUrl();
-        return (new WeeklyNewsletter($campaign, Newsletter::stories($campaign->week), 'preview@example.com', 'Preview'))->render();
+        return (new WeeklyNewsletter($campaign, Newsletter::emailStories($campaign), 'preview@example.com', 'Preview'))->render();
     }
 
     public function test(Request $request, NewsletterCampaign $campaign)
@@ -83,7 +83,7 @@ class NewsletterController extends Controller
         Newsletter::useSiteUrl();
         try {
             Mail::mailer(config('newsletter.mailer'))->to($email)
-                ->send(new WeeklyNewsletter($campaign, Newsletter::stories($campaign->week), $email, null));
+                ->send(new WeeklyNewsletter($campaign, Newsletter::emailStories($campaign), $email, null));
         } catch (\Throwable $e) {
             return back()->with('error', 'Test email failed: ' . $e->getMessage());
         }

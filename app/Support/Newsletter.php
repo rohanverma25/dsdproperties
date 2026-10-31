@@ -56,6 +56,19 @@ class Newsletter
             ->orderByDesc('created_at')->get();
     }
 
+    /**
+     * Stories that go into the email: only those with an English headline in $c->items, in the items' order
+     * (the user wants ~5 picked stories, not the whole week). No English items yet = every story of the week.
+     */
+    public static function emailStories(NewsletterCampaign $c): Collection
+    {
+        $stories = self::stories($c->week);
+        $picked = array_keys(array_filter($c->items ?? [], fn ($i) => trim($i['title'] ?? '') !== ''));
+        if (! $picked) return $stories;
+        $byId = $stories->keyBy('id');
+        return collect($picked)->map(fn ($id) => $byId->get($id))->filter()->values();
+    }
+
     /** Weeks that have at least one story, newest first: [week => count]. */
     public static function weeks(): array
     {
@@ -124,7 +137,7 @@ class Newsletter
     {
         self::useSiteUrl();
         $limit = $limit ?? config('newsletter.batch_size');
-        $stories = self::stories($c->week);
+        $stories = self::emailStories($c);
         $sent = $failed = 0;
 
         foreach ($c->deliveries()->where('status', 'queued')->orderBy('id')->limit($limit)->get() as $d) {
