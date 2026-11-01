@@ -30,6 +30,32 @@ class CrmLead extends Model
         'no_answer_count'  => 'integer',
     ];
 
+    /**
+     * The person wrote to us again on WhatsApp.
+     *
+     * A lead that was parked as lost or dormant comes back as new and due
+     * today — someone who returns on their own is the warmest lead there is.
+     * Open and won leads only get their last-contact time moved.
+     */
+    public function reopenOnReply(\DateTimeInterface $at): void
+    {
+        $this->last_contact_at = $at;
+
+        if (in_array($this->stage, ['lost', 'dormant'], true)) {
+            $this->activities()->create([
+                'type'        => 'whatsapp',
+                'note'        => "Wrote again on WhatsApp — reopened (was {$this->stage}).",
+                'happened_at' => $at,
+            ]);
+
+            $this->stage            = 'new';
+            $this->no_answer_count  = 0;
+            $this->next_followup_at = now()->toDateString();
+        }
+
+        $this->save();
+    }
+
     public function activities()
     {
         return $this->hasMany(CrmLeadActivity::class);

@@ -46,7 +46,23 @@
             <button type="submit" class="btn-primary px-5">Search</button>
         </div>
 
-        @if(request()->hasAny(['q', 'form', 'status']))
+        @if(request()->boolean('unhandled'))
+            <input type="hidden" name="unhandled" value="1">
+        @endif
+
+        <div class="mt-2 text-sm">
+            @if(request()->boolean('unhandled'))
+                <span class="badge-amber">Showing not handled only</span>
+            @elseif($unhandledCount > 0)
+                <a href="{{ route('admin.enquiries.index', ['unhandled' => 1]) }}" class="font-semibold text-amber-700 hover:text-brandNavy">
+                    <i class="fa-solid fa-inbox"></i> {{ $unhandledCount }} not handled in the last {{ \App\Models\FormSubmission::UNHANDLED_DAYS }} days
+                </a>
+            @else
+                <span class="text-slate-400"><i class="fa-solid fa-check"></i> Nothing left to handle</span>
+            @endif
+        </div>
+
+        @if(request()->hasAny(['q', 'form', 'status', 'unhandled']))
             <a href="{{ route('admin.enquiries.index') }}" class="mt-2 inline-block text-sm font-semibold text-slate-500 hover:text-brandNavy">
                 <i class="fa-solid fa-xmark"></i> Clear filters
             </a>
@@ -66,7 +82,7 @@
     @if($submissions->isEmpty())
         <div class="card px-6 py-14 text-center">
             <p class="text-base font-semibold text-slate-700">
-                {{ request()->hasAny(['q', 'form', 'status']) ? 'No enquiries match those filters' : 'No enquiries received yet' }}
+                {{ request()->hasAny(['q', 'form', 'status', 'unhandled']) ? 'No enquiries match those filters' : 'No enquiries received yet' }}
             </p>
         </div>
     @else

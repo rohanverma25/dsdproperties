@@ -347,6 +347,94 @@ class WhatsAppCrmTest extends TestCase
     }
 
     /** @test */
+    public function make_lead_fills_scheme_intent_and_page_from_the_website_message(): void
+    {
+        $this->inbound('919812345678@s.whatsapp.net',
+            "Hi, I want to buy a plot in Saumitra Vihar. Please share available plot sizes and rates.\n\n"
+            . "Button: Get plot details\nPage: https://dsdproperties.in/news/some-story")->assertOk();
+
+        $this->post(route('admin.whatsapp.lead', WaChat::firstWhere('phone', '919812345678')))->assertRedirect();
+
+        $lead = CrmLead::sole();
+        $this->assertSame('Saumitra Vihar', $lead->scheme_interest);
+        $this->assertSame('buy', $lead->intent);
+        $this->assertSame('https://dsdproperties.in/news/some-story', $lead->source_page);
+        $this->assertStringContainsString('Get plot details', $lead->notes);
+
+        // A verification button on a scheme page is a verification enquiry about that scheme.
+        $this->inbound('919800000002@s.whatsapp.net',
+            "Hi, I want to verify a property before buying.\n\n"
+            . "Button: Verify for ₹5,000\nPage: https://dsdproperties.in/blog/it-city-lucknow-lda-plots-guide-2026")->assertOk();
+
+        $this->post(route('admin.whatsapp.lead', WaChat::firstWhere('phone', '919800000002')))->assertRedirect();
+
+        $lead = CrmLead::where('phone', '919800000002')->sole();
+        $this->assertSame('verification', $lead->intent);
+        $this->assertSame('IT City', $lead->scheme_interest);
+    }
+
+    /** @test */
+    public function a_typed_message_without_website_tags_still_makes_a_plain_lead(): void
+    {
+        $this->inbound('919812345678@s.whatsapp.net', 'Hello, rates?')->assertOk();
+
+        $this->post(route('admin.whatsapp.lead', WaChat::sole()))->assertRedirect();
+
+        $lead = CrmLead::sole();
+        $this->assertSame('buy', $lead->intent);
+        $this->assertNull($lead->scheme_interest);
+        $this->assertNull($lead->source_page);
+    }
+
+    /** @test */
+    public function not_handled_lists_only_chats_waiting_on_a_reply_that_are_not_leads(): void
+    {
+        $this->inbound('919800000001@s.whatsapp.net', 'waiting', ['push_name' => 'Asha Waiting'])->assertOk();
+        $this->inbound('919800000002@s.whatsapp.net', 'answered', ['push_name' => 'Bina Answered'])->assertOk();
+        $this->inbound('919800000003@s.whatsapp.net', 'already a lead')->assertOk();
+        $this->inbound('919800000004@s.whatsapp.net', 'filed away')->assertOk();
+
+        $this->postJson(route('admin.whatsapp.send', WaChat::firstWhere('phone', '919800000002')), ['body' => 'Sure'])->assertOk();
+        $this->post(route('admin.whatsapp.lead', WaChat::firstWhere('phone', '919800000003')));
+        $this->post(route('admin.whatsapp.archive', WaChat::firstWhere('phone', '919800000004')));
+
+        $this->assertSame(['919800000001'], WaChat::notHandled()->pluck('phone')->all());
+
+        $this->get(route('admin.whatsapp.index', ['pending' => 1]))
+            ->assertOk()
+            ->assertSee('Not handled · 1')
+            ->assertSee('Asha Waiting')
+            ->assertDontSee('Bina Answered');
+    }
+
+    /** @test */
+    public function a_lost_or_dormant_lead_who_writes_again_is_reopened_for_today(): void
+    {
+        $lead = CrmLead::create([
+            'name' => 'Ramesh Verma', 'phone' => '919812345678',
+            'stage' => 'dormant', 'no_answer_count' => 3, 'next_followup_at' => null,
+        ]);
+
+        $this->inbound('919812345678@s.whatsapp.net', 'Is the plot still available?')->assertOk();
+
+        $lead->refresh();
+        $this->assertSame('new', $lead->stage);
+        $this->assertSame(0, $lead->no_answer_count);
+        $this->assertSame(now()->toDateString(), $lead->next_followup_at->toDateString());
+        $this->assertStringContainsString('reopened (was dormant)', $lead->activities()->sole()->note);
+        $this->assertTrue(CrmLead::dueToday()->whereKey($lead->id)->exists());
+
+        // An open lead keeps the follow-up date the operator chose.
+        $later = now()->addDays(3)->toDateString();
+        $lead->update(['stage' => 'qualified', 'next_followup_at' => $later]);
+
+        $this->inbound('919812345678@s.whatsapp.net', 'ok thanks')->assertOk();
+
+        $this->assertSame('qualified', $lead->fresh()->stage);
+        $this->assertSame($later, $lead->fresh()->next_followup_at->toDateString());
+    }
+
+    /** @test */
     public function starting_a_chat_from_a_typed_number_normalises_it(): void
     {
         $this->post(route('admin.whatsapp.start'), ['phone' => '098123 45678'])

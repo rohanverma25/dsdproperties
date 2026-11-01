@@ -167,9 +167,9 @@ class WhatsAppWebhookController extends Controller
             $chat->forceFill(['archived' => false])->save();
         }
 
-        // A reply is contact — pull the linked lead's timestamps along with it.
+        // A reply is contact — and brings a lost or dormant lead back to Today.
         if ($chat->crm_lead_id) {
-            CrmLead::whereKey($chat->crm_lead_id)->update(['last_contact_at' => $sentAt]);
+            CrmLead::find($chat->crm_lead_id)?->reopenOnReply($sentAt);
         }
 
         app(WhatsAppPush::class)->notifyNewMessage($chat, $message);

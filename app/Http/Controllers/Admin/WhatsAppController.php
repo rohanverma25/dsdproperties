@@ -56,6 +56,8 @@ class WhatsAppController extends Controller
             'search'       => $request->input('q'),
             'labels'       => WaLabel::orderBy('sort')->orderBy('name')->get(),
             'activeLabel'  => $request->integer('label') ?: null,
+            'pending'      => $request->boolean('pending'),
+            'pendingCount' => WaChat::notHandled()->count(),
             'quickReplies' => $chat?->exists
                 ? WaQuickReply::active()->get()->map(fn ($r) => [
                     'shortcut' => $r->shortcut,
@@ -233,15 +235,22 @@ class WhatsAppController extends Controller
 
         $existing = CrmLead::where('phone', 'like', '%' . substr($chat->phone, -10))->first();
 
+        // Scheme, intent and page come from the website's "Button:/Page:" lines
+        // when the chat started from a button on the site.
+        $site = $existing ? [] : $chat->websiteEnquiry();
+
         $lead = $existing ?: CrmLead::create([
             'name'             => $chat->name ?: 'WhatsApp ' . substr($chat->phone, -4),
             'phone'            => $chat->phone,
             'source_channel'   => 'whatsapp',
-            'intent'           => 'buy',
+            'source_page'      => $site['source_page'] ?? null,
+            'intent'           => $site['intent'] ?? 'buy',
+            'scheme_interest'  => $site['scheme_interest'] ?? null,
             'stage'            => 'new',
             'next_followup_at' => now()->toDateString(),
             'last_contact_at'  => $chat->last_message_at ?? now(),
-            'notes'            => 'Created from the WhatsApp inbox.',
+            'notes'            => 'Created from the WhatsApp inbox.'
+                                  . (isset($site['button']) ? ' Website button: "' . $site['button'] . '".' : ''),
         ]);
 
         $chat->forceFill(['crm_lead_id' => $lead->id])->save();
@@ -479,6 +488,7 @@ class WhatsAppController extends Controller
         // phone history lives, and otherwise there is no way to reach it.
         return WaChat::query()
             ->when(! $request->filled('q'), fn ($q) => $q->where('archived', false))
+            ->when($request->boolean('pending'), fn ($q) => $q->notHandled())
             ->orderByDesc('last_message_at')
             ->with(['lead:id,name,stage', 'labels'])
             ->when($request->filled('label'), fn ($q) => $q->whereHas(

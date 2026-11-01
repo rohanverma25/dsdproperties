@@ -49,6 +49,12 @@ class FormSubmission extends Model
     /** Newsletter rows have no phone or name, so there is nothing to convert. */
     public const NON_CONVERTIBLE_FORMS = [self::FORM_NEWSLETTER];
 
+    /**
+     * How far back "Not handled" looks. The 600-odd backfilled rows are all
+     * still 'new', so without a cut-off the count would never mean anything.
+     */
+    public const UNHANDLED_DAYS = 30;
+
     protected $fillable = [
         'name', 'phone', 'email', 'message',
         'source_form', 'source_page', 'referrer_url', 'ip_address',
@@ -82,6 +88,17 @@ class FormSubmission extends Model
     public function getDialAttribute(): string
     {
         return CrmLead::normalisePhone($this->phone);
+    }
+
+    /**
+     * Recent enquiries nobody has acted on yet — not converted, not marked
+     * spam, not filed away. Newsletter sign-ups are never work, so never count.
+     */
+    public function scopeUnhandled(Builder $q): Builder
+    {
+        return $q->where('status', 'new')
+                 ->where('source_form', '!=', self::FORM_NEWSLETTER)
+                 ->where('created_at', '>=', now()->subDays(self::UNHANDLED_DAYS));
     }
 
     /** Free-text search across the columns an operator would actually recall. */

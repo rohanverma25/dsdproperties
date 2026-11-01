@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * One WhatsApp conversation with one number.
@@ -43,6 +44,70 @@ class WaChat extends Model
     public function scopeInbox(Builder $q): Builder
     {
         return $q->where('archived', false)->orderByDesc('last_message_at');
+    }
+
+    /**
+     * Chats nobody has acted on: not a lead, not archived, and the last word
+     * is still the customer's. Replying, making a lead or archiving clears it.
+     */
+    public function scopeNotHandled(Builder $q): Builder
+    {
+        return $q->where('archived', false)
+            ->whereNull('crm_lead_id')
+            ->whereRaw("(select m.direction from wa_messages m where m.wa_chat_id = wa_chats.id order by m.sent_at desc, m.id desc limit 1) = 'in'");
+    }
+
+    /**
+     * What the website's pre-filled message says about this enquiry.
+     *
+     * Every wa.me link on the site ends with "Button: …" and "Page: …"
+     * (partials/whatsapp-message-tag). The latest inbound message carrying
+     * them is the current enquiry. Returns scheme_interest, intent and
+     * source_page where they can be told; missing keys mean "unknown".
+     */
+    public function websiteEnquiry(): array
+    {
+        $body = $this->messages()
+            ->where('direction', 'in')
+            ->where('body', 'like', '%Page:%')
+            ->latest('sent_at')
+            ->value('body');
+
+        if (! $body) {
+            return [];
+        }
+
+        $page = preg_match('~^\s*Page:\s*(\S+)~mi', $body, $m) ? $m[1] : null;
+        $text = strtolower(preg_replace('~^\s*Page:.*$~mi', '', $body));   // message + button only
+        $path = strtolower((string) $page);
+
+        $schemes = [
+            'Saumitra Vihar' => ['saumitra'],
+            'IT City'        => ['it city', 'it-city'],
+            'Wellness City'  => ['wellness'],
+        ];
+
+        $scheme = null;
+
+        // The words they sent beat the page they happened to be on.
+        foreach ([$text, $path] as $haystack) {
+            foreach ($schemes as $name => $needles) {
+                if (Str::contains($haystack, $needles)) {
+                    $scheme = $name;
+                    break 2;
+                }
+            }
+        }
+
+        $verification = Str::contains($text, ['verif', 'सत्यापन'])
+            || (Str::contains($path, 'property-verification') && ! Str::contains($text, 'plot'));
+
+        return array_filter([
+            'scheme_interest' => $scheme,
+            'intent'          => $verification ? 'verification' : 'buy',
+            'source_page'     => $page ? mb_substr($page, 0, 255) : null,
+            'button'          => preg_match('~^\s*Button:\s*(.+)$~mi', $body, $m) ? trim($m[1]) : null,
+        ]);
     }
 
     /** "919812345678@s.whatsapp.net" -> "919812345678" */

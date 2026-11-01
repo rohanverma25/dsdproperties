@@ -94,6 +94,7 @@
 
                 <form method="GET" action="{{ route('admin.whatsapp.index') }}" class="mb-2">
                     @if($activeLabel)<input type="hidden" name="label" value="{{ $activeLabel }}">@endif
+                    @if($pending)<input type="hidden" name="pending" value="1">@endif
                     <div class="relative">
                         <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-400"></i>
                         <input type="search" name="q" value="{{ $search }}" placeholder="Search name or number"
@@ -101,24 +102,31 @@
                     </div>
                 </form>
 
-                @if($labels->isNotEmpty())
-                    <div class="mb-2 flex gap-1.5 overflow-x-auto pb-1">
-                        <a href="{{ route('admin.whatsapp.index', array_filter(['q' => $search])) }}"
+                <div class="mb-2 flex gap-1.5 overflow-x-auto pb-1">
+                    <a href="{{ route('admin.whatsapp.index', array_filter(['q' => $search])) }}"
+                       @class([
+                           'shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ring-1',
+                           'bg-brandNavy text-white ring-brandNavy' => ! $activeLabel && ! $pending,
+                           'bg-white text-slate-600 ring-slate-200 hover:bg-slate-50' => $activeLabel || $pending,
+                       ])>All</a>
+                    {{-- Not a lead, not archived, and the customer spoke last. --}}
+                    <a href="{{ route('admin.whatsapp.index', array_filter(['q' => $search, 'pending' => 1])) }}"
+                       title="Not a lead, not archived, and waiting on your reply"
+                       @class([
+                           'shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ring-1',
+                           {{-- Only amber shades already in the built CSS — public/build is not in git. --}}
+                           'bg-amber-200 text-amber-800 ring-2 ring-offset-1 ring-brandNavy' => $pending,
+                           'bg-amber-50 text-amber-700 ring-amber-200 hover:bg-slate-50' => ! $pending,
+                       ])>Not handled{{ $pendingCount ? ' · ' . $pendingCount : '' }}</a>
+                    @foreach($labels as $label)
+                        <a href="{{ route('admin.whatsapp.index', array_filter(['q' => $search, 'label' => $label->id])) }}"
                            @class([
                                'shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ring-1',
-                               'bg-brandNavy text-white ring-brandNavy' => ! $activeLabel,
-                               'bg-white text-slate-600 ring-slate-200 hover:bg-slate-50' => (bool) $activeLabel,
-                           ])>All</a>
-                        @foreach($labels as $label)
-                            <a href="{{ route('admin.whatsapp.index', array_filter(['q' => $search, 'label' => $label->id])) }}"
-                               @class([
-                                   'shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ring-1',
-                                   $label->classes,
-                                   'ring-2 ring-offset-1 ring-brandNavy' => $activeLabel === $label->id,
-                               ])>{{ $label->name }}</a>
-                        @endforeach
-                    </div>
-                @endif
+                               $label->classes,
+                               'ring-2 ring-offset-1 ring-brandNavy' => $activeLabel === $label->id,
+                           ])>{{ $label->name }}</a>
+                    @endforeach
+                </div>
 
                 <form method="POST" action="{{ route('admin.whatsapp.start') }}" class="flex gap-2">
                     @csrf
@@ -132,7 +140,8 @@
 
             <div class="min-h-0 flex-1 divide-y divide-slate-100 overflow-y-auto">
                 @forelse($chats as $row)
-                    <a href="{{ route('admin.whatsapp.chat', $row) }}"
+                    {{-- Keep the filter, so working through "Not handled" doesn't jump back to All. --}}
+                    <a href="{{ route('admin.whatsapp.chat', ['chat' => $row] + array_filter(['q' => $search, 'label' => $activeLabel, 'pending' => $pending ? 1 : null])) }}"
                        @class([
                            'flex items-center gap-3 px-3 py-3 transition-colors hover:bg-slate-50',
                            'bg-brandTeal/10' => $chat && $chat->id === $row->id,
@@ -168,7 +177,7 @@
                     <div class="px-4 py-12 text-center">
                         <i class="fa-brands fa-whatsapp mb-3 text-3xl text-slate-300"></i>
                         <p class="text-sm font-semibold text-brandNavy">
-                            {{ $search || $activeLabel ? 'Nothing matches that' : 'No chats yet' }}
+                            {{ $pending && ! $search && ! $activeLabel ? 'Every chat has been handled' : ($search || $activeLabel || $pending ? 'Nothing matches that' : 'No chats yet') }}
                         </p>
                         <p class="mt-1 text-xs text-slate-500">
                             Incoming messages appear here. You can also start one with a number above.

@@ -139,4 +139,23 @@ class FormSubmissionInboxTest extends TestCase
 
         $this->assertFalse($submission->is_convertible);
     }
+
+    /** @test */
+    public function not_handled_counts_only_recent_new_enquiries(): void
+    {
+        $make = fn (array $extra) => FormSubmission::create($extra + [
+            'name' => 'Anita Singh', 'phone' => '9812345678', 'source_form' => FormSubmission::FORM_CONTACT_US,
+        ]);
+
+        $waiting = $make([]);
+        $make(['status' => 'spam']);
+        $make(['status' => 'archived']);
+        $make(['source_form' => FormSubmission::FORM_NEWSLETTER, 'phone' => null]);
+
+        // A backfilled row from months ago is still 'new' but is not work any more.
+        $old = $make([]);
+        $old->forceFill(['created_at' => now()->subDays(FormSubmission::UNHANDLED_DAYS + 5)])->save();
+
+        $this->assertSame([$waiting->id], FormSubmission::unhandled()->pluck('id')->all());
+    }
 }

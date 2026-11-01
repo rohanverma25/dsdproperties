@@ -35,6 +35,7 @@ class FormSubmissionController extends Controller
                 in_array($status, FormSubmission::STATUSES, true),
                 fn ($q) => $q->where('status', $status)
             )
+            ->when($request->boolean('unhandled'), fn ($q) => $q->unhandled())
             ->with('crmLead')
             ->latest()
             ->paginate(25)
@@ -44,6 +45,7 @@ class FormSubmissionController extends Controller
             'submissions' => $submissions,
             'forms'       => FormSubmission::FORMS,
             'statuses'    => FormSubmission::STATUSES,
+            'unhandledCount' => FormSubmission::unhandled()->count(),
         ]);
     }
 
