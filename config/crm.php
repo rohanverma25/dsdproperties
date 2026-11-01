@@ -115,6 +115,7 @@ return [
         'it_city_land'    => 'Land in IT City',
         'wellness_land'   => 'Land in Wellness City',
         'lucknow_land'    => 'Land Plots in Lucknow',
+        'saumitra_plot'   => 'Needs Plot in Saumitra Vihar',
         'other'           => 'Other',
     ],
 
