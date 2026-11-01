@@ -98,7 +98,7 @@ public function show($slug)
 
     public function homePage(){
         $blogs       = BlogPost::whereNotNull('featured_image')->latest()->take(3)->get();
-        $news        = \App\Models\NewsArticle::published()->latest()->take(3)->get();
+        $news        = \App\Models\NewsArticle::published()->listed()->latest()->take(3)->get();
         $properties  = \App\Models\PropertyListing::published()->with('images')->latest()->take(6)->get();
         $reviews     = \App\Models\GoogleReview::active()->orderBy('sort_order')->orderByDesc('review_date')->take(6)->get();
         $reviewCount = max(config('google_reviews.total'), \App\Models\GoogleReview::active()->count());

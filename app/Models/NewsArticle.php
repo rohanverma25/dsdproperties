@@ -35,6 +35,8 @@ class NewsArticle extends Model
         'source_url',
         'is_hot',
         'status',
+        'lang',
+        'translation_of',
     ];
 
     // Cast is_hot to boolean so you can do  $article->is_hot  directly
@@ -47,6 +49,14 @@ class NewsArticle extends Model
     public function scopePublished($query)
     {
         return $query->where('status', 'published');
+    }
+
+    // Stories shown in lists (/news, newsletter, weekly page, blog sidebar). English versions are
+    // reached from their Hindi story, so a list never shows the same story twice.
+    // Usage: NewsArticle::published()->listed()->get()
+    public function scopeListed($query)
+    {
+        return $query->where('lang', 'hi');
     }
 
     // Usage: NewsArticle::pending()->get()
@@ -74,6 +84,16 @@ class NewsArticle extends Model
     public function getUrlAttribute(): string
     {
         return url('/news/' . $this->slug);
+    }
+
+    // The published version of this story in the other language, or null.
+    // English rows point at their Hindi story through translation_of.
+    public function translation(): ?self
+    {
+        $query = self::published();
+        return $this->lang === 'en'
+            ? ($this->translation_of ? $query->where('id', $this->translation_of)->first() : null)
+            : $query->where('translation_of', $this->id)->where('lang', 'en')->first();
     }
 
     // Returns a human-readable category label

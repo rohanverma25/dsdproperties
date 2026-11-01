@@ -51,7 +51,7 @@ class Newsletter
     {
         [$s, $e] = self::weekRange($week) ?? [null, null];
         if (! $s) return collect();
-        return NewsArticle::published()
+        return NewsArticle::published()->listed()
             ->whereBetween('created_at', [$s->setTimezone(config('app.timezone')), $e->setTimezone(config('app.timezone'))])
             ->orderByDesc('created_at')->get();
     }
@@ -73,7 +73,7 @@ class Newsletter
     public static function weeks(): array
     {
         $out = [];
-        foreach (NewsArticle::published()->orderByDesc('created_at')->pluck('created_at') as $at) {
+        foreach (NewsArticle::published()->listed()->orderByDesc('created_at')->pluck('created_at') as $at) {
             $k = self::weekKey($at);
             $out[$k] = ($out[$k] ?? 0) + 1;
         }

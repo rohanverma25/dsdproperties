@@ -16,6 +16,7 @@ class NewsController extends Controller
         $category = $request->query('category');
 
         $query = NewsArticle::published()
+            ->listed()
             ->orderBy('created_at', 'desc');
 
         if ($category && isset(NewsArticle::CATEGORIES[$category])) {
@@ -43,12 +44,15 @@ class NewsController extends Controller
 
         $related = NewsArticle::published()
             ->where('category', $article->category)
+            ->where('lang', $article->lang)
             ->where('id', '!=', $article->id)
             ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
 
-        return view('news.show', compact('article', 'related'));
+        $translation = $article->translation();
+
+        return view('news.show', compact('article', 'related', 'translation'));
     }
 
     // ─────────────────────────────────────────────────────

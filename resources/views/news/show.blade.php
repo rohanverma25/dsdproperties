@@ -12,6 +12,14 @@
     <meta name="description" content="{{ $article->meta_description }}">
     <link rel="canonical"    href="{{ $article->url }}">
     <meta name="robots"      content="index, follow">
+    {{-- Hindi story + its English version point at each other; Hindi is the default --}}
+    @if($translation)
+        @php $hiUrl = $article->lang === 'en' ? $translation->url : $article->url;
+             $enUrl = $article->lang === 'en' ? $article->url : $translation->url; @endphp
+        <link rel="alternate" hreflang="hi" href="{{ $hiUrl }}">
+        <link rel="alternate" hreflang="en" href="{{ $enUrl }}">
+        <link rel="alternate" hreflang="x-default" href="{{ $hiUrl }}">
+    @endif
 
     <meta property="og:type"                   content="article">
     <meta property="og:title"                  content="{{ $article->title }}">
@@ -35,6 +43,7 @@
         "datePublished": "{{ $article->created_at->toIso8601String() }}",
         "dateModified":  "{{ $article->updated_at->toIso8601String() }}",
         "articleSection": "{{ $article->category_label }}",
+        "inLanguage": "{{ $article->lang === 'en' ? 'en-IN' : 'hi-IN' }}",
         "publisher": {
             "@type": "Organization",
             "name": "DSD Properties",
@@ -202,6 +211,14 @@
                             line-height:1.4; margin-bottom:20px;">
                     {{ $article->title }}
                 </h1>
+
+                @if($translation)
+                    <a href="{{ $translation->url }}" hreflang="{{ $translation->lang }}" data-cta-kind="news-language"
+                       style="display:inline-flex; align-items:center; gap:6px; margin:-8px 0 18px; padding:6px 14px; border:1px solid #c7d2fe;
+                              border-radius:999px; background:#eef2ff; color:#0f1f5c; font-size:.82rem; font-weight:600; text-decoration:none;">
+                        🌐 {{ $article->lang === 'en' ? 'Read in Hindi (हिंदी)' : 'Read in English' }}
+                    </a>
+                @endif
 
                 {{-- Share: readers forward these stories on WhatsApp groups --}}
                 <div class="story-share">
