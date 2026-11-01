@@ -691,6 +691,9 @@ Route::any('/admin/campaigns/start', [CampaignController::class, 'start']); // S
 Route::prefix('admin/crm')->name('admin.crm.')->group(function () {
     Route::get('leads/all',    [CrmLeadController::class, 'all'])->name('leads.all');
     Route::get('leads/debug',  [CrmLeadController::class, 'debug'])->name('leads.debug'); // TEMPORARY - remove after diagnosis
+    Route::get('leads/waiting', [CrmLeadController::class, 'waiting'])->name('leads.waiting');
+    Route::post('leads/waiting/release', [CrmLeadController::class, 'release'])->name('leads.waiting.release');
+    Route::post('leads/{lead}/whatsapp', [WhatsAppController::class, 'sendToLead'])->name('leads.whatsapp');
     Route::get('leads/import', [CrmLeadImportController::class, 'form'])->name('leads.import.form');
     Route::post('leads/import/headers', [CrmLeadImportController::class, 'headers'])->name('leads.import.headers');
     Route::post('leads/import', [CrmLeadImportController::class, 'import'])->name('leads.import');

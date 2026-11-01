@@ -38,6 +38,7 @@ class WhatsAppMediaLabelsTest extends TestCase
 
         foreach ([
             '2026_09_20_100000_create_crm_leads_table.php',
+            '2026_11_02_000001_add_waiting_to_crm_leads.php',
             '2026_09_20_100100_create_crm_lead_activities_table.php',
             '2026_09_24_000001_create_wa_chats_table.php',
             '2026_09_24_000002_create_wa_messages_table.php',

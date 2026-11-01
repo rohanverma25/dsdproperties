@@ -193,6 +193,15 @@ class WhatsAppController extends Controller
             : back();
     }
 
+    /**
+     * Send to a lead by its number — the Waiting screen's per-row button.
+     * Opens (or starts) the chat and sends exactly as the inbox would.
+     */
+    public function sendToLead(Request $request, CrmLead $lead)
+    {
+        return $this->send($request, WaChat::forJid(WaChat::phoneToJid($lead->phone)));
+    }
+
     /** Thread poll — returns only what the browser has not seen yet. */
     public function messages(Request $request, WaChat $chat)
     {

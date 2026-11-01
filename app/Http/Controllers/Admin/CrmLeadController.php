@@ -9,6 +9,7 @@ use App\Models\CrmLead;
 use App\Models\CrmLeadActivity;
 use App\Models\FormSubmission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CrmLeadController extends Controller
 {
@@ -85,6 +86,49 @@ class CrmLeadController extends Controller
             'leads'   => $leads,
             'schemes' => CrmLead::whereNotNull('scheme_interest')->distinct()->orderBy('scheme_interest')->pluck('scheme_interest'),
         ]);
+    }
+
+    /**
+     * Screen 5 — Waiting. Leads on hold for something that hasn't happened yet,
+     * counted by scheme and reason, so when a registry opens or a plot comes
+     * in, everyone who wanted it can be messaged and moved back to Today.
+     */
+    public function waiting(Request $request)
+    {
+        $groups = CrmLead::waiting()
+            ->selectRaw('scheme_interest, waiting_for, count(*) as total')
+            ->groupBy('scheme_interest', 'waiting_for')
+            ->orderBy('scheme_interest')
+            ->get();
+
+        $leads = CrmLead::waiting()
+            ->when($request->has('scheme_interest'), fn ($q) => $request->filled('scheme_interest')
+                ? $q->where('scheme_interest', $request->input('scheme_interest'))
+                : $q->whereNull('scheme_interest'))
+            ->when($request->filled('waiting_for'), fn ($q) => $q->where('waiting_for', $request->input('waiting_for')))
+            ->orderBy('scheme_interest')
+            ->oldest()
+            ->get();
+
+        return view('admin.crm.leads.waiting', [
+            'groups'   => $groups,
+            'leads'    => $leads,
+            'filtered' => $request->hasAny(['scheme_interest', 'waiting_for']),
+        ]);
+    }
+
+    /** "Back to Today" — for one lead or the whole filtered list. */
+    public function release(Request $request)
+    {
+        $data = $request->validate([
+            'ids'   => ['required', 'array', 'max:500'],
+            'ids.*' => ['integer'],
+        ]);
+
+        $leads = CrmLead::waiting()->whereKey($data['ids'])->get();
+        $leads->each->releaseFromWaiting();
+
+        return back()->with('success', $leads->count() . ' ' . Str::plural('lead', $leads->count()) . ' moved back to Today.');
     }
 
     public function create(Request $request)

@@ -47,10 +47,14 @@ class CrmLeadRequest extends FormRequest
             'flexible'        => ['nullable', 'boolean'],
             'stage'           => ['required', Rule::in(CrmLead::STAGES)],
             'notes'           => ['nullable', 'string'],
+            'waiting_for'     => ['nullable', Rule::in(array_keys(config('crm.waiting_reasons')))],
+            'requirement'     => ['nullable', 'string', 'max:255'],
 
-            // THE RULE: a follow-up date is mandatory unless the lead is closed.
+            // THE RULE: a follow-up date is mandatory unless the lead is closed,
+            // or on hold for something with no date yet (a registry opening).
             'next_followup_at' => [
-                Rule::requiredIf(fn () => ! in_array($this->input('stage'), CrmLead::CLOSED_STAGES, true)),
+                Rule::requiredIf(fn () => ! in_array($this->input('stage'), CrmLead::CLOSED_STAGES, true)
+                    && ! $this->filled('waiting_for')),
                 'nullable',
                 'date',
             ],

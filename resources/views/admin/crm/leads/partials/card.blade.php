@@ -46,6 +46,17 @@
             </div>
         @endif
 
+        @if($lead->waiting_for || $lead->requirement)
+            <div class="mt-2 flex flex-wrap items-center gap-2 text-sm text-slate-600">
+                @if($lead->waiting_for)
+                    <span class="badge-amber"><i class="fa-solid fa-hourglass-half"></i> {{ $lead->waiting_label }}</span>
+                @endif
+                @if($lead->requirement)
+                    <span>{{ $lead->requirement }}</span>
+                @endif
+            </div>
+        @endif
+
         <div class="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold">
             @if($lead->next_followup_at)
                 <span class="{{ $overdue ? 'text-amber-700' : 'text-slate-500' }}">
@@ -54,7 +65,7 @@
                     @if($overdue) · {{ $lead->next_followup_at->diffInDays(now()) }}d overdue @endif
                 </span>
             @else
-                <span class="text-slate-400"><i class="fa-regular fa-clock"></i> No follow-up date</span>
+                <span class="text-slate-400"><i class="fa-regular fa-clock"></i> {{ $lead->waiting_for ? 'On hold, no date' : 'No follow-up date' }}</span>
             @endif
             @if($lead->no_answer_count > 0)
                 <span class="text-slate-400">{{ $lead->no_answer_count }}× no answer</span>

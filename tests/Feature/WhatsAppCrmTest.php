@@ -34,6 +34,7 @@ class WhatsAppCrmTest extends TestCase
 
         foreach ([
             '2026_09_20_100000_create_crm_leads_table.php',
+            '2026_11_02_000001_add_waiting_to_crm_leads.php',
             '2026_09_20_100100_create_crm_lead_activities_table.php',
             '2026_09_24_000001_create_wa_chats_table.php',
             '2026_09_24_000002_create_wa_messages_table.php',
@@ -338,6 +339,24 @@ class WhatsAppCrmTest extends TestCase
 
         $this->assertSame(2, WaMessage::count());
         $this->assertSame(2, WaChat::sole()->unread_count);
+    }
+
+    /** @test */
+    public function the_waiting_screen_can_send_to_a_lead_with_no_chat_yet(): void
+    {
+        $fake = $this->fakeGateway();
+        $lead = CrmLead::create([
+            'name' => 'Asha Gupta', 'phone' => '9812345678', 'stage' => 'qualified',
+            'scheme_interest' => 'IT City', 'waiting_for' => 'registry',
+        ]);
+
+        $this->postJson(route('admin.crm.leads.whatsapp', $lead), ['body' => 'Hello Asha, registry has started.'])
+            ->assertOk()
+            ->assertJson(['ok' => true]);
+
+        $this->assertSame([['to' => '919812345678', 'text' => 'Hello Asha, registry has started.']], $fake->sent);
+        $this->assertEquals($lead->id, WaChat::sole()->crm_lead_id, 'The new chat is tied to the lead.');
+        $this->assertNotNull($lead->fresh()->last_contact_at);
     }
 
     /** @test */

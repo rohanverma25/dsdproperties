@@ -2,6 +2,7 @@
     $tabs = [
         ['label' => 'Today',     'route' => 'admin.crm.leads.index',  'icon' => 'fa-bolt'],
         ['label' => 'All Leads', 'route' => 'admin.crm.leads.all',    'icon' => 'fa-list'],
+        ['label' => 'Waiting',   'route' => 'admin.crm.leads.waiting', 'icon' => 'fa-hourglass-half'],
         ['label' => 'New Lead',  'route' => 'admin.crm.leads.create', 'icon' => 'fa-plus'],
     ];
 @endphp

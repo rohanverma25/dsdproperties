@@ -22,6 +22,7 @@ class CrmLead extends Model
         'name', 'phone', 'alt_phone', 'source_page', 'source_channel', 'intent',
         'scheme_interest', 'area', 'budget_min', 'budget_max', 'flexible',
         'stage', 'next_followup_at', 'last_contact_at', 'no_answer_count', 'notes',
+        'waiting_for', 'requirement',
     ];
 
     protected $casts = [
@@ -166,6 +167,42 @@ class CrmLead extends Model
         return $q->whereNotNull('next_followup_at')
                  ->whereDate('next_followup_at', '<', now()->toDateString())
                  ->whereNotIn('stage', self::CLOSED_STAGES);
+    }
+
+    /** On hold until something happens (registry opens, plot comes in). Closed leads never count. */
+    public function scopeWaiting(Builder $q): Builder
+    {
+        return $q->whereNotNull('waiting_for')->whereNotIn('stage', self::CLOSED_STAGES);
+    }
+
+    public function getWaitingLabelAttribute(): ?string
+    {
+        return $this->waiting_for
+            ? (config("crm.waiting_reasons.{$this->waiting_for}") ?? $this->waiting_for)
+            : null;
+    }
+
+    /**
+     * What they waited for has happened: take the lead off hold and put it on
+     * today's list, with a timeline note saying why it came back.
+     */
+    public function releaseFromWaiting(): void
+    {
+        if (! $this->waiting_for) {
+            return;
+        }
+
+        $this->activities()->create([
+            'type'        => 'note',
+            'note'        => 'Back from waiting (' . $this->waiting_label . ')'
+                             . ($this->requirement ? ' — wanted: ' . $this->requirement : '') . '.',
+            'happened_at' => now(),
+        ]);
+
+        $this->forceFill([
+            'waiting_for'      => null,
+            'next_followup_at' => now()->toDateString(),
+        ])->save();
     }
 
     /** Strip everything but digits and force a 91 country code, ready for wa.me. */

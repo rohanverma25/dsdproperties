@@ -97,6 +97,25 @@ return [
         ],
     ],
 
+    /*
+    | Schemes offered as suggestions in the lead form's Scheme box. Free text
+    | is still allowed, but picking from here keeps the Waiting screen's
+    | groups and the All-leads filter clean.
+    */
+    'schemes' => ['Saumitra Vihar', 'IT City', 'Wellness City'],
+
+    /*
+    | Why a lead is on hold. A waiting lead may have no follow-up date; it
+    | stays out of Today until "Back to Today" on the Waiting screen.
+    | Add or reword entries here; keep the keys once leads use them.
+    */
+    'waiting_reasons' => [
+        'registry'       => 'Registry not open yet',
+        'plot_available' => 'Plot not in stock yet',
+        'launch'         => 'Scheme launch / lottery',
+        'other'          => 'Other',
+    ],
+
     /* Consecutive no-answers before a lead goes dormant and drops off the Today list. */
     'no_answer_limit' => 3,
 ];
