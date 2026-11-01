@@ -246,6 +246,70 @@ function readMessage(msg) {
     return { type: 'unsupported', body: '' };
 }
 
+// ---- Calls ------------------------------------------------------------------
+// A linked device hears about calls two ways: live call events (offer, accept,
+// reject, timeout, terminate) while the call happens, and a call-log message
+// with the outcome and length once it is over — that one also covers calls
+// made from the phone. Both go to Laravel as a 'call' webhook, which folds the
+// pair into one row and lets the call log have the last word.
+
+// CallLogMessage.CallOutcome -> ours. 5 (ONGOING) is not finished yet: skipped.
+const CALL_OUTCOMES = { 0: 'answered', 1: 'missed', 2: 'missed', 3: 'declined', 4: 'answered', 6: 'missed', 7: 'missed' };
+
+/** A call-log message as webhook fields, or null when the message is not one. */
+function readCallLog(msg) {
+    const log = msg.message?.callLogMesssage;   // sic — Baileys' own spelling
+    if (!log) return null;
+
+    const outcome = CALL_OUTCOMES[log.callOutcome ?? 0];
+    if (!outcome) return null;
+
+    return { outcome, is_video: Boolean(log.isVideo), duration: Number(log.durationSecs) || 0 };
+}
+
+const liveCalls = new Map();   // call id -> { jid, isVideo, startedAt, acceptedAt }
+
+async function onCallEvent(call) {
+    if (!call || call.isGroup) return;
+
+    if (call.status === 'offer') {
+        const jid = userJid(call.from);
+        if (!jid || (state.me?.id && jidNormalizedUser(state.me.id) === jid)) return;
+
+        // A call whose end never reached us must not stay in memory forever.
+        for (const [id, c] of liveCalls) {
+            if (Date.now() - c.startedAt.getTime() > 3600 * 1000) liveCalls.delete(id);
+        }
+
+        liveCalls.set(call.id, { jid, isVideo: Boolean(call.isVideo), startedAt: call.date, acceptedAt: null });
+        return;
+    }
+
+    const live = liveCalls.get(call.id);
+    if (!live) return;
+
+    if (call.status === 'accept') {
+        live.acceptedAt = call.date;
+        return;
+    }
+    if (!['reject', 'timeout', 'terminate'].includes(call.status)) return;
+
+    liveCalls.delete(call.id);
+
+    // Without an accept we cannot tell "answered on the phone" from "caller
+    // hung up"; the call log that follows corrects it in Laravel.
+    await pushToLaravel('call', {
+        call_id: 'CALL-' + call.id,
+        jid: live.jid,
+        from_me: false,
+        is_video: live.isVideo,
+        outcome: live.acceptedAt ? 'answered' : (call.status === 'reject' ? 'declined' : 'missed'),
+        duration: live.acceptedAt ? Math.max(0, Math.round((call.date - live.acceptedAt) / 1000)) : 0,
+        timestamp: Math.floor(live.startedAt.getTime() / 1000),
+        source: 'event',
+    });
+}
+
 const STATUS_NAMES = { 0: 'pending', 1: 'sent', 2: 'sent', 3: 'delivered', 4: 'read', 5: 'read' };
 
 function wipeAuth() {
@@ -392,6 +456,22 @@ async function connect() {
             if (!jid || jid === 'status@broadcast') continue;
             if (isJidGroup(jid)) continue;               // one-to-one chats only
 
+            const callLog = readCallLog(msg);
+            if (callLog) {
+                const callJid = userJid(jid, msg.key.senderPn ? jidNormalizedUser(msg.key.senderPn) : undefined);
+                if (callJid) {
+                    await pushToLaravel('call', {
+                        call_id: msg.key.id,
+                        jid: callJid,
+                        from_me: Boolean(msg.key.fromMe),
+                        ...callLog,
+                        timestamp: Number(msg.messageTimestamp) || Math.floor(Date.now() / 1000),
+                        source: 'log',
+                    });
+                }
+                continue;
+            }
+
             const read = readMessage(msg);
             if (read.type === 'unsupported' && !read.body) continue;
 
@@ -430,6 +510,12 @@ async function connect() {
             }
 
             await pushToLaravel('message', fields);
+        }
+    });
+
+    sock.ev.on('call', (calls) => {
+        for (const call of calls) {
+            onCallEvent(call).catch((e) => log('call event failed: ' + e.message));
         }
     });
 

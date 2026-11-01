@@ -315,7 +315,7 @@
                                 <p class="whitespace-pre-wrap break-words" x-show="m.body" x-text="m.body"></p>
                                 <p class="mt-1 flex items-center justify-end gap-1.5 text-[10px] text-slate-500">
                                     <span x-text="m.time"></span>
-                                    <template x-if="m.direction === 'out'">
+                                    <template x-if="m.direction === 'out' && m.type !== 'call' && m.type !== 'missed_call'">
                                         <i :class="m.status_icon" :data-status="m.id"></i>
                                     </template>
                                 </p>

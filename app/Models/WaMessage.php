@@ -36,6 +36,47 @@ class WaMessage extends Model
         return $this->type === 'note';
     }
 
+    /**
+     * The customer is waiting on us: their message, or a call of theirs that
+     * nobody picked up. A call that was answered means we have talked.
+     */
+    public function getAwaitsReplyAttribute(): bool
+    {
+        return $this->direction === 'in' && ! in_array($this->type, ['call', 'note'], true);
+    }
+
+    /**
+     * The line a call leaves in the thread, in WhatsApp's own wording:
+     * "📞 Missed voice call", "🎥 Video call · 3 min", "📞 Voice call · no answer".
+     * Answered calls are stored as type 'call', all others as 'missed_call'.
+     */
+    public static function callText(string $outcome, bool $fromMe, bool $video, int $seconds): string
+    {
+        $kind = $video ? 'video call' : 'voice call';
+
+        $text = match (true) {
+            $outcome === 'answered' => ucfirst($kind) . ($seconds > 0 ? ' · ' . self::callLength($seconds) : ''),
+            $fromMe                 => ucfirst($kind) . ' · ' . ($outcome === 'declined' ? 'declined' : 'no answer'),
+            $outcome === 'declined' => 'Declined ' . $kind,
+            default                 => 'Missed ' . $kind,
+        };
+
+        return ($video ? '🎥 ' : '📞 ') . $text;
+    }
+
+    protected static function callLength(int $seconds): string
+    {
+        if ($seconds < 60) {
+            return $seconds . ' sec';
+        }
+
+        $minutes = (int) round($seconds / 60);
+
+        return $minutes < 60
+            ? $minutes . ' min'
+            : intdiv($minutes, 60) . ' hr' . ($minutes % 60 ? ' ' . ($minutes % 60) . ' min' : '');
+    }
+
     public function scopeNotNote($q)
     {
         return $q->where('type', '!=', 'note');

@@ -48,13 +48,15 @@ class WaChat extends Model
 
     /**
      * Chats nobody has acted on: not a lead, not archived, and the last word
-     * is still the customer's. Replying, making a lead or archiving clears it.
+     * is still the customer's — a message or a call nobody picked up (same
+     * rule as WaMessage::awaits_reply). Replying, talking on a call, making a
+     * lead or archiving clears it.
      */
     public function scopeNotHandled(Builder $q): Builder
     {
         return $q->where('archived', false)
             ->whereNull('crm_lead_id')
-            ->whereRaw("(select m.direction from wa_messages m where m.wa_chat_id = wa_chats.id and m.type != 'note' order by m.sent_at desc, m.id desc limit 1) = 'in'");
+            ->whereRaw("(select case when m.direction = 'in' and m.type != 'call' then 1 else 0 end from wa_messages m where m.wa_chat_id = wa_chats.id and m.type != 'note' order by m.sent_at desc, m.id desc limit 1) = 1");
     }
 
     /**

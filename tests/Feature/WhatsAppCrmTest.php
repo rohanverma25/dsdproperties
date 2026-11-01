@@ -255,6 +255,91 @@ class WhatsAppCrmTest extends TestCase
         $this->assertNotNull($lead->fresh()->last_contact_at);
     }
 
+    private function callWebhook(array $extra = [])
+    {
+        return $this->webhook(array_merge([
+            'event'     => 'call',
+            'call_id'   => 'CALL-' . uniqid(),
+            'jid'       => '919812345678@s.whatsapp.net',
+            'from_me'   => false,
+            'is_video'  => false,
+            'outcome'   => 'missed',
+            'duration'  => 0,
+            'timestamp' => now()->subMinutes(5)->timestamp,
+            'source'    => 'event',
+        ], $extra));
+    }
+
+    /** @test */
+    public function a_missed_call_shows_in_the_thread_and_waits_on_us(): void
+    {
+        $this->callWebhook()->assertOk();
+
+        $chat = WaChat::sole();
+        $msg  = $chat->messages()->sole();
+
+        $this->assertSame('missed_call', $msg->type);
+        $this->assertSame('📞 Missed voice call', $msg->body);
+        $this->assertSame(1, $chat->unread_count);
+        $this->assertSame('📞 Missed voice call', $chat->last_preview);
+        $this->assertTrue($msg->awaits_reply);
+        $this->assertTrue(WaChat::notHandled()->whereKey($chat->id)->exists());
+    }
+
+    /** @test */
+    public function the_call_log_turns_a_missed_call_answered_on_the_phone_into_one_answered_call(): void
+    {
+        $start = now()->subMinutes(10)->timestamp;
+
+        // The live events never saw the accept (it happened on the phone)...
+        $this->callWebhook(['call_id' => 'CALL-ABC', 'timestamp' => $start])->assertOk();
+        // ...the call log that follows knows better.
+        $this->callWebhook([
+            'call_id' => '3EB0LOG1', 'source' => 'log', 'outcome' => 'answered',
+            'duration' => 185, 'timestamp' => $start + 190,
+        ])->assertOk();
+
+        $chat = WaChat::sole();
+        $msg  = $chat->messages()->sole();
+
+        $this->assertSame('call', $msg->type);
+        $this->assertSame('📞 Voice call · 3 min', $msg->body);
+        $this->assertSame(0, $chat->fresh()->unread_count);
+        $this->assertSame('📞 Voice call · 3 min', $chat->fresh()->last_preview);
+        $this->assertFalse(WaChat::notHandled()->whereKey($chat->id)->exists(), 'We talked; nothing is pending.');
+
+        // A late duplicate event for the same call changes nothing.
+        $this->callWebhook(['call_id' => 'CALL-ABC2', 'timestamp' => $start])->assertOk();
+        $this->assertSame(1, $chat->messages()->count());
+    }
+
+    /** @test */
+    public function calls_made_from_the_phone_and_video_calls_are_worded_like_whatsapp(): void
+    {
+        $this->callWebhook(['call_id' => 'LOG-OUT-1', 'source' => 'log', 'from_me' => true, 'outcome' => 'missed'])->assertOk();
+        $this->callWebhook(['call_id' => 'LOG-OUT-2', 'source' => 'log', 'from_me' => true, 'outcome' => 'answered',
+            'is_video' => true, 'duration' => 42, 'timestamp' => now()->timestamp])->assertOk();
+
+        $this->assertSame(
+            ['📞 Voice call · no answer', '🎥 Video call · 42 sec'],
+            WaMessage::orderBy('sent_at')->pluck('body')->all()
+        );
+        $this->assertSame(['out', 'out'], WaMessage::pluck('direction')->all());
+        $this->assertSame(0, WaChat::sole()->unread_count);
+    }
+
+    /** @test */
+    public function two_real_calls_a_minute_apart_stay_two(): void
+    {
+        $t = now()->subMinutes(5)->timestamp;
+
+        $this->callWebhook(['timestamp' => $t])->assertOk();
+        $this->callWebhook(['timestamp' => $t + 60])->assertOk();
+
+        $this->assertSame(2, WaMessage::count());
+        $this->assertSame(2, WaChat::sole()->unread_count);
+    }
+
     /** @test */
     public function a_note_is_saved_privately_and_never_sent(): void
     {

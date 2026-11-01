@@ -68,9 +68,9 @@
                 <span class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-emerald-700">
                     <i class="fa-brands fa-whatsapp"></i>
                     {{ $lastWa->is_outbound ? 'You' : 'Customer' }} · {{ $lastWa->sent_at->diffForHumans() }}
-                    @unless($lastWa->is_outbound)
+                    @if($lastWa->awaits_reply)
                         <span class="badge-amber">Your reply pending</span>
-                    @endunless
+                    @endif
                 </span>
                 <span class="mt-0.5 block">{{ \Illuminate\Support\Str::limit($lastWa->short_text, 140) }}</span>
             </a>

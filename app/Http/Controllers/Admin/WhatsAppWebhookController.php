@@ -8,7 +8,9 @@ use App\Models\WaChat;
 use App\Models\WaMessage;
 use App\Services\WhatsAppPush;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 /**
@@ -32,6 +34,7 @@ class WhatsAppWebhookController extends Controller
             'contacts' => $this->onContacts($request),
             'history'  => $this->onHistory($request),
             'lids'     => $this->onLids($request),
+            'call'     => $this->onCall($request),
             default   => null,   // connection events are read from /status instead
         };
 
@@ -151,10 +154,13 @@ class WhatsAppWebhookController extends Controller
      */
     protected function afterMessage(WaChat $chat, WaMessage $message, bool $inbound, Carbon $sentAt): void
     {
+        // A call that was picked up has been dealt with already: no badge, no ping.
+        $talked = $message->type === 'call';
+
         $chat->forceFill([
             'last_preview'    => mb_substr($message->preview, 0, 280),
             'last_message_at' => $sentAt,
-            'unread_count'    => $inbound ? $chat->unread_count + 1 : 0,
+            'unread_count'    => $inbound && ! $talked ? $chat->unread_count + 1 : 0,
         ])->save();
 
         if (! $inbound) {
@@ -172,7 +178,83 @@ class WhatsAppWebhookController extends Controller
             CrmLead::find($chat->crm_lead_id)?->reopenOnReply($sentAt);
         }
 
-        app(WhatsAppPush::class)->notifyNewMessage($chat, $message);
+        if (! $talked) {
+            app(WhatsAppPush::class)->notifyNewMessage($chat, $message);
+        }
+    }
+
+    /**
+     * A finished call, from the gateway's live call events ('event') or from
+     * WhatsApp's call-log message ('log'). See readCallLog / onCallEvent in
+     * whatsapp-service/index.js.
+     *
+     * Both usually arrive for the same incoming call. They are folded into one
+     * row: the log knows the real outcome (answered on the phone, length) that
+     * the live events cannot always see, so it overwrites the event's row.
+     */
+    protected function onCall(Request $request): void
+    {
+        $data = $request->validate([
+            'call_id'   => ['required', 'string', 'max:191'],
+            'jid'       => ['required', 'string', 'max:191'],
+            'from_me'   => ['required', 'boolean'],
+            'is_video'  => ['required', 'boolean'],
+            'outcome'   => ['required', Rule::in(['answered', 'missed', 'declined'])],
+            'duration'  => ['required', 'integer', 'min:0'],
+            'timestamp' => ['required', 'integer'],
+            'source'    => ['required', Rule::in(['event', 'log'])],
+        ]);
+
+        if (WaMessage::where('wa_message_id', $data['call_id'])->exists()) {
+            return;
+        }
+
+        $chat = WaChat::forJid($data['jid']);
+        $at   = Carbon::createFromTimestamp($data['timestamp']);
+
+        $fields = [
+            'wa_message_id' => $data['call_id'],
+            'direction'     => $data['from_me'] ? 'out' : 'in',
+            'type'          => $data['outcome'] === 'answered' ? 'call' : 'missed_call',
+            'body'          => WaMessage::callText($data['outcome'], $data['from_me'], $data['is_video'], $data['duration']),
+            'status'        => $data['from_me'] ? 'delivered' : 'read',
+            'sent_at'       => $at,
+        ];
+
+        // The same call from the other source. Event rows are "CALL-<id>", log
+        // rows carry the message id, so two real calls a minute apart stay two.
+        $window = $data['duration'] + 120;
+        $twin   = $chat->messages()
+            ->whereIn('type', ['call', 'missed_call'])
+            ->where('wa_message_id', $data['source'] === 'log' ? 'like' : 'not like', 'CALL-%')
+            ->whereBetween('sent_at', [$at->copy()->subSeconds($window), $at->copy()->addSeconds($window)])
+            ->first();
+
+        if ($twin) {
+            if ($data['source'] === 'log') {
+                $twin->update(Arr::except($fields, 'sent_at'));
+                $this->refreshAfterCallFix($chat, $twin);
+            }
+
+            return;
+        }
+
+        $message = $chat->messages()->create($fields);
+
+        $this->afterMessage($chat, $message, ! $data['from_me'], $at);
+    }
+
+    /** A "missed" call turned out to be answered: fix the list line and the badge. */
+    protected function refreshAfterCallFix(WaChat $chat, WaMessage $call): void
+    {
+        $latest = $chat->messages()->notNote()->latest('sent_at')->latest('id')->first();
+
+        if ($latest?->is($call)) {
+            $chat->forceFill(array_filter([
+                'last_preview' => mb_substr($call->preview, 0, 280),
+                'unread_count' => $call->type === 'call' ? 0 : null,
+            ], fn ($v) => $v !== null))->save();
+        }
     }
 
     protected function onStatus(Request $request): void

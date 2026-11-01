@@ -49,7 +49,7 @@
 
         <p class="mt-1 flex items-center justify-end gap-1.5 text-[10px] text-slate-500">
             <span>{{ $m->sent_at->format('d M, g:i a') }}</span>
-            @if($m->is_outbound)
+            @if($m->is_outbound && ! in_array($m->type, ['call', 'missed_call'], true))
                 <i class="{{ $m->status_icon }}" data-status="{{ $m->id }}"></i>
             @endif
         </p>
