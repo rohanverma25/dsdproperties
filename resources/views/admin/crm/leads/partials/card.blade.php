@@ -1,6 +1,8 @@
 @php
     $wa        = $lead->whatsapp_phone;
-    $lastNote  = $lead->latestActivity?->note ?: $lead->notes;
+    $lastNote  = $lead->last_note;
+    // Set by CrmLead::loadWhatsappSummary on the list screens.
+    $lastWa    = $lead->relationLoaded('latestWhatsapp') ? $lead->latestWhatsapp : null;
     $templates = config('crm.whatsapp_templates');
     $overdue   = $lead->is_overdue;
 
@@ -58,6 +60,21 @@
                 <span class="text-slate-400">{{ $lead->no_answer_count }}× no answer</span>
             @endif
         </div>
+
+        @if($lastWa)
+            {{-- The last WhatsApp line — what to pick up from on the morning call. --}}
+            <a href="{{ route('admin.whatsapp.chat', $lastWa->wa_chat_id) }}"
+               class="mt-3 block rounded-xl bg-emerald-50 px-3 py-2 text-sm leading-relaxed text-slate-700 hover:bg-slate-50">
+                <span class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-semibold text-emerald-700">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    {{ $lastWa->is_outbound ? 'You' : 'Customer' }} · {{ $lastWa->sent_at->diffForHumans() }}
+                    @unless($lastWa->is_outbound)
+                        <span class="badge-amber">Your reply pending</span>
+                    @endunless
+                </span>
+                <span class="mt-0.5 block">{{ \Illuminate\Support\Str::limit($lastWa->short_text, 140) }}</span>
+            </a>
+        @endif
 
         @if($lastNote)
             <p class="mt-3 rounded-xl bg-slate-50 px-3 py-2 text-sm leading-relaxed text-slate-600">

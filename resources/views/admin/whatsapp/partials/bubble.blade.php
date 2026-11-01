@@ -3,6 +3,18 @@
     open are rendered by the matching Alpine template in index.blade.php — keep
     the two in step.
 --}}
+@if($m->is_note)
+    {{-- Private note: centred and yellow so it never reads as a sent message. --}}
+    <div class="flex justify-center">
+        <div class="max-w-[80%] rounded-xl bg-amber-50 px-3 py-2 text-sm text-slate-800 ring-1 ring-amber-200">
+            <p class="text-[10px] font-bold uppercase tracking-wide text-amber-800">
+                <i class="fa-solid fa-note-sticky"></i> Note · only you see this
+            </p>
+            <p class="mt-0.5 whitespace-pre-wrap break-words">{{ $m->body }}</p>
+            <p class="mt-1 text-right text-[10px] text-slate-500">{{ $m->sent_at->format('d M, g:i a') }}</p>
+        </div>
+    </div>
+@else
 <div @class(['flex', 'justify-end' => $m->is_outbound])>
     <div @class([
             'max-w-[80%] rounded-2xl px-3 py-2 text-sm shadow-sm',
@@ -43,3 +55,4 @@
         </p>
     </div>
 </div>
+@endif

@@ -54,7 +54,7 @@ class WaChat extends Model
     {
         return $q->where('archived', false)
             ->whereNull('crm_lead_id')
-            ->whereRaw("(select m.direction from wa_messages m where m.wa_chat_id = wa_chats.id order by m.sent_at desc, m.id desc limit 1) = 'in'");
+            ->whereRaw("(select m.direction from wa_messages m where m.wa_chat_id = wa_chats.id and m.type != 'note' order by m.sent_at desc, m.id desc limit 1) = 'in'");
     }
 
     /**

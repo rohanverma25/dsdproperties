@@ -13,6 +13,7 @@
         pollUrl: '{{ route('admin.whatsapp.poll') }}',
         messagesUrl: {{ $chat ? "'".route('admin.whatsapp.messages', $chat)."'" : 'null' }},
         sendUrl: {{ $chat ? "'".route('admin.whatsapp.send', $chat)."'" : 'null' }},
+        noteUrl: {{ $chat ? "'".route('admin.whatsapp.note', $chat)."'" : 'null' }},
         mediaUrl: {{ $chat ? "'".route('admin.whatsapp.media.send', $chat)."'" : 'null' }},
         labelUrl: {{ $chat ? "'".route('admin.whatsapp.label.toggle', $chat)."'" : 'null' }},
         pushSubscribeUrl: '{{ route('admin.whatsapp.push.subscribe') }}',
@@ -274,6 +275,19 @@
 
                     {{-- Anything that arrives while the page is open. Mirrors partials/bubble. --}}
                     <template x-for="m in live" :key="m.id">
+                      <div>
+                        <template x-if="m.type === 'note'">
+                            <div class="flex justify-center">
+                                <div class="max-w-[80%] rounded-xl bg-amber-50 px-3 py-2 text-sm text-slate-800 ring-1 ring-amber-200">
+                                    <p class="text-[10px] font-bold uppercase tracking-wide text-amber-800">
+                                        <i class="fa-solid fa-note-sticky"></i> Note · only you see this
+                                    </p>
+                                    <p class="mt-0.5 whitespace-pre-wrap break-words" x-text="m.body"></p>
+                                    <p class="mt-1 text-right text-[10px] text-slate-500" x-text="m.time"></p>
+                                </div>
+                            </div>
+                        </template>
+                        <template x-if="m.type !== 'note'">
                         <div class="flex" :class="m.direction === 'out' && 'justify-end'">
                             <div class="max-w-[80%] rounded-2xl px-3 py-2 text-sm shadow-sm"
                                  :class="m.direction === 'out'
@@ -307,6 +321,8 @@
                                 </p>
                             </div>
                         </div>
+                        </template>
+                      </div>
                     </template>
                 </div>
 
@@ -355,9 +371,15 @@
 
                     <form @submit.prevent="send" class="flex items-end gap-2">
                         <input type="file" x-ref="fileInput" class="hidden" @change="pickFile($event)">
-                        <button type="button" @click="$refs.fileInput.click()" class="btn-outline shrink-0"
+                        <button type="button" x-show="! noteMode" @click="$refs.fileInput.click()" class="btn-outline shrink-0"
                                 title="Attach a photo or document">
                             <i class="fa-solid fa-paperclip"></i>
+                        </button>
+                        {{-- Note mode: what you type is saved privately, not sent. --}}
+                        <button type="button" @click="noteMode = ! noteMode; clearFile(); $refs.body.focus()"
+                                class="btn-outline shrink-0" :class="noteMode && 'bg-amber-200 text-amber-800'"
+                                :title="noteMode ? 'Back to sending messages' : 'Write a private note (not sent)'">
+                            <i class="fa-solid fa-note-sticky"></i>
                         </button>
 
                         <textarea x-ref="body" x-model="body" rows="1"
@@ -366,9 +388,12 @@
                                   @keydown.arrow-up.prevent="slashMatches.length && moveSlash(-1)"
                                   @keydown.escape="slashIndex = -1; slashOpen = false"
                                   @input="grow($el)"
-                                  :placeholder="file
-                                        ? 'Add a caption (optional) — Enter to send'
-                                        : 'Type a message, or / for a quick reply'"
+                                  :placeholder="noteMode
+                                        ? 'Private note — only you see this. Enter to save'
+                                        : (file
+                                            ? 'Add a caption (optional) — Enter to send'
+                                            : 'Type a message, or / for a quick reply')"
+                                  :class="noteMode && 'bg-amber-50 ring-1 ring-amber-200'"
                                   class="input max-h-[140px] flex-1 resize-none py-3"></textarea>
 
                         <button type="submit" class="btn-teal shrink-0" :disabled="sending || (! body.trim() && ! file)">
@@ -398,6 +423,7 @@ document.addEventListener('alpine:init', () => {
         body: '',
         file: null,
         sending: false,
+        noteMode: false,
         dragging: false,
         error: '',
         unreadTotal: {{ (int) $unreadTotal }},
@@ -478,6 +504,7 @@ document.addEventListener('alpine:init', () => {
 
         async send() {
             if (this.sending) return;
+            if (this.noteMode) return this.saveNote();
             if (this.file) return this.sendFile();
 
             const text = this.body.trim();
@@ -503,6 +530,36 @@ document.addEventListener('alpine:init', () => {
                 this.resetComposer();
             } catch (e) {
                 this.error = 'Network error — the message was not sent.';
+            } finally {
+                this.sending = false;
+            }
+        },
+
+        /** Saved on our side only — nothing goes to WhatsApp. */
+        async saveNote() {
+            const text = this.body.trim();
+            if (! text || ! cfg.noteUrl) return;
+
+            this.sending = true;
+            this.error = '';
+
+            try {
+                const res = await fetch(cfg.noteUrl, {
+                    method: 'POST',
+                    headers: { ...this.headers(), 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ body: text }),
+                });
+                const data = await res.json();
+
+                if (! res.ok || ! data.ok) {
+                    this.error = 'The note could not be saved.';
+                    return;
+                }
+
+                this.append(data.message);
+                this.resetComposer();
+            } catch (e) {
+                this.error = 'Network error — the note was not saved.';
             } finally {
                 this.sending = false;
             }

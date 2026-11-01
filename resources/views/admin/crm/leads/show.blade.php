@@ -70,17 +70,70 @@
     <section>
         <h2 class="mb-3 text-sm font-bold uppercase tracking-wide text-slate-400">
             Timeline
-            <span class="ml-1 font-normal normal-case tracking-normal text-slate-400">({{ $lead->activities->count() }})</span>
+            <span class="ml-1 font-normal normal-case tracking-normal text-slate-400">({{ $timeline->count() }})</span>
         </h2>
 
-        @if($lead->activities->isEmpty())
+        @if($timeline->isEmpty())
             <div class="card px-6 py-10 text-center">
                 <p class="text-sm text-slate-500">No activity logged yet.</p>
             </div>
         @else
+            @php $firstChatDay = true; @endphp
             <ol class="relative space-y-4 border-l-2 border-slate-200 pl-5">
-                @foreach($lead->activities as $a)
+                @foreach($timeline as $item)
+                    @if($item['kind'] === 'whatsapp')
+                        {{-- One day of WhatsApp. Only the newest day starts open. --}}
+                        <li class="relative">
+                            <span class="absolute -left-[27px] top-1.5 h-3 w-3 rounded-full bg-emerald-500 ring-4 ring-slate-50"></span>
+                            <details class="card-p" @if($firstChatDay) open @endif>
+                                <summary class="flex cursor-pointer flex-wrap items-center gap-2">
+                                    <span class="text-sm font-bold text-brandNavy">
+                                        <i class="fa-brands fa-whatsapp text-emerald-600"></i>
+                                        WhatsApp · {{ $item['messages']->count() }} {{ \Illuminate\Support\Str::plural('message', $item['messages']->count()) }}
+                                    </span>
+                                    <span class="text-xs text-slate-400">{{ $item['at']->format('d M Y') }}</span>
+                                </summary>
+                                <div class="mt-3 space-y-1.5">
+                                    @foreach($item['messages'] as $m)
+                                        <div @class(['flex', 'justify-end' => $m->is_outbound])>
+                                            <div @class([
+                                                    'max-w-[80%] rounded-xl px-3 py-1.5 text-sm',
+                                                    'bg-brandTeal/25 text-slate-900' => $m->is_outbound,
+                                                    'bg-slate-100 text-slate-800' => ! $m->is_outbound,
+                                                ])>
+                                                <p class="whitespace-pre-wrap break-words">{{ $m->preview }}</p>
+                                                <p class="mt-0.5 text-right text-[10px] text-slate-500">{{ $m->sent_at->format('g:i a') }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <a href="{{ route('admin.whatsapp.chat', $item['messages']->last()->wa_chat_id) }}"
+                                   class="mt-3 inline-block text-xs font-semibold text-brandNavy hover:underline">
+                                    Open the chat <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </details>
+                        </li>
+                        @php $firstChatDay = false; @endphp
+                        @continue
+                    @endif
+
+                    @if($item['kind'] === 'note')
+                        <li class="relative">
+                            <span class="absolute -left-[27px] top-1.5 h-3 w-3 rounded-full bg-amber-200 ring-4 ring-slate-50"></span>
+                            <div class="card-p bg-amber-50">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <p class="text-sm font-bold text-amber-800"><i class="fa-solid fa-note-sticky"></i> Note</p>
+                                    <span class="badge-slate">whatsapp inbox</span>
+                                </div>
+                                <p class="mt-0.5 text-xs text-slate-400">{{ $item['at']->format('d M Y, g:i a') }}</p>
+                                <p class="mt-2 whitespace-pre-line text-sm leading-relaxed text-slate-700">{{ $item['message']->body }}</p>
+                            </div>
+                        </li>
+                        @continue
+                    @endif
+
                     @php
+                        $a = $item['activity'];
                         $dot = match (true) {
                             in_array($a->outcome, ['interested', 'site_visit_fixed'], true) => 'bg-emerald-500',
                             $a->outcome === 'not_interested'                                => 'bg-rose-500',

@@ -845,6 +845,7 @@ Route::prefix('admin/whatsapp')->name('admin.whatsapp.')->group(function () {
     Route::get('chat/{chat}',          [WhatsAppController::class, 'index'])->name('chat');
     Route::get('chat/{chat}/messages', [WhatsAppController::class, 'messages'])->name('messages');
     Route::post('chat/{chat}/send',    [WhatsAppController::class, 'send'])->name('send');
+    Route::post('chat/{chat}/note',    [WhatsAppController::class, 'note'])->name('note');
     Route::post('chat/{chat}/archive', [WhatsAppController::class, 'archive'])->name('archive');
     Route::post('chat/{chat}/lead',    [WhatsAppController::class, 'createLead'])->name('lead');
 

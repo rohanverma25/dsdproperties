@@ -20,6 +20,8 @@ class CrmLeadController extends Controller
             ->orderBy('next_followup_at')
             ->get();
 
+        CrmLead::loadWhatsappSummary($leads);
+
         return view('admin.crm.leads.today', [
             'leads'       => $leads,
             'dueCount'    => $leads->count(),
@@ -76,6 +78,8 @@ class CrmLeadController extends Controller
             ->orderByRaw('next_followup_at is null, next_followup_at asc')
             ->paginate(25)
             ->withQueryString();
+
+        CrmLead::loadWhatsappSummary($leads->getCollection());
 
         return view('admin.crm.leads.index', [
             'leads'   => $leads,
@@ -174,9 +178,13 @@ class CrmLeadController extends Controller
     /** Screen 4 — Lead detail with a reverse-chronological timeline. */
     public function show(CrmLead $lead)
     {
-        $lead->load(['activities' => fn ($q) => $q->orderByDesc('happened_at')->orderByDesc('id')]);
+        $lead->load(['activities', 'latestActivity']);
+        CrmLead::loadWhatsappSummary($lead->newCollection([$lead]));
 
-        return view('admin.crm.leads.show', compact('lead'));
+        return view('admin.crm.leads.show', [
+            'lead'     => $lead,
+            'timeline' => $lead->timeline(),
+        ]);
     }
 
     public function edit(CrmLead $lead)

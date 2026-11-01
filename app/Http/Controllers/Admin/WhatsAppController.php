@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\CrmLead;
-use App\Models\CrmLeadActivity;
 use App\Models\WaChat;
 use App\Models\WaLabel;
 use App\Models\WaMessage;
@@ -158,7 +157,7 @@ class WhatsAppController extends Controller
             'unread_count'    => 0,
         ])->save();
 
-        $this->touchLead($chat, $body);
+        $this->touchLead($chat);
 
         if ($request->wantsJson()) {
             return response()->json([
@@ -168,6 +167,30 @@ class WhatsAppController extends Controller
         }
 
         return back();
+    }
+
+    /**
+     * A private note on the chat — never sent to WhatsApp. It sits in the
+     * thread where it was written and on the lead's timeline, now or once the
+     * chat becomes a lead.
+     */
+    public function note(Request $request, WaChat $chat)
+    {
+        $data = $request->validate([
+            'body' => ['required', 'string', 'max:2000'],
+        ]);
+
+        $message = $chat->messages()->create([
+            'direction' => 'out',
+            'type'      => 'note',
+            'body'      => trim($data['body']),
+            'status'    => 'sent',
+            'sent_at'   => now(),
+        ]);
+
+        return $request->wantsJson()
+            ? response()->json(['ok' => true, 'message' => $this->messageJson($message)])
+            : back();
     }
 
     /** Thread poll — returns only what the browser has not seen yet. */
@@ -347,7 +370,7 @@ class WhatsAppController extends Controller
             'unread_count'    => 0,
         ])->save();
 
-        $this->touchLead($chat, $message->preview);
+        $this->touchLead($chat);
 
         return $request->wantsJson()
             ? response()->json(['ok' => true, 'message' => $this->messageJson($message)])
@@ -420,7 +443,7 @@ class WhatsAppController extends Controller
                 ->with(['lead:id,name', 'labels:id,name'])
                 ->withCount([
                     'messages as in_count'  => fn ($q) => $q->where('direction', 'in'),
-                    'messages as out_count' => fn ($q) => $q->where('direction', 'out'),
+                    'messages as out_count' => fn ($q) => $q->where('direction', 'out')->notNote(),
                 ])
                 ->withMin('messages as first_at', 'sent_at')
                 ->orderByDesc('last_message_at')
@@ -528,21 +551,16 @@ class WhatsAppController extends Controller
         }
     }
 
-    /** An outbound WhatsApp message counts as contact on the linked lead. */
-    protected function touchLead(WaChat $chat, string $body): void
+    /**
+     * An outbound WhatsApp message counts as contact on the linked lead. The
+     * message itself shows on the lead's timeline straight from wa_messages,
+     * so no activity row is written for it.
+     */
+    protected function touchLead(WaChat $chat): void
     {
-        if (! $chat->crm_lead_id) {
-            return;
+        if ($chat->crm_lead_id) {
+            CrmLead::whereKey($chat->crm_lead_id)->update(['last_contact_at' => now()]);
         }
-
-        CrmLeadActivity::create([
-            'crm_lead_id' => $chat->crm_lead_id,
-            'type'        => 'whatsapp',
-            'note'        => mb_substr($body, 0, 500),
-            'happened_at' => now(),
-        ]);
-
-        CrmLead::whereKey($chat->crm_lead_id)->update(['last_contact_at' => now()]);
     }
 
     protected function messageJson(WaMessage $m): array

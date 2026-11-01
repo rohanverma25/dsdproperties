@@ -225,7 +225,7 @@ class WhatsAppCrmTest extends TestCase
     }
 
     /** @test */
-    public function sending_a_message_stores_it_and_logs_activity_on_the_linked_lead(): void
+    public function sending_a_message_stores_it_and_counts_as_contact_on_the_linked_lead(): void
     {
         $fake = $this->fakeGateway();
 
@@ -250,9 +250,87 @@ class WhatsAppCrmTest extends TestCase
 
         $this->assertSame('Hello Ramesh, sharing the rates.', $chat->fresh()->last_preview);
 
-        $activity = CrmLeadActivity::where('crm_lead_id', $lead->id)->sole();
-        $this->assertSame('whatsapp', $activity->type);
+        // The message shows on the lead's timeline from wa_messages; no copy as an activity.
+        $this->assertSame(0, CrmLeadActivity::where('crm_lead_id', $lead->id)->count());
         $this->assertNotNull($lead->fresh()->last_contact_at);
+    }
+
+    /** @test */
+    public function a_note_is_saved_privately_and_never_sent(): void
+    {
+        $fake = $this->fakeGateway();
+        $this->inbound('919812345678@s.whatsapp.net', 'Rate for 150 sq m?')->assertOk();
+        $chat = WaChat::sole();
+
+        $this->postJson(route('admin.whatsapp.note', $chat), ['body' => 'Call at 11, wants east facing'])
+            ->assertOk()
+            ->assertJsonPath('message.type', 'note');
+
+        $this->assertSame([], $fake->sent, 'A note must never reach WhatsApp.');
+        $this->assertSame('Rate for 150 sq m?', $chat->fresh()->last_preview);
+
+        // A note is not a reply: the chat still waits on one.
+        $this->assertTrue(WaChat::notHandled()->whereKey($chat->id)->exists());
+
+        $this->get(route('admin.whatsapp.chat', $chat))
+            ->assertOk()
+            ->assertSee('only you see this')
+            ->assertSee('Call at 11, wants east facing');
+    }
+
+    /** @test */
+    public function today_cards_show_the_last_whatsapp_line_and_the_newest_note(): void
+    {
+        $lead = CrmLead::create([
+            'name' => 'Ramesh Verma', 'phone' => '919812345678',
+            'stage' => 'new', 'next_followup_at' => now()->toDateString(),
+        ]);
+
+        $this->inbound('919812345678@s.whatsapp.net',
+            "Hi, I want to buy a plot in IT City Lucknow.\n\nButton: Ask rates & sizes\nPage: https://dsdproperties.in/news/x")->assertOk();
+        $this->postJson(route('admin.whatsapp.note', WaChat::sole()), ['body' => 'Budget around 60 lakh'])->assertOk();
+
+        $this->get(route('admin.crm.leads.index'))
+            ->assertOk()
+            ->assertSee('Customer ·', false)
+            ->assertSee('Your reply pending')
+            ->assertSee('Hi, I want to buy a plot in IT City Lucknow.')
+            ->assertDontSee('Button: Ask rates')
+            ->assertSee('Budget around 60 lakh');
+    }
+
+    /** @test */
+    public function the_lead_page_shows_the_chat_by_day_with_notes_and_no_duplicate_send_logs(): void
+    {
+        $lead = CrmLead::create([
+            'name' => 'Ramesh Verma', 'phone' => '919812345678',
+            'stage' => 'new', 'next_followup_at' => now()->toDateString(),
+        ]);
+
+        $this->inbound('919812345678@s.whatsapp.net', 'Old question', ['timestamp' => now()->subDays(3)->timestamp])->assertOk();
+        $this->inbound('919812345678@s.whatsapp.net', 'Fresh question')->assertOk();
+        $chat = WaChat::sole();
+        $this->postJson(route('admin.whatsapp.send', $chat), ['body' => 'Sharing the rates'])->assertOk();
+        $this->postJson(route('admin.whatsapp.note', $chat), ['body' => 'Wants corner plot'])->assertOk();
+
+        // What the panel used to log for every send before this change.
+        $lead->activities()->create(['type' => 'whatsapp', 'note' => 'Sharing the rates', 'happened_at' => now()]);
+        $lead->activities()->create(['type' => 'call', 'outcome' => 'interested', 'note' => 'Spoke on phone', 'happened_at' => now()]);
+
+        $timeline = $lead->fresh()->timeline();
+
+        $this->assertSame(1, $timeline->where('kind', 'activity')->count(), 'The old send log is hidden; the real call stays.');
+        $this->assertSame(1, $timeline->where('kind', 'note')->count());
+        $this->assertSame(2, $timeline->where('kind', 'whatsapp')->count(), 'Two days of chat, two entries.');
+        $this->assertSame('Old question', $timeline->last()['messages']->sole()->body, 'Oldest day comes last.');
+
+        $this->get(route('admin.crm.leads.show', $lead))
+            ->assertOk()
+            ->assertSee('WhatsApp · 2 messages')
+            ->assertSee('Fresh question')
+            ->assertSee('Old question')
+            ->assertSee('Wants corner plot')
+            ->assertSee('Spoke on phone');
     }
 
     /** @test */

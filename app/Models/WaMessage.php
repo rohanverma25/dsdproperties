@@ -26,6 +26,29 @@ class WaMessage extends Model
         return $this->direction === 'out';
     }
 
+    /**
+     * A private note written in the inbox. Stored as an outbound row of type
+     * 'note' (direction is an in/out enum) with no WhatsApp id; it is never
+     * sent and never counts as a reply.
+     */
+    public function getIsNoteAttribute(): bool
+    {
+        return $this->type === 'note';
+    }
+
+    public function scopeNotNote($q)
+    {
+        return $q->where('type', '!=', 'note');
+    }
+
+    /** The preview without the website's "Button:" / "Page:" lines, on one line. */
+    public function getShortTextAttribute(): string
+    {
+        $text = preg_replace('~^\s*(Button|Page)\s*:.*$~mi', '', $this->preview);
+
+        return trim(preg_replace('/\s+/', ' ', $text));
+    }
+
     /** Tick icon for the bubble — mirrors WhatsApp's own single/double/blue ticks. */
     public function getStatusIconAttribute(): string
     {

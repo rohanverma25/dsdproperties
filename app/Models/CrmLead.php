@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -59,6 +60,91 @@ class CrmLead extends Model
     public function activities()
     {
         return $this->hasMany(CrmLeadActivity::class);
+    }
+
+    /** Usually one; more only if WhatsApp handed the same person over twice. */
+    public function waChats()
+    {
+        return $this->hasMany(WaChat::class, 'crm_lead_id');
+    }
+
+    /**
+     * For the lead cards: the last WhatsApp message and the last inbox note of
+     * each lead, set as `latestWhatsapp` / `latestChatNote` (null when none).
+     * Two queries for the whole list rather than two per card.
+     */
+    public static function loadWhatsappSummary(Collection $leads): void
+    {
+        $chats = WaChat::whereIn('crm_lead_id', $leads->pluck('id'))->pluck('crm_lead_id', 'id');
+
+        $latest = function (bool $notes) use ($chats) {
+            $type = $notes ? "= 'note'" : "!= 'note'";
+
+            return WaMessage::whereIn('wa_chat_id', $chats->keys())
+                ->whereRaw("type {$type}")
+                ->whereRaw("sent_at = (select max(m2.sent_at) from wa_messages m2 where m2.wa_chat_id = wa_messages.wa_chat_id and m2.type {$type})")
+                ->orderBy('sent_at')->orderBy('id')
+                ->get()
+                ->keyBy(fn ($m) => $chats[$m->wa_chat_id]);   // later rows win: newest per lead
+        };
+
+        $messages = $chats->isEmpty() ? collect() : $latest(false);
+        $notes    = $chats->isEmpty() ? collect() : $latest(true);
+
+        foreach ($leads as $lead) {
+            $lead->setRelation('latestWhatsapp', $messages->get($lead->id));
+            $lead->setRelation('latestChatNote', $notes->get($lead->id));
+        }
+    }
+
+    /**
+     * The newest thing written about this lead: a logged activity's note or a
+     * note from the WhatsApp inbox, whichever is later; else the lead's notes.
+     */
+    public function getLastNoteAttribute(): ?string
+    {
+        $activity = $this->latestActivity;
+        $chatNote = $this->relationLoaded('latestChatNote') ? $this->latestChatNote : null;
+
+        if ($chatNote && (! $activity?->note || $chatNote->sent_at->gt($activity->happened_at))) {
+            return $chatNote->body;
+        }
+
+        return $activity?->note ?: $this->notes;
+    }
+
+    /**
+     * Activities, inbox notes and WhatsApp messages as one list, newest first.
+     *
+     * Messages are grouped into one entry per day so months of imported
+     * history stay readable. Items: ['kind' => activity|note|whatsapp, 'at', ...].
+     */
+    public function timeline(int $messageLimit = 500): \Illuminate\Support\Collection
+    {
+        $messages = WaMessage::whereIn('wa_chat_id', $this->waChats()->pluck('id'))
+            ->orderByDesc('sent_at')->orderByDesc('id')
+            ->limit($messageLimit)
+            ->get()
+            ->reverse();
+
+        [$notes, $chat] = $messages->partition(fn (WaMessage $m) => $m->is_note);
+
+        // Messages sent from the panel used to be logged as activities too;
+        // those rows would now show twice.
+        $sent = $chat->where('direction', 'out')->map(fn ($m) => mb_substr($m->preview, 0, 500))->flip();
+
+        $activities = $this->activities
+            ->reject(fn ($a) => $a->type === 'whatsapp' && ! $a->outcome && $sent->has((string) $a->note))
+            ->map(fn ($a) => ['kind' => 'activity', 'at' => $a->happened_at, 'activity' => $a]);
+
+        $days = $chat->groupBy(fn ($m) => $m->sent_at->toDateString())
+            ->map(fn ($day) => ['kind' => 'whatsapp', 'at' => $day->last()->sent_at, 'messages' => $day->values()]);
+
+        return $activities
+            ->concat($notes->map(fn ($m) => ['kind' => 'note', 'at' => $m->sent_at, 'message' => $m]))
+            ->concat($days->values())
+            ->sortByDesc(fn ($item) => $item['at']->getTimestamp())
+            ->values();
     }
 
     public function latestActivity()
