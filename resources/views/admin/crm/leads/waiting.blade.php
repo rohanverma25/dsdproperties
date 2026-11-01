@@ -17,9 +17,9 @@
 
     // A starting message that fits what they were waiting for; editable on the page.
     $message = match (request('waiting_for')) {
-        'registry'       => 'Hello {name}, DSD Properties here. The registry for {scheme} has started. You had asked for {requirement}. Shall we talk today?',
-        'plot_available' => 'Hello {name}, DSD Properties here. A plot that fits what you wanted in {scheme} ({requirement}) is available now. Shall we talk today?',
-        default          => 'Hello {name}, DSD Properties here. There is an update on {scheme}. You had asked for {requirement}. Shall we talk today?',
+        'it_city_resale', 'wellness_resale'               => 'Hello {name}, DSD Properties here. A resale plot in {scheme} that fits what you asked for ({requirement}) is available now. Shall we talk today?',
+        'it_city_land', 'wellness_land', 'lucknow_land' => 'Hello {name}, DSD Properties here. We have land in {scheme} that fits what you asked for ({requirement}). Shall we talk today?',
+        default                                           => 'Hello {name}, DSD Properties here. There is an update on {scheme}. You had asked for {requirement}. Shall we talk today?',
     };
 @endphp
 

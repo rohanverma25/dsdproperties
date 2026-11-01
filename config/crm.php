@@ -110,10 +110,12 @@ return [
     | Add or reword entries here; keep the keys once leads use them.
     */
     'waiting_reasons' => [
-        'registry'       => 'Registry not open yet',
-        'plot_available' => 'Plot not in stock yet',
-        'launch'         => 'Scheme launch / lottery',
-        'other'          => 'Other',
+        'it_city_resale'  => 'IT City Resale Plot',
+        'wellness_resale' => 'Wellness City Resale Plot',
+        'it_city_land'    => 'Land in IT City',
+        'wellness_land'   => 'Land in Wellness City',
+        'lucknow_land'    => 'Land Plots in Lucknow',
+        'other'           => 'Other',
     ],
 
     /* Consecutive no-answers before a lead goes dormant and drops off the Today list. */

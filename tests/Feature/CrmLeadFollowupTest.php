@@ -194,16 +194,16 @@ class CrmLeadFollowupTest extends TestCase
     {
         $this->post(route('admin.crm.leads.store'), [
             'name' => 'Farmer Plot Buyer', 'phone' => '9811111111', 'stage' => 'qualified',
-            'scheme_interest' => 'IT City', 'waiting_for' => 'registry',
+            'scheme_interest' => 'IT City', 'waiting_for' => 'it_city_resale',
             'requirement' => '200 sq m farmer-quota plot',
         ])->assertRedirect()->assertSessionHasNoErrors();
 
         $lead = CrmLead::sole();
-        $this->assertSame('registry', $lead->waiting_for);
+        $this->assertSame('it_city_resale', $lead->waiting_for);
 
         $this->get(route('admin.crm.leads.create'))->assertOk()->assertSee('On hold — waiting for');
         $this->get(route('admin.crm.leads.edit', $lead))->assertOk()->assertSee('200 sq m farmer-quota plot');
-        $this->get(route('admin.crm.leads.show', $lead))->assertOk()->assertSee('Registry not open yet');
+        $this->get(route('admin.crm.leads.show', $lead))->assertOk()->assertSee('IT City Resale Plot');
         $this->assertNull($lead->next_followup_at);
         $this->assertFalse(CrmLead::dueToday()->exists(), 'A waiting lead with no date stays off Today.');
 
@@ -221,33 +221,33 @@ class CrmLeadFollowupTest extends TestCase
     /** @test */
     public function the_waiting_screen_counts_by_scheme_and_reason_and_filters(): void
     {
-        $this->lead(['name' => 'Asha', 'scheme_interest' => 'IT City', 'waiting_for' => 'registry', 'next_followup_at' => null]);
-        $this->lead(['name' => 'Bina', 'scheme_interest' => 'IT City', 'waiting_for' => 'registry', 'next_followup_at' => null]);
-        $this->lead(['name' => 'Chetan', 'scheme_interest' => 'Wellness City', 'waiting_for' => 'plot_available', 'requirement' => 'corner 150 sq m']);
-        $this->lead(['name' => 'Gone', 'scheme_interest' => 'IT City', 'waiting_for' => 'registry', 'stage' => 'lost']);
+        $this->lead(['name' => 'Asha', 'scheme_interest' => 'IT City', 'waiting_for' => 'it_city_resale', 'next_followup_at' => null]);
+        $this->lead(['name' => 'Bina', 'scheme_interest' => 'IT City', 'waiting_for' => 'it_city_resale', 'next_followup_at' => null]);
+        $this->lead(['name' => 'Chetan', 'scheme_interest' => 'Wellness City', 'waiting_for' => 'wellness_land', 'requirement' => 'corner 150 sq m']);
+        $this->lead(['name' => 'Gone', 'scheme_interest' => 'IT City', 'waiting_for' => 'it_city_resale', 'stage' => 'lost']);
         $this->lead(['name' => 'Normal']);
 
         $this->get(route('admin.crm.leads.waiting'))
             ->assertOk()
-            ->assertSee('IT City · Registry not open yet · 2')
-            ->assertSee('Wellness City · Plot not in stock yet · 1')
+            ->assertSee('IT City · IT City Resale Plot · 2')
+            ->assertSee('Wellness City · Land in Wellness City · 1')
             ->assertSee('corner 150 sq m')
             ->assertDontSee('Gone')
             ->assertDontSee('>Normal<', false);
 
-        $this->get(route('admin.crm.leads.waiting', ['scheme_interest' => 'IT City', 'waiting_for' => 'registry']))
+        $this->get(route('admin.crm.leads.waiting', ['scheme_interest' => 'IT City', 'waiting_for' => 'it_city_resale']))
             ->assertOk()
             ->assertSee('Asha')
             ->assertSee('Bina')
             ->assertDontSee('Chetan')
-            ->assertSee('The registry for {scheme} has started', false);
+            ->assertSee('A resale plot in {scheme}', false);
     }
 
     /** @test */
     public function back_to_today_takes_leads_off_hold_with_a_note(): void
     {
-        $a = $this->lead(['scheme_interest' => 'IT City', 'waiting_for' => 'registry', 'requirement' => '200 sq m', 'next_followup_at' => null]);
-        $b = $this->lead(['scheme_interest' => 'IT City', 'waiting_for' => 'registry', 'next_followup_at' => null]);
+        $a = $this->lead(['scheme_interest' => 'IT City', 'waiting_for' => 'it_city_resale', 'requirement' => '200 sq m', 'next_followup_at' => null]);
+        $b = $this->lead(['scheme_interest' => 'IT City', 'waiting_for' => 'it_city_resale', 'next_followup_at' => null]);
         $notWaiting = $this->lead(['next_followup_at' => now()->addWeek()->toDateString()]);
 
         $this->post(route('admin.crm.leads.waiting.release'), ['ids' => [$a->id, $b->id, $notWaiting->id]])
@@ -257,7 +257,7 @@ class CrmLeadFollowupTest extends TestCase
         $this->assertNull($a->fresh()->waiting_for);
         $this->assertSame('200 sq m', $a->fresh()->requirement, 'What they wanted is kept.');
         $this->assertTrue(CrmLead::dueToday()->whereKey([$a->id, $b->id])->count() === 2);
-        $this->assertStringContainsString('Back from waiting (Registry not open yet) — wanted: 200 sq m', $a->activities()->sole()->note);
+        $this->assertStringContainsString('Back from waiting (IT City Resale Plot) — wanted: 200 sq m', $a->activities()->sole()->note);
 
         // A lead that was not waiting is left alone.
         $this->assertSame(now()->addWeek()->toDateString(), $notWaiting->fresh()->next_followup_at->toDateString());

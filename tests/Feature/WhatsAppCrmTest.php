@@ -347,7 +347,7 @@ class WhatsAppCrmTest extends TestCase
         $fake = $this->fakeGateway();
         $lead = CrmLead::create([
             'name' => 'Asha Gupta', 'phone' => '9812345678', 'stage' => 'qualified',
-            'scheme_interest' => 'IT City', 'waiting_for' => 'registry',
+            'scheme_interest' => 'IT City', 'waiting_for' => 'it_city_resale',
         ]);
 
         $this->postJson(route('admin.crm.leads.whatsapp', $lead), ['body' => 'Hello Asha, registry has started.'])
