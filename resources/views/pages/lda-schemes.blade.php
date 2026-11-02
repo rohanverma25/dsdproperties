@@ -7,7 +7,7 @@
      hit "Plots / Flats / Ballot Dates" — the three transactional buckets.
      ═══════════════════════════════════════════════════════════════ --}}
 @section('title', 'LDA Lucknow Complete Guide 2026 — Schemes, Registration & Latest News')
-@section('meta_description', 'LDA new schemes Lucknow 2026: IT City, Wellness City, Anant Nagar, Park View Basant Kunj, Naimish Nagar, Varun Vihar. Live prices ₹2,045–₹4,522/sqft, ballot dates, units available. Updated weekly. Free advisory by DSD Properties.')
+@section('meta_description', 'LDA new schemes Lucknow 2026: IT City, Wellness City, Anant Nagar, Park View Basant Kunj, Naimish Nagar, Varun Vihar. Live prices ₹2,045–₹5,069/sqft, ballot dates, units available. Updated weekly. Free advisory by DSD Properties.')
 @section('meta_keywords', 'LDA new scheme 2026, LDA plot scheme Lucknow, LDA flats Lucknow, LDA new plot scheme 2026, LDA housing scheme, LDA lottery ballot date 2026, LDA online registration last date, LDA FCFS allotment, Lucknow Development Authority plots, Anant Nagar Yojna, IT City Sultanpur Road, Wellness City Lucknow, Park View Basant Kunj, Naimish Nagar Sitapur Road, Varun Vihar Faizabad Road, Atal Nagar Awasiya Yojana Phase II, LDA PMAY flats EWS LIG, LDA upcoming schemes, government plot scheme Lucknow')
 
 @push('head')
@@ -64,7 +64,7 @@
       "name": "When is the next LDA ballot date in 2026?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Confirmed 2026 ballot dates: Park View Apartments Basant Kunj — 25 April 2026 (completed), Anant Nagar Phase 4 — 30 January 2026 (completed), IT City Phase 1 — March 2026 (completed). Wellness City ballot is expected in 2026; Naimish Nagar, Varun Vihar and Atal Nagar Phase II ballot dates are TBA. Check this page weekly for updates."
+        "text": "Next: Varun Vihar and Naimish Nagar phase-1 lottery on 4–6 November 2026 at Indira Gandhi Pratishthan (36,683 applications for 4,520 plots). Completed in 2026: Anant Nagar Phase 4 (12 June) and Phase 5 (5–6 October), Wellness City first farmer draw (30 June), Atal Nagar Phase II (1 July), Lake View Apartments (13 July). Park View Phase III and the Wellness City second draw are not yet dated."
       }
     },
     {
@@ -80,7 +80,7 @@
       "name": "What is the last date for LDA online registration in Lucknow?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Last dates vary per scheme. The current scheme registration windows are listed in the table on this page. Park View Basant Kunj registration closed on 25 April 2026. Anant Nagar Phase 4 registration is open. For the latest cutoff, always verify on ldalucknow.in or send us a query through the form on this page."
+        "text": "Last dates vary per scheme and are listed in the table on this page. Varun Vihar and Naimish Nagar phase-1 registration closed on 27 October 2026; their phase 2 (about 1,000 plots each) is expected to open by end-November 2026 after RERA approval. Park View Phase III closed on 7 October 2026. For the latest cutoff, always verify on ldalucknow.in or send us a query through the form on this page."
       }
     },
     {
@@ -104,7 +104,7 @@
       "name": "What are the latest LDA flat prices in Lucknow 2026?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "LDA flat rates in Lucknow currently range from ₹2,045/sqft (PMAY Basant Kunj — EWS/LIG affordable housing, delivered) to ₹4,522/sqft (Park View Apartments Basant Kunj — premium 3BHK). Plot rates range from ₹3,252/sqft (Varun Vihar) to ₹4,180/sqft (IT City). Premium resale schemes like Picadilly Enclave trade at ~₹9,500/sqft."
+        "text": "LDA flat rates in Lucknow currently range from ₹2,045/sqft (PMAY Basant Kunj — EWS/LIG affordable housing, delivered) to ₹4,522/sqft (Park View Apartments Basant Kunj — premium 3BHK). Plot rates: Varun Vihar ₹2,800/sqft, Naimish Nagar ₹3,800/sqft, Anant Nagar about ₹4,155/sqft, Wellness City official base ₹54,559/sq m (about ₹5,070/sqft); IT City is expected at about ₹4,000/sqft. Premium resale schemes like Picadilly Enclave trade at ~₹9,500/sqft."
       }
     },
     {
@@ -128,7 +128,7 @@
       "name": "Which is the most affordable LDA housing scheme in Lucknow?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "PMAY Basant Kunj is the most affordable LDA housing at ₹2,045/sqft for EWS and LIG flats (delivered). Among plotted schemes, Varun Vihar Yojna on Agra Expressway starts at ₹3,252/sqft and Naimish Nagar Yojna on Sitapur Road at ₹3,345/sqft, both targeting middle-income groups."
+        "text": "PMAY Basant Kunj is the most affordable LDA housing at ₹2,045/sqft for EWS and LIG flats (delivered). Among plotted schemes, Varun Vihar Yojna on Agra Expressway is ₹2,800/sqft and Naimish Nagar Yojna on Sitapur Road is ₹3,800/sqft; their phase-1 lottery is on 4–6 November 2026."
       }
     }
   ]
@@ -729,7 +729,7 @@
             <p class="hero-sub">
                 Live directory of all <strong>Lucknow Development Authority</strong> new plot schemes, flat allotments &amp; townships —
                 IT City, Wellness City, Anant Nagar, Park View Basant Kunj, Naimish Nagar &amp; more.
-                Prices ₹2,045–₹4,522/sqft · ballot dates · units available · updated weekly.
+                Prices ₹2,045–₹5,069/sqft · ballot dates · units available · updated weekly.
             </p>
 
             <div class="hero-cta-row">
@@ -1287,7 +1287,7 @@
             <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
         </button>
         <div class="faq-a" id="faq-a1">
-            You can apply only through the official LDA portal at <a href="https://ldalucknow.in" target="_blank" rel="noopener noreferrer" style="color:#011f4b;font-weight:600;">ldalucknow.in</a> or <a href="https://registration.ldalucknow.in" target="_blank" rel="noopener noreferrer" style="color:#011f4b;font-weight:600;">registration.ldalucknow.in</a>. Most current schemes (Lake View, Park View, Atal Nagar Phase II, Anant Nagar Phase 5) have closed registration. New registration windows for <strong>Varun Vihar</strong> and <strong>Naimish Nagar</strong> are expected to open on 24 September 2026 after the CM launch. Always check the live status on the official portal. DSD Properties can guide you through eligibility and documentation — <a href="/contact-us" style="color:#011f4b;font-weight:600;">contact us for a free consultation</a>.
+            You can apply only through the official LDA portal at <a href="https://ldalucknow.in" target="_blank" rel="noopener noreferrer" style="color:#011f4b;font-weight:600;">ldalucknow.in</a> or <a href="https://registration.ldalucknow.in" target="_blank" rel="noopener noreferrer" style="color:#011f4b;font-weight:600;">registration.ldalucknow.in</a>. Most current schemes (Lake View, Park View, Atal Nagar Phase II, Anant Nagar Phase 5) have closed registration. <strong>Varun Vihar</strong> and <strong>Naimish Nagar</strong> phase 2 (about 1,000 plots each) is expected to open on this portal by end-November 2026 after RERA approval. Always check the live status on the official portal. DSD Properties can guide you through eligibility and documentation — <a href="/contact-us" style="color:#011f4b;font-weight:600;">contact us for a free consultation</a>.
         </div>
     </div>
 
@@ -1297,7 +1297,7 @@
             <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
         </button>
         <div class="faq-a" id="faq-a2">
-            Confirmed 2026 ballot dates so far: <strong>Park View Apartments</strong> (Phase I & II) — completed, <strong>Lake View Apartments Viraj Khand</strong> — 13 July 2026 (completed), <strong>Atal Nagar Phase II</strong> — 1 July 2026 (completed), <strong>Anant Nagar Phase 4</strong> — 12 June 2026 (completed), <strong>Wellness City</strong> first draw — 30 June 2026 (completed). Anant Nagar Phase 5 lottery is pending. <strong>Varun Vihar</strong> and <strong>Naimish Nagar</strong> ballots will be announced after their launch on 24 September 2026. This page is refreshed weekly with confirmed dates.
+            Confirmed 2026 ballot dates so far: <strong>Park View Apartments</strong> (Phase I & II) — completed, <strong>Lake View Apartments Viraj Khand</strong> — 13 July 2026 (completed), <strong>Atal Nagar Phase II</strong> — 1 July 2026 (completed), <strong>Anant Nagar Phase 4</strong> — 12 June 2026 (completed), <strong>Wellness City</strong> first draw — 30 June 2026 (completed). <strong>Anant Nagar Phase 5</strong> — 5–6 October 2026 (completed). Next: <strong>Varun Vihar</strong> and <strong>Naimish Nagar</strong> phase-1 lottery on <strong>4–6 November 2026</strong> at Indira Gandhi Pratishthan. Park View Phase III and the Wellness City second draw are not yet dated. This page is refreshed weekly with confirmed dates.
         </div>
     </div>
 
@@ -1317,7 +1317,7 @@
             <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
         </button>
         <div class="faq-a" id="faq-a4">
-            Last dates vary per scheme and are listed in the <a href="#lda-flats-status" style="color:#011f4b;font-weight:600;">LDA Flats Registration Status table</a> above. Key closures: Lake View Apartments (18 June 2026), Atal Nagar Phase II (17 May 2026), Park View Phase II (30 June 2026), Anant Nagar Phase 5 (9 September 2026). Registration for <strong>Varun Vihar</strong> and <strong>Naimish Nagar</strong> is expected to open on 24 September 2026. Always verify the latest cutoff on <a href="https://ldalucknow.in" target="_blank" rel="noopener noreferrer" style="color:#011f4b;font-weight:600;">ldalucknow.in</a> or <a href="#lda-enquiry" class="js-scheme-query" data-message="Hi, I want the latest registration cutoff for an LDA scheme." style="color:#011f4b;font-weight:600;">send us a query</a>.
+            Last dates vary per scheme and are listed in the <a href="#lda-flats-status" style="color:#011f4b;font-weight:600;">LDA Flats Registration Status table</a> above. Key closures: Lake View Apartments (18 June 2026), Atal Nagar Phase II (17 May 2026), Park View Phase II (30 June 2026), Anant Nagar Phase 5 (9 September 2026). Park View Phase III closed on 7 October 2026. <strong>Varun Vihar</strong> and <strong>Naimish Nagar</strong> phase 1 closed on 27 October 2026; phase 2 (about 1,000 plots each) is expected by end-November 2026 after RERA approval. Always verify the latest cutoff on <a href="https://ldalucknow.in" target="_blank" rel="noopener noreferrer" style="color:#011f4b;font-weight:600;">ldalucknow.in</a> or <a href="#lda-enquiry" class="js-scheme-query" data-message="Hi, I want the latest registration cutoff for an LDA scheme." style="color:#011f4b;font-weight:600;">send us a query</a>.
         </div>
     </div>
 
@@ -1347,7 +1347,7 @@
             <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
         </button>
         <div class="faq-a" id="faq-a7">
-            LDA flat rates currently range from <strong>₹2,045/sqft</strong> (PMAY Basant Kunj — EWS/LIG, delivered) to <strong>₹4,822/sqft</strong> (Lake View Apartments Viraj Khand — premium 3BHK + Servant) and <strong>₹4,522/sqft</strong> (Park View Apartments). Plot rates: IT City ~₹4,180/sqft, Anant Nagar ~₹3,825/sqft, Wellness City ~₹4,200/sqft (est.), Naimish Nagar ~₹3,800/sqft (est.), Varun Vihar ~₹2,800/sqft (est.). See the <a href="#lda-flats-status" style="color:#011f4b;font-weight:600;">price comparison table</a> above for the full list.
+            LDA flat rates currently range from <strong>₹2,045/sqft</strong> (PMAY Basant Kunj — EWS/LIG, delivered) to <strong>₹4,822/sqft</strong> (Lake View Apartments Viraj Khand — premium 3BHK + Servant) and <strong>₹4,522/sqft</strong> (Park View Apartments). Plot rates: Varun Vihar ₹2,800/sqft, Naimish Nagar ₹3,800/sqft, Anant Nagar ~₹4,155/sqft, Wellness City official base ₹54,559/sq m (~₹5,070/sqft), IT City expected ~₹4,000/sqft (not yet notified). See the <a href="#lda-flats-status" style="color:#011f4b;font-weight:600;">price comparison table</a> above for the full list.
         </div>
     </div>
 
@@ -1377,7 +1377,7 @@
             <i class="fas fa-chevron-down faq-icon" aria-hidden="true"></i>
         </button>
         <div class="faq-a" id="faq-a10">
-            <strong>PMAY Basant Kunj</strong> remains the most affordable at ₹2,045/sqft for EWS and LIG flats (already delivered). Among ongoing/upcoming plotted schemes, <strong>Varun Vihar Yojna</strong> on Agra Expressway is expected to be the most affordable (~₹2,800/sqft), followed by <strong>Naimish Nagar Yojna</strong> (~₹3,800/sqft). Both are scheduled for launch on 24 September 2026.
+            <strong>PMAY Basant Kunj</strong> remains the most affordable at ₹2,045/sqft for EWS and LIG flats (already delivered). Among ongoing/upcoming plotted schemes, <strong>Varun Vihar Yojna</strong> on Agra Expressway is the most affordable (₹2,800/sqft), followed by <strong>Naimish Nagar Yojna</strong> (₹3,800/sqft). Their phase-1 lottery is on 4–6 November 2026; phase 2 is expected by end-November at the same rates.
         </div>
     </div>
 
