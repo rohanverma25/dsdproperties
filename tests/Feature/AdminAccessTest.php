@@ -127,12 +127,12 @@ class AdminAccessTest extends TestCase
     }
 
     /** @test */
-    public function logging_in_lands_on_the_lead_panel_not_the_stock_dashboard(): void
+    public function logging_in_lands_on_the_whatsapp_inbox_not_the_stock_dashboard(): void
     {
         $this->user('admin@dsd.test');
 
         $this->post('/login', ['email' => 'admin@dsd.test', 'password' => 'secret123'])
-             ->assertRedirect('/admin/crm/leads');
+             ->assertRedirect('/admin/whatsapp');
     }
 
     /** @test */
@@ -141,7 +141,7 @@ class AdminAccessTest extends TestCase
         $u = $this->user('admin@dsd.test');
         $u->forceFill(['email_verified_at' => now()])->save();
 
-        $this->actingAs($u)->get('/dashboard')->assertRedirect('/admin/crm/leads');
+        $this->actingAs($u)->get('/dashboard')->assertRedirect('/admin/whatsapp');
     }
 
     /** @test */

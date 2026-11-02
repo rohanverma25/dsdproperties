@@ -627,7 +627,7 @@ Route::get('/dashboard', function () {
     // Admins have a real panel; the stock Breeze page is only a fallback.
     $email = strtolower((string) auth()->user()?->email);
     if (in_array($email, config('admin.emails', []), true)) {
-        return redirect('/admin/crm/leads');
+        return redirect('/admin/whatsapp');
     }
 
     return view('dashboard');
