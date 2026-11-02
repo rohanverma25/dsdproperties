@@ -213,6 +213,15 @@
                     </div>
 
                     <div class="flex items-center gap-1.5">
+                        {{-- A normal phone call (WhatsApp calls can't be placed from the panel).
+                             Not shown for a privacy-id chat: those digits are not a number. --}}
+                        @unless($chat->is_privacy_id)
+                            <a href="tel:+{{ $chat->phone }}" class="btn-outline btn-sm" title="Call +{{ $chat->phone }}">
+                                <i class="fa-solid fa-phone text-emerald-600"></i>
+                                <span class="hidden sm:inline">Call</span>
+                            </a>
+                        @endunless
+
                         {{-- Labels --}}
                         @if($labels->isNotEmpty())
                             <div class="relative" x-data="{ open: false }" @keydown.escape.window="open = false">

@@ -342,6 +342,22 @@ class WhatsAppCrmTest extends TestCase
     }
 
     /** @test */
+    public function the_chat_header_has_a_normal_call_button_except_for_privacy_ids(): void
+    {
+        $this->inbound('919812345678@s.whatsapp.net', 'hi')->assertOk();
+
+        $this->get(route('admin.whatsapp.chat', WaChat::sole()))
+            ->assertOk()
+            ->assertSee('href="tel:+919812345678"', false);
+
+        $lid = WaChat::create(['jid' => '218798703530132@lid', 'phone' => '218798703530132']);
+
+        $this->get(route('admin.whatsapp.chat', $lid))
+            ->assertOk()
+            ->assertDontSee('href="tel:+218798703530132"', false);
+    }
+
+    /** @test */
     public function make_lead_brings_back_a_deleted_lead_with_the_same_number(): void
     {
         $old = CrmLead::create(['name' => 'Old card', 'phone' => '918595002933', 'stage' => 'new',
