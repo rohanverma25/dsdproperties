@@ -181,7 +181,17 @@ class WaChat extends Model
             $lead = CrmLead::find($old->crm_lead_id);
 
             if ($lead && str_ends_with(preg_replace('/\D+/', '', (string) $lead->phone), substr($lidDigits, -10))) {
-                $lead->forceFill(['phone' => $phone])->save();
+                $owner = CrmLead::withTrashed()->matchingPhone($phone)->whereKeyNot($lead->id)->first();
+
+                if ($owner) {
+                    // The same person already has a lead under the real number
+                    // (phone is unique, so writing it again would fail and take
+                    // the whole webhook down). Keep that lead; this one is left
+                    // as a duplicate for the operator to delete.
+                    $old->crm_lead_id = $owner->id;
+                } else {
+                    $lead->forceFill(['phone' => $phone])->save();
+                }
             } elseif ($lead) {
                 // Linked by a coincidental digit match on the privacy id, not on purpose.
                 $old->crm_lead_id = null;

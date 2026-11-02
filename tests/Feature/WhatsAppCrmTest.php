@@ -342,6 +342,27 @@ class WhatsAppCrmTest extends TestCase
     }
 
     /** @test */
+    public function a_privacy_id_lead_whose_number_already_has_a_lead_is_folded_into_that_one(): void
+    {
+        // Same person twice: the real-number lead, and one saved under the privacy id.
+        $real = CrmLead::create(['name' => 'Abhay', 'phone' => '918853330444', 'stage' => 'lost']);
+        $dupe = CrmLead::create(['name' => 'Abhay Singh', 'phone' => '218798703530132', 'stage' => 'lost']);
+
+        $lidChat  = WaChat::create(['jid' => '218798703530132@lid', 'phone' => '218798703530132', 'crm_lead_id' => $dupe->id]);
+        $realChat = WaChat::create(['jid' => '918853330444@s.whatsapp.net', 'phone' => '918853330444', 'crm_lead_id' => $real->id]);
+        $lidChat->messages()->create(['direction' => 'in', 'type' => 'text', 'body' => 'old line', 'status' => 'read', 'sent_at' => now()->subDay()]);
+
+        $this->webhook(['event' => 'lids', 'lids' => [
+            ['lid' => '218798703530132@lid', 'pn' => '918853330444@s.whatsapp.net'],
+        ]])->assertOk();   // was HTTP 500: duplicate entry on crm_leads.phone
+
+        $this->assertNull(WaChat::find($lidChat->id), 'The privacy-id chat is merged away.');
+        $this->assertSame(1, $realChat->messages()->count());
+        $this->assertEquals($real->id, $realChat->fresh()->crm_lead_id);
+        $this->assertSame('218798703530132', $dupe->fresh()->phone, 'The duplicate is left alone, not given a clashing number.');
+    }
+
+    /** @test */
     public function the_waiting_screen_can_send_to_a_lead_with_no_chat_yet(): void
     {
         $fake = $this->fakeGateway();
