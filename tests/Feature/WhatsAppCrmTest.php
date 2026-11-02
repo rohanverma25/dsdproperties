@@ -342,6 +342,24 @@ class WhatsAppCrmTest extends TestCase
     }
 
     /** @test */
+    public function make_lead_brings_back_a_deleted_lead_with_the_same_number(): void
+    {
+        $old = CrmLead::create(['name' => 'Old card', 'phone' => '918595002933', 'stage' => 'new',
+            'next_followup_at' => now()->toDateString()]);
+        $old->delete();
+
+        $this->inbound('918595002933@s.whatsapp.net', 'test')->assertOk();
+
+        // Was HTTP 500: duplicate entry on crm_leads.phone.
+        $this->post(route('admin.whatsapp.lead', WaChat::sole()))
+            ->assertRedirect(route('admin.crm.leads.show', $old));
+
+        $this->assertFalse($old->fresh()->trashed());
+        $this->assertSame(1, CrmLead::withTrashed()->count());
+        $this->assertEquals($old->id, WaChat::sole()->crm_lead_id);
+    }
+
+    /** @test */
     public function a_privacy_id_lead_whose_number_already_has_a_lead_is_folded_into_that_one(): void
     {
         // Same person twice: the real-number lead, and one saved under the privacy id.

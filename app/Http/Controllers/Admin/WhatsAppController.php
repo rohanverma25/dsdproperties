@@ -265,7 +265,13 @@ class WhatsAppController extends Controller
             return redirect()->route('admin.crm.leads.show', $chat->crm_lead_id);
         }
 
-        $existing = CrmLead::where('phone', 'like', '%' . substr($chat->phone, -10))->first();
+        // Deleted leads count too: phone is unique, so a soft-deleted lead with
+        // this number would make a new insert fail. Bring that one back instead.
+        $existing = CrmLead::withTrashed()->matchingPhone($chat->phone)->first();
+
+        if ($existing?->trashed()) {
+            $existing->restore();
+        }
 
         // Scheme, intent and page come from the website's "Button:/Page:" lines
         // when the chat started from a button on the site.
