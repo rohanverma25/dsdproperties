@@ -27,6 +27,7 @@ class LlmsTxtController extends Controller
             '',
             '## More services and tools',
             '',
+            '- [DSD Research — Lucknow Real Estate Research Centre](' . url('/research') . '): hub of circle rates, LDA and Awas Vikas scheme data, RERA projects, LDA demolitions and master plan, with sources and update dates',
             '- [Property registry in Lucknow](' . url('/services/property-registry-lucknow') . '): registry and stamp duty assistance',
             '- [Property advisory in Lucknow](' . url('/services/property-advisory-lucknow') . '): buying and investment advice',
             '- [Stamp duty calculator](' . url('/tools/stamp-duty-calculator-lucknow') . '): stamp duty and registration charges in Lucknow',

@@ -279,6 +279,7 @@
             <a href="/rera-approved-projects-lucknow" class="hdr__link">RERA</a>
             <a href="/lda-schemes" class="hdr__link">LDA Schemes</a>
             <a href="/news" class="hdr__link">News</a>
+            <a href="/research" class="hdr__link">Research</a>
 
             {{-- Services megamenu --}}
             <div class="hdr__dropdown" id="hdr-services-dropdown">
@@ -383,6 +384,7 @@
         <a href="/rera-approved-projects-lucknow" class="hdr__mlink"><i class="fas fa-building"></i> RERA Projects</a>
         <a href="/lda-schemes" class="hdr__mlink"><i class="fas fa-building"></i> LDA Schemes</a>
         <a href="/news" class="hdr__mlink"><i class="fas fa-newspaper"></i> News</a>
+        <a href="/research" class="hdr__mlink"><i class="fas fa-chart-line"></i> Research</a>
 
         {{-- Mobile services group --}}
         <div class="hdr__mlink-group" id="hdr-svc-group">
