@@ -76,7 +76,7 @@
     { "@type": "Question", "name": "How Much Do Property Legal Verification Services Cost?",
       "acceptedAnswer": { "@type": "Answer", "text": "Property verification in Lucknow starts at ₹5,000 for residential plots and flats, ₹7,000 for commercial properties, and ₹10,000 for the premium package with physical site inspection. All packages include a PDF report within 48 hours. There are no per-document charges or hidden fees." } },
     { "@type": "Question", "name": "Why should I hire a property verifier instead of checking documents myself?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Doing it yourself is free but takes 2-3 weekends and only covers online portals. A professional verifier physically visits the LDA office, Sub-Registrar, Tehsil and district court — the places where fraud is actually caught. You also get a written PDF report admissible as evidence, and a trained eye that has seen the patterns most buyers miss." } },
+      "acceptedAnswer": { "@type": "Answer", "text": "Doing it yourself is free but takes 2-3 weekends and only covers online portals. A professional verifier physically visits the LDA office, Sub-Registrar, Tehsil and district court — the places where fraud is actually caught. You also get a written PDF report with copies of the records, and a trained eye that has seen the patterns most buyers miss." } },
     { "@type": "Question", "name": "What is the verification process for Lucknow property?",
       "acceptedAnswer": { "@type": "Answer", "text": "Five steps: (1) Free preliminary consultation on WhatsApp, (2) Share property address and any documents, (3) Pay ₹5,000 verification fee via UPI or bank transfer, (4) We physically verify documents at LDA, Sub-Registrar, Tehsil and court records over 48 hours, (5) You receive a detailed PDF report with a clear verdict — Safe to Buy or Red Flags Found." } },
     { "@type": "Question", "name": "How long does property verification take in Lucknow?",
@@ -406,7 +406,7 @@
 
             <div class="pv-hero__pills">
                 <div class="pv-pill"><i class="fas fa-clock"></i> 48-Hour PDF Report</div>
-                <div class="pv-pill"><i class="fas fa-shield-alt"></i> Independent · No Bias</div>
+                <div class="pv-pill"><i class="fas fa-shield-alt"></i> Fixed Fee · Not the Seller's Agent</div>
                 <div class="pv-pill"><i class="fas fa-globe"></i> NRI Verification</div>
             </div>
         </div>
@@ -431,7 +431,7 @@
 <section class="pv-metrics">
     <div class="pv-container">
         <div class="pv-metrics__grid">
-            <div><div class="pv-metric__num">5<span>+</span></div><div class="pv-metric__label">Government Offices Checked</div></div>
+            <div><div class="pv-metric__num">5<span>+</span></div><div class="pv-metric__label">Govt Offices Checked per Property</div></div>
             <div><div class="pv-metric__num">30 yr</div><div class="pv-metric__label">Title Chain Traced</div></div>
             <div><div class="pv-metric__num">48 hr</div><div class="pv-metric__label">PDF Report Delivery</div></div>
             <div><div class="pv-metric__num">₹5K</div><div class="pv-metric__label">vs ₹50L At Risk</div></div>
@@ -480,7 +480,7 @@
     <div class="pv-container">
         <span class="pv-slabel pv-rv">What's Included</span>
         <h2 class="pv-stitle pv-rv">Our Verification Services</h2>
-        <p class="pv-ssub pv-rv">Every verification includes physical document checks across multiple government offices — LDA, Sub-Registrar, Tehsil, Zila Panchayat, Revenue Courts, and more. You don't visit any of them. We do it, we document it, we hand you a PDF.</p>
+        <p class="pv-ssub pv-rv">Each verification covers the checks below that apply to your property type — at LDA, Sub-Registrar, Tehsil, Zila Panchayat, Revenue Courts and more. You don't visit any of them. We do it, we document it, we hand you a PDF.</p>
 
         <div class="pv-check-grid">
             <div class="pv-check-card pv-rv">
@@ -574,7 +574,7 @@
         </div>
 
         <div style="margin-top:32px; text-align:center;">
-            <p style="font-size:.86rem; color:var(--pv-t2); max-width:660px; margin:0 auto 18px; line-height:1.7;">Every check above takes time, expertise, and physical presence. We do it for you in 48 hours flat.</p>
+            <p style="font-size:.86rem; color:var(--pv-t2); max-width:660px; margin:0 auto 18px; line-height:1.7;">Every check above takes time, expertise, and physical presence. Most residential reports are ready in 48 hours.</p>
             <a href="#pricing" class="pv-btn pv-btn--primary">See ₹5,000 Pricing →</a>
         </div>
     </div>
@@ -585,7 +585,7 @@
     <div class="pv-container">
         <span class="pv-slabel pv-rv">Buyer's Checklist</span>
         <h2 class="pv-stitle pv-rv">8 Documents Every Lucknow Buyer Must Verify</h2>
-        <p class="pv-ssub pv-rv">Whether it's an LDA allotment, a builder flat, or a private plot — these are the eight checks that separate a safe deal from a future court case. We cover all eight in the ₹5,000 verification.</p>
+        <p class="pv-ssub pv-rv">Whether it's an LDA allotment, a builder flat, or a private plot — these are the eight checks that separate a safe deal from a future court case. Our ₹5,000 report covers the checks that apply to your property.</p>
 
         <div class="pv-doc-grid">
             <div class="pv-doc-item pv-rv"><div class="pv-doc-num">1</div><div><div class="pv-doc-title">Sale Deed & 30-Year Title Chain</div><p class="pv-doc-desc">Trace ownership back to the original land holder. A broken chain is the #1 cause of disputes in Lucknow.</p></div></div>
@@ -631,7 +631,7 @@
     <div class="pv-container">
         <span class="pv-slabel pv-rv">What You Get</span>
         <h2 class="pv-stitle pv-rv">Property Verification Report – Delivered in 48 Hours</h2>
-        <p class="pv-ssub pv-rv">A sample property verification report Lucknow buyers receive from us — clear, evidence-backed, and admissible if a dispute arises later.</p>
+        <p class="pv-ssub pv-rv">A sample property verification report Lucknow buyers receive from us — clear and evidence-backed, with copies of the records, so you or your lawyer can rely on it later.</p>
 
         <div class="pv-report pv-rv">
             <div class="pv-report__header">
@@ -716,7 +716,6 @@
         <div style="max-width:780px; margin:32px auto 0; padding:22px 24px; background:var(--pv-bg2); border:1px solid var(--pv-border); border-radius:14px;">
             <h3 style="font-size:1rem; font-weight:700; color:var(--pv-t1); margin:0 0 8px;">Property Valuation Services Near Me (Lucknow)</h3>
             <p style="font-size:.85rem; color:var(--pv-t2); line-height:1.7; margin:0 0 14px;">Need to know what a Lucknow plot or flat is actually worth before you negotiate — not just what the seller is asking? We provide a data-backed valuation alongside verification, using the same ward-level circle rates and recent registry data we pull during document checks.</p>
-            <a href="/" class="pv-btn pv-btn--primary" style="font-size:.8rem; padding:10px 20px;">Get a Free Property Valuation →</a>
         </div>
 
         {{-- <div style="text-align:center; margin-top:32px;">
@@ -786,7 +785,7 @@
                     <li><span class="pv-price-check fas fa-check"></span> Boundary measurement</li>
                     <li><span class="pv-price-check fas fa-check"></span> Photo + video evidence</li>
                     <li><span class="pv-price-check fas fa-check"></span> Neighbour verification</li>
-                    <li><span class="pv-price-check fas fa-check"></span> Priority 48-hour delivery</li>
+                    <li><span class="pv-price-check fas fa-check"></span> Report in 3–5 days (includes site visit)</li>
                 </ul>
                 <a href="https://wa.me/918595002933" class="pv-price-btn pv-price-btn--white">Book Premium →</a>
             </div>
@@ -924,7 +923,7 @@
         <div style="max-width:780px; margin:0 auto; display:flex; flex-direction:column; gap:10px;">
             <div class="pv-faq-item pv-rv"><button class="pv-faq-q" onclick="pvToggleFaq(this)"><span>How Much Do Property Legal Verification Services Cost?</span><i class="fas fa-chevron-down"></i></button><div class="pv-faq-a">₹5,000 for residential plots and flats, ₹7,000 for commercial properties, ₹10,000 for the premium package with physical site inspection. All packages include a PDF report within 48 hours. No per-document charges or hidden fees.</div></div>
 
-            <div class="pv-faq-item pv-rv" style="--rd:.04s"><button class="pv-faq-q" onclick="pvToggleFaq(this)"><span>Why should I hire a verifier instead of doing it myself?</span><i class="fas fa-chevron-down"></i></button><div class="pv-faq-a">Doing it yourself is free but takes 2-3 weekends and only covers online portals. A professional verifier physically visits the LDA office, Sub-Registrar, Tehsil and district court — where fraud is actually caught. You also get a written PDF report admissible as evidence, and a trained eye that has seen the patterns most first-time buyers miss.</div></div>
+            <div class="pv-faq-item pv-rv" style="--rd:.04s"><button class="pv-faq-q" onclick="pvToggleFaq(this)"><span>Why should I hire a verifier instead of doing it myself?</span><i class="fas fa-chevron-down"></i></button><div class="pv-faq-a">Doing it yourself is free but takes 2-3 weekends and only covers online portals. A professional verifier physically visits the LDA office, Sub-Registrar, Tehsil and district court — where fraud is actually caught. You also get a written PDF report with copies of the records, and a trained eye that has seen the patterns most first-time buyers miss.</div></div>
 
             <div class="pv-faq-item pv-rv" style="--rd:.08s"><button class="pv-faq-q" onclick="pvToggleFaq(this)"><span>What is the verification process?</span><i class="fas fa-chevron-down"></i></button><div class="pv-faq-a">Five steps: (1) Free preliminary consultation on WhatsApp within 2 hours, (2) Share property address and any documents, (3) Pay ₹5,000 verification fee via UPI or bank transfer, (4) We physically verify documents at LDA, Sub-Registrar, Tehsil and court records over 48 hours, (5) You receive a detailed PDF report with a clear verdict — Safe to Buy or Red Flags Found.</div></div>
 
@@ -966,7 +965,7 @@
     <div class="pv-cta__orb"></div>
     <div class="pv-container pv-cta__inner">
         <h2 class="pv-rv">Hire a Lucknow Property Verifier Today</h2>
-        <p class="pv-rv" style="--rd:.08s">Free preliminary WhatsApp check first. Pay ₹5,000 only if you want the full PDF verification. Most buyers convert within an hour of seeing our reply.</p>
+        <p class="pv-rv" style="--rd:.08s">Free preliminary WhatsApp check first. Pay ₹5,000 only if you want the full PDF verification.</p>
         <div class="pv-cta__btns pv-rv" style="--rd:.16s">
             <a href="https://wa.me/918595002933" class="pv-btn pv-btn--whatsapp">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
