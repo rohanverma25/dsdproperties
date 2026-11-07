@@ -8,7 +8,7 @@
      stay owned by the Ownership Records blog & IGRSUP Hindi blog.
      ═══════════════════════════════════════════════════════════════ --}}
 
-@section('title', 'Property Verification in Lucknow — ₹5,000, 48-Hour Report | DSD')
+@section('title', 'Property Legal Verification Services in Lucknow — ₹5,000 Report')
 
 @section('meta_description', 'Buying property in Lucknow? We verify LDA, registry, khatauni, encumbrance and court records at source. ₹5,000 fixed fee, PDF report in 48 hours.')
 
