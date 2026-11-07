@@ -125,6 +125,9 @@
 @include('components.readers-toast')
 </body>
 
+{{-- Maps can load before the valuation modal wraps pmInitMap on window load; a no-op stub stops the
+     "pmInitMap is not a function" error. The modal still starts Places Autocomplete itself. --}}
+<script>window.pmInitMap = window.pmInitMap || function () {};</script>
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1cK-JwjPR7AuRgdnSEETdxX2_KzqbOBI&libraries=visualization,places&callback=pmInitMap">
 </script>
