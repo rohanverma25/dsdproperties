@@ -139,6 +139,9 @@
 
 @section('content')
 
+{{-- User rule 7 Nov 2026: WhatsApp buttons on this page open a blank chat (no pre-filled message, no tags) --}}
+<script>window.WA_NO_TEXT = true;</script>
+
 <style>
 :root {
     --pv-navy:   #011f4b;
@@ -394,7 +397,7 @@
             </p>
 
             <div class="pv-hero__cta">
-                <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20%E2%82%B95%2C000%20property%20verification." class="pv-btn pv-btn--whatsapp">
+                <a href="https://wa.me/918595002933" class="pv-btn pv-btn--whatsapp">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                     Hire a Verifier — WhatsApp Us
                 </a>
@@ -467,7 +470,7 @@
         </div>
 
         <div style="text-align:center; margin-top:28px;">
-            <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20%E2%82%B95%2C000%20property%20verification." class="pv-btn pv-btn--primary">Get Your Documents Verified →</a>
+            <a href="https://wa.me/918595002933" class="pv-btn pv-btn--primary">Get Your Documents Verified →</a>
         </div>
     </div>
 </section>
@@ -702,7 +705,7 @@
             </ul>
             <div class="pv-sample__btns">
                 <a href="{{ $pvSample }}" target="_blank" rel="noopener" class="pv-btn pv-btn--primary">View sample report (PDF)</a>
-                <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20%E2%82%B95%2C000%20property%20verification." target="_blank" rel="noopener" class="pv-btn pv-btn--whatsapp">
+                <a href="https://wa.me/918595002933" target="_blank" rel="noopener" class="pv-btn pv-btn--whatsapp">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
                     Start verification on WhatsApp
                 </a>
@@ -717,7 +720,7 @@
         </div>
 
         {{-- <div style="text-align:center; margin-top:32px;">
-            <a href="https://wa.me/918595002933?text=Hi%2C%20please%20send%20the%20sample%20report." class="pv-btn pv-btn--whatsapp">
+            <a href="https://wa.me/918595002933" class="pv-btn pv-btn--whatsapp">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
                 Request Full Sample Report
             </a>
@@ -738,7 +741,7 @@
             <p><strong>DSD Properties क्या करता है?</strong> सिर्फ <strong>₹5,000</strong> में हम आपकी प्रॉपर्टी के पूरे कागज जांचते हैं — LDA दफ्तर जाकर, सब-रजिस्ट्रार ऑफिस में बैनामा देखकर, तहसील में खतौनी और दाखिल खारिज की जांच करके। 48 घंटे में आपको पूरी PDF रिपोर्ट मिलती है — "खरीदना सुरक्षित है" या "मत खरीदिए"।</p>
             <p><strong>NRI हैं?</strong> कोई बात नहीं — हम विदेश से भी काम करते हैं। आप WhatsApp पर कागज भेजिए, हम लखनऊ में जाकर सब कुछ चेक करते हैं।</p>
             <div class="pv-hindi__cta">
-                <a href="https://wa.me/918595002933?text=Namaste%2C%20property%20verification%20karwana%20hai." class="pv-btn pv-btn--whatsapp">
+                <a href="https://wa.me/918595002933" class="pv-btn pv-btn--whatsapp">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
                     हिंदी में WhatsApp करें
                 </a>
@@ -768,7 +771,7 @@
                     <li><span class="pv-price-check fas fa-check"></span> Dakhil Kharij verification</li>
                     <li><span class="pv-price-check fas fa-check"></span> PDF report in 48 hours</li>
                 </ul>
-                <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20%E2%82%B95%2C000%20property%20verification." class="pv-price-btn">Book ₹5,000 →</a>
+                <a href="https://wa.me/918595002933" class="pv-price-btn">Book ₹5,000 →</a>
             </div>
 
             <div class="pv-price-card pv-price-card--featured pv-rv" style="--rd:.08s">
@@ -785,7 +788,7 @@
                     <li><span class="pv-price-check fas fa-check"></span> Neighbour verification</li>
                     <li><span class="pv-price-check fas fa-check"></span> Priority 48-hour delivery</li>
                 </ul>
-                <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20%E2%82%B910%2C000%20premium%20verification." class="pv-price-btn pv-price-btn--white">Book Premium →</a>
+                <a href="https://wa.me/918595002933" class="pv-price-btn pv-price-btn--white">Book Premium →</a>
             </div>
 
             <div class="pv-price-card pv-rv" style="--rd:.16s">
@@ -801,7 +804,7 @@
                     <li><span class="pv-price-check fas fa-check"></span> Master Plan compliance</li>
                     <li><span class="pv-price-check fas fa-check"></span> PDF report in 48 hours</li>
                 </ul>
-                <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20%E2%82%B97%2C000%20commercial%20verification." class="pv-price-btn">Book ₹7,000 →</a>
+                <a href="https://wa.me/918595002933" class="pv-price-btn">Book ₹7,000 →</a>
             </div>
         </div>
     </div>
@@ -965,7 +968,7 @@
         <h2 class="pv-rv">Hire a Lucknow Property Verifier Today</h2>
         <p class="pv-rv" style="--rd:.08s">Free preliminary WhatsApp check first. Pay ₹5,000 only if you want the full PDF verification. Most buyers convert within an hour of seeing our reply.</p>
         <div class="pv-cta__btns pv-rv" style="--rd:.16s">
-            <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20%E2%82%B95%2C000%20property%20verification." class="pv-btn pv-btn--whatsapp">
+            <a href="https://wa.me/918595002933" class="pv-btn pv-btn--whatsapp">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
                 WhatsApp: +91-8595002933
             </a>
@@ -975,7 +978,7 @@
 </section>
 
 <div class="pv-mobile-cta" id="pv-mobile-cta">
-    <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20%E2%82%B95%2C000%20property%20verification." class="whatsapp">💬 Hire on WhatsApp</a>
+    <a href="https://wa.me/918595002933" class="whatsapp">💬 Hire on WhatsApp</a>
     <a href="#pricing" class="book">Book ₹5,000 →</a>
 </div>
 

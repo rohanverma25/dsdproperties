@@ -33,6 +33,12 @@
       var href = a.getAttribute('href') || '';
       if (!WA.test(href)) return;
       var url = new URL(href, location.href);
+      // Pages that set window.WA_NO_TEXT get bare WhatsApp links: no message, no tags
+      if (window.WA_NO_TEXT) {
+        url.searchParams.delete('text');
+        a.setAttribute('href', url.toString());
+        return;
+      }
       // Drop old tag lines, and an inline " Page: /path" left by Blade buttons
       var lines = (url.searchParams.get('text') || '').split(/\r?\n/).filter(function (l) {
         return !/^\s*(Button|Page)\s*:/i.test(l);
