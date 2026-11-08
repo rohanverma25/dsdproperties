@@ -2,8 +2,8 @@
 
 {{--
     LDA plot cost calculator (built 22 Oct 2026).
-    All rates are ₹ per sq m. Anant Nagar uses LDA's latest published rate (Phase 4); Wellness City (₹5,100/sq ft,
-    Amar Ujala) and IT City (₹4,500/sq ft, the user's expected rate) are planning figures. By the user's request the
+    All rates are ₹ per sq m. Anant Nagar uses LDA's latest published rate (Phase 4); Wellness City (₹54,559.17/sq m,
+    proposed, LDA finance controller's order of 30 Jun 2026) and IT City (₹4,500/sq ft, the user's expected rate) are planning figures. By the user's request the
     page shows no plot counts or registration dates. Update SCHEMES below when LDA publishes new rates.
 --}}
 @section('title', 'LDA Plot Cost Calculator 2026 — Varun Vihar, Naimish Nagar, Anant Nagar, Wellness City, IT City')
@@ -226,7 +226,7 @@
         <summary>How the numbers are worked out</summary>
         <ul>
             <li><strong>Plot price</strong> = size in sq m × the scheme rate per sq m. Example: a 112.5 sq m (1,211 sq ft) plot in Varun Vihar at ₹30,139/sq m (₹2,800/sq ft) comes to about ₹33.9 L. Sq ft figures use 1 sq m = 10.7639 sq ft.</li>
-            <li><strong>Anant Nagar Phase 5</strong> uses ₹44,731/sq m, the latest rate LDA published for the scheme (Phase 4). <strong>Wellness City</strong> and <strong>IT City</strong> are not open to the public yet: Wellness City uses the rate reported by Amar Ujala and IT City uses our expected rate, so treat both as planning figures.</li>
+            <li><strong>Anant Nagar Phase 5</strong> uses ₹44,731/sq m, the latest rate LDA published for the scheme (Phase 4). <strong>Wellness City</strong> and <strong>IT City</strong> are not open to the public yet: Wellness City uses LDA’s proposed rate of ₹54,559.17/sq m (not final) and IT City uses our expected rate, so treat both as planning figures.</li>
             <li><strong>Registration deposit</strong> is 5% of the plot price, or 2.5% for reserved categories. The booklet costs ₹1,100.</li>
             <li><strong>Pay in full</strong>: 6% off within 45 days of allotment, 5% within 60 days and 4% within 90 days. We apply the discount to the plot price.</li>
             <li><strong>Instalments</strong>: 36 monthly instalments at 9.7% interest. The EMI shown is a standard reducing-balance estimate; LDA's allotment letter gives the exact schedule.</li>
@@ -251,8 +251,8 @@
 @push('scripts')
 <script>
 (function () {
-    // Rates are ₹ per sq m. Varun Vihar (₹2,800), Naimish Nagar (₹3,800), Wellness City (₹5,100) and IT City (₹4,500)
-    // were reported per sq ft and are converted at 10.7639 sq ft per sq m, rounded to the rupee.
+    // Rates are ₹ per sq m. Varun Vihar (₹2,800), Naimish Nagar (₹3,800), IT City (₹4,500)
+    // were reported per sq ft; Wellness City is LDA's proposed ₹54,559.17 per sq m and are converted at 10.7639 sq ft per sq m, rounded to the rupee.
     // sizes are plot sizes in sq m. `basis` (optional) says where an unconfirmed rate comes from.
     // The page deliberately shows no plot counts or registration dates (user request 26 Oct 2026: keep it simple).
     var SCHEMES = [
@@ -263,9 +263,9 @@
         { name: 'Anant Nagar Yojana', area: 'Mohan Road', rate: 44731,
           sizes: [112.5, 162, 200],
           basis: 'Rate is LDA’s latest published Anant Nagar rate. Check your booklet or allotment letter for the final figure.' },
-        { name: 'Wellness City', area: 'Sultanpur Road', rate: 54896,
+        { name: 'Wellness City', area: 'Sultanpur Road', rate: 54559.17,
           sizes: [35, 45, 72, 128, 162, 200, 288],
-          basis: 'Rate as reported by Amar Ujala. The final price will be in the LDA booklet.' },
+          basis: 'Proposed rate (LDA finance controller’s order of 30 June 2026). Not final: the final price will be in the LDA booklet.' },
         { name: 'IT City', area: 'Sultanpur Road', rate: 48438,
           sizes: [35, 72, 128, 162, 200, 288],
           basis: 'Expected rate (DSD estimate). LDA has not announced the rate yet.' }
