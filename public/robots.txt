@@ -76,6 +76,7 @@ Sitemap: https://dsdproperties.in/sitemap.xml
 Sitemap: https://dsdproperties.in/sitemap-blogs.xml
 Sitemap: https://dsdproperties.in/sitemap-pages.xml
 Sitemap: https://dsdproperties.in/sitemap-news.xml
+Sitemap: https://dsdproperties.in/sitemap-news-archive.xml
 Sitemap: https://dsdproperties.in/sitemap-seo.xml
 Sitemap: https://dsdproperties.in/sitemap-services.xml
 

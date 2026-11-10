@@ -33,33 +33,38 @@
     <meta name="twitter:title"                 content="{{ $article->title }}">
     <meta name="twitter:description"           content="{{ $article->meta_description }}">
 
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "NewsArticle",
-        "headline": "{{ addslashes($article->title) }}",
-        "description": "{{ addslashes($article->meta_description) }}",
-        "url": "{{ $article->url }}",
-        "datePublished": "{{ $article->created_at->toIso8601String() }}",
-        "dateModified":  "{{ $article->updated_at->toIso8601String() }}",
-        "articleSection": "{{ $article->category_label }}",
-        "inLanguage": "{{ $article->lang === 'en' ? 'en-IN' : 'hi-IN' }}",
-        "publisher": {
-            "@type": "Organization",
-            "name": "DSD Properties",
-            "url":  "{{ url('/') }}",
-            "logo": { "@type": "ImageObject", "url": "{{ asset('images/logo.webp') }}" }
-        },
-        "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ $article->url }}" }
-        @if($article->source_url)
-        ,"isBasedOn": {
-            "@type": "NewsArticle",
-            "url": "{{ $article->source_url }}",
-            "publisher": { "@type": "Organization", "name": "{{ $article->source_name }}" }
+    {{-- NewsArticle schema built as a PHP array so json_encode escapes titles safely.
+         Publisher and author = DSD Properties; the newspaper we report from goes in isBasedOn. --}}
+    @php
+        $newsLd = [
+            '@context'         => 'https://schema.org',
+            '@type'            => 'NewsArticle',
+            'headline'         => Str::limit($article->title, 110, ''),
+            'description'      => $article->meta_description,
+            'url'              => $article->url,
+            'image'            => [asset('images/og-news.png')],
+            'datePublished'    => $article->created_at->toIso8601String(),
+            'dateModified'     => $article->updated_at->toIso8601String(),
+            'articleSection'   => $article->category_label,
+            'inLanguage'       => $article->lang === 'en' ? 'en-IN' : 'hi-IN',
+            'author'           => ['@type' => 'Organization', 'name' => 'DSD Properties', 'url' => url('/about')],
+            'publisher'        => [
+                '@type' => 'Organization',
+                'name'  => 'DSD Properties',
+                'url'   => url('/'),
+                'logo'  => ['@type' => 'ImageObject', 'url' => asset('images/logo.webp')],
+            ],
+            'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $article->url],
+        ];
+        if ($article->source_url) {
+            $newsLd['isBasedOn'] = [
+                '@type'     => 'NewsArticle',
+                'url'       => $article->source_url,
+                'publisher' => ['@type' => 'Organization', 'name' => $article->source_name],
+            ];
         }
-        @endif
-    }
-    </script>
+    @endphp
+    <script type="application/ld+json">{!! json_encode($newsLd, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_PRETTY_PRINT) !!}</script>
 
     <script type="application/ld+json">
     {
@@ -68,7 +73,7 @@
         "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ url('/') }}" },
             { "@type": "ListItem", "position": 2, "name": "News", "item": "{{ route('news.index') }}" },
-            { "@type": "ListItem", "position": 3, "name": "{{ addslashes(Str::limit($article->title, 60)) }}", "item": "{{ $article->url }}" }
+            { "@type": "ListItem", "position": 3, "name": {!! json_encode(Str::limit($article->title, 60), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}, "item": "{{ $article->url }}" }
         ]
     }
     </script>

@@ -130,7 +130,8 @@ Route::fallback(function () {
 
 Route::get('/rera-approved-projects-lucknow', [ReraProjectController::class, 'index']);
 
-Route::get('/sitemap-news.xml', [SitemapController::class, 'index'])->name('sitemap.news');
+Route::get('/sitemap-news.xml', [SitemapController::class, 'index'])->name('sitemap.news');            // Google News: last 2 days only
+Route::get('/sitemap-news-archive.xml', [SitemapController::class, 'archive'])->name('sitemap.news.archive'); // all stories
 
 // Sitemap index. The old static sitemap.xml / sitemap-blogs.xml / sitemap-pages.xml files
 // in the web root shadowed these routes and listed dead blog URLs — keep them deleted.
@@ -142,6 +143,7 @@ Route::get('/sitemap.xml', function () {
         ['loc' => 'https://dsdproperties.in/sitemap-services.xml', 'lastmod' => null],
         ['loc' => 'https://dsdproperties.in/sitemap-seo.xml',      'lastmod' => null],
         ['loc' => 'https://dsdproperties.in/sitemap-news.xml',     'lastmod' => null],
+        ['loc' => 'https://dsdproperties.in/sitemap-news-archive.xml', 'lastmod' => null],
         ['loc' => 'https://dsdproperties.in/sitemap-circle-rate.xml', 'lastmod' => null],
     ];
     $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
