@@ -263,7 +263,7 @@
         <div class="help-text-404">
             Still can't find what you're looking for? 
             <a href="{{ url('/contact-us') }}">Contact our support team</a> 
-            or call us at <a href="tel:+918595002933">(+91) 8595002933</a>
+            or call us at <a href="tel:{{ config('contact.tel') }}">(+91) {{ config('contact.phone') }}</a>
         </div>
     </div>
 </div>

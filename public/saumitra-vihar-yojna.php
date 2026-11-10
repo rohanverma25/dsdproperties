@@ -45,7 +45,7 @@
         ['sqm' => '200 m²', 'sqft' => '2,153 sq ft', 'use' => 'A generous size for a more spacious house plan.'],
         ['sqm' => '300 m²', 'sqft' => '3,229 sq ft', 'use' => 'The largest size segment shown on this page.'],
     ];
-    $waBase = 'https://wa.me/918595002933?text=';
+    $waBase = 'https://wa.me/919554102933?text=';
 ?>
 <div class="topbar"><nav class="wrap nav" aria-label="Main navigation">
     <a class="brand" href="#top">Saumitra Vihar Plots <span aria-hidden="true">·</span> Lucknow</a>
@@ -105,9 +105,9 @@
     <div class="section-actions"><a class="btn" href="<?php echo htmlspecialchars($waBase . rawurlencode('Hello, I have a question about Saumitra Vihar Yojna resale plots.'), ENT_QUOTES, 'UTF-8'); ?>">Ask your question on WhatsApp</a><a class="btn light" href="#plots">Compare plot sizes again ↑</a></div>
 </div></section>
 
-<section class="band contact"><div class="wrap contact-box"><div><span class="eyebrow">Talk about a resale plot</span><h2>Tell us the size you have in mind.</h2><p>Share a size or plot reference. We’ll reply with the current resale information we can confirm.</p></div><div class="section-actions"><a class="btn" href="<?php echo htmlspecialchars($waBase . rawurlencode('Hello, I am looking for a resale plot in Saumitra Vihar Yojna, Lucknow. Please share current options.'), ENT_QUOTES, 'UTF-8'); ?>">WhatsApp about resale plots ↗</a><a class="btn light" href="tel:+918595002933">Call 85950 02933</a></div></div></section>
+<section class="band contact"><div class="wrap contact-box"><div><span class="eyebrow">Talk about a resale plot</span><h2>Tell us the size you have in mind.</h2><p>Share a size or plot reference. We’ll reply with the current resale information we can confirm.</p></div><div class="section-actions"><a class="btn" href="<?php echo htmlspecialchars($waBase . rawurlencode('Hello, I am looking for a resale plot in Saumitra Vihar Yojna, Lucknow. Please share current options.'), ENT_QUOTES, 'UTF-8'); ?>">WhatsApp about resale plots ↗</a><a class="btn light" href="tel:+919554102933">Call 95541 02933</a></div></div></section>
 </main>
-<footer class="footer"><div class="wrap"><p><strong>Saumitra Vihar Plots · Lucknow</strong> · <a href="tel:+918595002933">+91 85950 02933</a></p><p>Independent resale plot enquiry page. Not affiliated with UP Awas Evam Vikas Parishad. UPAVP alone manages its scheme registration and allotment process. Confirm plot availability, seller records, transfer terms and price before paying.</p></div></footer>
+<footer class="footer"><div class="wrap"><p><strong>Saumitra Vihar Plots · Lucknow</strong> · <a href="tel:+919554102933">+91 95541 02933</a></p><p>Independent resale plot enquiry page. Not affiliated with UP Awas Evam Vikas Parishad. UPAVP alone manages its scheme registration and allotment process. Confirm plot availability, seller records, transfer terms and price before paying.</p></div></footer>
 </body>
 </html>
 

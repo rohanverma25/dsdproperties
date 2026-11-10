@@ -65,7 +65,7 @@
             @endphp
 
             <p>
-                <a href="https://wa.me/918595002933?text={{ $wa }}" target="_blank"
+                <a href="https://wa.me/{{ config('contact.wa') }}?text={{ $wa }}" target="_blank"
                    style="display:inline-block;background:#25D366;color:#fff;padding:12px 22px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;">
                     💬 Send to Team WhatsApp
                 </a>

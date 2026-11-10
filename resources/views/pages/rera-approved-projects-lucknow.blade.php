@@ -178,7 +178,7 @@
   "name": "DSD Properties",
   "url": "https://dsdproperties.in",
   "logo": "https://dsdproperties.in/public/images/logo.webp",
-  "telephone": "+918595002933",
+  "telephone": "{{ config('contact.tel') }}",
   "email": "dheer@dsdproperties.in",
   "address": {
     "@type": "PostalAddress",
@@ -984,7 +984,7 @@
                 </a>
                 @endif
 
-                <a href="https://wa.me/918595002933?text={{ $waMsg }}"
+                <a href="https://wa.me/{{ config('contact.wa') }}?text={{ $waMsg }}"
                    target="_blank" rel="noopener noreferrer"
                    class="btn-wa-project"
                    aria-label="Send WhatsApp query about {{ $projectName }}">

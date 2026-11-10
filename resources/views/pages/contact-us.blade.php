@@ -502,7 +502,7 @@
           </div>
           <div>
             <div class="ct-c-label">Phone</div>
-            <div class="ct-c-value"><a href="tel:+918595002933">+91 8595002933</a></div>
+            <div class="ct-c-value"><a href="tel:{{ config('contact.tel') }}">+91 {{ config('contact.phone') }}</a></div>
           </div>
         </div>
 

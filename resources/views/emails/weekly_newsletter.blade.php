@@ -60,7 +60,7 @@
           Get the papers checked before you pay: khatauni, registry chain, LDA and RERA records. <strong>₹5,000, PDF report in 48 hours.</strong><br>
           <a href="{{ $track(url('/services/property-verification-lucknow') . '?' . $utm . '&utm_content=verify', 'verify') }}" style="color:#FF5C00;font-weight:bold;">See what we check →</a>
           &nbsp;·&nbsp;
-          <a href="{{ $track('https://wa.me/918595002933?text=' . rawurlencode('Hi, I read the DSD Properties weekly email. I would like to talk about a property.'), 'whatsapp') }}" style="color:#008080;font-weight:bold;">Chat on WhatsApp</a>
+          <a href="{{ $track('https://wa.me/' . config('contact.wa') . '?text=' . rawurlencode('Hi, I read the DSD Properties weekly email. I would like to talk about a property.'), 'whatsapp') }}" style="color:#008080;font-weight:bold;">Chat on WhatsApp</a>
         </td></tr>
       </table>
     </td></tr>

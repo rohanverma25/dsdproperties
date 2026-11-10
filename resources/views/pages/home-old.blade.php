@@ -19,7 +19,7 @@
     "postalCode": "226025",
     "addressCountry": "IN"
   },
-  "telephone": "+91-8595002933",
+  "telephone": "+91-{{ config('contact.phone') }}",
   "url": "https://dsdproperties.in",
   "email": "dheer@dsdproperties.in",
   "aggregateRating": {
@@ -31,7 +31,7 @@
   },
   "sameAs": [
     "https://www.google.com/maps/place/DSD+Properties/@26.819812,80.7865536",
-    "https://wa.me/918595002933"
+    "https://wa.me/{{ config('contact.wa') }}"
   ]
 }
 </script>

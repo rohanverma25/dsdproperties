@@ -4,7 +4,7 @@
 
 ## About
 
-DSD Properties is located at 128/LGE Sanjar Gold Complex, Near Kalindi Park, Vrindavan Sector 2, Lucknow — 226025. Contact: +91-8595002933, dheer@dsdproperties.in. We operate Monday to Saturday, 9 AM to 7 PM.
+DSD Properties is located at 128/LGE Sanjar Gold Complex, Near Kalindi Park, Vrindavan Sector 2, Lucknow — 226025. Contact: +91-9554102933, dheer@dsdproperties.in. We operate Monday to Saturday, 9 AM to 7 PM.
 
 ## Core Services
 
@@ -43,7 +43,7 @@ Standard: 48 hours from document receipt. Premium (with site visit): 3–5 days.
 
 ## Contact
 
-- WhatsApp: https://wa.me/918595002933
+- WhatsApp: https://wa.me/919554102933
 - Email: dheer@dsdproperties.in
-- Phone: +91-8595002933
+- Phone: +91-9554102933
 - Address: 128/LGE Sanjar Gold Complex, Near Kalindi Park, Vrindavan Sector 2, Lucknow, UP 226025, India

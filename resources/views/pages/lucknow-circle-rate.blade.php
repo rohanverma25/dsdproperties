@@ -439,7 +439,7 @@
                 <p class="lcr-how">This follows the rules printed in the DM list. The sub-registrar's calculation on the IGRSUP portal is final, and some cases (agricultural land, industrial units, hotels, plots above 0.1 ha, roof rights) have extra rules listed below.</p>
                 <div class="lcr-cta">
                     <a class="vf" id="r-verify" href="{{ url('/services/property-verification-lucknow') }}">Check the papers first (₹5,000)</a>
-                    <a class="wa" id="r-wa" href="https://wa.me/918595002933" target="_blank" rel="noopener">Ask us on WhatsApp</a>
+                    <a class="wa" id="r-wa" href="https://wa.me/{{ config('contact.wa') }}" target="_blank" rel="noopener">Ask us on WhatsApp</a>
                 </div>
                 <a class="lcr-sample" href="{{ $sampleUrl }}" target="_blank" rel="noopener">See a sample verification report →</a>
             </div>
@@ -635,7 +635,7 @@
             if (found.length) other = ' It is in another SRO: ' + found.map(function (x) { return '<a href="?sro=' + x[2] + '">' + esc(x[0]) + ' (' + esc(x[3]) + ')</a>'; }).join(', ') + '.';
         }
         out.innerHTML = hits.length ? hits.slice(0, 24).map(card).join('') :
-            '<div class="lcr-empty">No mohalla called "' + esc(q.value) + '" in the ' + esc(DATA.lists[0].sro) + ' list.' + other + ' Check that you picked the right SRO at the top. Under the DM rules, a mohalla that is not listed takes the rate of the nearest listed one. <a href="https://wa.me/918595002933?text=' + encodeURIComponent('Hi, what is the circle rate for ' + q.value + ', Lucknow?') + '" target="_blank" rel="noopener">Ask us on WhatsApp</a>.</div>';
+            '<div class="lcr-empty">No mohalla called "' + esc(q.value) + '" in the ' + esc(DATA.lists[0].sro) + ' list.' + other + ' Check that you picked the right SRO at the top. Under the DM rules, a mohalla that is not listed takes the rate of the nearest listed one. <a href="https://wa.me/{{ config('contact.wa') }}?text=' + encodeURIComponent('Hi, what is the circle rate for ' + q.value + ', Lucknow?') + '" target="_blank" rel="noopener">Ask us on WhatsApp</a>.</div>';
         clearTimeout(tq); tq = setTimeout(function () { track('circle_rate_search', { search_term: q.value.slice(0, 60), results: hits.length }); }, 1200);
     }
     q.addEventListener('input', search);
@@ -781,7 +781,7 @@
         $('r-how').textContent = how;
 
         var msg = 'Hi, I calculated the circle rate for a ' + type + ' in ' + r.en + ', Lucknow (' + sqmTxt(area) + '): ' + money(value) + '. ';
-        $('r-wa').href = 'https://wa.me/918595002933?text=' + encodeURIComponent(msg + 'I have a question about the registry.');
+        $('r-wa').href = 'https://wa.me/{{ config('contact.wa') }}?text=' + encodeURIComponent(msg + 'I have a question about the registry.');
     }
 
     ['c-type', 'c-fcat', 'c-class', 'c-use', 'c-buyer'].forEach(function (id) {

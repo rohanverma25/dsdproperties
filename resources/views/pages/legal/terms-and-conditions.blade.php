@@ -101,7 +101,7 @@
           <p>
             For questions about these terms, please contact
             <a href="mailto:dheer@dsdproperties.in">dheer@dsdproperties.in</a>
-            or call <a href="tel:+918595002933">+91 85950 02933</a>.
+            or call <a href="tel:{{ config('contact.tel') }}">{{ config('contact.display') }}</a>.
           </p>
         </div>
 

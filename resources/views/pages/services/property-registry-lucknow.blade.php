@@ -9,8 +9,8 @@
 
     $city      = 'Lucknow';
     $pageUrl   = 'https://dsdproperties.in/services/property-registry-lucknow';
-    $phone     = '+918595002933';
-    $phoneDisp = '+91 85950 02933';
+    $phone     = config('contact.tel');
+    $phoneDisp = config('contact.display');
     $waText    = rawurlencode('Hello DSD Properties, I need help with a property registry in Lucknow. Please share the process and fees.');
 
     $badges = [

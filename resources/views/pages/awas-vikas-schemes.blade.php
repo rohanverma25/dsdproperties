@@ -62,7 +62,7 @@
   "@type": "RealEstateAgent",
   "name": "DSD Properties",
   "url": "https://dsdproperties.in",
-  "telephone": "+918595002933",
+  "telephone": "{{ config('contact.tel') }}",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "128/LGE Sanjar Gold Complex, Near Kalindi Park, Vrindavan Sector 2",
@@ -306,7 +306,7 @@
                 <a href="/services/property-advisory-lucknow" class="hero-btn-primary">
                     <i class="fas fa-calendar-check" aria-hidden="true"></i> Free Consultation
                 </a>
-                <a href="https://wa.me/918595002933?text=Hi%2C+I+have+a+query+about+Awas+Vikas+schemes+in+Lucknow"
+                <a href="https://wa.me/{{ config('contact.wa') }}?text=Hi%2C+I+have+a+query+about+Awas+Vikas+schemes+in+Lucknow"
                    target="_blank" rel="noopener noreferrer" class="hero-btn-wa">
                     <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp Us
                 </a>
@@ -460,7 +460,7 @@
                 </a>
                 @endif
 
-                <a href="https://wa.me/918595002933?text={{ $waMsg }}"
+                <a href="https://wa.me/{{ config('contact.wa') }}?text={{ $waMsg }}"
                    target="_blank" rel="noopener noreferrer" class="btn-wa-scheme"
                    aria-label="Send WhatsApp query about {{ $schemeName }}">
                     <i class="fab fa-whatsapp" aria-hidden="true"></i>
@@ -526,9 +526,9 @@
                 <a href="/services/property-advisory-lucknow" class="about-btn-primary">
                     <i class="fas fa-calendar-check" aria-hidden="true"></i> Book Free Consultation
                 </a>
-                <a href="https://wa.me/918595002933?text=Hi%2C+I+need+guidance+on+Awas+Vikas+schemes+in+Lucknow"
+                <a href="https://wa.me/{{ config('contact.wa') }}?text=Hi%2C+I+need+guidance+on+Awas+Vikas+schemes+in+Lucknow"
                    target="_blank" rel="noopener noreferrer" class="about-btn-wa">
-                    <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp: 8595002933
+                    <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp: {{ config('contact.phone') }}
                 </a>
             </div>
         </div>

@@ -346,7 +346,7 @@ class VerificationController extends Controller
             "रिपोर्ट डाउनलोड करें (30 दिन तक वैध):\n{$signedUrl}\n\n" .
             "पासवर्ड: आपके फ़ोन नंबर के अंतिम 4 अंक ({$report->pdf_password})\n\n" .
             "सत्यापन जांचें: https://dsdproperties.in/verify/{$report->report_id}\n\n" .
-            "धन्यवाद,\nDSD Properties\n+91-85950-02933"
+            "धन्यवाद,\nDSD Properties\n" . config('contact.display')
         );
 
         $waLink = "https://wa.me/91{$report->customer_phone}?text={$waMessage}";

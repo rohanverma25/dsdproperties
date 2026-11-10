@@ -56,7 +56,7 @@
       "name": "How do I apply for an LDA new scheme in Lucknow 2026?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Apply through the official LDA portal at ldalucknow.in. For lottery schemes (Anant Nagar, Wellness City, IT City), submit your application during the open window and await the ballot date. For FCFS (First Come First Serve) schemes, allotment is on a first-come basis. DSD Properties can guide you through eligibility and documentation — contact us on +91-85950-02933 for a free consultation."
+        "text": "Apply through the official LDA portal at ldalucknow.in. For lottery schemes (Anant Nagar, Wellness City, IT City), submit your application during the open window and await the ballot date. For FCFS (First Come First Serve) schemes, allotment is on a first-come basis. DSD Properties can guide you through eligibility and documentation — contact us on +91-{{ config('contact.dashed') }} for a free consultation."
       }
     },
     {
@@ -157,7 +157,7 @@
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "Customer Support",
-    "telephone": "+918595002933",
+    "telephone": "{{ config('contact.tel') }}",
     "email": "dheer@dsdproperties.in",
     "areaServed": "IN",
     "availableLanguage": ["en", "hi"]
@@ -181,7 +181,7 @@
   "name": "DSD Properties",
   "url": "https://dsdproperties.in",
   "logo": "https://dsdproperties.in/public/images/logo.webp",
-  "telephone": "+918595002933",
+  "telephone": "{{ config('contact.tel') }}",
   "email": "dheer@dsdproperties.in",
   "address": {
     "@type": "PostalAddress",

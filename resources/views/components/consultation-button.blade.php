@@ -13,7 +13,7 @@
 
 @props([
     'text' => 'REQUEST A CONSULTATION TODAY!',
-    'phone' => '918595002933',
+    'phone' => config('contact.wa'),
     'url' => request()->getRequestUri()
 ])
 

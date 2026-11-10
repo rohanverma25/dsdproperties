@@ -86,6 +86,6 @@
             @endforeach
         </ul>
         <a class="lcr-go" href="#calculator">Calculate for your size, flat or house ↓</a>
-        <p class="lcr-report">Rate looks wrong? <a href="https://wa.me/918595002933?text={{ rawurlencode($waMsg) }}" target="_blank" rel="noopener">Tell us</a></p>
+        <p class="lcr-report">Rate looks wrong? <a href="https://wa.me/{{ config('contact.wa') }}?text={{ rawurlencode($waMsg) }}" target="_blank" rel="noopener">Tell us</a></p>
     </div>
 </div>

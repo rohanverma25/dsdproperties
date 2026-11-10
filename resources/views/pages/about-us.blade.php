@@ -13,7 +13,7 @@
   "image": "{{ asset('images/logo.webp') }}",
   "@id": "{{ url('/') }}",
   "url": "{{ url('/') }}",
-  "telephone": "+91-85950-02933",
+  "telephone": "+91-{{ config('contact.dashed') }}",
   "email": "dheer@dsdproperties.in",
   "address": {
     "@type": "PostalAddress",

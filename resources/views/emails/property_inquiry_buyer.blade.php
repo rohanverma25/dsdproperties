@@ -107,9 +107,9 @@
                 <div class="contact-info">
                     <div class="contact-title">Need Immediate Assistance?</div>
                     <table class="contact-grid" width="100%">
-                        <tr class="contact-item"><td>📞 <a href="tel:+918595002933">+91 8595002933</a></td></tr>
+                        <tr class="contact-item"><td>📞 <a href="tel:{{ config('contact.tel') }}">+91 {{ config('contact.phone') }}</a></td></tr>
                         <tr class="contact-item"><td>📧 <a href="mailto:dheer@dsdproperties.in">dheer@dsdproperties.in</a></td></tr>
-                        <tr class="contact-item"><td>💬 <a href="https://wa.me/918595002933">WhatsApp Us</a></td></tr>
+                        <tr class="contact-item"><td>💬 <a href="https://wa.me/{{ config('contact.wa') }}">WhatsApp Us</a></td></tr>
                     </table>
                 </div>
 

@@ -9,7 +9,7 @@
            plain:  true draws white cards with a coloured edge instead of gradients (the /news list page).
 --}}
 @php
-    $wa = '918595002933';
+    $wa = config('contact.wa');
     $from = $from ?? 'news';
     $verify = $verify ?? true;
     $plain = $plain ?? false;

@@ -6,8 +6,8 @@
  * they go only into the WhatsApp message, so buyers enquire with us first.
  */
 $site  = 'https://saumitraviharlucknow.in/';
-$phone = '918595002933';
-$phoneShow = '+91 85950 02933';
+$phone = '919554102933';
+$phoneShow = '+91 95541 02933';
 $updated = '22 October 2026';
 $updatedIso = '2026-10-22';   // change both dates whenever $plots changes
 $geo = [26.7243945, 81.0689648];

@@ -34,7 +34,7 @@
         }
     }
     $sroNames = implode(', ', array_map(fn ($l) => $hi ? $l['sro_hi'] : $l['sro'], $lists));
-    $wa = '918595002933';
+    $wa = config('contact.wa');
     $sampleUrl = 'https://dsdproperties.in/public/downloads/DSD-Property-Verification-Sample-Report-Lucknow.pdf';
 
     $T = $hi ? [

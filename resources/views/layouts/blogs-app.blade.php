@@ -57,7 +57,7 @@
       "logo": "{{ asset('logo/image911.png') }}",
       "image": "{{ asset('logo/og-image.webp') }}",
       "description": "Lucknow real estate advisory and property verification firm: LDA scheme guidance, legal verification of plots and flats, registry support for buyers, sellers and NRIs.",
-      "telephone": "+91-8595002933",
+      "telephone": "+91-{{ config('contact.phone') }}",
       "email": "dheer@dsdproperties.in",
       "address": {
         "@type": "PostalAddress",

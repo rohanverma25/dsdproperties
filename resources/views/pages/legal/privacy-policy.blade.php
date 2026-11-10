@@ -102,7 +102,7 @@
           <p>
             If you have questions about this policy or your information, you can contact DSD Properties at
             <a href="mailto:dheer@dsdproperties.in">dheer@dsdproperties.in</a> or call
-            <a href="tel:+918595002933">+91 85950 02933</a>.
+            <a href="tel:{{ config('contact.tel') }}">{{ config('contact.display') }}</a>.
           </p>
         </div>
 

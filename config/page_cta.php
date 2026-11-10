@@ -14,7 +14,7 @@
 
 return [
 
-    'whatsapp_number' => '918595002933',
+    'whatsapp_number' => (require __DIR__ . '/contact.php')['wa'],
 
     'default' => 'Buy Property in Lucknow',
 

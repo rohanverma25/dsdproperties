@@ -5,8 +5,8 @@
 @php
     $city      = 'Agra';
     $pageUrl   = 'https://dsdproperties.in/services/property-registry-agra';
-    $phone     = '+918595002933';
-    $phoneDisp = '+91 85950 02933';
+    $phone     = config('contact.tel');
+    $phoneDisp = config('contact.display');
     $waText    = rawurlencode('Hello DSD Properties, I need help with a property registry in Agra. Please share the process and fees.');
 
     $badges = [

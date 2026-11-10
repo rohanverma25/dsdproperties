@@ -14,7 +14,7 @@
   "@type": "ProfessionalService",
   "name": "DSD Properties — Property Advisory Lucknow",
   "url": "https://dsdproperties.in/services/property-advisory-lucknow",
-  "telephone": "+918595002933",
+  "telephone": "{{ config('contact.tel') }}",
   "email": "dheer@dsdproperties.in",
   "description": "Free property advisory and consulting services in Lucknow. Investment guidance, builder evaluation, negotiation support, legal consultation, and end-to-end advisory for buying property in Lucknow.",
   "areaServed": { "@type": "City", "name": "Lucknow", "addressRegion": "Uttar Pradesh", "addressCountry": "IN" },
@@ -103,7 +103,7 @@
     "@type": "RealEstateAgent",
     "name": "DSD Properties",
     "url": "https://dsdproperties.in",
-    "telephone": "+91-8595002933"
+    "telephone": "+91-{{ config('contact.phone') }}"
   },
   "areaServed": {
     "@type": "City",
@@ -128,7 +128,7 @@
   "totalTime": "PT30M",
   "estimatedCost": { "@type": "MonetaryAmount", "currency": "INR", "value": "0" },
   "step": [
-    { "@type": "HowToStep", "position": 1, "name": "WhatsApp or Call to Book", "text": "WhatsApp +91-8595002933 or call during office hours (Mon–Sat, 9 AM–7 PM). Share your requirement — buying, selling, or investment — and we schedule a 30-minute consultation, free of charge.", "url": "https://dsdproperties.in/services/property-advisory-lucknow" },
+    { "@type": "HowToStep", "position": 1, "name": "WhatsApp or Call to Book", "text": "WhatsApp +91-{{ config('contact.phone') }} or call during office hours (Mon–Sat, 9 AM–7 PM). Share your requirement — buying, selling, or investment — and we schedule a 30-minute consultation, free of charge.", "url": "https://dsdproperties.in/services/property-advisory-lucknow" },
     { "@type": "HowToStep", "position": 2, "name": "Tell Us Your Budget and Goals", "text": "Share your budget range, preferred localities, timeline, and what you want to achieve — first home, investment, NRI purchase, or resale. The more specific, the better our advice.", "url": "https://dsdproperties.in/services/property-advisory-lucknow" },
     { "@type": "HowToStep", "position": 3, "name": "Receive Unbiased Expert Analysis", "text": "We give you honest locality comparisons, builder evaluations, realistic price expectations, and legal red flags based on current Lucknow market data — with no commission motive from the seller's side.", "url": "https://dsdproperties.in/services/property-advisory-lucknow" },
     { "@type": "HowToStep", "position": 4, "name": "Choose Paid Advisory if Needed", "text": "If deeper support is required — site visits, negotiation, legal consultation, or end-to-end advisory — we offer paid packages starting at ₹3,000. No obligation to proceed beyond the free consultation.", "url": "https://dsdproperties.in/services/property-advisory-lucknow" }
@@ -751,7 +751,7 @@
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                     Book Free Consultation
                 </a>
-                <a href="https://wa.me/918595002933?text=Hi, I need property advisory services in Lucknow" class="pa-btn pa-btn--ghost">
+                <a href="https://wa.me/{{ config('contact.wa') }}?text=Hi, I need property advisory services in Lucknow" class="pa-btn pa-btn--ghost">
                     💬 WhatsApp Us
                 </a>
             </div>
@@ -1517,8 +1517,8 @@
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 Book Free Consultation
             </a>
-            <a href="https://wa.me/918595002933?text=Hi, I need property advisory services in Lucknow" class="pa-btn pa-btn--ghost">
-                💬 WhatsApp: 8595002933
+            <a href="https://wa.me/{{ config('contact.wa') }}?text=Hi, I need property advisory services in Lucknow" class="pa-btn pa-btn--ghost">
+                💬 WhatsApp: {{ config('contact.phone') }}
             </a>
         </div>
     </div>

@@ -38,6 +38,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\LogUserLocation::class,
             \App\Http\Middleware\EnsureAdmin::class,
+            \App\Http\Middleware\SwapRetiredPhone::class,
         ],
 
         'api' => [

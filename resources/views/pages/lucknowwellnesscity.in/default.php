@@ -7,8 +7,8 @@
  * To change stock, edit $sizes. 'status' => 'available' | 'hold' | 'sold'.
  */
 $site = 'https://lucknowwellnesscity.in/';
-$phone = '918595002933';
-$phoneShow = '+91 85950 02933';
+$phone = '919554102933';
+$phoneShow = '+91 95541 02933';
 $updated = '22 October 2026';
 $updatedIso = '2026-10-22';   // change both dates whenever $sizes changes
 $geo = [26.80505, 81.06107];

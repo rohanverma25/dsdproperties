@@ -16,7 +16,7 @@
   "@id": "https://dsdproperties.in/#organization",
   "name": "DSD Properties",
   "url": "https://dsdproperties.in",
-  "telephone": "+91-8595002933",
+  "telephone": "+91-{{ config('contact.phone') }}",
   "email": "dheer@dsdproperties.in",
   "image": "https://dsdproperties.in/images/logo.webp",
   "logo": "https://dsdproperties.in/images/logo.webp",
@@ -32,7 +32,7 @@
   "areaServed": [
     { "@type": "City", "name": "Agra" }
   ],
-  "sameAs": ["https://wa.me/918595002933"]
+  "sameAs": ["https://wa.me/{{ config('contact.wa') }}"]
 }
 </script>
 
@@ -101,7 +101,7 @@
   "totalTime": "PT48H",
   "estimatedCost": { "@type": "MonetaryAmount", "currency": "INR", "value": "5000" },
   "step": [
-    { "@type": "HowToStep", "position": 1, "name": "WhatsApp Free Preliminary Check", "text": "Send the property address and seller's name on WhatsApp to +91-8595002933. We do a free preliminary ADA and TTZ boundary check within 2 hours.", "url": "https://dsdproperties.in/services/property-verification-agra" },
+    { "@type": "HowToStep", "position": 1, "name": "WhatsApp Free Preliminary Check", "text": "Send the property address and seller's name on WhatsApp to +91-{{ config('contact.phone') }}. We do a free preliminary ADA and TTZ boundary check within 2 hours.", "url": "https://dsdproperties.in/services/property-verification-agra" },
     { "@type": "HowToStep", "position": 2, "name": "Share Available Documents", "text": "Share ADA approval letter, sale deed, Khatauni — whatever you have. Even just the property address is enough to start.", "url": "https://dsdproperties.in/services/property-verification-agra" },
     { "@type": "HowToStep", "position": 3, "name": "Pay ₹5,000 Verification Fee", "text": "Pay ₹5,000 for residential plots and flats, ₹7,000 for commercial, or ₹10,000 for the premium package with site visit. UPI or bank transfer. Invoice issued.", "url": "https://dsdproperties.in/services/property-verification-agra" },
     { "@type": "HowToStep", "position": 4, "name": "We Verify at Source in Agra", "text": "Our team physically checks ADA layout approval, Taj Trapezium Zone (TTZ) boundary status, ASI monument buffer zone, Army Cantonment boundaries, Yamuna flood zone classification, Sub-Registrar encumbrance, and court records.", "url": "https://dsdproperties.in/services/property-verification-agra" },
@@ -380,7 +380,7 @@
             </p>
 
             <div class="pv-hero__cta">
-                <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20to%20hire%20you%20for%20property%20verification%20in%20Agra.%20Property%20address%3A" class="pv-btn pv-btn--whatsapp">
+                <a href="https://wa.me/{{ config('contact.wa') }}?text=Hi%2C%20I%20want%20to%20hire%20you%20for%20property%20verification%20in%20Agra.%20Property%20address%3A" class="pv-btn pv-btn--whatsapp">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                     Hire a Verifier — WhatsApp Us
                 </a>
@@ -412,7 +412,7 @@
                 <li>Final verdict: Safe to Buy or Walk Away</li>
             </ul>
 
-            <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20to%20book%20the%20%E2%82%B95%2C000%20property%20verification%20in%20Agra.%20Property%20address%3A" class="pv-hero__card-btn">Book ₹5,000 Verification on WhatsApp</a>
+            <a href="https://wa.me/{{ config('contact.wa') }}?text=Hi%2C%20I%20want%20to%20book%20the%20%E2%82%B95%2C000%20property%20verification%20in%20Agra.%20Property%20address%3A" class="pv-hero__card-btn">Book ₹5,000 Verification on WhatsApp</a>
             <div class="pv-hero__card-note">🔒 100% confidential · Free preliminary check first</div>
         </div>
     </div>
@@ -566,7 +566,7 @@
         </div>
 
         <div style="text-align:center; margin-top:28px;">
-            <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20to%20hire%20a%20property%20verifier%20in%20Agra" class="pv-btn pv-btn--primary">Hire Us — Book Verification →</a>
+            <a href="https://wa.me/{{ config('contact.wa') }}?text=Hi%2C%20I%20want%20to%20hire%20a%20property%20verifier%20in%20Agra" class="pv-btn pv-btn--primary">Hire Us — Book Verification →</a>
         </div>
     </div>
 </section>
@@ -745,7 +745,7 @@
                     <li><span class="pv-price-check">✓</span> Court search + Yamuna zone</li>
                     <li><span class="pv-price-check">✓</span> PDF report in 48 hours</li>
                 </ul>
-                <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20the%20%E2%82%B95%2C000%20Standard%20property%20verification%20in%20Agra.%20Property%20address%3A" class="pv-price-btn">Book on WhatsApp →</a>
+                <a href="https://wa.me/{{ config('contact.wa') }}?text=Hi%2C%20I%20want%20the%20%E2%82%B95%2C000%20Standard%20property%20verification%20in%20Agra.%20Property%20address%3A" class="pv-price-btn">Book on WhatsApp →</a>
             </div>
 
             <div class="pv-price-card pv-price-card--featured pv-rv" style="--rd:.08s">
@@ -762,7 +762,7 @@
                     <li><span class="pv-price-check">✓</span> Fire NOC & completion status</li>
                     <li><span class="pv-price-check">✓</span> PDF report in 48 hours</li>
                 </ul>
-                <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20the%20%E2%82%B97%2C000%20Commercial%20property%20verification%20in%20Agra.%20Property%20address%3A" class="pv-price-btn pv-price-btn--white">Book on WhatsApp →</a>
+                <a href="https://wa.me/{{ config('contact.wa') }}?text=Hi%2C%20I%20want%20the%20%E2%82%B97%2C000%20Commercial%20property%20verification%20in%20Agra.%20Property%20address%3A" class="pv-price-btn pv-price-btn--white">Book on WhatsApp →</a>
             </div>
 
             <div class="pv-price-card pv-rv" style="--rd:.16s">
@@ -778,7 +778,7 @@
                     <li><span class="pv-price-check">✓</span> Neighbour boundary disputes noted</li>
                     <li><span class="pv-price-check">✓</span> Report in 3–5 days</li>
                 </ul>
-                <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20the%20%E2%82%B910%2C000%20Premium%20property%20verification%20with%20site%20visit%20in%20Agra.%20Property%20address%3A" class="pv-price-btn">Book on WhatsApp →</a>
+                <a href="https://wa.me/{{ config('contact.wa') }}?text=Hi%2C%20I%20want%20the%20%E2%82%B910%2C000%20Premium%20property%20verification%20with%20site%20visit%20in%20Agra.%20Property%20address%3A" class="pv-price-btn">Book on WhatsApp →</a>
             </div>
         </div>
     </div>
@@ -811,7 +811,7 @@
         </div>
 
         <div style="text-align:center; margin-top:28px; font-size:.84rem; color:var(--pv-t2);">
-            Don't see your area? <a href="https://wa.me/918595002933" style="color:var(--ag-mid); font-weight:600;">WhatsApp us</a> — we cover all of Agra district.
+            Don't see your area? <a href="https://wa.me/{{ config('contact.wa') }}" style="color:var(--ag-mid); font-weight:600;">WhatsApp us</a> — we cover all of Agra district.
         </div>
     </div>
 </section>
@@ -855,7 +855,7 @@
         <h2>Start with a Free TTZ & ADA Preliminary Check</h2>
         <p>Send us the property address and plot number on WhatsApp. We run a quick TTZ zone assessment and basic ADA status check within 2 hours — free — and tell you whether a full ₹5,000 verification is worth doing before you pay anything.</p>
         <div class="pv-cta__btns">
-            <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20a%20free%20TTZ%20and%20ADA%20preliminary%20check%20in%20Agra.%20Property%20address%3A" class="pv-btn pv-btn--whatsapp">
+            <a href="https://wa.me/{{ config('contact.wa') }}?text=Hi%2C%20I%20want%20a%20free%20TTZ%20and%20ADA%20preliminary%20check%20in%20Agra.%20Property%20address%3A" class="pv-btn pv-btn--whatsapp">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                 Free TTZ Check — WhatsApp Us
             </a>
@@ -876,7 +876,7 @@
 </div>{{-- .pv-wrap --}}
 
 <div class="pv-mobile-cta" id="pvMobileCta">
-    <a href="https://wa.me/918595002933?text=Hi%2C%20I%20want%20property%20verification%20in%20Agra" class="whatsapp">WhatsApp</a>
+    <a href="https://wa.me/{{ config('contact.wa') }}?text=Hi%2C%20I%20want%20property%20verification%20in%20Agra" class="whatsapp">WhatsApp</a>
     <a href="#pricing" class="book">₹5,000 →</a>
 </div>
 

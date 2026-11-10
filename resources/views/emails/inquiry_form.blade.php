@@ -22,7 +22,7 @@
     $isNewsletter = ($data['source_form'] ?? null) === 'newsletter';
     $firstName    = $name ? explode(' ', trim($name))[0] : null;
 
-    $waUrl  = 'https://wa.me/918595002933';
+    $waUrl  = 'https://wa.me/' . config('contact.wa');
     $site   = 'https://dsdproperties.in';
 @endphp
 <!DOCTYPE html>
@@ -224,7 +224,7 @@
                         <div style="margin-top:16px;">
                             <a href="{{ $waUrl }}" class="sp-btn" style="display:inline-block;background-color:#1faa54;color:#ffffff;font-size:14px;font-weight:700;padding:13px 24px;border-radius:9px;">WhatsApp us</a>
                             &nbsp;
-                            <a href="tel:+918595002933" class="sp-btn" style="display:inline-block;background-color:#0f766e;color:#ffffff;font-size:14px;font-weight:700;padding:13px 24px;border-radius:9px;">+91 85950 02933</a>
+                            <a href="tel:{{ config('contact.tel') }}" class="sp-btn" style="display:inline-block;background-color:#0f766e;color:#ffffff;font-size:14px;font-weight:700;padding:13px 24px;border-radius:9px;">{{ config('contact.display') }}</a>
                         </div>
                     </td>
                 </tr>
@@ -287,7 +287,7 @@
                 <div class="d-mut" style="font-size:13px;color:#5d6e85;margin-top:10px;">
                     📧 <a href="mailto:dheer@dsdproperties.in" class="d-accent" style="color:#0f766e;font-weight:600;">dheer@dsdproperties.in</a>
                     &nbsp;·&nbsp;
-                    📞 <a href="tel:+918595002933" class="d-accent" style="color:#0f766e;font-weight:600;">+91 85950 02933</a>
+                    📞 <a href="tel:{{ config('contact.tel') }}" class="d-accent" style="color:#0f766e;font-weight:600;">{{ config('contact.display') }}</a>
                 </div>
             </div>
         </td>
