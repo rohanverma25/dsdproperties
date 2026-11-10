@@ -95,12 +95,10 @@ $ld = [
      'address' => ['@type' => 'PostalAddress', 'addressLocality' => 'Lucknow', 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
     ['@type' => 'ItemList', '@id' => $site . '#plots', 'name' => 'Resale plots in Saumitra Vihar, Lucknow', 'numberOfItems' => count($open),
      'itemListElement' => array_values(array_map(function ($p, $i) use ($fmt, $site, $sqft, $updatedIso) {
-        return ['@type' => 'ListItem', 'position' => $i + 1, 'item' => ['@type' => 'Product',
+        return ['@type' => 'ListItem', 'position' => $i + 1, 'item' => ['@type' => 'Place',
           'name' => $fmt($p[0]) . ' m² ' . $p[3] . '-facing plot, Sector ' . $p[1] . ', Saumitra Vihar, Lucknow',
           'description' => $fmt($p[0]) . ' m² (' . $sqft($p[0]) . ' sq ft) residential resale plot in Sector ' . $p[1] . ', ' . $p[3] . '-facing, on a ' . $p[4] . ' m road' . ($p[5] ? ', ' . strtolower($p[5] === 'Park' ? 'park-facing' : $p[5]) : '') . '.',
-          'category' => 'Residential plot', 'url' => $site . '#plot-' . ($i + 1),
-          'offers' => ['@type' => 'Offer', 'availability' => $p[6] === 'hold' ? 'https://schema.org/LimitedAvailability' : 'https://schema.org/InStock',
-                       'priceCurrency' => 'INR', 'validFrom' => $updatedIso, 'seller' => ['@id' => $site . '#agent'], 'areaServed' => ['@id' => $site . '#place']],
+          'url' => $site . '#plot-' . ($i + 1),
           'additionalProperty' => [
             ['@type' => 'PropertyValue', 'name' => 'Plot area', 'value' => $p[0], 'unitCode' => 'MTK'],
             ['@type' => 'PropertyValue', 'name' => 'Sector', 'value' => $p[1]],

@@ -83,12 +83,10 @@ echo json_encode(['@context' => 'https://schema.org', '@graph' => [
    'areaServed' => ['@id' => $site . '#place'], 'address' => ['@type' => 'PostalAddress', 'addressLocality' => 'Lucknow', 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
   ['@type' => 'ItemList', '@id' => $site . '#plots', 'name' => 'Plot sizes for sale in Wellness City Lucknow', 'numberOfItems' => count($open),
    'itemListElement' => array_map(function ($s, $i) use ($site, $sqft, $updatedIso) {
-       return ['@type' => 'ListItem', 'position' => $i + 1, 'item' => ['@type' => 'Product',
+       return ['@type' => 'ListItem', 'position' => $i + 1, 'item' => ['@type' => 'Place',
          'name' => $s[0] . ' m² residential plot, Wellness City, Sultanpur Road, Lucknow',
          'description' => $s[0] . ' m² (' . $sqft($s[0]) . ' sq ft) plot from the LDA land-pooling lottery of 30 June 2026 in Wellness City, Lucknow. Transfer needs District Collector permission under Section 11.',
-         'category' => 'Residential plot', 'url' => $site . '#size-' . $s[0],
-         'offers' => ['@type' => 'Offer', 'availability' => $s[1] === 'hold' ? 'https://schema.org/LimitedAvailability' : 'https://schema.org/InStock', 'priceCurrency' => 'INR',
-                      'validFrom' => $updatedIso, 'seller' => ['@id' => $site . '#agent'], 'areaServed' => ['@id' => $site . '#place']],
+         'url' => $site . '#size-' . $s[0],
          'additionalProperty' => [['@type' => 'PropertyValue', 'name' => 'Plot area', 'value' => $s[0], 'unitCode' => 'MTK']]]];
    }, $open, array_keys($open))],
   ['@type' => 'FAQPage', 'mainEntity' => array_map(function ($q) { return ['@type' => 'Question', 'name' => $q[0], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $q[1]]]; }, $faq)],
