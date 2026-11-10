@@ -1,22 +1,24 @@
 # IT City Lucknow Plots
 
-> Independent plot sales service for IT City, the Lucknow Development Authority (LDA) township on Sultanpur Road, Lucknow. Not the official LDA website. Listing updated 22 October 2026.
+> Independent resale service for plots allotted to land-pooling farmers in IT City, the Lucknow Development Authority (LDA) scheme on Sultanpur Road, Lucknow. Not the official LDA website. Updated 10 November 2026.
 
 ## Key facts
-- Plot sizes on offer: 35, 72, 128, 162, 200 and 288 m² (all six sizes available)
-- Location: Sultanpur Road, south-east Lucknow; about 15 km from Hazratganj, 15.8 km from Charbagh station, 16.2 km from Lucknow airport (straight line)
-- Township: about 1,054 hectares (about 2,604 acres) across 12 villages, developed by LDA through land pooling
-- Sellers: landowners who received developed plots in LDA's land-pooling lotteries (25% of land returned as plots); 2,197 plots to 1,465 farmers in sectors 9, 15, 16, 17, 18 and 30 (Amar Ujala, 14 Oct 2026)
-- Transfer rule: in the notified Phase-1 area, a sale needs prior written permission from the District Collector, Lucknow. Permission status is shared for each plot with its price.
-- Public LDA scheme: not announced as of 22 October 2026
-- Prices: shared on enquiry
+- Area: about 1,054 ha (about 2,604 acres) on Sultanpur Road, connected to Kisan Path, Mohanlalganj tehsil
+- Land: about 500 ha through land pooling, about 200 ha gram samaj land in legal process, about 300 ha to be acquired from farmers who did not join pooling (compensation 4x circle rate in rural areas) (Amar Ujala, 6 Oct 2026)
+- 11 villages: Bakkas, Sikandarpur Amoliya, Siddhpura, Parehta, Rakibabad, Mohari Khurd, Mohari Kalan, Khujauli, Bhatwara, Sonai Kanjehra, Pahadnagar Tikariya
+- Farmer allotments: three 2026 lotteries, 2,197 plots to 1,465 farmers in sectors 9, 15, 16, 17, 18 and 30; land-pooling farmers get 25% of their land back as developed plots
+- Public launch: 23 November 2026 with Saumitra Vihar (CM Yogi Adityanath and Defence Minister Rajnath Singh); public plot registration opens; plot count, sizes, rate and last date not published as of 10 Nov 2026 (Hindustan, 4 Nov 2026)
+- Expected rate: about Rs 4,000 per sq ft (LDA secretary, 27 Oct 2026) to Rs 4,200 per sq ft (4 Nov 2026 report); not notified
+- LDA board proposal, 2 Nov 2026: land for companies and institutions at about 40% below the residential rate
+- Transfer rule: phase-1 land is notified; a farmer plot can be sold only with the District Collector's prior written permission. Permission status is shared for each plot with its price
+- Lottery applications go only through LDA (ldalucknow.in); this service handles resale of farmer plots
 - Contact: WhatsApp / call +91 95541 02933
 - Page: https://lucknowitcity.in/
 
-## Plot sizes
-- 35 m² (377 sq ft, 42 sq yd)
-- 72 m² (775 sq ft, 86 sq yd)
-- 128 m² (1,378 sq ft, 153 sq yd)
-- 162 m² (1,744 sq ft, 194 sq yd)
-- 200 m² (2,153 sq ft, 239 sq yd)
-- 288 m² (3,100 sq ft, 344 sq yd)
+## Farmer plot sizes, with land cost at the reported Rs 4,200 per sq ft (not notified; LDA charges extra)
+- 35 m² (377 sq ft, 42 sq yd): ≈ ₹15.8 lakh
+- 72 m² (775 sq ft, 86 sq yd): ≈ ₹32.6 lakh
+- 128 m² (1,378 sq ft, 153 sq yd): ≈ ₹57.9 lakh
+- 162 m² (1,744 sq ft, 194 sq yd): ≈ ₹73.2 lakh
+- 200 m² (2,153 sq ft, 239 sq yd): ≈ ₹90.4 lakh
+- 288 m² (3,100 sq ft, 344 sq yd): ≈ ₹130.2 lakh

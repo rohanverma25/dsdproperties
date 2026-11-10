@@ -9,8 +9,9 @@
 $site = 'https://lucknowitcity.in/';
 $phone = '919554102933';
 $phoneShow = '+91 95541 02933';
-$updated = '22 October 2026';
-$updatedIso = '2026-10-22';   // change both dates whenever $sizes changes
+$updated = '10 November 2026';
+$updatedIso = '2026-11-10';   // change both dates whenever $sizes changes
+$rateSqft = 4200;             // REPORTED proposed rate per sq ft (Amar Ujala, 4 Nov 2026; HT 27 Oct said about 4,000). Not notified; always say "reported"
 $geo = [26.752822, 81.052238];
 
 $sizes = [
@@ -28,24 +29,26 @@ $sqft = function ($m) { return number_format($m * 10.7639); };
 $sqyd = function ($m) { return number_format($m * 1.19599); };
 $open = array_values(array_filter($sizes, function ($s) { return $s[1] !== 'sold'; }));
 $list = implode(', ', array_map(function ($s) { return $s[0]; }, $open));
-$use = [35 => 'Compact plot for a small home', 72 => 'Popular size for a 2-storey family home', 128 => 'Room for a 3–4 bedroom house',
-        162 => 'Larger home with a front lawn', 200 => 'Spacious bungalow-size plot', 288 => 'Largest size, for a villa'];
+$lakh = function ($m) use ($rateSqft) { return number_format($m * 10.7639 * $rateSqft / 100000, 1); };
+$use = [35 => 'Entry size; a small house on about 377 sq ft of land', 72 => 'Ground-plus-one family house, about 775 sq ft per floor',
+        128 => 'Three bedrooms with car parking on a 1,378 sq ft plot', 162 => 'Room for a home office or rental floor alongside the family home',
+        200 => 'Independent-floor potential on about 2,150 sq ft', 288 => 'Biggest farmer-allotment size, about 3,100 sq ft'];
 
 $faq = [
-    ['Are IT City Lucknow plots available for sale?', 'Yes. Plots of ' . $list . ' m² are on offer from landowners who received developed plots in LDA\'s IT City through land pooling (listing updated ' . $updated . '). Message us on WhatsApp for the current price of a size.'],
-    ['Can IT City plots be legally bought and sold?', 'In the notified Phase-1 area, a land transaction needs prior written permission from the District Collector (Lucknow). We share the permission status of each plot along with its price, and you should register only after that permission is in place.'],
-    ['What plot sizes are there in IT City Lucknow?', 'Plots in IT City come in ' . $list . ' m² sizes, from about ' . $sqft(35) . ' sq ft to ' . $sqft(288) . ' sq ft.'],
-    ['Where is IT City Lucknow?', 'IT City is LDA\'s township on Sultanpur Road in south-east Lucknow, spread over about 1,054 hectares (about 2,604 acres) in 12 villages. It is roughly 15 km from Hazratganj and 16 km from Lucknow airport in a straight line.'],
-    ['Has LDA opened IT City plots for the general public?', 'Not yet. As of ' . $updated . ', LDA has held lotteries only for farmers who gave land through land pooling. A public scheme has not been announced, so resale plots from these landowners are the way to buy now.'],
-    ['Is this the official LDA website?', 'No. This is an independent plot sales service and is not linked to the Lucknow Development Authority. Official LDA schemes and notices are on ldalucknow.in.'],
+    ['When does LDA open IT City plots for the public?', 'According to Hindustan (4 November 2026), the Chief Minister and the Defence Minister will launch IT City together with Saumitra Vihar on 23 November 2026, and plot registration for the general public will open then. The number of plots, sizes, rate and last date had not been published as of ' . $updated . '.'],
+    ['What is the expected rate for IT City plots?', 'No rate has been notified. On 27 October the LDA secretary said about ₹4,000 per sq ft, and a 4 November report put the proposed rate at about ₹4,200 per sq ft. The base costs on this page use ₹4,200 per sq ft only to compare sizes.'],
+    ['How is the 1,054-hectare IT City land being assembled?', 'About 500 ha came through land pooling, about 200 ha is gram samaj land still in legal process, and LDA plans to acquire the remaining 300 ha from farmers who did not join pooling, at four times the circle rate in rural areas (Amar Ujala, 6 October 2026).'],
+    ['Who is selling these IT City plots?', 'Farmers who gave land through land pooling and got 25% of it back as developed plots. By mid-October 2026, three lotteries had allotted 2,197 plots to 1,465 farmers in sectors 9, 15, 16, 17, 18 and 30.'],
+    ['Do I need permission to buy a farmer\'s plot in IT City?', 'Yes. The phase-1 area is notified, so a transfer needs the District Collector\'s prior written permission. We give each plot\'s permission status with its price. Register only after the permission and the seller\'s allotment letter have been checked.'],
+    ['Is this the official LDA website?', 'No. We are an independent resale service with no link to the Lucknow Development Authority. LDA publishes its own schemes and notices only on ldalucknow.in.'],
 ];
 ?><!doctype html>
 <html lang="en-IN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>IT City Lucknow Plots for Sale | <?php echo $list; ?> m² Plots · Sultanpur Road</title>
-<meta name="description" content="Plots for sale in LDA IT City, Sultanpur Road, Lucknow: <?php echo $list; ?> m² sizes from landowners. See sizes in sq ft and sq yd, check the DM permission status, and get prices on WhatsApp. आईटी सिटी लखनऊ प्लॉट।">
+<title>IT City Lucknow Plots: 23 Nov Launch, Expected Rate & Farmer Resale Plots</title>
+<meta name="description" content="LDA IT City, Sultanpur Road: public registration opens with the 23 November launch. Expected rate about ₹4,000–4,200/sq ft, cost by plot size, 11 villages, and farmers' resale plots of <?php echo $list; ?> m² available now. आईटी सिटी लखनऊ प्लॉट।">
 <meta name="keywords" content="IT City Lucknow plots, IT City Lucknow plot for sale, LDA IT City plot, IT City Sultanpur Road, IT City Lucknow plot size, IT City Lucknow price, आईटी सिटी लखनऊ प्लॉट, LDA land pooling plot Lucknow">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#0b2545">
@@ -53,8 +56,8 @@ $faq = [
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_IN">
 <meta property="og:site_name" content="IT City Lucknow Plots">
-<meta property="og:title" content="IT City Lucknow Plots for Sale | <?php echo $list; ?> m²">
-<meta property="og:description" content="Plots in LDA IT City, Sultanpur Road, Lucknow. All six sizes on offer. Price and DM permission status on WhatsApp.">
+<meta property="og:title" content="IT City Lucknow: launch on 23 Nov, resale plots now">
+<meta property="og:description" content="Expected rate, cost for each plot size, and farmers' allotted plots you can buy before the public lottery.">
 <meta property="og:url" content="<?php echo $site; ?>">
 <meta property="og:image" content="<?php echo $site; ?>og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -73,7 +76,7 @@ echo json_encode(['@context' => 'https://schema.org', '@graph' => [
   ['@type' => 'WebPage', '@id' => $site . '#webpage', 'url' => $site, 'name' => 'IT City Lucknow plots for sale', 'isPartOf' => ['@id' => $site . '#website'],
    'about' => ['@id' => $site . '#place'], 'mainEntity' => ['@id' => $site . '#plots'], 'dateModified' => $updatedIso, 'inLanguage' => 'en-IN', 'primaryImageOfPage' => $site . 'og-image.jpg'],
   ['@type' => 'Place', '@id' => $site . '#place', 'name' => 'IT City Lucknow', 'alternateName' => ['LDA IT City', 'आईटी सिटी लखनऊ'],
-   'description' => 'Township of the Lucknow Development Authority on Sultanpur Road, about 1,054 hectares in 12 villages, developed through land pooling.',
+   'description' => 'Lucknow Development Authority scheme of about 1,054 hectares on Sultanpur Road, linked to Kisan Path, spread over 11 villages of Mohanlalganj; land assembled mainly through land pooling.',
    'geo' => ['@type' => 'GeoCoordinates', 'latitude' => $geo[0], 'longitude' => $geo[1]],
    'address' => ['@type' => 'PostalAddress', 'streetAddress' => 'Sultanpur Road', 'addressLocality' => 'Lucknow', 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
   ['@type' => 'RealEstateAgent', '@id' => $site . '#agent', 'name' => 'IT City Lucknow Plots', 'url' => $site, 'telephone' => '+' . $phone, 'image' => $site . 'og-image.jpg',
@@ -82,7 +85,7 @@ echo json_encode(['@context' => 'https://schema.org', '@graph' => [
    'itemListElement' => array_map(function ($s, $i) use ($site, $sqft, $updatedIso) {
        return ['@type' => 'ListItem', 'position' => $i + 1, 'item' => ['@type' => 'Product',
          'name' => $s[0] . ' m² residential plot, IT City, Sultanpur Road, Lucknow',
-         'description' => $s[0] . ' m² (' . $sqft($s[0]) . ' sq ft) residential plot in LDA IT City, Lucknow. Transfer in the notified Phase-1 area needs District Collector permission.',
+         'description' => $s[0] . ' m² (' . $sqft($s[0]) . ' sq ft) plot allotted to a land-pooling farmer in IT City, Lucknow; resale needs the District Collector\'s written permission.',
          'category' => 'Residential plot', 'url' => $site . '#size-' . $s[0],
          'offers' => ['@type' => 'Offer', 'availability' => $s[1] === 'hold' ? 'https://schema.org/LimitedAvailability' : 'https://schema.org/InStock', 'priceCurrency' => 'INR',
                       'validFrom' => $updatedIso, 'seller' => ['@id' => $site . '#agent'], 'areaServed' => ['@id' => $site . '#place']],
@@ -186,7 +189,7 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
       <span>IT City Lucknow Plots<small>Sultanpur Road · Lucknow</small></span>
     </a>
     <nav aria-label="Main">
-      <a class="hide" href="#sizes">Plot sizes</a><a class="hide" href="#location">Location</a><a class="hide" href="#faq">FAQ</a>
+      <a class="hide" href="#launch">23 Nov launch</a><a class="hide" href="#sizes">Sizes & cost</a><a class="hide" href="#location">Location</a><a class="hide" href="#faq">FAQ</a>
       <a class="btn wa" style="padding:9px 14px;font-size:14px" href="<?php echo $e($wa('Hello, please share IT City Lucknow plot sizes and prices.')); ?>" target="_blank" rel="noopener">WhatsApp</a>
     </nav>
   </div>
@@ -196,50 +199,61 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
   <div class="wrap">
     <div>
       <span class="kicker">LDA IT City · Sultanpur Road · Lucknow</span>
-      <h1>IT City Lucknow plots for sale, <em>every size.</em></h1>
-      <p class="lead">Plots of <?php echo $list; ?> m² in LDA's IT City township, offered by landowners who received developed plots through land pooling. Pick a size and get the price and permission status on WhatsApp.</p>
-      <p class="hi">आईटी सिटी लखनऊ में <?php echo $list; ?> वर्ग मीटर के प्लॉट उपलब्ध। कीमत और DM परमिशन की जानकारी WhatsApp पर।</p>
+      <h1>IT City Lucknow plots, <em>before and after the launch.</em></h1>
+      <p class="lead">LDA opens IT City to the public on 23 November 2026, when registration starts for its own plots. Until the lottery result, the only plots you can actually buy are the ones already allotted to land-pooling farmers, in sizes of <?php echo $list; ?> m².</p>
+      <p class="hi">आईटी सिटी का शुभारंभ 23 नवंबर को। लॉटरी से पहले खरीदने के लिए किसानों को आवंटित <?php echo $list; ?> वर्ग मीटर के प्लॉट उपलब्ध।</p>
       <div class="acts">
         <a class="btn" href="#sizes" style="background:#7fe0ec;border-color:#7fe0ec;color:#0b2545">See plot sizes ↓</a>
         <a class="btn ghost" href="<?php echo $e($wa('Hello, I want to buy a plot in IT City Lucknow. Please share sizes and prices.')); ?>" target="_blank" rel="noopener">Ask on WhatsApp</a>
       </div>
     </div>
     <div class="stats" aria-label="Summary">
-      <div class="stat"><b><?php echo count($open); ?></b><span>plot sizes on offer</span></div>
-      <div class="stat"><b><?php echo min(array_column($open, 0)); ?>–<?php echo max(array_column($open, 0)); ?></b><span>m² plot sizes</span></div>
-      <div class="stat"><b>≈ 1,054 ha</b><span>IT City township area</span></div>
-      <div class="stat"><b>≈ 15 km</b><span>from Hazratganj</span></div>
+      <div class="stat"><b>23 Nov</b><span>public launch and registration</span></div>
+      <div class="stat"><b>₹4,000–4,200</b><span>per sq ft, reported proposed rate</span></div>
+      <div class="stat"><b>2,197</b><span>plots allotted to farmers so far</span></div>
+      <div class="stat"><b>≈ 1,054 ha</b><span>scheme area in 11 villages</span></div>
     </div>
   </div>
 </section>
-<div class="strip"><div class="wrap">Listing updated <strong><?php echo $updated; ?></strong>. Independent plot sales service, not the official LDA website. Transfers in the notified Phase-1 area need prior written District Collector permission.</div></div>
+<div class="strip"><div class="wrap">Updated <strong><?php echo $updated; ?></strong>. Independent resale service, not LDA. Farmer plots in the notified phase-1 area change hands only with the District Collector's written permission.</div></div>
 
 <main>
 <section class="band" id="facts" style="padding:44px 0">
   <div class="wrap">
     <div class="facts">
-      <h2>IT City Lucknow at a glance</h2>
+      <h2>IT City facts that matter to a buyer</h2>
       <dl>
-        <div><dt>Scheme</dt><dd>IT City, a township of the Lucknow Development Authority (LDA), developed through land pooling</dd></div>
-        <div><dt>Location</dt><dd>Sultanpur Road, south-east Lucknow; about 15 km from Hazratganj</dd></div>
-        <div><dt>Area</dt><dd>About 1,054 hectares (about 2,604 acres) across 12 villages</dd></div>
-        <div><dt>Plot sizes on offer</dt><dd><?php echo implode(' · ', array_map(function ($s) use ($sqft) { return $s[0] . ' m² (' . $sqft($s[0]) . ' sq ft)'; }, $open)); ?></dd></div>
-        <div><dt>Who is selling</dt><dd>Landowners who received developed plots in LDA's land-pooling lotteries (25% of land returned as plots)</dd></div>
-        <div><dt>Allotments so far</dt><dd>3 lotteries in 2026; 2,197 plots to 1,465 farmers in sectors 9, 15, 16, 17, 18 and 30 (Amar Ujala, 14 Oct 2026)</dd></div>
-        <div><dt>Transfer rule</dt><dd>In the notified Phase-1 area, a sale needs the District Collector's prior written permission</dd></div>
-        <div><dt>Public LDA scheme</dt><dd>Not announced as of <?php echo $updated; ?></dd></div>
+        <div><dt>Scheme area</dt><dd>About 1,054 ha (about 2,604 acres) on Sultanpur Road, connected to Kisan Path</dd></div>
+        <div><dt>How land came in</dt><dd>~500 ha by land pooling, ~200 ha gram samaj land, ~300 ha to be acquired at 4× circle rate (rural)</dd></div>
+        <div><dt>Villages</dt><dd>Bakkas, Sikandarpur Amoliya, Siddhpura, Parehta, Rakibabad, Mohari Khurd, Mohari Kalan, Khujauli, Bhatwara, Sonai Kanjehra, Pahadnagar Tikariya</dd></div>
+        <div><dt>Farmer plots</dt><dd>2,197 plots to 1,465 farmers in three 2026 lotteries, sectors 9, 15, 16, 17, 18 and 30</dd></div>
+        <div><dt>Public launch</dt><dd>23 November 2026 with Saumitra Vihar; public plot registration opens; farmers get allotment letters</dd></div>
+        <div><dt>Expected rate</dt><dd>About ₹4,000 per sq ft (LDA secretary, 27 Oct) to ₹4,200 (4 Nov report); not notified</dd></div>
+        <div><dt>For companies</dt><dd>LDA board proposal (2 Nov): land for companies and institutions at about 40% below the residential rate</dd></div>
+        <div><dt>Transfers</dt><dd>Phase-1 land is notified; a farmer plot is sold only with the District Collector's prior written permission</dd></div>
       </dl>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="launch">
+  <div class="wrap">
+    <div class="head"><span class="kicker">Lottery or resale?</span><h2>Two ways into IT City after 23 November</h2><p>The launch opens a public lottery for LDA's own plots, but registering is not the same as getting a plot. Here is how the two routes compare.</p></div>
+    <div class="grid3">
+      <div class="card"><span class="n">ROUTE A</span><h3>Apply in LDA's lottery</h3><p>You pay at LDA's notified rate, but only if your name comes out in the draw. Plot counts, sizes and the last date were not published as of <?php echo $updated; ?>.</p></div>
+      <div class="card"><span class="n">ROUTE B</span><h3>Buy a farmer's allotted plot</h3><p>The plot, its sector and its size are known today. The price is agreed with the farmer, and the transfer needs the District Collector's permission.</p></div>
+      <div class="card"><span class="n">BOTH</span><h3>Check before paying</h3><p>For a lottery, use only LDA's own portal. For resale, match the allotment letter, the seller's ID and the plot number on LDA's layout.</p></div>
     </div>
   </div>
 </section>
 
 <section class="band" id="sizes">
   <div class="wrap">
-    <div class="head"><span class="kicker">Available now</span><h2>Choose your plot size</h2><p>All six sizes are on offer. Each card has its own WhatsApp button, so we know which size you want and can send the price, sector and permission status.</p></div>
+    <div class="head"><span class="kicker">Farmer plot sizes</span><h2>What each size would cost at the expected rate</h2><p>Every card works out the land cost at ₹<?php echo number_format($rateSqft); ?> per sq ft, the rate reported for LDA's public launch, so you can weigh a resale price against it. The rate is not notified yet and excludes LDA's other charges.</p></div>
     <div class="sizes">
       <?php foreach ($open as $k => $s): [$m, $status] = $s;
         $w = 40 + $m / 288 * 170; $h = 22 + $m / 288 * 64;     // drawn to scale against the 288 m² plot
-        $msg = "Hello, I'm interested in a $m m² (" . $sqft($m) . " sq ft) plot in IT City, Lucknow. Please share the price, sector, road width and DM permission status.";
+        $msg = "Hello, I want an IT City farmer plot of $m m² (" . $sqft($m) . " sq ft). Which sector is it in, what is the asking price, and is DM permission granted?";
       ?>
       <article class="size" id="size-<?php echo $m; ?>">
         <div class="vis" aria-hidden="true">
@@ -259,20 +273,21 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
           <p class="use"><?php echo $e($use[$m] ?? 'Residential plot'); ?></p>
           <div class="specs">
             <div><strong><?php echo $sqyd($m); ?></strong>sq yd (gaj)</div>
+            <div><strong>≈ ₹<?php echo $lakh($m); ?> lakh</strong>at ₹<?php echo number_format($rateSqft); ?>/sq ft expected rate</div>
           </div>
         </div>
         <div class="go"><a class="btn wa" href="<?php echo $e($wa($msg)); ?>" target="_blank" rel="noopener">Get price for <?php echo $m; ?> m²</a></div>
       </article>
       <?php endforeach; ?>
     </div>
-    <div class="rule"><strong>Before you pay:</strong> IT City's Phase-1 area is notified, so a plot can be registered only with the District Collector's prior written permission. We share each plot's permission status with its price. Also ask for the LDA allotment letter in the seller's name and the plot's sector and number on the LDA layout.
+    <div class="rule"><strong>Farmer plots need a permission step:</strong> the phase-1 area is notified, so no sale deed should be signed until the District Collector has given written permission for that plot. Ask the seller for the lottery allotment letter in their own name; farmers are due to receive letters at the 23 November event.
       <a href="https://www.hindustantimes.com/cities/lucknow-news/lda-prohibits-land-deals-in-phase-1-of-it-city-wellness-city-projects-101780758619729.html" target="_blank" rel="noopener" style="color:#7a4d0b;font-weight:700">Read the report ↗</a></div>
     <details class="fulllist">
-      <summary>See all sizes as a table</summary>
+      <summary>All sizes and costs in a table</summary>
       <div style="overflow-x:auto"><table>
-        <caption>IT City Lucknow plot sizes on offer, <?php echo $updated; ?></caption>
-        <thead><tr><th>Size (m²)</th><th>Sq ft</th><th>Sq yd (gaj)</th><th>Status</th></tr></thead>
-        <tbody><?php foreach ($open as $s): ?><tr><td><?php echo $s[0]; ?> m²</td><td><?php echo $sqft($s[0]); ?></td><td><?php echo $sqyd($s[0]); ?></td><td><?php echo $s[1] === 'hold' ? 'On hold' : 'Available'; ?></td></tr><?php endforeach; ?></tbody>
+        <caption>Land cost at the reported ₹<?php echo number_format($rateSqft); ?>/sq ft (not notified; LDA charges extra), <?php echo $updated; ?></caption>
+        <thead><tr><th>Size (m²)</th><th>Sq ft</th><th>Sq yd (gaj)</th><th>At expected rate</th><th>Status</th></tr></thead>
+        <tbody><?php foreach ($open as $s): ?><tr><td><?php echo $s[0]; ?> m²</td><td><?php echo $sqft($s[0]); ?></td><td><?php echo $sqyd($s[0]); ?></td><td>₹<?php echo $lakh($s[0]); ?> lakh</td><td><?php echo $s[1] === 'hold' ? 'On hold' : 'Available'; ?></td></tr><?php endforeach; ?></tbody>
       </table></div>
     </details>
   </div>
@@ -280,11 +295,11 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
 
 <section class="band" id="how">
   <div class="wrap">
-    <div class="head"><span class="kicker">How it works</span><h2>Buying an IT City plot, step by step</h2></div>
+    <div class="head"><span class="kicker">Resale, in practice</span><h2>How a farmer-plot purchase goes</h2></div>
     <div class="grid3">
-      <div class="card"><span class="n">STEP 1</span><h3>Pick a size</h3><p>Tap "Get price" on a size. We reply with the asking price, sector, road width and the plot's permission status.</p></div>
-      <div class="card"><span class="n">STEP 2</span><h3>See the plot and papers</h3><p>We arrange a site visit and share the LDA allotment letter and the plot's position on the layout.</p></div>
-      <div class="card"><span class="n">STEP 3</span><h3>Permission, then registry</h3><p>Pay and register only once the District Collector's permission for the transfer is in place.</p></div>
+      <div class="card"><span class="n">1 · MATCH</span><h3>Tell us size and sector</h3><p>We check which allotted plots in sectors 9, 15, 16, 17, 18 or 30 fit your size and budget, and send the asking price for each.</p></div>
+      <div class="card"><span class="n">2 · INSPECT</span><h3>Walk the plot</h3><p>Visit the sector with us, see the road in front and the neighbouring plots, and go through the farmer's allotment papers.</p></div>
+      <div class="card"><span class="n">3 · TRANSFER</span><h3>Permission, then deed</h3><p>Once the District Collector's written permission is issued for the plot, the sale deed is registered. Not before.</p></div>
     </div>
   </div>
 </section>
@@ -294,7 +309,7 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
     <div>
       <span class="kicker">Location</span>
       <h2 style="font-size:clamp(27px,3.6vw,40px);margin:8px 0 12px">Where IT City is</h2>
-      <p style="color:var(--muted);margin:0">IT City is LDA's township on Sultanpur Road in south-east Lucknow, spread over about 1,054 hectares in 12 villages. LDA is planning roads, sewers and drinking water across the scheme's villages.</p>
+      <p style="color:var(--muted);margin:0">IT City lies along Sultanpur Road in Mohanlalganj tehsil and connects to Kisan Path, the outer ring road. Its 11 villages run from Bakkas and Parehta to Sonai Kanjehra and Pahadnagar Tikariya. Wellness City, the other LDA land-pooling scheme in this belt, is next door.</p>
       <ul class="dist"><li>Hazratganj <b>≈ 15.1 km</b></li><li>Charbagh railway station <b>≈ 15.8 km</b></li><li>Lucknow airport <b>≈ 16.2 km</b></li></ul>
       <p style="font-size:13px;color:var(--muted)">Straight-line distances from the scheme centre; road distances are longer.</p>
       <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px">
@@ -308,27 +323,27 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
 
 <section class="band" id="hindi" lang="hi">
   <div class="wrap">
-    <div class="head"><span class="kicker">हिंदी में</span><h2>आईटी सिटी लखनऊ में प्लॉट खरीदें</h2>
-      <p>लखनऊ विकास प्राधिकरण (LDA) की आईटी सिटी योजना, सुल्तानपुर रोड, में <?php echo $list; ?> वर्ग मीटर के प्लॉट उपलब्ध हैं। ये प्लॉट उन भू-स्वामियों के हैं जिन्हें लैंड पूलिंग में विकसित प्लॉट मिले हैं। कीमत, सेक्टर और परमिशन की जानकारी के लिए साइज़ चुनकर WhatsApp करें।</p></div>
+    <div class="head"><span class="kicker">हिंदी में</span><h2>आईटी सिटी लखनऊ: 23 नवंबर को शुभारंभ</h2>
+      <p>मुख्यमंत्री और रक्षामंत्री 23 नवंबर 2026 को आईटी सिटी का शुभारंभ करेंगे और आम लोगों के लिए प्लॉट पंजीकरण खुलेगा। प्रस्तावित दर करीब ₹4,000 से ₹4,200 प्रति वर्गफुट बताई गई है, जो अभी अधिसूचित नहीं है। लॉटरी से पहले खरीदना हो तो लैंड पूलिंग वाले किसानों को आवंटित <?php echo $list; ?> वर्ग मीटर के प्लॉट मिल सकते हैं।</p></div>
     <div class="grid3">
-      <div class="card"><h3>परमिशन ज़रूरी</h3><p>Phase-1 के अधिसूचित क्षेत्र में बिक्री के लिए जिलाधिकारी (DM) की पहले से लिखित अनुमति चाहिए। हर प्लॉट की परमिशन स्थिति हम कीमत के साथ बताते हैं।</p></div>
-      <div class="card"><h3>कागज़ जांचें</h3><p>विक्रेता के नाम LDA का आवंटन पत्र, लेआउट में प्लॉट का सेक्टर और नंबर ज़रूर देखें।</p></div>
-      <div class="card"><h3>क्या यह LDA की साइट है?</h3><p>नहीं। यह एक स्वतंत्र प्लॉट बिक्री सेवा है। LDA की योजनाएं सिर्फ ldalucknow.in पर देखें।</p></div>
+      <div class="card"><h3>11 गांव, 1,054 हेक्टेयर</h3><p>बक्कास, सिकंदरपुर अमोलिया, सिद्धपुरा, परेहटा, रकीबाबाद, मोहारी खुर्द, मोहारी कलां, खुजौली, भटवारा, सोनई कंजेहरा और पहाड़नगर टिकरिया।</p></div>
+      <div class="card"><h3>किसानों के प्लॉट</h3><p>तीन लॉटरी में 1,465 किसानों को 2,197 प्लॉट मिले। इन्हें बेचने से पहले जिलाधिकारी की लिखित अनुमति ज़रूरी है; हर प्लॉट की स्थिति हम कीमत के साथ बताते हैं।</p></div>
+      <div class="card"><h3>LDA की साइट नहीं</h3><p>हम एक स्वतंत्र रीसेल सेवा हैं। लॉटरी का पंजीकरण सिर्फ LDA के अपने पोर्टल ldalucknow.in से करें।</p></div>
     </div>
   </div>
 </section>
 
 <section class="band" id="faq">
   <div class="wrap faq">
-    <div class="head"><span class="kicker">Questions</span><h2>IT City Lucknow plots: common questions</h2></div>
+    <div class="head"><span class="kicker">Questions</span><h2>IT City Lucknow: launch, rate and resale questions</h2></div>
     <?php foreach ($faq as $q): ?><details><summary><?php echo $e($q[0]); ?></summary><p><?php echo $e($q[1]); ?></p></details><?php endforeach; ?>
   </div>
 </section>
 
 <section class="band" style="border-bottom:0">
   <div class="wrap"><div class="cta">
-    <div><h2>Tell us the size you want</h2><p>We'll send the price, sector, road width and permission status for that size.</p></div>
-    <div class="acts"><a class="btn wa" href="<?php echo $e($wa('Hello, I want to buy a plot in IT City Lucknow. Please share sizes and prices.')); ?>" target="_blank" rel="noopener">WhatsApp us</a>
+    <div><h2>Don't want to wait for the lottery draw?</h2><p>Tell us your size and sector. We send farmer plots that match, with price and permission status.</p></div>
+    <div class="acts"><a class="btn wa" href="<?php echo $e($wa('Hello, I want an IT City plot without waiting for the lottery. My size, sector and budget:')); ?>" target="_blank" rel="noopener">Find me a plot</a>
       <a class="btn ghost" href="tel:+<?php echo $phone; ?>">Call <?php echo $e($phoneShow); ?></a></div>
   </div></div>
 </section>
@@ -336,7 +351,7 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
 
 <footer class="foot"><div class="wrap">
   <p><strong>IT City Lucknow Plots</strong> · <?php echo $e($phoneShow); ?></p>
-  <p>An independent plot sales service. Not affiliated with, or endorsed by, the Lucknow Development Authority (LDA). Official LDA schemes and notices are on <a href="https://ldalucknow.in/" target="_blank" rel="noopener" style="color:var(--navy2)">ldalucknow.in</a>. Transfers in IT City's notified Phase-1 area need prior written permission from the District Collector; confirm the plot, seller records and permission before paying.</p>
+  <p>We arrange resale of plots that LDA allotted to IT City's land-pooling farmers. We have no connection with the Lucknow Development Authority, and we do not take lottery applications; those go only through <a href="https://ldalucknow.in/" target="_blank" rel="noopener" style="color:var(--navy2)">ldalucknow.in</a>. Rates quoted here are reported, not notified. Every farmer-plot sale in phase 1 needs the District Collector's written permission before the deed.</p>
 </div></footer>
 
 <div class="sticky-wa"><a class="btn wa" href="<?php echo $e($wa('Hello, please share IT City Lucknow plot sizes and prices.')); ?>" target="_blank" rel="noopener">WhatsApp for plot prices</a></div>
