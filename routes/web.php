@@ -860,6 +860,7 @@ Route::prefix('admin/whatsapp')->name('admin.whatsapp.')->group(function () {
     // private disk so files never sit under the web root.
     Route::post('chat/{chat}/media',   [WhatsAppController::class, 'sendMedia'])->name('media.send');
     Route::get('media/{message}',      [WhatsAppController::class, 'media'])->name('media');
+    Route::get('avatar/{chat}',        [WhatsAppController::class, 'avatar'])->name('avatar');
 
     Route::post('chat/{chat}/label',   [WhatsAppController::class, 'toggleLabel'])->name('label.toggle');
 

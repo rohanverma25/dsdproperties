@@ -147,8 +147,10 @@
                            'flex items-center gap-3 px-3 py-3 transition-colors hover:bg-slate-50',
                            'bg-brandTeal/10' => $chat && $chat->id === $row->id,
                        ])>
-                        <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brandNavy text-xs font-bold text-white">
+                        <span class="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-brandNavy text-xs font-bold text-white">
                             {{ $row->initials }}
+                            <img src="{{ route('admin.whatsapp.avatar', $row) }}" alt="" loading="lazy" decoding="async"
+                                 class="absolute inset-0 h-full w-full object-cover" onerror="this.remove()">
                         </span>
                         <span class="min-w-0 flex-1">
                             <span class="flex items-baseline gap-2">
@@ -196,8 +198,10 @@
                     <a href="{{ route('admin.whatsapp.index') }}" class="btn-ghost btn-sm lg:hidden" aria-label="Back to chats">
                         <i class="fa-solid fa-arrow-left"></i>
                     </a>
-                    <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brandNavy text-xs font-bold text-white">
+                    <span class="relative grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-brandNavy text-xs font-bold text-white">
                         {{ $chat->initials }}
+                        <img src="{{ route('admin.whatsapp.avatar', $chat) }}" alt="" loading="lazy" decoding="async"
+                             class="absolute inset-0 h-full w-full object-cover" onerror="this.remove()">
                     </span>
                     <div class="min-w-0 flex-1">
                         <p class="truncate text-sm font-bold text-brandNavy">{{ $chat->display_name }}</p>

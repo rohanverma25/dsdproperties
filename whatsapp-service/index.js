@@ -918,6 +918,40 @@ app.post('/read', async (req, res) => {
 });
 
 /**
+ * Profile photo (small preview) for one chat, as image bytes.
+ * 404 when the person has no photo or hides it from us. Lookups run one at a
+ * time so a full chat list cannot trip WhatsApp's rate limit; Laravel caches
+ * the result for a day.
+ */
+let avatarQueue = Promise.resolve();
+
+app.get('/avatar', async (req, res) => {
+    const jid = String(req.query.jid || '');
+
+    if (!jid) return res.status(422).json({ ok: false, error: 'jid is required' });
+    if (state.connection !== 'open' || !sock) {
+        return res.status(503).json({ ok: false, error: 'WhatsApp is not connected' });
+    }
+
+    const job = avatarQueue.then(async () => {
+        const url = await sock.profilePictureUrl(toJid(jid), 'preview').catch(() => null);
+        if (!url) return null;
+        const r = await fetch(url, { signal: AbortSignal.timeout(10000) });
+        if (!r.ok) return null;
+        return { mime: r.headers.get('content-type') || 'image/jpeg', buf: Buffer.from(await r.arrayBuffer()) };
+    });
+    avatarQueue = job.catch(() => null);
+
+    try {
+        const pic = await job;
+        if (!pic) return res.status(404).json({ ok: false, error: 'no photo' });
+        res.set('Content-Type', pic.mime).send(pic.buf);
+    } catch (e) {
+        res.status(500).json({ ok: false, error: e.message });
+    }
+});
+
+/**
  * Fan a notification out to the browsers Laravel knows about.
  *
  * Returns a verdict per endpoint so Laravel can delete the dead ones — a 404

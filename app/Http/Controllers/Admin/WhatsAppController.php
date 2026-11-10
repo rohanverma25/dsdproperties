@@ -326,6 +326,37 @@ class WhatsAppController extends Controller
         );
     }
 
+    /**
+     * The contact's WhatsApp profile photo, cached on the private disk for a day.
+     * "No photo" is cached too (an empty file), so hidden DPs are not re-asked
+     * on every page load. 404 makes the page fall back to the initials.
+     */
+    public function avatar(WaChat $chat)
+    {
+        $disk = Storage::disk(config('whatsapp.media.disk'));
+        $path = "wa-avatars/{$chat->id}.img";
+        $fresh = $disk->exists($path) && $disk->lastModified($path) > now()->subDay()->getTimestamp();
+
+        if (! $fresh) {
+            $jid = $chat->phone ? $chat->phone . '@s.whatsapp.net' : $chat->jid;
+            $pic = $this->gateway->avatar($jid);
+
+            if ($pic === null) {
+                // Gateway down: serve yesterday's photo if we have one.
+                abort_unless($disk->exists($path) && $disk->size($path) > 0, 404);
+            } else {
+                $disk->put($path, $pic === false ? '' : $pic['body']);
+            }
+        }
+
+        abort_if($disk->size($path) === 0, 404);
+
+        return response($disk->get($path), 200, [
+            'Content-Type'  => 'image/jpeg',
+            'Cache-Control' => 'private, max-age=86400',
+        ]);
+    }
+
     /** Send a photo or a document from the composer's paperclip. */
     public function sendMedia(Request $request, WaChat $chat)
     {

@@ -142,6 +142,30 @@ class WhatsAppGateway
         return $res->json('results') ?: [];
     }
 
+    /**
+     * Profile photo bytes for a jid.
+     *
+     * @return array{mime:string, body:string}|false|null  false = no photo / hidden,
+     *         null = gateway down or WhatsApp not connected (try again later)
+     */
+    public function avatar(string $jid): array|false|null
+    {
+        try {
+            $res = $this->request()->timeout(25)->get('/avatar', ['jid' => $jid]);
+        } catch (\Throwable $e) {
+            return null;
+        }
+
+        if ($res->status() === 404) {
+            return false;
+        }
+        if ($res->failed()) {
+            return null;
+        }
+
+        return ['mime' => $res->header('Content-Type') ?: 'image/jpeg', 'body' => $res->body()];
+    }
+
     /** Drop the session so the next scan can link a different number. */
     public function logout(): void
     {
