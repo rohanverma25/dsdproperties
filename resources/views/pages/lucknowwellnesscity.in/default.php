@@ -9,8 +9,9 @@
 $site = 'https://lucknowwellnesscity.in/';
 $phone = '919554102933';
 $phoneShow = '+91 95541 02933';
-$updated = '22 October 2026';
-$updatedIso = '2026-10-22';   // change both dates whenever $sizes changes
+$updated = '10 November 2026';
+$updatedIso = '2026-11-10';   // change both dates whenever $sizes changes
+$rate = 54559.17;             // LDA's PROPOSED rate per m² (finance controller's order, 30 June 2026); always call it "proposed"
 $geo = [26.80505, 81.06107];
 
 $sizes = [
@@ -28,24 +29,26 @@ $sqft = function ($m) { return number_format($m * 10.7639); };
 $sqyd = function ($m) { return number_format($m * 1.19599); };
 $open = array_values(array_filter($sizes, function ($s) { return $s[1] !== 'sold'; }));
 $list = implode(', ', array_map(function ($s) { return $s[0]; }, $open));
-$use = [35 => 'Compact plot for a small home', 72 => 'Popular size for a 2-storey family home', 128 => 'Room for a 3–4 bedroom house',
-        162 => 'Larger home with a front lawn', 200 => 'Spacious bungalow-size plot', 288 => 'Largest size, for a villa'];
+$lakh = function ($m) use ($rate) { return number_format($m * $rate / 100000, 1); };   // base cost in ₹ lakh at the proposed rate
+$use = [35 => 'Smallest allotment size; fits a compact single-family house', 72 => 'Two floors of about 775 sq ft each on a narrow frontage',
+        128 => 'Common family size; space for a ground-plus-one with parking', 162 => 'Wider frontage, room for a front setback and garden',
+        200 => 'Suits a four-bedroom home or two independent floors', 288 => 'The largest size in the farmers\' lottery; villa-scale'];
 
 $faq = [
-    ['Are Wellness City Lucknow plots available for sale?', 'Yes. Plots of ' . $list . ' m² are on offer from landowners who received developed plots in LDA\'s Wellness City through land pooling (listing updated ' . $updated . '). Message us on WhatsApp for the current price of a size.'],
-    ['Can Wellness City plots be legally bought and sold?', 'In the notified Phase-1 area, a land transaction needs prior written permission from the District Collector (Lucknow). We share the permission status of each plot along with its price, and you should register only after that permission is in place.'],
-    ['What plot sizes are there in Wellness City Lucknow?', 'Plots in Wellness City come in ' . $list . ' m² sizes, from about ' . $sqft(35) . ' sq ft to ' . $sqft(288) . ' sq ft.'],
-    ['Where is Wellness City Lucknow?', 'Wellness City is LDA\'s health-themed township between Sultanpur Road and Kisan Path in south-east Lucknow, with a dedicated medical and hospital zone. It is about 12 km from Hazratganj and 6 km from IT City in a straight line.'],
-    ['Has LDA opened Wellness City plots for the general public?', 'Not yet. As of ' . $updated . ', LDA has held lotteries only for farmers who gave land through land pooling (the first, of 125 plots, on 30 June 2026). A public scheme has not been announced, so resale plots from these landowners are the way to buy now.'],
-    ['Is this the official LDA website?', 'No. This is an independent plot sales service and is not linked to the Lucknow Development Authority. Official LDA schemes and notices are on ldalucknow.in.'],
+    ['What is the price of a plot in Wellness City Lucknow?', 'LDA\'s finance controller proposed a land rate of ₹54,559.17 per m² (about ₹5,100 per sq ft) in an order of 30 June 2026. That rate is still proposed; on 27 October the LDA secretary said the public rate may be above ₹5,500 per sq ft. Resale asking prices from landowners are set by each seller, so ask us on WhatsApp for the current figure for a size.'],
+    ['Which plot sizes did landowners receive?', 'The first land-pooling lottery on 30 June 2026 gave 125 plots to 59 landowners: 86 of 288 m², 4 of 200 m², 5 of 162 m², 9 of 128 m², 7 of 72 m² and 14 of 35 m². These are the sizes on offer here.'],
+    ['What is planned in the Wellness City hospital zone?', 'The LDA layout keeps about 150 acres for hospitals. LDA has listed super-speciality hospitals, a medical college, diagnostic centres, yoga, meditation and Vipassana centres, and a plan to move the Aminabad wholesale medicine market here. No hospital operator has been named yet.'],
+    ['How big is Wellness City?', 'About 1,474 acres in total across its phases. Phase 1 is 485 ha (about 1,198 acres) in 7 villages of Mohanlalganj tehsil, and the layout for it has roughly 2,000 LDA plots on 76.83 acres, 362.41 acres of group housing and about 200 acres of parks.'],
+    ['Can I register a resale plot in Wellness City now?', 'Phase 1 land has been notified under Section 11 since June 2026, so a transfer needs the District Collector\'s prior written permission. We tell you the permission status of each plot with its price; register only after it is in place and the seller\'s LDA allotment letter has been checked.'],
+    ['Is this the official LDA website?', 'No. This is an independent resale service, not linked to the Lucknow Development Authority. LDA\'s own schemes and notices are only on ldalucknow.in.'],
 ];
 ?><!doctype html>
 <html lang="en-IN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Wellness City Lucknow Plots for Sale | <?php echo $list; ?> m² Plots · Sultanpur Road</title>
-<meta name="description" content="Plots for sale in LDA Wellness City, Sultanpur Road – Kisan Path, Lucknow: <?php echo $list; ?> m² sizes from landowners. See sizes in sq ft and sq yd, check the DM permission status, and get prices on WhatsApp. वेलनेस सिटी लखनऊ प्लॉट।">
+<title>Wellness City Lucknow Plots: Resale Land-Pooling Plots, Rate & Hospital Zone</title>
+<meta name="description" content="Resale plots in LDA Wellness City, Lucknow (Sultanpur Road – Kisan Path): <?php echo $list; ?> m² from the June 2026 farmers' lottery. Proposed LDA rate ₹54,559/m², base cost per size, the 150-acre hospital zone and transfer rules. वेलनेस सिटी लखनऊ प्लॉट।">
 <meta name="keywords" content="Wellness City Lucknow plots, Wellness City Lucknow plot for sale, LDA Wellness City plot, Wellness City Sultanpur Road, Wellness City Lucknow plot size, Wellness City Lucknow price, वेलनेस सिटी लखनऊ प्लॉट, LDA land pooling plot Lucknow">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#0f3d36">
@@ -53,8 +56,8 @@ $faq = [
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_IN">
 <meta property="og:site_name" content="Wellness City Lucknow Plots">
-<meta property="og:title" content="Wellness City Lucknow Plots for Sale | <?php echo $list; ?> m²">
-<meta property="og:description" content="Plots in LDA Wellness City, Sultanpur Road, Lucknow. All six sizes on offer. Price and DM permission status on WhatsApp.">
+<meta property="og:title" content="Wellness City Lucknow resale plots: <?php echo $list; ?> m²">
+<meta property="og:description" content="Land-pooling plots next to LDA's planned hospital zone on Sultanpur Road. Proposed rate, base cost by size and transfer rules.">
 <meta property="og:url" content="<?php echo $site; ?>">
 <meta property="og:image" content="<?php echo $site; ?>og-image.jpg">
 <meta property="og:image:width" content="1200">
@@ -73,7 +76,7 @@ echo json_encode(['@context' => 'https://schema.org', '@graph' => [
   ['@type' => 'WebPage', '@id' => $site . '#webpage', 'url' => $site, 'name' => 'Wellness City Lucknow plots for sale', 'isPartOf' => ['@id' => $site . '#website'],
    'about' => ['@id' => $site . '#place'], 'mainEntity' => ['@id' => $site . '#plots'], 'dateModified' => $updatedIso, 'inLanguage' => 'en-IN', 'primaryImageOfPage' => $site . 'og-image.jpg'],
   ['@type' => 'Place', '@id' => $site . '#place', 'name' => 'Wellness City Lucknow', 'alternateName' => ['LDA Wellness City', 'वेलनेस सिटी लखनऊ'],
-   'description' => 'Health-themed township of the Lucknow Development Authority between Sultanpur Road and Kisan Path, with a medical and hospital zone, developed through land pooling.',
+   'description' => 'The LDA planned "Medi City" of about 1,474 acres between Sultanpur Road and Kisan Path, Mohanlalganj tehsil, with about 150 acres for hospitals and a medical college; land collected through land pooling.',
    'geo' => ['@type' => 'GeoCoordinates', 'latitude' => $geo[0], 'longitude' => $geo[1]],
    'address' => ['@type' => 'PostalAddress', 'streetAddress' => 'Sultanpur Road', 'addressLocality' => 'Lucknow', 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
   ['@type' => 'RealEstateAgent', '@id' => $site . '#agent', 'name' => 'Wellness City Lucknow Plots', 'url' => $site, 'telephone' => '+' . $phone, 'image' => $site . 'og-image.jpg',
@@ -82,7 +85,7 @@ echo json_encode(['@context' => 'https://schema.org', '@graph' => [
    'itemListElement' => array_map(function ($s, $i) use ($site, $sqft, $updatedIso) {
        return ['@type' => 'ListItem', 'position' => $i + 1, 'item' => ['@type' => 'Product',
          'name' => $s[0] . ' m² residential plot, Wellness City, Sultanpur Road, Lucknow',
-         'description' => $s[0] . ' m² (' . $sqft($s[0]) . ' sq ft) residential plot in LDA Wellness City, Lucknow. Transfer in the notified Phase-1 area needs District Collector permission.',
+         'description' => $s[0] . ' m² (' . $sqft($s[0]) . ' sq ft) plot from the LDA land-pooling lottery of 30 June 2026 in Wellness City, Lucknow. Transfer needs District Collector permission under Section 11.',
          'category' => 'Residential plot', 'url' => $site . '#size-' . $s[0],
          'offers' => ['@type' => 'Offer', 'availability' => $s[1] === 'hold' ? 'https://schema.org/LimitedAvailability' : 'https://schema.org/InStock', 'priceCurrency' => 'INR',
                       'validFrom' => $updatedIso, 'seller' => ['@id' => $site . '#agent'], 'areaServed' => ['@id' => $site . '#place']],
@@ -186,7 +189,7 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
       <span>Wellness City Lucknow Plots<small>Sultanpur Road · Kisan Path</small></span>
     </a>
     <nav aria-label="Main">
-      <a class="hide" href="#sizes">Plot sizes</a><a class="hide" href="#location">Location</a><a class="hide" href="#faq">FAQ</a>
+      <a class="hide" href="#sizes">Sizes & cost</a><a class="hide" href="#plan">Hospital zone</a><a class="hide" href="#location">Location</a><a class="hide" href="#faq">FAQ</a>
       <a class="btn wa" style="padding:9px 14px;font-size:14px" href="<?php echo $e($wa('Hello, please share Wellness City Lucknow plot sizes and prices.')); ?>" target="_blank" rel="noopener">WhatsApp</a>
     </nav>
   </div>
@@ -197,37 +200,39 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
     <div>
       <span class="kicker">LDA Wellness City · Sultanpur Road · Lucknow</span>
       <h1>Wellness City Lucknow plots, <em>live close to care.</em></h1>
-      <p class="lead">Plots of <?php echo $list; ?> m² in LDA's health-themed Wellness City, next to its planned medical and hospital zone, offered by landowners who received developed plots through land pooling. Pick a size and get the price and permission status on WhatsApp.</p>
-      <p class="hi">वेलनेस सिटी लखनऊ में <?php echo $list; ?> वर्ग मीटर के प्लॉट उपलब्ध। कीमत और DM परमिशन की जानकारी WhatsApp पर।</p>
+      <p class="lead">LDA is building Wellness City as Lucknow's "Medi City", with 150 acres set aside for hospitals and a medical college. The farmers who pooled their land got developed plots of <?php echo $list; ?> m² in the June 2026 lottery, and some of them are selling. LDA has not opened its own public scheme yet.</p>
+      <p class="hi">वेलनेस सिटी लखनऊ: लैंड पूलिंग लॉटरी में मिले <?php echo $list; ?> वर्ग मीटर के प्लॉट, अस्पताल ज़ोन के पास। कीमत और परमिशन की स्थिति WhatsApp पर।</p>
       <div class="acts">
         <a class="btn" href="#sizes" style="background:#9ce8cf;border-color:#9ce8cf;color:#0f3d36">See plot sizes ↓</a>
         <a class="btn ghost" href="<?php echo $e($wa('Hello, I want to buy a plot in Wellness City Lucknow. Please share sizes and prices.')); ?>" target="_blank" rel="noopener">Ask on WhatsApp</a>
       </div>
     </div>
     <div class="stats" aria-label="Summary">
-      <div class="stat"><b><?php echo count($open); ?></b><span>plot sizes on offer</span></div>
-      <div class="stat"><b><?php echo min(array_column($open, 0)); ?>–<?php echo max(array_column($open, 0)); ?></b><span>m² plot sizes</span></div>
-      <div class="stat"><b>Medical</b><span>& hospital zone planned</span></div>
-      <div class="stat"><b>≈ 12 km</b><span>from Hazratganj</span></div>
+      <div class="stat"><b>150 ac</b><span>kept for hospitals in the layout</span></div>
+      <div class="stat"><b>₹5,100</b><span>per sq ft, LDA's proposed rate</span></div>
+      <div class="stat"><b>125</b><span>plots in the first farmers' lottery</span></div>
+      <div class="stat"><b>≈ 1,474 ac</b><span>planned area, all phases</span></div>
     </div>
   </div>
 </section>
-<div class="strip"><div class="wrap">Listing updated <strong><?php echo $updated; ?></strong>. Independent plot sales service, not the official LDA website. Transfers in the notified Phase-1 area need prior written District Collector permission.</div></div>
+<div class="strip"><div class="wrap">Updated <strong><?php echo $updated; ?></strong>. We are an independent resale service, not LDA. Phase-1 land is notified under Section 11, so every transfer needs the District Collector's written permission first.</div></div>
 
 <main>
 <section class="band" id="facts" style="padding:44px 0">
   <div class="wrap">
     <div class="facts">
-      <h2>Wellness City Lucknow at a glance</h2>
+      <h2>Wellness City in numbers</h2>
       <dl>
-        <div><dt>Scheme</dt><dd>Wellness City, a health-themed township of the Lucknow Development Authority (LDA), developed through land pooling</dd></div>
-        <div><dt>Location</dt><dd>Between Sultanpur Road and Kisan Path, south-east Lucknow; about 12 km from Hazratganj, 6 km from IT City</dd></div>
-        <div><dt>Area</dt><dd>Reported between about 1,200 acres (485 ha) and 1,474 acres; figures differ between reports</dd></div>
-        <div><dt>Plot sizes on offer</dt><dd><?php echo implode(' · ', array_map(function ($s) use ($sqft) { return $s[0] . ' m² (' . $sqft($s[0]) . ' sq ft)'; }, $open)); ?></dd></div>
-        <div><dt>Who is selling</dt><dd>Landowners who received developed plots in LDA's land-pooling lotteries (25% of land returned as plots)</dd></div>
-        <div><dt>Allotments so far</dt><dd>First farmer lottery of 125 plots on 30 June 2026 (Amar Ujala); a second lottery of about 200 plots announced</dd></div><div><dt>Villages</dt><dd>Bakkas, Malukpur Dhakwa, Chaurahiya, Chaurasi, Dularmau, Noorpur Behta, Mastemau</dd></div>
-        <div><dt>Transfer rule</dt><dd>In the notified Phase-1 area, a sale needs the District Collector's prior written permission</dd></div>
-        <div><dt>Public LDA scheme</dt><dd>Not announced as of <?php echo $updated; ?></dd></div>
+        <div><dt>Planned area</dt><dd>About 1,474 acres in total; phase 1 is 485 ha (about 1,198 acres)</dd></div>
+        <div><dt>Project cost</dt><dd>₹1,441.26 crore, with 40% of land and development funded by the state government</dd></div>
+        <div><dt>Hospitals</dt><dd>About 150 acres for hospitals, a medical college and health facilities</dd></div>
+        <div><dt>LDA plots</dt><dd>Roughly 2,000 plots on 76.83 acres in the phase-1 layout, to be sold by LDA later</dd></div>
+        <div><dt>Group housing</dt><dd>362.41 acres for flats; about 200 acres of parks and 57 acres of commercial land</dd></div>
+        <div><dt>Proposed rate</dt><dd>₹54,559.17 per m² (about ₹5,100 per sq ft), LDA order of 30 June 2026; not final</dd></div>
+        <div><dt>Farmers' lottery</dt><dd>30 June 2026: 125 plots to 59 landowners, the source of the plots sold here</dd></div>
+        <div><dt>Villages (phase 1)</dt><dd>Bakkas, Malukpur Dhakwa, Chaurahiya, Chaurasi, Dularmau, Noorpur Behta, Mastemau (Mohanlalganj tehsil)</dd></div>
+        <div><dt>Section 11</dt><dd>Notified 5 June 2026; transfers need the District Collector's prior written permission</dd></div>
+        <div><dt>LDA public scheme</dt><dd>No brochure or registration date as of <?php echo $updated; ?></dd></div>
       </dl>
     </div>
   </div>
@@ -235,11 +240,11 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
 
 <section class="band" id="sizes">
   <div class="wrap">
-    <div class="head"><span class="kicker">Available now</span><h2>Choose your plot size</h2><p>All six sizes are on offer. Each card has its own WhatsApp button, so we know which size you want and can send the price, sector and permission status.</p></div>
+    <div class="head"><span class="kicker">Six lottery sizes</span><h2>Plot sizes and what they cost at LDA's rate</h2><p>Each card shows the base land cost at LDA's proposed ₹54,559.17 per m², so you can compare sizes. It leaves out the 12% freehold charge, water and sewer charges and any corner or park-facing premium. A landowner's resale price is their own and can be higher or lower.</p></div>
     <div class="sizes">
       <?php foreach ($open as $k => $s): [$m, $status] = $s;
         $w = 40 + $m / 288 * 170; $h = 22 + $m / 288 * 64;     // drawn to scale against the 288 m² plot
-        $msg = "Hello, I'm interested in a $m m² (" . $sqft($m) . " sq ft) plot in Wellness City, Lucknow. Please share the price, sector, road width and DM permission status.";
+        $msg = "Hello, I'm looking at a $m m² (" . $sqft($m) . " sq ft) Wellness City plot. What is the asking price, the sector and road width, and does it have DM permission?";
       ?>
       <article class="size" id="size-<?php echo $m; ?>">
         <div class="vis" aria-hidden="true">
@@ -259,32 +264,44 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
           <p class="use"><?php echo $e($use[$m] ?? 'Residential plot'); ?></p>
           <div class="specs">
             <div><strong><?php echo $sqyd($m); ?></strong>sq yd (gaj)</div>
+            <div><strong>≈ ₹<?php echo $lakh($m); ?> lakh</strong>base cost at LDA's proposed rate</div>
           </div>
         </div>
         <div class="go"><a class="btn wa" href="<?php echo $e($wa($msg)); ?>" target="_blank" rel="noopener">Get price for <?php echo $m; ?> m²</a></div>
       </article>
       <?php endforeach; ?>
     </div>
-    <div class="rule"><strong>Before you pay:</strong> Wellness City's Phase-1 area is notified, so a plot can be registered only with the District Collector's prior written permission. We share each plot's permission status with its price. Also ask for the LDA allotment letter in the seller's name and the plot's sector and number on the LDA layout.
+    <div class="rule"><strong>Check three things before any token money:</strong> the LDA allotment letter from the 30 June lottery in the seller's own name; the plot's sector and number on LDA's layout; and the District Collector's written permission for the transfer, which Section 11 requires in phase 1.
       <a href="https://www.hindustantimes.com/cities/lucknow-news/lda-prohibits-land-deals-in-phase-1-of-it-city-wellness-city-projects-101780758619729.html" target="_blank" rel="noopener" style="color:#7a4d0b;font-weight:700">Read the report ↗</a></div>
     <details class="fulllist">
-      <summary>See all sizes as a table</summary>
+      <summary>Compare all sizes in one table</summary>
       <div style="overflow-x:auto"><table>
-        <caption>Wellness City Lucknow plot sizes on offer, <?php echo $updated; ?></caption>
-        <thead><tr><th>Size (m²)</th><th>Sq ft</th><th>Sq yd (gaj)</th><th>Status</th></tr></thead>
-        <tbody><?php foreach ($open as $s): ?><tr><td><?php echo $s[0]; ?> m²</td><td><?php echo $sqft($s[0]); ?></td><td><?php echo $sqyd($s[0]); ?></td><td><?php echo $s[1] === 'hold' ? 'On hold' : 'Available'; ?></td></tr><?php endforeach; ?></tbody>
+        <caption>Base land cost at LDA's proposed ₹54,559.17/m² (before 12% freehold and other charges), <?php echo $updated; ?></caption>
+        <thead><tr><th>Size (m²)</th><th>Sq ft</th><th>Sq yd (gaj)</th><th>Base cost</th><th>Status</th></tr></thead>
+        <tbody><?php foreach ($open as $s): ?><tr><td><?php echo $s[0]; ?> m²</td><td><?php echo $sqft($s[0]); ?></td><td><?php echo $sqyd($s[0]); ?></td><td>₹<?php echo $lakh($s[0]); ?> lakh</td><td><?php echo $s[1] === 'hold' ? 'On hold' : 'Available'; ?></td></tr><?php endforeach; ?></tbody>
       </table></div>
     </details>
   </div>
 </section>
 
+<section class="band" id="plan">
+  <div class="wrap">
+    <div class="head"><span class="kicker">The Medi City plan</span><h2>What LDA has planned around these plots</h2><p>Wellness City is the only LDA scheme built around health care. These are the uses in LDA's own layout and statements; none of the buildings has started yet.</p></div>
+    <div class="grid3">
+      <div class="card"><span class="n">150 ACRES</span><h3>Hospital zone</h3><p>Land for super-speciality hospitals, a medical college and diagnostic centres. No hospital or college operator has been named so far.</p></div>
+      <div class="card"><span class="n">WHOLESALE</span><h3>Aminabad medicine market</h3><p>The plan provides separate commercial plots to move Aminabad's wholesale medicine market here. LDA has not given a date for the move.</p></div>
+      <div class="card"><span class="n">≈ 200 ACRES</span><h3>Parks, yoga and meditation</h3><p>Large parks plus yoga, meditation and Vipassana centres, in keeping with the wellness theme. Internal roads are planned at 24 to 60 m wide.</p></div>
+    </div>
+  </div>
+</section>
+
 <section class="band" id="how">
   <div class="wrap">
-    <div class="head"><span class="kicker">How it works</span><h2>Buying a Wellness City plot, step by step</h2></div>
+    <div class="head"><span class="kicker">Buying a resale plot</span><h2>From first message to registry</h2></div>
     <div class="grid3">
-      <div class="card"><span class="n">STEP 1</span><h3>Pick a size</h3><p>Tap "Get price" on a size. We reply with the asking price, sector, road width and the plot's permission status.</p></div>
-      <div class="card"><span class="n">STEP 2</span><h3>See the plot and papers</h3><p>We arrange a site visit and share the LDA allotment letter and the plot's position on the layout.</p></div>
-      <div class="card"><span class="n">STEP 3</span><h3>Permission, then registry</h3><p>Pay and register only once the District Collector's permission for the transfer is in place.</p></div>
+      <div class="card"><span class="n">STEP 1</span><h3>Ask for a size</h3><p>Use the button on a size card. We reply with the seller's asking price, the sector, the road in front and whether DM permission is already granted.</p></div>
+      <div class="card"><span class="n">STEP 2</span><h3>Visit and verify</h3><p>See the plot on site with us. Match the allotment letter, the seller's ID and the plot number against LDA's layout before you agree a price.</p></div>
+      <div class="card"><span class="n">STEP 3</span><h3>Permission first</h3><p>The sale deed is signed only after the District Collector's written permission for the transfer. Until then, keep any advance small and in writing.</p></div>
     </div>
   </div>
 </section>
@@ -294,7 +311,7 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
     <div>
       <span class="kicker">Location</span>
       <h2 style="font-size:clamp(27px,3.6vw,40px);margin:8px 0 12px">Where Wellness City is</h2>
-      <p style="color:var(--muted);margin:0">Wellness City is LDA's health-themed township between Sultanpur Road and Kisan Path in south-east Lucknow, next to IT City. Its plan includes a dedicated medical and hospital zone, and farmers who gave over 10 acres get plots near the green corridor.</p>
+      <p style="color:var(--muted);margin:0">The scheme sits in Mohanlalganj tehsil between Sultanpur Road and Kisan Path (the outer ring road), next to CG City. LDA puts it about 0.5 km from the Purvanchal Expressway. A 6.5 km, 24 m wide Green Corridor road is being built from Shaheed Path to Kisan Path, and four of Wellness City's main roads will join it.</p>
       <ul class="dist"><li>Hazratganj <b>≈ 12.4 km</b></li><li>Charbagh railway station <b>≈ 14.3 km</b></li><li>Lucknow airport <b>≈ 17.8 km</b></li><li>IT City <b>≈ 5.9 km</b></li></ul>
       <p style="font-size:13px;color:var(--muted)">Straight-line distances from the scheme centre; road distances are longer.</p>
       <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px">
@@ -308,27 +325,27 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
 
 <section class="band" id="hindi" lang="hi">
   <div class="wrap">
-    <div class="head"><span class="kicker">हिंदी में</span><h2>वेलनेस सिटी लखनऊ में प्लॉट खरीदें</h2>
-      <p>लखनऊ विकास प्राधिकरण (LDA) की वेलनेस सिटी योजना, सुल्तानपुर रोड और किसान पथ के बीच, में <?php echo $list; ?> वर्ग मीटर के प्लॉट उपलब्ध हैं। ये प्लॉट उन भू-स्वामियों के हैं जिन्हें लैंड पूलिंग में विकसित प्लॉट मिले हैं। कीमत, सेक्टर और परमिशन की जानकारी के लिए साइज़ चुनकर WhatsApp करें।</p></div>
+    <div class="head"><span class="kicker">हिंदी में</span><h2>वेलनेस सिटी लखनऊ: अस्पताल ज़ोन के पास प्लॉट</h2>
+      <p>LDA वेलनेस सिटी को "मेडी सिटी" के रूप में बना रहा है, जिसमें लगभग 150 एकड़ अस्पतालों और मेडिकल कॉलेज के लिए है। 30 जून 2026 की लैंड पूलिंग लॉटरी में 59 किसानों को 125 प्लॉट मिले, और इन्हीं में से <?php echo $list; ?> वर्ग मीटर के प्लॉट बिक्री के लिए हैं। LDA की प्रस्तावित दर ₹54,559.17 प्रति वर्ग मीटर (लगभग ₹5,100 प्रति वर्ग फुट) है, जो अभी अंतिम नहीं है।</p></div>
     <div class="grid3">
-      <div class="card"><h3>परमिशन ज़रूरी</h3><p>Phase-1 के अधिसूचित क्षेत्र में बिक्री के लिए जिलाधिकारी (DM) की पहले से लिखित अनुमति चाहिए। हर प्लॉट की परमिशन स्थिति हम कीमत के साथ बताते हैं।</p></div>
-      <div class="card"><h3>कागज़ जांचें</h3><p>विक्रेता के नाम LDA का आवंटन पत्र, लेआउट में प्लॉट का सेक्टर और नंबर ज़रूर देखें।</p></div>
-      <div class="card"><h3>क्या यह LDA की साइट है?</h3><p>नहीं। यह एक स्वतंत्र प्लॉट बिक्री सेवा है। LDA की योजनाएं सिर्फ ldalucknow.in पर देखें।</p></div>
+      <div class="card"><h3>धारा 11 और DM की अनुमति</h3><p>फेज़-1 की ज़मीन जून 2026 से धारा 11 में अधिसूचित है। हर ट्रांसफ़र से पहले जिलाधिकारी की लिखित अनुमति ज़रूरी है; हर प्लॉट की स्थिति हम कीमत के साथ बताते हैं।</p></div>
+      <div class="card"><h3>आवंटन पत्र मिलाएं</h3><p>लॉटरी का आवंटन पत्र विक्रेता के अपने नाम हो, और प्लॉट का सेक्टर व नंबर LDA के लेआउट से मेल खाए, तभी आगे बढ़ें।</p></div>
+      <div class="card"><h3>यह LDA की साइट नहीं है</h3><p>हम एक स्वतंत्र रीसेल सेवा हैं। LDA की अपनी योजनाओं और सूचनाओं के लिए सिर्फ ldalucknow.in देखें।</p></div>
     </div>
   </div>
 </section>
 
 <section class="band" id="faq">
   <div class="wrap faq">
-    <div class="head"><span class="kicker">Questions</span><h2>Wellness City Lucknow plots: common questions</h2></div>
+    <div class="head"><span class="kicker">Questions</span><h2>Wellness City Lucknow: rate, sizes and rules</h2></div>
     <?php foreach ($faq as $q): ?><details><summary><?php echo $e($q[0]); ?></summary><p><?php echo $e($q[1]); ?></p></details><?php endforeach; ?>
   </div>
 </section>
 
 <section class="band" style="border-bottom:0">
   <div class="wrap"><div class="cta">
-    <div><h2>Tell us the size you want</h2><p>We'll send the price, sector, road width and permission status for that size.</p></div>
-    <div class="acts"><a class="btn wa" href="<?php echo $e($wa('Hello, I want to buy a plot in Wellness City Lucknow. Please share sizes and prices.')); ?>" target="_blank" rel="noopener">WhatsApp us</a>
+    <div><h2>Want a plot near the hospital zone?</h2><p>Send us the size and your budget. We reply with matching plots, their sector and their DM permission status.</p></div>
+    <div class="acts"><a class="btn wa" href="<?php echo $e($wa('Hello, I want a Wellness City plot near the hospital zone. My size and budget:')); ?>" target="_blank" rel="noopener">Send size & budget</a>
       <a class="btn ghost" href="tel:+<?php echo $phone; ?>">Call <?php echo $e($phoneShow); ?></a></div>
   </div></div>
 </section>
@@ -336,7 +353,7 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
 
 <footer class="foot"><div class="wrap">
   <p><strong>Wellness City Lucknow Plots</strong> · <?php echo $e($phoneShow); ?></p>
-  <p>An independent plot sales service. Not affiliated with, or endorsed by, the Lucknow Development Authority (LDA). Official LDA schemes and notices are on <a href="https://ldalucknow.in/" target="_blank" rel="noopener" style="color:var(--navy2)">ldalucknow.in</a>. Transfers in Wellness City's notified Phase-1 area need prior written permission from the District Collector; confirm the plot, seller records and permission before paying.</p>
+  <p>We help buyers and landowners with resale plots from the Wellness City land-pooling lottery. We do not work for, or speak for, the Lucknow Development Authority; its schemes, rates and notices are published only on <a href="https://ldalucknow.in/" target="_blank" rel="noopener" style="color:var(--navy2)">ldalucknow.in</a>. Rates on this page are LDA's proposed figures and may change. No transfer in phase 1 should be registered without the District Collector's written permission.</p>
 </div></footer>
 
 <div class="sticky-wa"><a class="btn wa" href="<?php echo $e($wa('Hello, please share Wellness City Lucknow plot sizes and prices.')); ?>" target="_blank" rel="noopener">WhatsApp for plot prices</a></div>
