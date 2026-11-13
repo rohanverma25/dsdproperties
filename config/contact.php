@@ -13,15 +13,15 @@
  * Plain PHP with no env() on purpose, so non-Laravel files can require it.
  */
 
-$phone   = '9554102933';
-$retired = ['8595002933'];
+$phone   = '8595002933';
+$retired = ['9554102933'];
 
 return [
-    'phone'   => $phone,                                                  // 9554102933
-    'wa'      => '91' . $phone,                                           // 919554102933  (wa.me links)
-    'tel'     => '+91' . $phone,                                          // +919554102933 (tel: links, schema)
-    'display' => '+91 ' . substr($phone, 0, 5) . ' ' . substr($phone, 5), // +91 95541 02933
-    'spaced'  => substr($phone, 0, 5) . ' ' . substr($phone, 5),          // 95541 02933
-    'dashed'  => substr($phone, 0, 5) . '-' . substr($phone, 5),          // 95541-02933
+    'phone'   => $phone,                                                  // 8595002933
+    'wa'      => '91' . $phone,                                           // 918595002933  (wa.me links)
+    'tel'     => '+91' . $phone,                                          // +918595002933 (tel: links, schema)
+    'display' => '+91 ' . substr($phone, 0, 5) . ' ' . substr($phone, 5), // +91 85950 02933
+    'spaced'  => substr($phone, 0, 5) . ' ' . substr($phone, 5),          // 85950 02933
+    'dashed'  => substr($phone, 0, 5) . '-' . substr($phone, 5),          // 85950-02933
     'retired' => $retired,
 ];

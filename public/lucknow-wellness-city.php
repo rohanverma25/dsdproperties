@@ -30,7 +30,7 @@
 </head>
 <body>
 <?php
-$waBase = 'https://wa.me/919554102933?text=';
+$waBase = 'https://wa.me/918595002933?text=';
 $sizes = [
     ['sqm' => '35 m²', 'sqft' => '≈ 377 sq ft'],
     ['sqm' => '72 m²', 'sqft' => '≈ 775 sq ft'],
@@ -98,6 +98,6 @@ $h = static fn(string $value): string => htmlspecialchars($value, ENT_QUOTES, 'U
 
 <section class="band contact"><div class="wrap contactbox"><div><span class="eyebrow">Ask before you decide</span><h2>Need the latest Wellness City update?</h2><p>Send a question about public scheme status, reported categories or the checks to make before considering a transaction.</p></div><a class="btn" href="<?= $h($waBase . rawurlencode('Hello, I am enquiring about LDA Wellness City Lucknow. Please share the latest status and information you can verify.')) ?>" target="_blank" rel="noopener">Message on WhatsApp ↗</a></div></section>
 </main>
-<footer class="footer"><div class="wrap"><p><strong>Wellness City Lucknow · Independent information page</strong> · <a href="tel:+919554102933">+91 95541 02933</a></p><p>Not affiliated with the Lucknow Development Authority. Plot sizes on this page refer to reported land-pooling allotment categories, not confirmed public inventory. Verify official status, transaction permissions, title and transfer rules for the exact parcel before paying.</p></div></footer>
+<footer class="footer"><div class="wrap"><p><strong>Wellness City Lucknow · Independent information page</strong> · <a href="tel:+918595002933">+91 85950 02933</a></p><p>Not affiliated with the Lucknow Development Authority. Plot sizes on this page refer to reported land-pooling allotment categories, not confirmed public inventory. Verify official status, transaction permissions, title and transfer rules for the exact parcel before paying.</p></div></footer>
 </body>
 </html>

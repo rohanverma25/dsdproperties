@@ -7,8 +7,8 @@
  * To change stock, edit $sizes. 'status' => 'available' | 'hold' | 'sold'.
  */
 $site = 'https://lucknowwellnesscity.in/';
-$phone = '919554102933';
-$phoneShow = '+91 95541 02933';
+$phone = '918595002933';
+$phoneShow = '+91 85950 02933';
 $updated = '10 November 2026';
 $updatedIso = '2026-11-10';   // change both dates whenever $sizes changes
 $rate = 54559.17;             // LDA's PROPOSED rate per m² (finance controller's order, 30 June 2026); always call it "proposed"

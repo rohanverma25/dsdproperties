@@ -39,9 +39,9 @@ class SwapRetiredPhone
         $new = config('contact.phone');
         $map = [];
         foreach ($retired as $old) {
-            $map[$old] = $new;                                                                   // 8595002933
-            $map[substr($old, 0, 5) . ' ' . substr($old, 5)] = substr($new, 0, 5) . ' ' . substr($new, 5); // 85950 02933
-            $map[substr($old, 0, 5) . '-' . substr($old, 5)] = substr($new, 0, 5) . '-' . substr($new, 5); // 85950-02933
+            $map[$old] = $new;                                                                   // 9554102933
+            $map[substr($old, 0, 5) . ' ' . substr($old, 5)] = substr($new, 0, 5) . ' ' . substr($new, 5); // 95541 02933
+            $map[substr($old, 0, 5) . '-' . substr($old, 5)] = substr($new, 0, 5) . '-' . substr($new, 5); // 95541-02933
         }
 
         $swapped = strtr($content, $map);

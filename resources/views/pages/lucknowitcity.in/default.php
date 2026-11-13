@@ -7,8 +7,8 @@
  * To change stock, edit $sizes. 'status' => 'available' | 'hold' | 'sold'.
  */
 $site = 'https://lucknowitcity.in/';
-$phone = '919554102933';
-$phoneShow = '+91 95541 02933';
+$phone = '918595002933';
+$phoneShow = '+91 85950 02933';
 $updated = '10 November 2026';
 $updatedIso = '2026-11-10';   // change both dates whenever $sizes changes
 $rateSqft = 4200;             // REPORTED proposed rate per sq ft (Amar Ujala, 4 Nov 2026; HT 27 Oct said about 4,000). Not notified; always say "reported"
