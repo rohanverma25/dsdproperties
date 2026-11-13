@@ -41,6 +41,16 @@
     RewriteCond %{HTTP_HOST} ^www\.dsdproperties\.in$ [NC]
     RewriteRule ^ https://dsdproperties.in%{REQUEST_URI} [L,R=301]
 
+    # Page URLs typed with /public/ (e.g. /public/blog/...) are duplicates of the clean URLs: 301 them.
+    # Checked on the browser's original request line, so it only fires when /public/ was in the address.
+    # Real files (images, PDFs, build assets) are left alone; only GET/HEAD, so form POSTs are never redirected.
+    RewriteCond %{THE_REQUEST} ^(GET|HEAD)\s/public/?(\s|\?)
+    RewriteRule ^$ https://%{HTTP_HOST}/ [L,R=301]
+    RewriteCond %{THE_REQUEST} ^(GET|HEAD)\s/public/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.+)$ https://%{HTTP_HOST}/$1 [L,R=301]
+
     # Handle Authorization Header (for APIs, Sanctum, Passport, etc.)
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
