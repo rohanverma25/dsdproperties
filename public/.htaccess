@@ -36,6 +36,11 @@
 
     RewriteEngine On
 
+    # One host only: www.dsdproperties.in -> https://dsdproperties.in (same path + query), so search engines
+    # see one site instead of two copies. Other domains served by this app are not touched.
+    RewriteCond %{HTTP_HOST} ^www\.dsdproperties\.in$ [NC]
+    RewriteRule ^ https://dsdproperties.in%{REQUEST_URI} [L,R=301]
+
     # Handle Authorization Header (for APIs, Sanctum, Passport, etc.)
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
