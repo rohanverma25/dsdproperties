@@ -23,6 +23,10 @@
     @endif
 @endpush
 
+@push('scripts')
+@include('partials.map-protect')
+@endpush
+
 @push('main_schema')
 <script type="application/ld+json">
 {

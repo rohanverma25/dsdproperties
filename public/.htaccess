@@ -41,6 +41,12 @@
     RewriteCond %{HTTP_HOST} ^www\.dsdproperties\.in$ [NC]
     RewriteRule ^ https://dsdproperties.in%{REQUEST_URI} [L,R=301]
 
+    # Map source PDFs are not offered for download (maps are shown only in the zoom viewers): 410 Gone.
+    # Documents that are not maps (circle-rate PDFs, UPSIDA gazette village list, sample report) stay open.
+    RewriteRule ^images/maps/.+\.pdf$ - [G,NC]
+    RewriteRule ^downloads/saumitra-vihar/ - [G,NC]
+    RewriteRule ^downloads/upsida/Ex-LIDA-Master-Plan-2041-UPSIDA\.pdf$ - [G,NC]
+
     # Page URLs typed with /public/ (e.g. /public/blog/...) are duplicates of the clean URLs: 301 them.
     # Checked on the browser's original request line, so it only fires when /public/ was in the address.
     # Real files (images, PDFs, build assets) are left alone; only GET/HEAD, so form POSTs are never redirected.
