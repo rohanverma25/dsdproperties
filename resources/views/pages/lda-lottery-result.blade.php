@@ -41,7 +41,6 @@
         'eligibility' => ['Eligibility', 'tw-bg-indigo-50 tw-text-indigo-700 tw-ring-indigo-200'],
     ];
     $counts = array_count_values(array_column($items, 'group'));
-    $latest = array_slice(array_values(array_filter($items, fn ($i) => $i['kind'] === 'result')), 0, 4);
     $nResults = count(array_filter($items, fn ($i) => $i['kind'] !== 'eligibility'));
     $nElig = count($items) - $nResults;
     $guides = [];
@@ -135,27 +134,8 @@
 
     <div class="tw-max-w-6xl tw-mx-auto tw-px-4 tw-pb-14">
 
-        {{-- ── Latest results ──────────────────────────────────── --}}
-        <h2 class="tw-text-xl tw-font-extrabold tw-text-navy tw-mt-8 tw-mb-4">Latest results</h2>
-        <div class="tw-grid tw-gap-4 sm:tw-grid-cols-2 lg:tw-grid-cols-4">
-            @foreach($latest as $it)
-                <a href="{{ $it['url'] }}" target="_blank" rel="noopener"
-                   class="tw-group tw-relative tw-flex tw-flex-col tw-gap-2 tw-rounded-2xl tw-bg-navy tw-p-5 tw-text-white tw-no-underline tw-shadow-lg tw-shadow-slate-900/10 tw-transition hover:-tw-translate-y-1 hover:tw-shadow-xl">
-                    <span class="tw-absolute tw-inset-x-0 tw-top-0 tw-h-1 tw-rounded-t-2xl tw-bg-brand-orange"></span>
-                    <span class="tw-flex tw-items-center tw-justify-between tw-gap-2">
-                        <span class="tw-rounded-md tw-bg-white/10 tw-px-2 tw-py-0.5 tw-text-[11px] tw-font-bold tw-uppercase tw-tracking-wider tw-text-emerald-300">Result</span>
-                        @if($isNew($it))<span class="tw-rounded-full tw-bg-brand-orange tw-px-2 tw-py-0.5 tw-text-[11px] tw-font-bold tw-text-white">New</span>@endif
-                    </span>
-                    <span class="tw-text-lg tw-font-bold tw-leading-snug">{{ $it['scheme'] }}</span>
-                    <span class="tw-text-sm tw-text-slate-300">{{ $it['label'] }}</span>
-                    <span class="tw-text-xs tw-text-slate-400">{{ $fmt($it) }}{{ $it['date'] ? '' : ' · posted' }}</span>
-                    <span class="tw-mt-auto tw-pt-2 tw-text-sm tw-font-semibold tw-text-emerald-300 group-hover:tw-text-white">Open PDF on ldalucknow.in ↗</span>
-                </a>
-            @endforeach
-        </div>
-
         {{-- ── Filters ─────────────────────────────────────────── --}}
-        <h2 id="all" class="tw-text-xl tw-font-extrabold tw-text-navy tw-mt-12 tw-mb-4">All results and lists</h2>
+        <h2 id="all" class="tw-text-xl tw-font-extrabold tw-text-navy tw-mt-8 tw-mb-4">All results and lists</h2>
         <div class="tw-rounded-2xl tw-bg-white tw-ring-1 tw-ring-slate-200 tw-p-4 sm:tw-p-5 tw-shadow-sm tw-flex tw-flex-col tw-gap-4">
             <div class="tw-relative">
                 <label for="llr-q" class="tw-sr-only">Search scheme, size or day</label>
