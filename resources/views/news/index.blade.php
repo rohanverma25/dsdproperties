@@ -8,20 +8,20 @@
 @extends('layouts.app-article')
 
 @section('seo')
-    <title>लखनऊ प्रॉपर्टी न्यूज़: LDA, आवास विकास, RERA की ताज़ा ख़बरें | Lucknow Property News</title>
+    <title>Real Estate News Lucknow: LDA, Awas Vikas &amp; RERA Updates</title>
     <meta name="description"  content="लखनऊ प्रॉपर्टी की ताज़ा ख़बरें हिंदी में: LDA योजना, प्लॉट पंजीकरण, आवास विकास, RERA, अवैध निर्माण पर कार्रवाई और रजिस्ट्री। हर खबर मूल रिपोर्ट से जांची हुई। Lucknow property news.">
     <meta name="keywords"     content="Lucknow real estate news, LDA updates, IT City Lucknow, Gomti Nagar property news, Lucknow property prices, RERA Lucknow">
     <link rel="canonical"     href="{{ url('/news') }}">
     <meta name="robots"       content="index, follow">
 
     <meta property="og:type"        content="website">
-    <meta property="og:title"       content="लखनऊ प्रॉपर्टी न्यूज़ | Lucknow Property News">
+    <meta property="og:title"       content="Real Estate News Lucknow">
     <meta property="og:description" content="LDA योजना, आवास विकास, RERA और प्लॉट की ताज़ा ख़बरें, मूल रिपोर्ट से जांची हुई।">
     <meta property="og:url"         content="{{ url('/news') }}">
     <meta property="og:site_name"   content="DSD Properties">
     <meta property="og:image"       content="{{ asset('images/og-news.png') }}">
     <meta name="twitter:card"        content="summary_large_image">
-    <meta name="twitter:title"       content="लखनऊ प्रॉपर्टी न्यूज़ | Lucknow Property News">
+    <meta name="twitter:title"       content="Real Estate News Lucknow">
     <meta name="twitter:description" content="LDA योजना, आवास विकास, RERA और प्लॉट की ताज़ा ख़बरें।">
     <meta name="twitter:image"       content="{{ asset('images/og-news.png') }}">
 
