@@ -32,6 +32,9 @@ body { background:#f1f5f9; }
         <span class="navbar-brand">DSD <span>Properties</span> — Verification Admin</span>
         <div class="d-flex align-items-center gap-3">
             <a href="{{ route('ver.admin.index') }}" class="nav-link">📋 रिपोर्ट</a>
+            @if(Route::has('ver.admin.lda-plot-check'))
+            <a href="{{ route('ver.admin.lda-plot-check') }}" class="nav-link">🗺️ LDA Plot Check</a>
+            @endif
             @if(Route::has('ver.admin.logout'))
             <form method="POST" action="{{ route('ver.admin.logout') }}" class="d-inline">
                 @csrf

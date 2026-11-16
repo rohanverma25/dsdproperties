@@ -753,6 +753,11 @@ Route::middleware('ver.admin')->prefix('admin/verifications')->name('ver.admin.'
     Route::get('/{report}/status',                             [VerificationController::class, 'statusCheck'])->name('status');
     Route::post('/{report}/deliver',                           [VerificationController::class, 'deliver'])->name('deliver');
     Route::get('/setup/fonts',                                 [VerificationController::class, 'setupFonts'])->name('setup.fonts');
+
+    // LDA Plot Check (internal, 17 Nov 2026): live lookups in LDA's GIS. Not public until LDA gives written permission.
+    Route::get('/lda-plot-check',         [\App\Http\Controllers\Admin\LdaPlotCheckController::class, 'index'])->name('lda-plot-check');
+    Route::get('/lda-plot-check/lookup',  [\App\Http\Controllers\Admin\LdaPlotCheckController::class, 'lookup'])
+        ->middleware('throttle:40,1')->name('lda-plot-check.lookup');
 });
 
 // ── Customer: Signed download (no auth, time-limited) ─────────────────────
