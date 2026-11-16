@@ -353,7 +353,7 @@
     <div class="nr-c nr-mast__grid">
         <div>
             <span class="nr-pill"><span class="nr-pill__dot"></span> Verified Lucknow Property News</span>
-            <h1 class="nr-mast__h1">Lucknow Property <span>News</span></h1>
+            <h1 class="nr-mast__h1">Real Estate News <span>Lucknow</span></h1>
             <p class="nr-mast__sub nr-hi">
                 LDA, Awas Vikas, IT City and RERA updates that matter if you are buying a plot or flat in Lucknow.
             </p>
