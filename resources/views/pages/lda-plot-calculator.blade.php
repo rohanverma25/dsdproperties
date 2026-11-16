@@ -5,10 +5,12 @@
     All rates are ₹ per sq m. Anant Nagar uses LDA's latest published rate (Phase 4); Wellness City (₹54,559.17/sq m,
     proposed, LDA finance controller's order of 30 Jun 2026) and IT City (₹4,500/sq ft, the user's expected rate) are planning figures. By the user's request the
     page shows no plot counts or registration dates. Update SCHEMES below when LDA publishes new rates.
+    Saumitra Vihar (UPAVP, not LDA) added 17 Nov 2026 at ₹3,000/sq ft by the user's choice, with LDA payment rules (also the
+    user's choice); its note states the official ₹27,000/sq m and that UPAVP terms are unpublished.
 --}}
 @section('title', 'LDA Plot Cost Calculator 2026 — Varun Vihar, Naimish Nagar, Anant Nagar, Wellness City, IT City')
-@section('meta_description', 'Calculate the full cost of an LDA plot in Lucknow: price by size in sq m, 5% registration deposit, lump-sum discount (6% / 5% / 4%), 36-instalment EMI at 9.7% and 12% freehold charge. Varun Vihar, Naimish Nagar, Anant Nagar, Wellness City and IT City.')
-@section('meta_keywords', 'LDA plot calculator, LDA plot price calculator, Varun Vihar plot price, Naimish Nagar plot price, LDA registration amount, LDA installment calculator, Anant Nagar plot price, Wellness City plot price, IT City plot price, LDA plot cost Lucknow 2026')
+@section('meta_description', 'Calculate the full cost of an LDA plot in Lucknow: price by size in sq m, 5% registration deposit, lump-sum discount (6% / 5% / 4%), 36-instalment EMI at 9.7% and 12% freehold charge. Varun Vihar, Naimish Nagar, Anant Nagar, Wellness City, IT City and Saumitra Vihar.')
+@section('meta_keywords', 'LDA plot calculator, LDA plot price calculator, Varun Vihar plot price, Naimish Nagar plot price, LDA registration amount, LDA installment calculator, Anant Nagar plot price, Wellness City plot price, IT City plot price, Saumitra Vihar plot price, LDA plot cost Lucknow 2026')
 
 @push('head')
 <script type="application/ld+json">
@@ -227,6 +229,7 @@
         <ul>
             <li><strong>Plot price</strong> = size in sq m × the scheme rate per sq m. Example: a 112.5 sq m (1,211 sq ft) plot in Varun Vihar at ₹30,139/sq m (₹2,800/sq ft) comes to about ₹33.9 L. Sq ft figures use 1 sq m = 10.7639 sq ft.</li>
             <li><strong>Anant Nagar Phase 5</strong> uses ₹44,731/sq m, the latest rate LDA published for the scheme (Phase 4). <strong>Wellness City</strong> and <strong>IT City</strong> are not open to the public yet: Wellness City uses LDA’s proposed rate of ₹54,559.17/sq m (not final) and IT City uses our expected rate, so treat both as planning figures.</li>
+            <li><strong>Saumitra Vihar</strong> is an Awas Vikas (UPAVP) scheme, not LDA. It uses our expected rate of ₹3,000/sq ft (₹32,292/sq m), the top of the ₹2,600–3,000/sq ft range Hindustan reported on 24 Oct 2026. The Housing Commissioner has since stated ₹27,000/sq m (about ₹2,508/sq ft; Dainik Jagran, 10 Nov 2026). Its deposit, discount and EMI rows use LDA’s rules for comparison only; UPAVP’s own payment terms are not published yet.</li>
             <li><strong>Registration deposit</strong> is 5% of the plot price, or 2.5% for reserved categories. The booklet costs ₹1,100.</li>
             <li><strong>Pay in full</strong>: 6% off within 45 days of allotment, 5% within 60 days and 4% within 90 days. We apply the discount to the plot price.</li>
             <li><strong>Instalments</strong>: 36 monthly instalments at 9.7% interest. The EMI shown is a standard reducing-balance estimate; LDA's allotment letter gives the exact schedule.</li>
@@ -242,6 +245,7 @@
             <a href="{{ url('/blog/anant-nagar-yojana-lucknow-lda-2026') }}" style="color:#008080;font-weight:600;">Anant Nagar</a> ·
             <a href="{{ url('/blog/wellness-city-lucknow-lda-plots-guide-2026') }}" style="color:#008080;font-weight:600;">Wellness City</a> ·
             <a href="{{ url('/blog/it-city-lucknow-lda-plots-guide-2026') }}" style="color:#008080;font-weight:600;">IT City</a> ·
+            <a href="{{ url('/blog/saumitra-vihar-yojana-lucknow-2026') }}" style="color:#008080;font-weight:600;">Saumitra Vihar</a> ·
             <a href="{{ url('/lda-schemes') }}" style="color:#008080;font-weight:600;">all LDA schemes</a>.
         </p>
     </div>
@@ -268,7 +272,13 @@
           basis: 'Proposed rate (LDA finance controller’s order of 30 June 2026). Not final: the final price will be in the LDA booklet.' },
         { name: 'IT City', area: 'Sultanpur Road', rate: 48438,
           sizes: [35, 72, 128, 162, 200, 288],
-          basis: 'Expected rate (DSD estimate). LDA has not announced the rate yet.' }
+          basis: 'Expected rate (DSD estimate). LDA has not announced the rate yet.' },
+        // Added 17 Nov 2026 at the user's request: ₹3,000/sq ft (their rate; top of the ₹2,600–3,000 range Hindustan reported
+        // on 24 Oct). The Housing Commissioner stated ₹27,000/sq m (≈₹2,508/sq ft) on 10 Nov (Jagran) — the note says so.
+        // Sizes are the phase-1 residential sizes from that report. Payment rows use the LDA rules below (user's choice).
+        { name: 'Saumitra Vihar', area: 'New Jail Road · Awas Vikas', rate: 32292,
+          sizes: [40.74, 60.29, 75, 122.23, 200, 300],
+          basis: 'Expected rate (DSD estimate, ₹3,000/sq ft). Saumitra Vihar is an Awas Vikas (UPAVP) scheme: the Housing Commissioner has stated ₹27,000/sq m (about ₹2,508/sq ft), and deposit, discount and EMI here use LDA’s rules, so check UPAVP’s booklet for its own terms.' }
     ];
 
     var $ = function (id) { return document.getElementById(id); };
