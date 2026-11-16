@@ -209,6 +209,7 @@ Route::get('/sitemap-services.xml', function () {
         ['url' => 'https://dsdproperties.in/services/property-registry-greater-noida','priority' => '0.9', 'changefreq' => 'monthly'],
         ['url' => 'https://dsdproperties.in/lda-schemes', 'priority' => '0.9', 'changefreq' => 'weekly'],
         ['url' => 'https://dsdproperties.in/lda-plot-calculator', 'priority' => '0.8', 'changefreq' => 'weekly'],
+        ['url' => 'https://dsdproperties.in/lda-lottery-result', 'priority' => '0.8', 'changefreq' => 'weekly'],
         ['url' => 'https://dsdproperties.in/awas-vikas-schemes', 'priority' => '0.9', 'changefreq' => 'weekly'],
         ['url' => 'https://dsdproperties.in/seller/register', 'priority' => '0.8', 'changefreq' => 'monthly'],
         ['url' => 'https://dsdproperties.in/buyer/register', 'priority' => '0.8', 'changefreq' => 'monthly'],
@@ -229,6 +230,8 @@ Route::get('/sitemap-services.xml', function () {
 
 Route::get('/lda-schemes', [LdaSchemesController::class, 'index'])->name('lda.schemes');
 Route::view('/lda-plot-calculator', 'pages.lda-plot-calculator')->name('lda.plot.calculator');
+// LDA lottery results hub (17 Nov 2026): links to LDA's own PDFs only, list in resources/data/lda-lottery-results.json
+Route::view('/lda-lottery-result', 'pages.lda-lottery-result')->name('lda.lottery.result');
 Route::view('/lucknow-circle-rate', 'pages.lucknow-circle-rate')->name('lucknow.circle.rate');
 Route::view('/research', 'pages.research')->name('research');
 // Every mohalla page (indexed since 26 Oct 2026, listed in the /sitemap.xml index).
