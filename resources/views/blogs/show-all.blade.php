@@ -349,7 +349,7 @@
         {{-- Stats --}}
         <div class="bp-hero__stats">
             <div>
-                <div class="bp-hero__stat-val">50<em>+</em></div>
+                <div class="bp-hero__stat-val">100<em>+</em></div>
                 <div class="bp-hero__stat-lbl">Articles</div>
             </div>
             <div>

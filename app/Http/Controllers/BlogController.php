@@ -23,7 +23,9 @@ class BlogController extends Controller
             'Selling Tips'     => 'Selling Tips',
         ];
 
+        // /blog lists English articles only (user, 17 Nov 2026). Hindi posts stay live at their own URLs.
         $blog = BlogPost::where('status', 'published')
+            ->where('language', 'en')
             ->latest('updated_at')
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
