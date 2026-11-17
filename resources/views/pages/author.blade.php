@@ -101,6 +101,7 @@
         <li><strong>Proposed is not final.</strong> A rate, date or plan that is not yet approved is marked "proposed", "expected" or "not confirmed".</li>
         <li><strong>Dated facts.</strong> Each article shows when it was last updated, and time-sensitive facts carry their own date. We revisit guides when an authority publishes something new.</li>
         <li><strong>Links, not copies.</strong> For lottery results and official PDFs we link to the authority's own file; we don't host or change them.</li>
+        <li><strong>How articles are written.</strong> Articles are researched and drafted with the help of AI tools; {{ $a['name'] }} checks every fact against the official source before publishing.</li>
         <li><strong>Corrections.</strong> If you find a mistake, tell us through the <a href="{{ url('/contact-us') }}" style="color:#008080;font-weight:600;">contact page</a>. We check it against the source and fix the article.</li>
         <li><strong>Independent.</strong> DSD Properties is a private firm, not connected with LDA, UPAVP or any government body.</li>
     </ol>
