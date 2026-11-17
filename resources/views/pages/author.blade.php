@@ -28,7 +28,7 @@
         ['⏳', 'Proposed is not final', 'A rate, date or plan that is not yet approved is marked "proposed", "expected" or "not confirmed".'],
         ['📅', 'Dated facts', 'Each article shows when it was last updated, and time-sensitive facts carry their own date. We revisit guides when an authority publishes something new.'],
         ['🔗', 'Links, not copies', "For lottery results and official PDFs we link to the authority's own file; we don't host or change them."],
-        ['🤖', 'How articles are written', 'Articles are researched and drafted with the help of AI tools; ' . $a['name'] . ' checks every fact against the official source before publishing.'],
+        ['🤖', 'How articles are written', 'Articles are researched and drafted with the help of AI tools; I check every fact against the official source before publishing.'],
         ['✏️', 'Corrections', 'Found a mistake? Tell us through the contact page. We check it against the source and fix the article.'],
         ['🏢', 'Independent', 'DSD Properties is a private firm, not connected with LDA, UPAVP or any government body.'],
     ];
