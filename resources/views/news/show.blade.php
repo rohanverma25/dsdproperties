@@ -34,7 +34,7 @@
     <meta name="twitter:description"           content="{{ $article->meta_description }}">
 
     {{-- NewsArticle schema built as a PHP array so json_encode escapes titles safely.
-         Publisher and author = DSD Properties; the newspaper we report from goes in isBasedOn. --}}
+         Publisher = DSD Properties, author = Dheer Singh (config/author.php); the newspaper we report from goes in isBasedOn. --}}
     @php
         $newsLd = [
             '@context'         => 'https://schema.org',
@@ -47,7 +47,9 @@
             'dateModified'     => $article->updated_at->toIso8601String(),
             'articleSection'   => $article->category_label,
             'inLanguage'       => $article->lang === 'en' ? 'en-IN' : 'hi-IN',
-            'author'           => ['@type' => 'Organization', 'name' => 'DSD Properties', 'url' => url('/about')],
+            'author'           => ['@type' => 'Person', 'name' => config('author.name'), 'url' => url('/author/' . config('author.slug')),
+                                   'jobTitle' => config('author.job_title'), 'sameAs' => config('author.same_as'),
+                                   'worksFor' => ['@type' => 'Organization', 'name' => 'DSD Properties', 'url' => url('/')]],
             'publisher'        => [
                 '@type' => 'Organization',
                 'name'  => 'DSD Properties',
@@ -201,7 +203,8 @@
                     @endif
 
                     <span style="font-size:.75rem; color:#9ca3af;">
-                        {{ $article->created_at->format('M j, Y') }}
+                        By <a href="{{ url('/author/' . config('author.slug')) }}" rel="author" style="color:#008080; font-weight:600; text-decoration:none;">{{ config('author.name') }}</a>
+                        · {{ $article->created_at->format('M j, Y') }}
                     </span>
 
                     @if($article->source_name)

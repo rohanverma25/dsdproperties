@@ -174,6 +174,7 @@ Route::get('/sitemap-pages.xml', function () {
         ['url' => 'https://dsdproperties.in/how-property-prices-are-calculated-in-lucknow', 'priority' => '0.6', 'changefreq' => 'monthly'],
         ['url' => 'https://dsdproperties.in/reviews',                                    'priority' => '0.6', 'changefreq' => 'weekly'],
         ['url' => 'https://dsdproperties.in/about',                                      'priority' => '0.6', 'changefreq' => 'monthly'],
+        ['url' => 'https://dsdproperties.in/author/dheer-singh',                         'priority' => '0.6', 'changefreq' => 'weekly'],
         ['url' => 'https://dsdproperties.in/contact-us',                                 'priority' => '0.6', 'changefreq' => 'monthly'],
     ];
     $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
@@ -653,6 +654,13 @@ Route::get('/reviews', [GoogleReviewController::class, 'publicIndex'])->name('re
 Route::get('/about', function () {
     return view('pages.about-us');
 })->name('about');
+// Author + editorial policy page (18 Nov 2026): byline target for every blog post and news story; author in config/author.php
+Route::get('/author/dheer-singh', function () {
+    $posts     = \App\Models\BlogPost::where('status', 'published')->where('language', 'en')->orderByDesc('updated_at')->get(['slug', 'title', 'updated_at']);
+    $news      = \App\Models\NewsArticle::published()->listed()->latest()->take(20)->get();
+    $newsCount = \App\Models\NewsArticle::published()->listed()->count();
+    return view('pages.author', compact('posts', 'news', 'newsCount'));
+})->name('author.dheer');
 //Receipt
 Route::post('/generate-rent-receipt', [RentReceiptController::class, 'generate'])->name('rent-receipt.generate');
 

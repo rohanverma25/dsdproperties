@@ -38,9 +38,11 @@
   "image": { "@type": "ImageObject", "url": "{{ $blog->featured_image }}", "width": 1200, "height": 630 },
   "author": {
     "@type": "Person",
-    "name": "{{ e($author['name'] ?? 'DSD Properties') }}",
-    "url": "https://dsdproperties.in/about",
-    "worksFor": { "@type": "Organization", "name": "DSD Properties" }
+    "name": {!! json_encode(config('author.name'), JSON_UNESCAPED_UNICODE) !!},
+    "url": "{{ url('/author/' . config('author.slug')) }}",
+    "jobTitle": {!! json_encode(config('author.job_title'), JSON_UNESCAPED_UNICODE) !!},
+    "sameAs": {!! json_encode(config('author.same_as'), JSON_UNESCAPED_SLASHES) !!},
+    "worksFor": { "@type": "Organization", "name": "DSD Properties", "url": "{{ url('/') }}" }
   },
   "publisher": {
     "@type": "Organization",
@@ -367,6 +369,9 @@
     {{-- Meta bar --}}
     <div class="bs-meta">
         <span class="bs-meta-item">
+            By <a href="{{ url('/author/' . config('author.slug')) }}" rel="author" style="color:#008080;font-weight:600;text-decoration:none;margin-left:3px;">{{ config('author.name') }}</a>
+        </span>
+        <span class="bs-meta-item">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
             Updated: {{ $blog->updated_at->format('M d, Y') }}
         </span>
@@ -521,9 +526,9 @@
         <div class="bs-author">
             <div class="bs-author-ico">{{ strtoupper(substr($author['name'] ?? 'D', 0, 1)) }}</div>
             <div style="flex:1;min-width:0;">
-                <p class="bs-author-name">{{ $author['name'] }}</p>
-                <p class="bs-author-role">Author · DSD Properties</p>
-                <p class="bs-author-bio">{{ $author['description'] }}</p>
+                <p class="bs-author-name"><a href="{{ $author['url'] }}" rel="author" style="color:inherit;text-decoration:none;">{{ $author['name'] }}</a></p>
+                <p class="bs-author-role">{{ config('author.job_title') }}</p>
+                <p class="bs-author-bio">{{ $author['description'] }} <a href="{{ $author['url'] }}" style="color:#008080;font-weight:600;">How we research →</a></p>
             </div>
         </div>
         @endif
