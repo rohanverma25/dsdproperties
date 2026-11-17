@@ -656,7 +656,7 @@ Route::get('/about', function () {
 })->name('about');
 // Author + editorial policy page (18 Nov 2026): byline target for every blog post and news story; author in config/author.php
 Route::get('/author/dheer-singh', function () {
-    $posts     = \App\Models\BlogPost::where('status', 'published')->where('language', 'en')->orderByDesc('updated_at')->get(['slug', 'title', 'updated_at']);
+    $posts     = \App\Models\BlogPost::where('status', 'published')->where('language', 'en')->orderByDesc('updated_at')->get(['slug', 'title', 'tag', 'updated_at']);
     $news      = \App\Models\NewsArticle::published()->listed()->latest()->take(20)->get();
     $newsCount = \App\Models\NewsArticle::published()->listed()->count();
     return view('pages.author', compact('posts', 'news', 'newsCount'));
