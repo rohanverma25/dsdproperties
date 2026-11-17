@@ -41,11 +41,16 @@
     RewriteCond %{HTTP_HOST} ^www\.dsdproperties\.in$ [NC]
     RewriteRule ^ https://dsdproperties.in%{REQUEST_URI} [L,R=301]
 
-    # Map source PDFs are not offered for download (maps are shown only in the zoom viewers): 410 Gone.
+    # Map source PDFs are not offered for download (maps are shown only in the zoom viewers).
+    # Since 18 Nov 2026 they 301 to the guide's map section instead of 410: varun-vihar-layout.pdf alone had 9,703
+    # Google clicks in 3 months, and a redirect hands that ranking to the guide page. Still no download.
     # Documents that are not maps (circle-rate PDFs, UPSIDA gazette village list, sample report) stay open.
-    RewriteRule ^images/maps/.+\.pdf$ - [G,NC]
-    RewriteRule ^downloads/saumitra-vihar/ - [G,NC]
-    RewriteRule ^downloads/upsida/Ex-LIDA-Master-Plan-2041-UPSIDA\.pdf$ - [G,NC]
+    RewriteRule ^images/maps/varun-vihar.*\.pdf$ https://dsdproperties.in/blog/varun-vihar-yojana-lucknow-lda-plots-guide-2026#vvmap-wrap [R=301,L,NC,NE]
+    RewriteRule ^images/maps/wellness-city.*\.pdf$ https://dsdproperties.in/blog/wellness-city-lucknow-lda-plots-guide-2026#map-pdf [R=301,L,NC,NE]
+    RewriteRule ^images/maps/it-city.*\.pdf$ https://dsdproperties.in/blog/it-city-lucknow-lda-plots-guide-2026#sector-map [R=301,L,NC,NE]
+    RewriteRule ^images/maps/.+\.pdf$ https://dsdproperties.in/lda-schemes [R=301,L,NC]
+    RewriteRule ^downloads/saumitra-vihar/ https://dsdproperties.in/blog/saumitra-vihar-yojana-lucknow-2026#layout-naksha [R=301,L,NC,NE]
+    RewriteRule ^downloads/upsida/Ex-LIDA-Master-Plan-2041-UPSIDA\.pdf$ https://dsdproperties.in/blog/upsida-lucknow-ex-lida-master-plan-2041-village-list [R=301,L,NC]
 
     # Page URLs typed with /public/ (e.g. /public/blog/...) are duplicates of the clean URLs: 301 them.
     # Checked on the browser's original request line, so it only fires when /public/ was in the address.
