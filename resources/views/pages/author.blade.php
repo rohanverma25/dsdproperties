@@ -23,18 +23,18 @@
     $topicCounts = $posts->groupBy(fn ($p) => $topicOf($p->tag))->map->count();
     $title = fn ($s) => html_entity_decode($s, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     $policy = [
-        ['📄', 'Official sources first', 'Facts come from LDA, Awas Vikas (UPAVP), UP RERA and IGRSUP orders, notices, board minutes, layout plans and lottery lists. Newspaper reports are used only for statements made by officials, and we name the paper.'],
-        ['🚫', 'Nothing invented', 'We do not publish rumours, price predictions or figures we cannot trace to a source. If two sources disagree, we say so, or we use the official document.'],
-        ['⏳', 'Proposed is not final', 'A rate, date or plan that is not yet approved is marked "proposed", "expected" or "not confirmed".'],
-        ['📅', 'Dated facts', 'Each article shows when it was last updated, and time-sensitive facts carry their own date. We revisit guides when an authority publishes something new.'],
-        ['🔗', 'Links, not copies', "For lottery results and official PDFs we link to the authority's own file; we don't host or change them."],
+        ['📄', 'Official sources first', 'I take my facts from LDA, Awas Vikas (UPAVP), UP RERA and IGRSUP orders, notices, board minutes, layout plans and lottery lists. I use newspaper reports only for statements made by officials, and I name the paper.'],
+        ['🚫', 'Nothing invented', "I don't publish rumours, price predictions or figures I can't trace to a source. When two sources disagree, I say so, or I go with the official document."],
+        ['⏳', 'Proposed is not final', 'If a rate, date or plan is not approved yet, I mark it "proposed", "expected" or "not confirmed".'],
+        ['📅', 'Dated facts', 'Every article shows when I last updated it, and time-sensitive facts carry their own date. When an authority publishes something new, I go back and update the guide.'],
+        ['🔗', 'Links, not copies', "For lottery results and official PDFs, I link to the authority's own file. I don't host or change them."],
         ['🤖', 'How articles are written', 'Articles are researched and drafted with the help of AI tools; I check every fact against the official source before publishing.'],
-        ['✏️', 'Corrections', 'Found a mistake? Tell us through the contact page. We check it against the source and fix the article.'],
-        ['🏢', 'Independent', 'DSD Properties is a private firm, not connected with LDA, UPAVP or any government body.'],
+        ['✏️', 'Corrections', "Found a mistake? Tell me through the contact page. I'll check it against the source and fix the article."],
+        ['🏢', 'Independent', 'DSD Properties is my private firm. It is not connected with LDA, UPAVP or any government body.'],
     ];
 @endphp
 
-@section('title', $a['name'] . ': Author, DSD Properties Lucknow | How We Research')
+@section('title', $a['name'] . ': Author, DSD Properties Lucknow | How I Research')
 @section('meta_description', $a['name'] . ' writes the LDA, Awas Vikas and UP RERA guides and news on DSD Properties from official orders, notices, layout plans and lottery lists. Read how we research, check and correct our articles.')
 @section('canonical', $pageUrl)
 
@@ -163,16 +163,17 @@
                     <p class="au-role">{{ $a['job_title'] }} · Lucknow</p>
                 </div>
             </div>
-            <p class="au-bio">{{ $a['bio'] }}</p>
+            {{-- First-person bio for this page only; bylines elsewhere use the third-person bio in config/author.php --}}
+            <p class="au-bio">I'm {{ $a['name'] }}, founder of DSD Properties in Lucknow. I research LDA, Awas Vikas (UPAVP) and UP RERA schemes, and I write the guides and news on this site from official orders, notices, layout plans and lottery lists. At DSD Properties we also check property documents for buyers before they pay.</p>
             <ul class="au-stats">
                 <li><b>{{ $posts->count() }}</b> guides</li>
                 <li><b>{{ $newsCount }}</b> news stories</li>
-                <li>Studied at {{ $a['alumni_of'] }}</li>
+                <li>I studied at {{ $a['alumni_of'] }}</li>
             </ul>
             <div class="au-actions">
-                <a class="au-btn au-btn-light" href="#articles">Read the guides ↓</a>
+                <a class="au-btn au-btn-light" href="#articles">Read my guides ↓</a>
                 @foreach($a['same_as'] as $link)
-                    <a class="au-btn au-btn-ghost" href="{{ $link }}" target="_blank" rel="noopener me">LinkedIn profile ↗</a>
+                    <a class="au-btn au-btn-ghost" href="{{ $link }}" target="_blank" rel="noopener me">My LinkedIn ↗</a>
                 @endforeach
             </div>
         </div>
@@ -181,8 +182,8 @@
     <div class="au-wrap">
         {{-- ── Editorial policy ── --}}
         <section id="how-we-research" aria-labelledby="h-policy">
-            <h2 id="h-policy">How we research and check our articles</h2>
-            <p class="au-sub">The rules every guide and news story on this site follows.</p>
+            <h2 id="h-policy">How I research and check every article</h2>
+            <p class="au-sub">These are the rules I follow for every guide and news story on this site.</p>
             <ul class="au-policy">
                 @foreach($policy as $i => [$ic, $h, $p])
                     <li class="{{ $i === 0 ? 'hl' : '' }}">
@@ -190,7 +191,7 @@
                         <h3>{{ $h }}</h3>
                         <p>
                             @if($h === 'Corrections')
-                                Found a mistake? Tell us through the <a href="{{ url('/contact-us') }}" style="color:var(--teal);font-weight:600;">contact page</a>. We check it against the source and fix the article.
+                                Found a mistake? Tell me through the <a href="{{ url('/contact-us') }}" style="color:var(--teal);font-weight:600;">contact page</a>. I'll check it against the source and fix the article.
                             @else
                                 {{ $p }}
                             @endif
@@ -203,11 +204,11 @@
         {{-- ── Articles ── --}}
         @if($posts->isNotEmpty())
         <section id="articles" aria-labelledby="h-articles">
-            <h2 id="h-articles">Guides by {{ $a['name'] }}</h2>
-            <p class="au-sub">Newest updates first. Search or pick a topic.</p>
+            <h2 id="h-articles">My guides</h2>
+            <p class="au-sub">The ones I updated most recently come first. Search, or pick a topic.</p>
             <div class="au-tools">
                 <label for="au-q" class="sr-only" style="position:absolute;left:-9999px;">Search guides</label>
-                <input id="au-q" class="au-search" type="search" autocomplete="off" placeholder="Search guides, e.g. Varun Vihar, stamp duty, mutation">
+                <input id="au-q" class="au-search" type="search" autocomplete="off" placeholder="Search my guides, e.g. Varun Vihar, stamp duty, mutation">
                 <div class="au-chips" id="au-chips">
                     <button type="button" class="au-chip" data-t="" aria-pressed="true">All <span>{{ $posts->count() }}</span></button>
                     @foreach($topics as $k => $label)
@@ -230,16 +231,16 @@
                     </li>
                 @endforeach
             </ul>
-            <p class="au-empty" id="au-empty" hidden>No guide matches. Try another word.</p>
-            <button type="button" class="au-more" id="au-more">Show all {{ $posts->count() }} guides</button>
+            <p class="au-empty" id="au-empty" hidden>None of my guides match. Try another word.</p>
+            <button type="button" class="au-more" id="au-more">Show all {{ $posts->count() }} of my guides</button>
         </section>
         @endif
 
         {{-- ── News ── --}}
         @if($news->isNotEmpty())
         <section id="news" aria-labelledby="h-news">
-            <h2 id="h-news">Latest news</h2>
-            <p class="au-sub">Short reports on LDA, Awas Vikas and RERA decisions, mostly in Hindi.</p>
+            <h2 id="h-news">My latest news reports</h2>
+            <p class="au-sub">Short reports I write on LDA, Awas Vikas and RERA decisions, mostly in Hindi.</p>
             <ul class="au-list">
                 @foreach($news->take(8) as $n)
                     <li>
@@ -261,7 +262,7 @@
         <aside class="au-cta">
             <div>
                 <h2>Buying a plot or flat in Lucknow?</h2>
-                <p>We check the property's documents against official records before you pay: ₹5,000 per property.</p>
+                <p>Before you pay, we check the property's documents against official records. It costs ₹5,000 per property.</p>
             </div>
             <a class="au-btn au-btn-orange" href="{{ url('/services/property-verification-lucknow') }}">See property verification →</a>
         </aside>
