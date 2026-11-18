@@ -136,7 +136,7 @@
           <li><a href="/rera-approved-projects-lucknow">RERA Projects <span class="arr">&rarr;</span></a></li>
           <li><a href="/lda-schemes">LDA Schemes <span class="arr">&rarr;</span></a></li>
           <li><a href="/lda-demolition-tracker">LDA Demolition Tracker <span class="arr">&rarr;</span></a></li>
-          <li><a href="/news">Market Updates <span class="arr">&rarr;</span></a></li>
+          <li><a href="/news">Lucknow Real Estate News <span class="arr">&rarr;</span></a></li>
         </ul>
 
         <div class="ft-divider" style="margin-top:18px;"></div>

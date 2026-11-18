@@ -8,39 +8,55 @@
 @extends('layouts.app-article')
 
 @section('seo')
-    <title>Real Estate News Lucknow: LDA, Awas Vikas &amp; RERA Updates</title>
-    <meta name="description"  content="लखनऊ प्रॉपर्टी की ताज़ा ख़बरें हिंदी में: LDA योजना, प्लॉट पंजीकरण, आवास विकास, RERA, अवैध निर्माण पर कार्रवाई और रजिस्ट्री। हर खबर मूल रिपोर्ट से जांची हुई। Lucknow property news.">
-    <meta name="keywords"     content="Lucknow real estate news, LDA updates, IT City Lucknow, Gomti Nagar property news, Lucknow property prices, RERA Lucknow">
+    <title>Lucknow Real Estate News Today: LDA, Awas Vikas &amp; RERA Updates</title>
+    <meta name="description"  content="Lucknow real estate news, updated daily: LDA scheme launches and lotteries, Awas Vikas flats, UP RERA approvals, registry rules and demolitions. Every story checked against the original report.">
+    <meta name="keywords"     content="Lucknow real estate news, real estate news Lucknow, Lucknow property news, LDA news, Awas Vikas Lucknow, RERA Lucknow">
     <link rel="canonical"     href="{{ url('/news') }}">
     <meta name="robots"       content="index, follow">
 
     <meta property="og:type"        content="website">
-    <meta property="og:title"       content="Real Estate News Lucknow">
-    <meta property="og:description" content="LDA योजना, आवास विकास, RERA और प्लॉट की ताज़ा ख़बरें, मूल रिपोर्ट से जांची हुई।">
+    <meta property="og:title"       content="Lucknow Real Estate News">
+    <meta property="og:description" content="LDA, Awas Vikas, RERA and plot news from Lucknow, checked against the original reports.">
     <meta property="og:url"         content="{{ url('/news') }}">
     <meta property="og:site_name"   content="DSD Properties">
     <meta property="og:image"       content="{{ asset('images/og-news.png') }}">
     <meta name="twitter:card"        content="summary_large_image">
-    <meta name="twitter:title"       content="Real Estate News Lucknow">
-    <meta name="twitter:description" content="LDA योजना, आवास विकास, RERA और प्लॉट की ताज़ा ख़बरें।">
+    <meta name="twitter:title"       content="Lucknow Real Estate News">
+    <meta name="twitter:description" content="LDA, Awas Vikas, RERA and plot news from Lucknow.">
     <meta name="twitter:image"       content="{{ asset('images/og-news.png') }}">
 
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        "name": "लखनऊ प्रॉपर्टी न्यूज़ (Lucknow Property News)",
-        "inLanguage": "hi",
-        "description": "लखनऊ प्रॉपर्टी की ताज़ा ख़बरें: LDA योजना, आवास विकास, RERA, अवैध निर्माण पर कार्रवाई और नए प्रोजेक्ट।",
-        "url": "{{ url('/news') }}",
-        "publisher": {
-            "@type": "Organization",
-            "name": "DSD Properties",
-            "url": "{{ url('/') }}",
-            "logo": { "@type": "ImageObject", "url": "{{ asset('images/logo.webp') }}" }
+    @php
+        // 19 Nov 2026: English name/description for "Lucknow real estate news"; ItemList of the stories on this page.
+        $nrSchema = [
+            '@context'    => 'https://schema.org',
+            '@type'       => 'CollectionPage',
+            'name'        => 'Lucknow Real Estate News',
+            'alternateName' => ['Real Estate News Lucknow', 'Lucknow Property News', 'लखनऊ प्रॉपर्टी न्यूज़'],
+            'inLanguage'  => 'hi',
+            'description' => 'Lucknow real estate news: LDA schemes and lotteries, Awas Vikas flats, UP RERA approvals, registry rules and demolitions, each checked against the original report.',
+            'url'         => url('/news'),
+            'publisher'   => [
+                '@type' => 'Organization',
+                'name'  => 'DSD Properties',
+                'url'   => url('/'),
+                'logo'  => ['@type' => 'ImageObject', 'url' => asset('images/logo.webp')],
+            ],
+            'breadcrumb'  => [
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                    ['@type' => 'ListItem', 'position' => 2, 'name' => 'Lucknow Real Estate News', 'item' => url('/news')],
+                ],
+            ],
+        ];
+        $nrItems = [];
+        foreach ($articles as $nrI => $nrA) {
+            if (! $nrA->slug) continue;
+            $nrItems[] = ['@type' => 'ListItem', 'position' => count($nrItems) + 1, 'url' => route('news.show', $nrA->slug), 'name' => $nrA->title];
         }
-    }
-    </script>
+        if ($nrItems) $nrSchema['mainEntity'] = ['@type' => 'ItemList', 'itemListElement' => $nrItems];
+    @endphp
+    <script type="application/ld+json">{!! json_encode($nrSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>
 
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -355,7 +371,7 @@
             <span class="nr-pill"><span class="nr-pill__dot"></span> Verified Lucknow Property News</span>
             <h1 class="nr-mast__h1">Real Estate News <span>Lucknow</span></h1>
             <p class="nr-mast__sub nr-hi">
-                LDA, Awas Vikas, IT City and RERA updates that matter if you are buying a plot or flat in Lucknow.
+                Lucknow real estate news from LDA, Awas Vikas, IT City and UP RERA: the updates that matter if you are buying a plot or flat in Lucknow.
             </p>
             <div class="nr-mast__facts nr-hi">
                 @if($lastUpdate)
