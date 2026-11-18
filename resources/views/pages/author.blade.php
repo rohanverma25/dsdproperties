@@ -152,7 +152,6 @@
                 <a href="{{ url('/') }}">Home</a> / <a href="{{ url('/about') }}">About</a> / <span>{{ $a['name'] }}</span>
             </nav>
             <div class="au-top">
-                <div class="au-ava" aria-hidden="true">{{ mb_substr($a['name'], 0, 1) }}</div>
                 <div>
                     <h1>{{ $a['name'] }}</h1>
                     <p class="au-role">{{ $a['job_title'] }} · Lucknow</p>
