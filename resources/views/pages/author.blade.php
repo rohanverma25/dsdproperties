@@ -23,14 +23,14 @@
     $topicCounts = $posts->groupBy(fn ($p) => $topicOf($p->tag))->map->count();
     $title = fn ($s) => html_entity_decode($s, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     $policy = [
-        ['📄', 'Official sources first', 'I take my facts from LDA, Awas Vikas (UPAVP), UP RERA and IGRSUP orders, notices, board minutes, layout plans and lottery lists. I use newspaper reports only for statements made by officials, and I name the paper.'],
-        ['🚫', 'Nothing invented', "I don't publish rumours, price predictions or figures I can't trace to a source. When two sources disagree, I say so, or I go with the official document."],
-        ['⏳', 'Proposed is not final', 'If a rate, date or plan is not approved yet, I mark it "proposed", "expected" or "not confirmed".'],
-        ['📅', 'Dated facts', 'Every article shows when I last updated it, and time-sensitive facts carry their own date. When an authority publishes something new, I go back and update the guide.'],
-        ['🔗', 'Links, not copies', "For lottery results and official PDFs, I link to the authority's own file. I don't host or change them."],
-        ['🤖', 'How articles are written', 'Articles are researched and drafted with the help of AI tools; I check every fact against the official source before publishing.'],
-        ['✏️', 'Corrections', "Found a mistake? Tell me through the contact page. I'll check it against the source and fix the article."],
-        ['🏢', 'Independent', 'DSD Properties is my private firm. It is not connected with LDA, UPAVP or any government body.'],
+        ['Official sources first', 'I take my facts from LDA, Awas Vikas (UPAVP), UP RERA and IGRSUP orders, notices, board minutes, layout plans and lottery lists. I use newspaper reports only for statements made by officials, and I name the paper.'],
+        ['Nothing invented', "I don't publish rumours, price predictions or figures I can't trace to a source. When two sources disagree, I say so, or I go with the official document."],
+        ['Proposed is not final', 'If a rate, date or plan is not approved yet, I mark it "proposed", "expected" or "not confirmed".'],
+        ['Dated facts', 'Every article shows when I last updated it, and time-sensitive facts carry their own date. When an authority publishes something new, I go back and update the guide.'],
+        ['Links, not copies', "For lottery results and official PDFs, I link to the authority's own file. I don't host or change them."],
+        ['How articles are written', 'Articles are researched and drafted with the help of AI tools; I check every fact against the official source before publishing.'],
+        ['Corrections', "Found a mistake? Tell me through the contact page. I'll check it against the source and fix the article."],
+        ['Independent', 'DSD Properties is my private firm. It is not connected with LDA, UPAVP or any government body.'],
     ];
 @endphp
 
@@ -75,39 +75,38 @@
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
 </script>
 <style>
-#au{--navy:#011f4b;--teal:#008080;--orange:#f97316;--line:#e2e8f0;--muted:#64748b;color:#334155;font-family:'Poppins',sans-serif;overflow-x:hidden}
+#au{--navy:#011f4b;--teal:#008080;--orange:#ff5c00;--line:#e2e8f0;--muted:#64748b;color:#334155;font-family:'Poppins',sans-serif;overflow-x:hidden}
 #au *{box-sizing:border-box}
 #au a{color:inherit}
 #au .au-wrap{max-width:1040px;margin:0 auto;padding:0 16px}
 /* hero */
-#au .au-hero{background:linear-gradient(135deg,#011f4b 0%,#023e6b 60%,#006d6d 100%);color:#fff;padding:22px 0 34px}
-#au .au-crumb{font-size:.78rem;color:rgba(255,255,255,.7);margin:0 0 22px}
-#au .au-crumb a{color:rgba(255,255,255,.85);text-decoration:none}
-#au .au-crumb a:hover{color:#fff}
+#au .au-hero{background:#f0f8f8;border-bottom:1px solid #cfe6e6;color:var(--navy);padding:22px 0 34px}
+#au .au-crumb{font-size:.78rem;color:var(--muted);margin:0 0 22px}
+#au .au-crumb a{color:var(--teal);text-decoration:none}
+#au .au-crumb a:hover{text-decoration:underline}
 #au .au-top{display:flex;gap:22px;align-items:center}
-#au .au-ava{flex:none;width:88px;height:88px;border-radius:50%;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:2.2rem;font-weight:800;box-shadow:0 0 0 4px rgba(255,255,255,.18)}
-#au h1{font-size:clamp(1.7rem,4.5vw,2.4rem);font-weight:800;margin:0;line-height:1.15;color:#fff}
-#au .au-role{margin:6px 0 0;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#7dd3c8}
-#au .au-bio{max-width:760px;margin:18px 0 0;font-size:1rem;line-height:1.75;color:rgba(255,255,255,.9)}
+#au .au-ava{flex:none;width:88px;height:88px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:2.2rem;font-weight:800}
+#au h1{font-size:clamp(1.7rem,4.5vw,2.4rem);font-weight:800;margin:0;line-height:1.15;color:var(--navy)}
+#au .au-role{margin:6px 0 0;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--teal)}
+#au .au-bio{max-width:760px;margin:18px 0 0;font-size:1rem;line-height:1.75;color:#334155}
 #au .au-stats{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 0;padding:0;list-style:none}
-#au .au-stats li{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:7px 14px;font-size:.82rem;color:#fff}
+#au .au-stats li{background:#fff;border:1px solid #cfe6e6;border-radius:999px;padding:7px 14px;font-size:.82rem;color:var(--navy)}
 #au .au-stats b{font-weight:700}
 #au .au-actions{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}
 #au .au-btn{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:10px 16px;font-size:.88rem;font-weight:600;text-decoration:none;transition:transform .15s,background .15s}
 #au .au-btn:hover{transform:translateY(-1px)}
-#au .au-btn-light{background:#fff;color:var(--navy)}
-#au .au-btn-ghost{border:1px solid rgba(255,255,255,.4);color:#fff}
-#au .au-btn-ghost:hover{background:rgba(255,255,255,.1)}
+#au .au-btn-light{background:var(--navy);color:#fff}
+#au .au-btn-ghost{border:1px solid var(--teal);color:var(--teal);background:#fff}
+#au .au-btn-ghost:hover{background:#e6f2f2}
 /* sections */
 #au section{padding:40px 0 0}
 #au h2{font-size:1.35rem;font-weight:800;color:var(--navy);margin:0 0 6px}
 #au .au-sub{margin:0 0 20px;color:var(--muted);font-size:.92rem}
-#au .au-policy{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin:0;padding:0;list-style:none}
-#au .au-policy li{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
-#au .au-policy .ic{font-size:1.35rem;line-height:1}
-#au .au-policy h3{font-size:.98rem;font-weight:700;color:var(--navy);margin:10px 0 6px}
-#au .au-policy p{margin:0;font-size:.86rem;line-height:1.65;color:#475569}
-#au .au-policy .hl{border-color:#99d5d5;background:#f0fafa}
+#au .au-policy{max-width:760px;margin:0;padding:0 0 0 1.6em;list-style:decimal}
+#au .au-policy li{padding:0 0 14px 4px}
+#au .au-policy li::marker{color:var(--teal);font-weight:700}
+#au .au-policy h3{display:inline;font-size:.98rem;font-weight:700;color:var(--navy);margin:0}
+#au .au-policy p{display:inline;margin:0;font-size:.95rem;line-height:1.7;color:#334155}
 /* articles */
 #au .au-tools{display:flex;flex-direction:column;gap:12px;margin:0 0 16px}
 #au .au-search{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font:inherit;font-size:.95rem;background:#f8fafc;outline:none}
@@ -139,10 +138,6 @@
   #au .au-ava{width:68px;height:68px;font-size:1.7rem}
   #au .au-bio{font-size:.95rem}
   #au .au-btn{flex:1 1 auto;justify-content:center}
-  #au .au-policy{grid-template-columns:1fr 1fr;gap:10px}
-  #au .au-policy li{padding:14px 12px}
-  #au .au-policy h3{font-size:.9rem;margin:8px 0 4px}
-  #au .au-policy p{font-size:.78rem;line-height:1.55}
 }
 @media(prefers-reduced-motion:reduce){#au *{transition:none!important}}
 </style>
@@ -183,11 +178,10 @@
         <section id="how-we-research" aria-labelledby="h-policy">
             <h2 id="h-policy">How I research and check every article</h2>
             <p class="au-sub">These are the rules I follow for every guide and news story on this site.</p>
-            <ul class="au-policy">
-                @foreach($policy as $i => [$ic, $h, $p])
-                    <li class="{{ $i === 0 ? 'hl' : '' }}">
-                        <div class="ic" aria-hidden="true">{{ $ic }}</div>
-                        <h3>{{ $h }}</h3>
+            <ol class="au-policy">
+                @foreach($policy as [$h, $p])
+                    <li>
+                        <h3>{{ $h }}.</h3>
                         <p>
                             @if($h === 'Corrections')
                                 Found a mistake? Tell me through the <a href="{{ url('/contact-us') }}" style="color:var(--teal);font-weight:600;">contact page</a>. I'll check it against the source and fix the article.
@@ -197,7 +191,7 @@
                         </p>
                     </li>
                 @endforeach
-            </ul>
+            </ol>
         </section>
 
         {{-- ── Articles ── --}}
