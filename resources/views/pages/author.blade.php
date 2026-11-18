@@ -168,7 +168,6 @@
             <ul class="au-stats">
                 <li><b>{{ $posts->count() }}</b> guides</li>
                 <li><b>{{ $newsCount }}</b> news stories</li>
-                <li>I studied at {{ $a['alumni_of'] }}</li>
             </ul>
             <div class="au-actions">
                 <a class="au-btn au-btn-light" href="#articles">Read my guides ↓</a>
