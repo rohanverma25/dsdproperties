@@ -109,6 +109,7 @@ echo json_encode(['@context' => 'https://schema.org', '@graph' => [
 ]], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 ?>
 </script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet">
@@ -141,10 +142,12 @@ svg.i{width:18px;height:18px;flex:none}
 @media(max-width:900px){.top nav a.n{display:none}.top .btn{padding:10px 14px;font-size:14px}}
 
 .hero{background:var(--forest);color:#fff;position:relative;overflow:hidden}
-.hero:before{content:"";position:absolute;inset:0;background:
- repeating-linear-gradient(115deg,rgba(232,177,58,.07) 0 2px,transparent 2px 46px),
- radial-gradient(700px 380px at 92% 0%,rgba(47,158,91,.35),transparent 70%)}
-.hero .wrap{position:relative;padding-top:56px;padding-bottom:56px}
+.hero .wrap{position:relative;padding-top:50px;padding-bottom:54px}
+.hero-top{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:36px;align-items:center;margin-bottom:30px}
+.plan{margin:0;background:#fff;border-radius:16px;padding:8px;box-shadow:0 18px 40px rgba(0,0,0,.25);transform:rotate(1.2deg)}
+.plan img{display:block;width:100%;height:auto;border-radius:10px;aspect-ratio:765/1000;object-fit:cover}
+.plan figcaption{font-size:12.5px;color:#4b574f;padding:8px 6px 2px;line-height:1.4}
+@media(max-width:860px){.hero-top{grid-template-columns:1fr}.plan{max-width:420px;transform:none}}
 .hero h1{font-size:clamp(31px,4.8vw,54px);margin:12px 0 14px;max-width:900px}.hero h1 em{font-style:normal;color:var(--gold)}
 .hero .lead{font-size:18px;color:#dbe8e0;max-width:720px;margin:0 0 8px}
 .hero .hl{font-family:var(--fh);font-size:17px;color:#bcd3c6;margin:0 0 28px}
@@ -207,8 +210,11 @@ section.alt .steps li{background:var(--bg)}
 
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
 .chips span{background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px}
-.map{border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#dfe9e1;aspect-ratio:4/3}
-.map iframe{width:100%;height:100%;border:0;display:block}
+.map{border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#dfe9e1;aspect-ratio:4/3;position:relative;z-index:1}
+.mapcap{font-size:12.5px;color:var(--muted);margin:8px 2px 0}
+.fullplan{margin:26px 0 0;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:24px;align-items:center}
+.fullplan img{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:#fff}
+@media(max-width:760px){.fullplan{grid-template-columns:1fr}}
 
 .updates{list-style:none;margin:0;padding:0;border-left:3px solid var(--line)}
 .updates li{position:relative;padding:0 0 18px 20px}
@@ -255,10 +261,15 @@ footer p{margin:0 0 8px}
 <main>
 <section class="hero">
  <div class="wrap">
-  <span class="tag" style="color:#e8b13a">LDA IT City · Sultanpur Road, Lucknow</span>
-  <h1>IT City Lucknow plots for sale: <em>farmer-allotted plots</em> and land-pooling land</h1>
-  <p class="lead">Two ways to own land in IT City before the public lottery: buy a developed plot that LDA has already allotted to a land-pooling farmer, or buy farm land in one of the 11 scheme villages that goes into land pooling. We show you the papers, the permission and the risks of each.</p>
-  <p class="hl hi-text">आईटी सिटी लखनऊ में किसानों को मिले प्लॉट और लैंड पूलिंग वाली जमीन — कागजात और अनुमति की पूरी जांच के साथ।</p>
+  <div class="hero-top">
+   <div>
+    <span class="tag" style="color:#e8b13a">LDA IT City · Sultanpur Road, Lucknow</span>
+    <h1>IT City Lucknow plots for sale: <em>farmer-allotted plots</em> and land-pooling land</h1>
+    <p class="lead">Two ways to own land in IT City before the public lottery: buy a developed plot that LDA has already allotted to a land-pooling farmer, or buy farm land in one of the 11 scheme villages that goes into land pooling. We show you the papers, the permission and the risks of each.</p>
+    <p class="hl hi-text" style="margin-bottom:0">आईटी सिटी लखनऊ में किसानों को मिले प्लॉट और लैंड पूलिंग वाली जमीन — कागजात और अनुमति की पूरी जांच के साथ।</p>
+   </div>
+   <figure class="plan"><img src="it-city-layout-crop.webp" width="765" height="1000" alt="Part of LDA's IT City layout plan showing sectors, plotting areas and roads along the Indira Canal, Sultanpur Road, Lucknow" fetchpriority="high"><figcaption>Part of LDA's IT City layout plan: plotting sectors, group housing and the Indira Canal on the east.</figcaption></figure>
+  </div>
   <div class="paths">
    <div class="path" id="option-a">
     <span class="tag">Option A · Ready plot</span>
@@ -310,6 +321,10 @@ footer p{margin:0 0 8px}
 <?php endif; ?>
    </article>
 <?php endforeach; ?>
+  </div>
+  <div class="fullplan">
+   <a href="it-city-layout-plan.webp" target="_blank" rel="noopener"><img src="it-city-layout-plan.webp" width="1100" height="1555" loading="lazy" alt="LDA IT City layout plan, Lucknow, with sectors, road widths and land-use legend"></a>
+   <div class="prose"><h3 style="margin-top:0">Where the farmer plots are on the plan</h3><p>This is LDA's layout plan for IT City. The farmer lotteries of 2026 allotted plots in sectors 9, 15, 16, 17, 18 and 30, mostly in the plotting areas shown in yellow and orange. Ask us to mark the exact plot on this plan before you visit the site.</p><p><a class="btn line" href="it-city-layout-plan.webp" target="_blank" rel="noopener">Open the full plan</a></p></div>
   </div>
   <p class="note">Sizes are the standard farmer-allotment sizes in IT City. A plot is booked only after you have seen the allotment letter and the District Collector's permission; we do not take money for a plot whose papers you have not checked.</p>
  </div>
@@ -367,7 +382,10 @@ footer p{margin:0 0 8px}
    <div class="chips"><?php foreach ($villages as $v) echo '<span>' . $e($v) . '</span>'; ?></div>
    <p class="note">LDA has decided to bring good soil from outside for the roads in IT City instead of the local black clay, after the road agency warned the clay could make roads sink (reported 23 November 2026).</p>
   </div>
-  <div class="map"><iframe title="IT City Lucknow location map" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=80.99%2C26.71%2C81.12%2C26.80&amp;layer=mapnik&amp;marker=<?php echo $geo[0]; ?>%2C<?php echo $geo[1]; ?>"></iframe></div>
+  <div>
+   <div class="map" id="satmap" role="img" aria-label="Satellite view of the IT City area, Sultanpur Road, Lucknow"></div>
+   <p class="mapcap">Satellite view of the IT City area between Kisan Path and Sultanpur Road. Switch to the street map with the layer button.</p>
+  </div>
  </div>
 </section>
 
@@ -431,5 +449,16 @@ footer p{margin:0 0 8px}
  <a class="btn gold" href="tel:+<?php echo $phone; ?>">Call</a>
  <a class="btn wa" href="<?php echo $e($wa('Hi, I want to buy in IT City Lucknow. Please share available plots / land.')); ?>" target="_blank" rel="noopener">WhatsApp</a>
 </div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+<script>
+window.addEventListener('load', function () {
+  if (!window.L || !document.getElementById('satmap')) return;
+  var sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {maxZoom: 18, attribution: 'Imagery &copy; Esri, Maxar, Earthstar Geographics'});
+  var road = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'});
+  var m = L.map('satmap', {layers: [sat], scrollWheelZoom: false}).setView([<?php echo $geo[0] . ', ' . $geo[1]; ?>], 13);
+  L.control.layers({'Satellite': sat, 'Street map': road}).addTo(m);
+  L.marker([<?php echo $geo[0] . ', ' . $geo[1]; ?>]).addTo(m).bindPopup('IT City, Sultanpur Road, Lucknow');
+});
+</script>
 </body>
 </html>
