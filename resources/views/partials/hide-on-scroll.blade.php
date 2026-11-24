@@ -1,13 +1,13 @@
-{{-- Phones/tablets: hide the header + CTA bar while the reader scrolls forward through the article,
-     bring both back as soon as they scroll back. Always shown near the top, near the end and while the menu is open.
+{{-- Phones/tablets: hide the header while the reader scrolls forward through the article, bring it back as soon as
+     they scroll back. Always shown near the top, near the end and while the menu is open.
+     The bottom CTA bar stays visible all the time: hiding it too (19-24 Nov) cut mobile leads from it by ~57%.
      transform only (no display/height change), so the text never jumps and CLS stays 0. --}}
 <style>
 @media(max-width:1023px){
- #main-header,.mob-cta-bar{transition:transform .25s ease;will-change:transform}
+ #main-header{transition:transform .25s ease;will-change:transform}
  body.nav-hidden #main-header{transform:translateY(calc(-100% - 30px))}
- body.nav-hidden .mob-cta-bar{transform:translateY(calc(100% + 24px))}
 }
-@media(prefers-reduced-motion:reduce){#main-header,.mob-cta-bar{transition:none}}
+@media(prefers-reduced-motion:reduce){#main-header{transition:none}}
 </style>
 <script>
 (function () {
