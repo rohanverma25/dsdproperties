@@ -328,7 +328,6 @@
 
 {{-- ══ MOBILE BUY / SELL BAR ════════════════════════════ --}}
 @include('components.mobile-cta-bar', ['ctaSlug' => $article->slug ?? null])
-@include('partials.hide-on-scroll')
 
 @push('scripts')
 <script>

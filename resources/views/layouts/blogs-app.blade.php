@@ -840,7 +840,6 @@ h2.section-title {
 .mob-cta-sell{background:linear-gradient(135deg,#011f4b,#013870);color:#fff !important}
 </style>
 @include('components.mobile-cta-bar', ['ctaSlug' => $blog->slug ?? null, 'ctaTag' => $blog->tag ?? null])
-@include('partials.hide-on-scroll')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
                 // Mobile menu toggle
