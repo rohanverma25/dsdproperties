@@ -25,6 +25,9 @@
 
 
 @push('main_schema')
+{{-- 25 Nov 2026: explicit published/modified times, so search engines can show the update date --}}
+<meta property="article:published_time" content="{{ $blog->created_at->toIso8601String() }}">
+<meta property="article:modified_time" content="{{ $blog->updated_at->toIso8601String() }}">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -370,7 +373,7 @@
         </span>
         <span class="bs-meta-item">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            Updated: {{ $blog->updated_at->format('M d, Y') }}
+            Updated: <time datetime="{{ $blog->updated_at->toIso8601String() }}">{{ $blog->updated_at->format('M d, Y') }}</time>
         </span>
         <span class="bs-meta-item">
             <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
