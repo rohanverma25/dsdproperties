@@ -1,0 +1,6 @@
+# itcitylucknow.com: one address only (https, no www), so Google sees a single page
+RewriteEngine On
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://itcitylucknow.com%{REQUEST_URI} [L,R=301]
+DirectoryIndex default.php index.php index.html
