@@ -46,6 +46,17 @@ class CircleRates
         return null;
     }
 
+    /** Whether a mohalla page may be indexed (allow-list in resources/data/circle-rate-indexed.json, 25 Nov 2026). */
+    public static function isIndexed(string $sro, array $row): bool
+    {
+        static $keep = null;
+        if ($keep === null) {
+            $f = resource_path('data/circle-rate-indexed.json');
+            $keep = is_file($f) ? array_flip(json_decode(file_get_contents($f), true)['indexed'] ?? []) : [];
+        }
+        return isset($keep[$sro . '/' . self::slug($row['en'])]);
+    }
+
     public static function url(string $sro, array $row): string
     {
         return url('/lucknow-circle-rate/' . $sro . '/' . self::slug($row['en']));

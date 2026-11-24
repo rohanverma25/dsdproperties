@@ -93,6 +93,10 @@
 @section('canonical', $pageUrl)
 
 @push('head')
+@if($mRow && !CRS::isIndexed($sel, $mRow))
+{{-- 25 Nov 2026: only mohalla pages with real traffic stay in Google (resources/data/circle-rate-indexed.json) --}}
+<meta name="robots" content="noindex, follow">
+@endif
 <script type="application/ld+json">
 {!! json_encode([
     '@context' => 'https://schema.org',

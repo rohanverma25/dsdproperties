@@ -3,6 +3,10 @@
 @section('meta_description', $meta_description)
 
 @push('head')
+@if($listings->total() === 0)
+{{-- 25 Nov 2026: an empty listing page ("0 Properties Found") stays out of Google until it has listings --}}
+<meta name="robots" content="noindex, follow">
+@endif
 <link rel="canonical" href="{{ url($canonical) }}">
 <script type="application/ld+json">
 {
