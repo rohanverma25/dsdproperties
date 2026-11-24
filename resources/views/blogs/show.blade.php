@@ -23,9 +23,6 @@
     @endif
 @endpush
 
-@push('scripts')
-@include('partials.map-protect')
-@endpush
 
 @push('main_schema')
 <script type="application/ld+json">
@@ -689,4 +686,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+{{-- Map viewer protection. Not in @push('scripts'): blogs-app prints that stack inside a <script> tag, so this partial's own <style>/<script> tags became a JS syntax error on every post (GA4 'exception', 15-24 Nov). --}}
+@include('partials.map-protect')
 @endsection
