@@ -2,20 +2,48 @@
 
 namespace App\View;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\View\FileViewFinder;
 use InvalidArgumentException;
 
 /**
- * hPanel Git Deploy replaces files one by one, so for up to ~10 seconds after each push (even views the push didn't change) a Blade file can be missing
- * and the page fails with "View [x] not found" (seen after every deploy in app_error_logs, Oct–Nov 2026).
- * When an app view is not found, wait briefly and look again before giving up. A view that really doesn't
- * exist still fails, about 15 s later. Namespaced views (errors::404, mail::…) are not retried, because Laravel
- * probes those with view()->exists() while rendering error pages.
+ * hPanel Git Deploy rewrites the whole checkout on every push, and for ~10–30 s Blade files can be missing,
+ * even ones the push didn't change. Pages then failed with "View [x] not found" (app_error_logs, Oct–Nov 2026;
+ * a 15 s retry was still too short on 26 Nov).
+ *
+ * So when an app view is missing, it is served from a mirror copy of resources/views kept in storage/ (which
+ * the deploy doesn't touch). The mirror is refreshed by /run-route-cache (self::syncMirror()). A view that is
+ * in neither place still fails, after a short retry. Namespaced views (errors::404, mail::…) are left alone,
+ * because Laravel probes those with view()->exists() while rendering error pages.
  */
 class RetryingFileViewFinder extends FileViewFinder
 {
-    private const TRIES = 60;   // 60 x 250 ms = 15 s: a deploy rewrites the whole checkout for ~10 s (26 Nov 2026)
+    private const TRIES = 4;        // 4 x 250 ms, only when the mirror doesn't have the view either
     private const WAIT_US = 250000;
+
+    public static function mirrorPath(): string
+    {
+        return storage_path('app/views-mirror');
+    }
+
+    /** Copy resources/views into the mirror. Returns the number of files copied. */
+    public static function syncMirror(): int
+    {
+        $src = resource_path('views');
+        if (! is_dir($src) || ! file_exists($src . '/layouts/user-app.blade.php')) {
+            return 0; // checkout looks incomplete (deploy running); keep the old mirror
+        }
+        // Build a fresh copy next to the mirror, then swap it in, so views deleted from the repo leave the mirror too.
+        $tmp = self::mirrorPath() . '.new';
+        File::deleteDirectory($tmp);
+        if (! File::copyDirectory($src, $tmp)) {
+            return 0;
+        }
+        File::deleteDirectory(self::mirrorPath());
+        File::moveDirectory($tmp, self::mirrorPath());
+
+        return count(File::allFiles(self::mirrorPath()));
+    }
 
     public function find($name)
     {
@@ -27,6 +55,9 @@ class RetryingFileViewFinder extends FileViewFinder
             try {
                 return parent::find($name);
             } catch (InvalidArgumentException $e) {
+                if ($path = $this->findInMirror($name)) {
+                    return $path;
+                }
                 if ($try >= self::TRIES) {
                     throw $e;
                 }
@@ -34,5 +65,17 @@ class RetryingFileViewFinder extends FileViewFinder
                 clearstatcache();
             }
         }
+    }
+
+    private function findInMirror(string $name): ?string
+    {
+        $base = self::mirrorPath();
+        foreach ($this->getPossibleViewFiles($name) as $file) {
+            if (is_file($path = $base . '/' . $file)) {
+                return $path;
+            }
+        }
+
+        return null;
     }
 }

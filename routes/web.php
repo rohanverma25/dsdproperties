@@ -66,7 +66,9 @@ Route::get('/run-route-cache', function () {
     Artisan::call('route:clear');
     Artisan::call('route:cache');
     Artisan::call('view:clear');
-    return "Config cleared; routes cleared and cached; views cleared!";
+    // Refresh the copy of resources/views that pages fall back to while a deploy is rewriting files.
+    $mirrored = \App\View\RetryingFileViewFinder::syncMirror();
+    return "Config cleared; routes cleared and cached; views cleared! View mirror: {$mirrored} files.";
 });
 
 // ─────────────────────────────────────────────
