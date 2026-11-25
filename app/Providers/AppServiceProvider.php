@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Retry a missing app view for ~2 s, so pages don't 500 while hPanel Git Deploy is replacing files.
+        // Retry a missing app view for up to ~15 s, so pages don't 500 while hPanel Git Deploy is replacing files.
         $this->app->bind('view.finder', function ($app) {
             return new \App\View\RetryingFileViewFinder($app['files'], $app['config']['view.paths']);
         });
