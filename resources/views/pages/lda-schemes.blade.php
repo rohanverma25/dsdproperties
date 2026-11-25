@@ -743,7 +743,7 @@
             </div>
 
             <div class="hero-stats">
-                <span class="stat-pill"><i class="fas fa-check-circle" style="margin-right:.3rem;color:#34d399;" aria-hidden="true"></i>{{ $stats['active'] }} Active</span>
+                <span class="stat-pill"><i class="fas fa-check-circle" style="margin-right:.3rem;color:#34d399;" aria-hidden="true"></i>{{ $stats['active'] }} Open Now</span>
                 <span class="stat-pill"><i class="fas fa-clock" style="margin-right:.3rem;color:#fbbf24;" aria-hidden="true"></i>{{ $stats['upcoming'] }} Upcoming</span>
                 <span class="stat-pill"><i class="fas fa-home" style="margin-right:.3rem;" aria-hidden="true"></i>{{ $stats['total'] }} Total</span>
                 <span class="stat-pill" style="opacity:.7;font-size:.72rem;">
@@ -782,9 +782,9 @@
                     <i class="fas fa-map-marked-alt" aria-hidden="true"></i>LDA Schemes on Map — Lucknow
                 </h2>
                 <div class="lda-map-legend">
-                    <span class="map-legend-item"><span class="map-dot map-dot-active"></span>Active</span>
+                    <span class="map-legend-item"><span class="map-dot map-dot-active"></span>Registration Open</span>
                     <span class="map-legend-item"><span class="map-dot map-dot-upcoming"></span>Upcoming</span>
-                    <span class="map-legend-item"><span class="map-dot map-dot-completed"></span>Completed</span>
+                    <span class="map-legend-item"><span class="map-dot map-dot-completed"></span>Allotted / Closed</span>
                 </div>
                 <p class="lda-map-sub">Click a pin to see scheme details, price &amp; apply link. Scroll or pinch to zoom.</p>
             </div>
@@ -1272,7 +1272,7 @@
             </ul>
 
             <div class="lda-enq-stats">
-                <div class="lda-enq-stat"><b>{{ $stats['active'] ?? 0 }}</b><span>Active schemes</span></div>
+                <div class="lda-enq-stat"><b>{{ $stats['active'] ?? 0 }}</b><span>Open now</span></div>
                 <div class="lda-enq-stat"><b>{{ $stats['upcoming'] ?? 0 }}</b><span>Upcoming</span></div>
                 <div class="lda-enq-stat"><b>24 hrs</b><span>Response time</span></div>
                 <div class="lda-enq-stat"><b>&#8377;0</b><span>Advisory fee</span></div>
@@ -1534,6 +1534,8 @@ document.addEventListener('DOMContentLoaded', function () {
     (function () {
     const schemes = @json($schemes);
     const STATUS_COLOR = { 'Active': '#059669', 'Upcoming': '#f59e0b', 'Completed': '#3b82f6' };
+    // Active = registration/lottery open now; Completed = allotment done, nothing open (the building may still be under way).
+    const STATUS_LABEL = { 'Active': 'Registration Open', 'Upcoming': 'Upcoming', 'Completed': 'Allotted / Closed' };
 
     const map = L.map('lda-map', { scrollWheelZoom: false })
                  .setView([26.8467, 80.9462], 11);
@@ -1570,7 +1572,7 @@ document.addEventListener('DOMContentLoaded', function () {
             + '<div style="font-weight:700;font-size:.88rem;color:#011f4b;line-height:1.35;margin-bottom:.25rem;">' + s.name + '</div>'
             + '<div style="font-size:.73rem;color:#6b7280;margin-bottom:.38rem;">&#128205; ' + s.location + '</div>'
             + '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:.3rem;margin-bottom:.5rem;">'
-            +   '<span style="background:' + color + '22;color:' + color + ';padding:.15rem .55rem;border-radius:50px;font-weight:700;font-size:.68rem;text-transform:uppercase;letter-spacing:.03em;">' + s.status + '</span>'
+            +   '<span style="background:' + color + '22;color:' + color + ';padding:.15rem .55rem;border-radius:50px;font-weight:700;font-size:.68rem;text-transform:uppercase;letter-spacing:.03em;">' + (STATUS_LABEL[s.status] || s.status) + '</span>'
             +   priceHtml
             + '</div>'
             + '<div style="display:flex;gap:.4rem;flex-wrap:wrap;">'
