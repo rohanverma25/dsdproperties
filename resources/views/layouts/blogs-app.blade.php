@@ -77,23 +77,30 @@
       "knowsAbout": ["LDA housing schemes", "Property verification", "UP RERA", "Property registry in Uttar Pradesh", "Dakhil Kharij (mutation)", "IGRSUP property search"]
     }
     </script>
-    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;700&display=swap' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {{-- 25 Nov 2026 speed: Hindi font only on Hindi posts; icon CSS loads without blocking the first paint --}}
+    @php $dsdHindi = isset($blog) && (($blog->language ?? 'en') === 'hi'); @endphp
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700{{ $dsdHindi ? '&family=Noto+Sans+Devanagari:wght@400;500;700' : '' }}&display=swap' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> --}}
     @include('partials.ga4')
     @include('partials.whatsapp-message-tag')
     @include('partials.onesignal')
-     <!-- Chart.js — loaded once globally -->
+    {{-- Chart.js only on posts that draw charts (5 of ~106 on 25 Nov 2026); it blocked the first paint on every post --}}
+    @if(isset($blog) && (str_contains((string) ($blog->content_html ?? ''), 'Chart(') || str_contains((string) ($blog->content_html ?? ''), 'Chart.')))
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Destroy any existing Chart instances before re-initializing
         document.querySelectorAll('canvas[id]').forEach(function(canvas) {
-            var existing = Chart.getChart(canvas);
+            var existing = window.Chart && Chart.getChart(canvas);
             if (existing) existing.destroy();
         });
     });
     </script>
+    @endif
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     <style>

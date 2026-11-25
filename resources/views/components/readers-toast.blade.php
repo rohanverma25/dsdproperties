@@ -50,7 +50,7 @@
         <strong><span class="rt__num">{{ number_format($rtReaders) }}+</span></strong>
         🟢 Active visitors on DSD Properties.
     </p>
-    <button type="button" class="rt__close" aria-label="Dismiss">&times;</button>
+    <button type="button" class="rt__close" aria-label="Dismiss" tabindex="-1">&times;</button>
 </div>
 
 <script>
@@ -64,6 +64,7 @@
     function hide() {
         el.classList.remove('rt--in');
         el.setAttribute('aria-hidden', 'true');
+        el.querySelector('.rt__close').setAttribute('tabindex', '-1');
         clearTimeout(hideTimer);
     }
     function show() {
@@ -75,6 +76,7 @@
         try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
         el.classList.add('rt--in');
         el.setAttribute('aria-hidden', 'false');
+        el.querySelector('.rt__close').removeAttribute('tabindex');
         hideTimer = setTimeout(hide, 8000);
         window.removeEventListener('scroll', onScroll);
     }
