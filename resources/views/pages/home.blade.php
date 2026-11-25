@@ -422,7 +422,7 @@
                     <div class="ohero__stat-lbl">Localities Covered</div>
                 </div>
                 <div class="ohero__stat">
-                    <div class="ohero__stat-val">{{ $reviewCount }}+</div>
+                    <div class="ohero__stat-val">{{ $reviewCount }}</div>
                     <div class="ohero__stat-lbl">Google Reviews</div>
                 </div>
             </div>
@@ -499,7 +499,7 @@
         </div>
         <div class="stat">
             <span class="ico-badge"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-            <div><div class="stat__val">{{ $reviewCount }}+</div><div class="stat__lbl">Client reviews</div></div>
+            <div><div class="stat__val">{{ $reviewCount }}</div><div class="stat__lbl">Client reviews</div></div>
         </div>
         <div class="stat">
             <span class="ico-badge" style="background:var(--accent-soft);color:var(--accent)">{!! str_replace('width="14" height="14"', 'width="18" height="18"', $pin) !!}</span>
@@ -675,7 +675,7 @@
                 <div class="score__num">{{ $reviewAvg }}</div>
                 <div class="score__meta">
                     <div class="stars" aria-label="{{ $reviewAvg }} out of 5 stars">★★★★★</div>
-                    <div style="display:flex;align-items:center;gap:6px">{!! $gLogo !!} Based on {{ $reviewCount }}+ Google reviews</div>
+                    <div style="display:flex;align-items:center;gap:6px">{!! $gLogo !!} Based on {{ $reviewCount }} Google reviews</div>
                 </div>
             </div>
         </div>

@@ -103,7 +103,7 @@ public function show($slug)
         $news        = \App\Models\NewsArticle::published()->listed()->latest()->take(3)->get();
         $properties  = \App\Models\PropertyListing::published()->with('images')->latest()->take(6)->get();
         $reviews     = \App\Models\GoogleReview::active()->orderBy('sort_order')->orderByDesc('review_date')->take(6)->get();
-        $reviewCount = max(config('google_reviews.total'), \App\Models\GoogleReview::active()->count());
+        $reviewCount = config('google_reviews.total');
         $reviewAvg   = number_format(config('google_reviews.rating'), 1);
         $localities  = \App\Models\PropertyListing::published()->distinct()->orderBy('locality')->pluck('locality');
         return view('pages.home', compact('blogs', 'news', 'properties', 'reviews', 'reviewCount', 'reviewAvg', 'localities'));

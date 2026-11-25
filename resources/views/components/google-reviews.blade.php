@@ -1,7 +1,7 @@
 @if($googleReviews->isNotEmpty())
 @php
-    $avgRating = round($googleReviews->avg('rating'), 1);
-    $totalReviews = $googleReviews->count();
+    $avgRating = (float) config('google_reviews.rating');
+    $totalReviews = config('google_reviews.total');
 
     $avatarColors = [
         '#4285F4', '#EA4335', '#FBBC05', '#34A853',
@@ -40,7 +40,7 @@
                                     @endif
                                 @endfor
                             </div>
-                            <p class="gr-count">{{ $totalReviews }} {{ Str::plural('review', $totalReviews) }}</p>
+                            <p class="gr-count">{{ $totalReviews }} Google reviews</p>
                         </div>
                     </div>
                 </div>

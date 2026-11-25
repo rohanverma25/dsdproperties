@@ -1,6 +1,6 @@
 @extends('layouts.user-app')
 
-@section('title', 'Customer Reviews — DSD Properties Lucknow | ' . $totalReviews . '+ Google Reviews')
+@section('title', 'Customer Reviews — DSD Properties Lucknow | ' . $totalReviews . ' Google Reviews')
 @section('meta_description', 'Read all ' . $totalReviews . ' Google reviews for DSD Properties — real feedback from Lucknow property buyers and sellers on our verification, advisory and registry services.')
 @section('canonical', 'https://dsdproperties.in/reviews')
 
@@ -99,7 +99,7 @@
                     @endif
                 @endfor
             </div>
-            <p class="rv-hero__count">Based on {{ $totalReviews }} {{ Str::plural('review', $totalReviews) }}</p>
+            <p class="rv-hero__count">Based on {{ $totalReviews }} Google reviews</p>
         </div>
     </div>
 

@@ -29,8 +29,8 @@ class GoogleReviewController extends Controller
             ->orderByDesc('review_date')
             ->paginate(12);
 
-        $avgRating    = round(GoogleReview::active()->avg('rating'), 1);
-        $totalReviews = GoogleReview::active()->count();
+        $avgRating    = number_format(config('google_reviews.rating'), 1);
+        $totalReviews = config('google_reviews.total');
 
         return view('pages.reviews', compact('reviews', 'avgRating', 'totalReviews'));
     }
