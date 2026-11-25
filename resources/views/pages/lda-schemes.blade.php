@@ -405,6 +405,9 @@
 
 /* Description */
 .lda-desc { padding: 0 1rem .65rem; font-size: .8rem; color: var(--text-secondary, #4b5563); line-height: 1.6; flex: 1; }
+.lda-points { margin: 0; padding: 0 1rem .65rem 2rem; list-style: disc; }
+.lda-points li { margin-bottom: .3rem; }
+.lda-points li::marker { color: #008080; }
 
 /* ─────────────────────────────────────────
    CARD FOOTER — REORDERED button row
@@ -908,7 +911,14 @@
             @endif
 
             {{-- Description --}}
-            @if(!empty($s['description']))
+            {{-- Short easy points when the JSON has them (26 Nov 2026), else the long description --}}
+            @if(!empty($s['points']) && is_array($s['points']))
+            <ul class="lda-desc lda-points">
+                @foreach($s['points'] as $pt)
+                <li>{{ $pt }}</li>
+                @endforeach
+            </ul>
+            @elseif(!empty($s['description']))
             <div class="lda-desc">{{ $s['description'] }}</div>
             @endif
 
