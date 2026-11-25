@@ -49,12 +49,15 @@ public function show($slug)
     $author = $this->authorsBlogs($blog->author_id);
 
     // ── Recent blogs for sidebar (exclude current) ──
-    $recentBlogs = BlogPost::where('id', '!=', $blog->id)
+    // Drafts never appear in the sidebar, related posts or home page (26 Nov 2026)
+    $recentBlogs = BlogPost::where('status', 'published')
+                           ->where('id', '!=', $blog->id)
                            ->latest()
                            ->paginate(10);
 
     // ── Related posts: same category tag, exclude current ──
-    $relatedPosts = BlogPost::where('id', '!=', $blog->id)
+    $relatedPosts = BlogPost::where('status', 'published')
+                            ->where('id', '!=', $blog->id)
                             ->where('tag', $blog->tag)
                             ->latest()
                             ->take(4)
@@ -64,7 +67,8 @@ public function show($slug)
     if ($relatedPosts->count() < 4) {
         $existingIds = $relatedPosts->pluck('id')->push($blog->id);
 
-        $fillPosts = BlogPost::whereNotIn('id', $existingIds)
+        $fillPosts = BlogPost::where('status', 'published')
+                             ->whereNotIn('id', $existingIds)
                              ->latest()
                              ->take(4 - $relatedPosts->count())
                              ->get();
@@ -99,7 +103,7 @@ public function show($slug)
     }
 
     public function homePage(){
-        $blogs       = BlogPost::whereNotNull('featured_image')->latest()->take(3)->get();
+        $blogs       = BlogPost::where('status', 'published')->whereNotNull('featured_image')->latest()->take(3)->get();
         $news        = \App\Models\NewsArticle::published()->listed()->latest()->take(3)->get();
         $properties  = \App\Models\PropertyListing::published()->with('images')->latest()->take(6)->get();
         $reviews     = \App\Models\GoogleReview::active()->orderBy('sort_order')->orderByDesc('review_date')->take(6)->get();
