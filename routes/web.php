@@ -214,7 +214,6 @@ Route::get('/sitemap-services.xml', function () {
         ['url' => 'https://dsdproperties.in/awas-vikas-schemes', 'priority' => '0.9', 'changefreq' => 'weekly'],
         ['url' => 'https://dsdproperties.in/awas-vikas-lottery-result', 'priority' => '0.8', 'changefreq' => 'weekly'],
         ['url' => 'https://dsdproperties.in/seller/register', 'priority' => '0.8', 'changefreq' => 'monthly'],
-        ['url' => 'https://dsdproperties.in/buyer/register', 'priority' => '0.8', 'changefreq' => 'monthly'],
         ['url' => 'https://dsdproperties.in/rera-approved-projects-lucknow', 'priority' => '0.8', 'changefreq' => 'weekly'],
     ];
     $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
@@ -474,6 +473,12 @@ foreach ($retiredNewsRedirects as $from => $to) {
 }
 
 // Blogs Redirect
+
+// Dead internal links found in the 26 Nov 2026 audit (redirected so the linking pages stay untouched).
+// /services has no index page; it is the breadcrumb parent on the registry pages and in the services' BreadcrumbList schema.
+Route::redirect('/services', '/services/property-verification-lucknow', 301);
+Route::redirect('/blog/atal-nagar-yojana-lda', '/blog/atal-nagar-awasiya-yojana-phase-2-devpur-para-lucknow-2026', 301);
+Route::redirect('/blog/mohanlalganj-plot-lucknow-2026', '/blog/mohanlalganj-lucknow-real-estate-guide-2026', 301);
 
 
 Route::redirect(

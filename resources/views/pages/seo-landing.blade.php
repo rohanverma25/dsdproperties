@@ -541,7 +541,7 @@
       <p>Talk to our expert advisors — free consultation, no obligation</p>
     </div>
     <div class="sl-cta-btns">
-      <a href="https://wa.me/919415017678?text=Hi, I'm looking for {{ urlencode($h1) }}" target="_blank" rel="noopener" class="sl-cta-btn-primary">
+      <a href="https://wa.me/{{ config('contact.wa') }}?text={{ urlencode("Hi, I'm looking for " . $h1) }}" target="_blank" rel="noopener" class="sl-cta-btn-primary">
         WhatsApp Us
       </a>
       <a href="{{ route('contact-us') }}" class="sl-cta-btn-secondary">
