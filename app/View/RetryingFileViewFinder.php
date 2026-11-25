@@ -11,7 +11,7 @@ use InvalidArgumentException;
  * even ones the push didn't change. Pages then failed with "View [x] not found" (app_error_logs, Oct–Nov 2026;
  * a 15 s retry was still too short on 26 Nov).
  *
- * So when an app view is missing, it is served from a mirror copy of resources/views kept in storage/ (which
+ * Fix (26 Nov 2026): when an app view is missing, it is served from a mirror copy of resources/views kept in storage/ (which
  * the deploy doesn't touch). The mirror is refreshed by /run-route-cache (self::syncMirror()). A view that is
  * in neither place still fails, after a short retry. Namespaced views (errors::404, mail::…) are left alone,
  * because Laravel probes those with view()->exists() while rendering error pages.
