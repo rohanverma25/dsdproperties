@@ -62,12 +62,14 @@ class LdaSchemesController extends Controller
         $stats = ['total' => count($schemes), 'active' => 0, 'upcoming' => 0, 'completed' => 0];
         foreach ($schemes as $s) {
             match (strtolower($s['status'] ?? '')) {
-                'active'    => $stats['active']++,
+                'active'    => null, // counted below from is_open_for_application
                 'upcoming'  => $stats['upcoming']++,
                 'completed' => $stats['completed']++,
                 default     => null,
             };
         }
+        // "Open Now" = registration/lottery actually open (user rule, 26 Nov 2026), not the status label.
+        $stats['active'] = count(array_filter($schemes, fn ($s) => ! empty($s['is_open_for_application'])));
         return $stats;
     }
 
