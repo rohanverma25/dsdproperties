@@ -1,6 +1,6 @@
 {{--
     Mobile-only WhatsApp side tab on the right edge (user, 26 Nov 2026), on the IT City, Wellness City
-    and Varun Vihar posts only. Opens WhatsApp even on No-WhatsApp pages (Varun Vihar): the user asked
+    and Varun Vihar posts; Saumitra Vihar posts + landing page added 26 Nov. Opens WhatsApp even on No-WhatsApp pages (Varun Vihar): the user asked
     for this button specifically. Add or remove a slug below to switch it on or off for a post.
 --}}
 @php
@@ -11,6 +11,9 @@
         'wellness-city-lucknow-lda-guide-hindi-2026'  => 'Wellness City',
         'varun-vihar-yojana-lucknow-lda-plots-guide-2026' => 'Varun Vihar',
         'varun-vihar-yojana-lucknow-hindi-2026'       => 'Varun Vihar',
+        'saumitra-vihar-yojana-lucknow-2026'          => 'Saumitra Vihar',
+        'saumitra-vihar-yojana-lucknow-hindi-2026'    => 'Saumitra Vihar',
+        'property-in-saumitra-vihar'                  => 'Saumitra Vihar', // landing page pages/saumitra-vihar-yojna
     ];
     $waTabScheme = $waTabSchemes[$waTabSlug ?? ''] ?? null;
 @endphp

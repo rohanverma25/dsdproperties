@@ -80,6 +80,7 @@
 
 <section class="band contact"><div class="wrap contact-box"><div><span class="eyebrow">Talk to our team</span><h2>Tell us what you’re looking for.</h2><p>Share a size, budget or plot reference. We’ll reply with what we can confirm and the next useful step.</p></div><div class="section-actions"><a class="btn" href="{{ $waBase . rawurlencode('Hello DSD Properties, I am looking for a plot in Saumitra Vihar Yojna, Lucknow. Please get in touch.') }}">Chat on WhatsApp ↗</a><a class="btn light" href="tel:{{ config('contact.tel') }}">Call {{ config('contact.spaced') }}</a></div></div></section>
 </main>
+@include('partials.scheme-wa-side-tab', ['waTabSlug' => 'property-in-saumitra-vihar'])
 <footer class="footer"><div class="wrap"><p><strong>DSD Properties</strong> · Lucknow · <a href="tel:{{ config('contact.tel') }}">{{ config('contact.display') }}</a> · <a href="https://dsdproperties.in">dsdproperties.in</a></p><p>Independent buyer information by DSD Properties. UP Awas Evam Vikas Parishad manages its own scheme allotments. Confirm availability, records, prices and terms for the specific plot before making a payment.</p></div></footer>
 </body>
 </html>
