@@ -7,6 +7,6 @@
 // profile changes, then deploy.
 // Plain values with no env() on purpose, so a stale server .env can't override them.
 return [
-    'total'  => 49,   // Google Business profile, 26 Nov 2026
+    'total'  => 53,   // Google Business profile, 27 Nov 2026. Pages show it as "53+"; schema keeps the plain number.
     'rating' => 5.0,
 ];

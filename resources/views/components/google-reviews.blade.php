@@ -40,7 +40,7 @@
                                     @endif
                                 @endfor
                             </div>
-                            <p class="gr-count">{{ $totalReviews }} Google reviews</p>
+                            <p class="gr-count">{{ $totalReviews }}+ Google reviews</p>
                         </div>
                     </div>
                 </div>
