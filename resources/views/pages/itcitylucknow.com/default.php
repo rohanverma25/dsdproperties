@@ -4,14 +4,15 @@
  * Sells two things in LDA's IT City (Sultanpur Road): (A) developed plots already allotted to land-pooling farmers (resale),
  * (B) farm land inside the scheme villages that goes into land pooling (buyer files the land-pooling affidavit).
  * Independent seller page: never present it as the official LDA site, never mention any other brand.
- * lucknowitcity.in stays live with a different angle (launch / expected rate / cost per size): keep this page's text different.
+ * lucknowitcity.in was merged into this site on 28 Nov 2026 (301 redirect via its .htaccess): this is the only IT City sales domain.
  * To change stock: edit $sizes ('available' | 'hold' | 'sold'). Change $updated + $updatedIso + sitemap lastmod + llms.txt together.
  */
 $site = 'https://itcitylucknow.com/';
-$phone = '918595002933';
-$phoneShow = '+91 85950 02933';
-$updated = '24 November 2026';
-$updatedIso = '2026-11-24';
+$phone = '919554102933';        // sales-domain number (main site uses 8595002933)
+$phoneShow = '+91 95541 02933';
+$updated = '28 November 2026';
+$updatedIso = '2026-11-28';
+$rateSqft = 4200;              // REPORTED proposed LDA rate per sq ft (Amar Ujala / Bhaskar, 4 Nov 2026; ~4,000 on 27 Oct). Not notified: always say "proposed".
 $geo = [26.752822, 81.052238];
 
 $sizes = [
@@ -32,8 +33,13 @@ $sqft = function ($m) { return number_format($m * 10.7639); };
 $sqyd = function ($m) { return number_format($m * 1.19599); };
 $open = array_values(array_filter($sizes, function ($s) { return $s[1] !== 'sold'; }));
 $list = implode(', ', array_map(function ($s) { return $s[0]; }, $open));
+$lakh = function ($m) use ($rateSqft) { return number_format($m * 10.7639 * $rateSqft / 100000, 1); };
 
 $faq = [
+    ['What is the IT City Lucknow launch date?',
+     'There is no confirmed date. LDA\'s public launch of IT City, together with Saumitra Vihar and the handing over of allotment letters to farmers, was planned for 23 November 2026 but did not take place. It is now expected in December 2026; LDA has not announced a new date. Registration for the general public opens only after that launch, on ldalucknow.in.'],
+    ['What is the rate of IT City Lucknow plots?',
+     'LDA has not notified a rate yet. On 27 October 2026 the LDA secretary spoke of about ₹4,000 per sq ft, and a 4 November report put the proposed rate at about ₹4,200 per sq ft. At ₹4,200 a 72 m² plot works out to about ₹' . $lakh(72) . ' lakh and a 128 m² plot to about ₹' . $lakh(128) . ' lakh for the land alone. A farmer-allotted plot sold on resale has its own price, which we share for each plot.'],
     ['Can I buy a plot that LDA has allotted to a farmer in IT City?',
      'Yes, a farmer who received a developed plot under land pooling can sell it, but the phase-1 land of IT City is notified, so the sale needs the District Collector\'s prior written permission. We tell you the permission status of each plot along with its price, and the registry is done only after the permission and the farmer\'s allotment letter have been checked.'],
     ['What does buying "land-pooling land" in IT City mean?',
@@ -50,6 +56,7 @@ $faq = [
      'No. This is an independent resale service with no connection to the Lucknow Development Authority. LDA\'s schemes, lotteries and notices are published only on ldalucknow.in.'],
 ];
 $faqHi = [
+    ['आईटी सिटी लखनऊ की लॉन्च डेट और रेट क्या है?', '23 नवंबर 2026 को होने वाला शुभारंभ नहीं हुआ, और अब इसके दिसंबर में होने की उम्मीद है, लेकिन एलडीए ने नई तारीख घोषित नहीं की है। रेट भी अभी अधिसूचित नहीं है; रिपोर्ट के मुताबिक प्रस्तावित दर करीब ₹4,200 प्रति वर्गफुट है, जिस पर 72 वर्ग मीटर का प्लॉट करीब ₹' . $lakh(72) . ' लाख का पड़ता है।'],
     ['क्या आईटी सिटी में किसान को मिला प्लॉट खरीदा जा सकता है?', 'हां, लेकिन फेज-1 की जमीन अधिसूचित है, इसलिए बिक्री से पहले जिलाधिकारी की लिखित अनुमति जरूरी है। हर प्लॉट की कीमत के साथ हम उसकी अनुमति की स्थिति भी बताते हैं।'],
     ['लैंड पूलिंग वाली जमीन खरीदने का क्या मतलब है?', '28 अक्टूबर 2026 के नियम के मुताबिक खरीदार को शपथ पत्र देना होता है कि जमीन लैंड पूलिंग से योजना में जाएगी, और बैनामे में भी यह लिखा जाता है। इसमें आपको आज प्लॉट नहीं, बल्कि आगे चलकर विकसित प्लॉट का हिस्सा मिलता है।'],
 ];
@@ -58,8 +65,8 @@ $faqHi = [
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>IT City Lucknow Plots for Sale: Farmer Plots &amp; Land Pooling Land</title>
-<meta name="description" content="Buy in LDA IT City, Sultanpur Road: plots allotted to land-pooling farmers (35–288 m²) and land under land pooling. DM permission and affidavit explained.">
+<title>IT City Lucknow: Launch Date, Plot Price &amp; Farmer Plots for Sale</title>
+<meta name="description" content="LDA IT City, Sultanpur Road: launch and registration status, proposed rate of about ₹4,200/sq ft with cost by plot size, farmer-allotted plots (35–288 m²) and land-pooling land.">
 <meta name="keywords" content="IT City Lucknow plot for sale, IT City Lucknow land pooling, IT City Lucknow farmer plot, LDA IT City resale plot, IT City Sultanpur Road plot, land pooling Lucknow, आईटी सिटी लखनऊ प्लॉट, आईटी सिटी लैंड पूलिंग">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#0e3b2e">
@@ -216,6 +223,9 @@ section.alt .steps li{background:var(--bg)}
 .fullplan img{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:#fff}
 @media(max-width:760px){.fullplan{grid-template-columns:1fr}}
 
+.sub{margin-top:34px}.sub h3{font-size:22px;color:var(--forest);margin:0 0 8px}.sub>p{color:var(--muted);margin:0 0 14px;max-width:780px}
+caption{caption-side:bottom;text-align:left;font-size:13px;color:var(--muted);padding:10px 2px 0}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 .updates{list-style:none;margin:0;padding:0;border-left:3px solid var(--line)}
 .updates li{position:relative;padding:0 0 18px 20px}
 .updates li:before{content:"";position:absolute;left:-8px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--gold);border:3px solid var(--bg)}
@@ -249,7 +259,9 @@ footer p{margin:0 0 8px}
  <div class="wrap">
   <a class="brand" href="<?php echo $site; ?>"><i><svg class="i" viewBox="0 0 24 24" fill="none" stroke="#e8b13a" stroke-width="2.4"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/></svg></i><span>IT City Lucknow<small>Farmer plots · Land pooling land</small></span></a>
   <nav>
+   <a class="n" href="#launch">Launch</a>
    <a class="n" href="#plots">Plots</a>
+   <a class="n" href="#price">Price</a>
    <a class="n" href="#land-pooling">Land pooling</a>
    <a class="n" href="#how-to-buy">How to buy</a>
    <a class="n" href="#faq">FAQ</a>
@@ -300,6 +312,20 @@ footer p{margin:0 0 8px}
    <div class="g"><b>2,197</b><span>plots allotted to 1,465 land-pooling farmers in three 2026 lotteries</span></div>
    <div class="g"><b>25%</b><span>of pooled land returned as developed plots so far; 50% for 10+ acres (board, 2 Nov)</span></div>
   </div>
+  <div class="sub" id="launch">
+   <h3>Launch date, registration and rate: where things stand</h3>
+   <p>Most people searching for IT City want to know when LDA opens it to the public and at what rate. As of <?php echo $e($updated); ?>, none of these has been officially announced.</p>
+   <div class="tw"><table>
+    <thead><tr><th>Question</th><th>Position on <?php echo $e($updated); ?></th></tr></thead>
+    <tbody>
+     <tr><td><b>Public launch</b></td><td>Planned for 23 November 2026 with Saumitra Vihar; it did not take place. December 2026 is expected, but LDA has not announced a new date.</td></tr>
+     <tr><td><b>Public registration</b></td><td>Not open. It opens after the launch, only on LDA's website ldalucknow.in.</td></tr>
+     <tr><td><b>Rate</b></td><td>Not notified. About ₹4,000 per sq ft (LDA secretary, 27 Oct) to about ₹<?php echo number_format($rateSqft); ?> per sq ft (report, 4 Nov) has been proposed.</td></tr>
+     <tr><td><b>Farmers' allotment letters</b></td><td>Due on 23 November with the launch; also held up.</td></tr>
+     <tr><td><b>Buying now</b></td><td>Possible only through a farmer-allotted plot (with DM permission) or land-pooling land (with the affidavit), both explained below.</td></tr>
+    </tbody>
+   </table></div>
+  </div>
  </div>
 </section>
 
@@ -321,6 +347,15 @@ footer p{margin:0 0 8px}
 <?php endif; ?>
    </article>
 <?php endforeach; ?>
+  </div>
+  <div class="sub" id="price">
+   <h3>IT City plot price by size at LDA's proposed rate</h3>
+   <p>This table works out the land cost of each size at the proposed ₹<?php echo number_format($rateSqft); ?> per sq ft, so you can compare a resale price with what LDA is expected to charge. The rate is not notified, and LDA's own charges come on top.</p>
+   <div class="tw"><table>
+    <caption>Land cost only, at the proposed ₹<?php echo number_format($rateSqft); ?>/sq ft (not notified), <?php echo $e($updated); ?>. Resale prices of farmer plots are quoted per plot on WhatsApp.</caption>
+    <thead><tr><th>Plot size</th><th>Sq ft</th><th>Sq yd</th><th>Cost at ₹<?php echo number_format($rateSqft); ?>/sq ft</th></tr></thead>
+    <tbody><?php foreach ($open as $s): ?><tr><td><b><?php echo $s[0]; ?> m²</b></td><td class="num"><?php echo $sqft($s[0]); ?></td><td class="num"><?php echo $sqyd($s[0]); ?></td><td class="num">≈ ₹<?php echo $lakh($s[0]); ?> lakh</td></tr><?php endforeach; ?></tbody>
+   </table></div>
   </div>
   <div class="fullplan">
    <a href="it-city-layout-plan.webp" target="_blank" rel="noopener"><img src="it-city-layout-plan.webp" width="1100" height="1555" loading="lazy" alt="LDA IT City layout plan, Lucknow, with sectors, road widths and land-use legend"></a>
@@ -397,6 +432,7 @@ footer p{margin:0 0 8px}
    <ul class="updates">
     <li><time datetime="2026-11-23">23 November 2026</time>The planned launch with the farmers' allotment letters did not happen; December is expected, no date announced.</li>
     <li><time datetime="2026-11-23">23 November 2026</time>Roads in IT City will be built with soil brought from outside, not the local black clay.</li>
+    <li><time datetime="2026-11-04">4 November 2026</time>Proposed rate for LDA's own IT City plots reported at about ₹<?php echo number_format($rateSqft); ?> per sq ft (about ₹4,000 per LDA's secretary on 27 October); not notified.</li>
     <li><time datetime="2026-11-02">2 November 2026</time>LDA board: owners pooling 10+ acres get 50% back as land in the scheme; land-pooling SOP approved.</li>
     <li><time datetime="2026-10-28">28 October 2026</time>Notified IT City land may be sold if the buyer files a land-pooling affidavit and the sale deed records it.</li>
     <li><time datetime="2026-10-06">6 October 2026</time>Land position: about 500 ha pooled, about 200 ha gram samaj land in legal process, about 300 ha to be acquired.</li>
@@ -406,6 +442,8 @@ footer p{margin:0 0 8px}
    <span class="tag">हिंदी में</span>
    <h2 style="font-size:clamp(24px,3.2vw,34px);color:var(--forest);margin:8px 0 10px">आईटी सिटी लखनऊ: किसानों के प्लॉट और लैंड पूलिंग जमीन</h2>
    <p>एलडीए की आईटी सिटी सुल्तानपुर रोड पर करीब 1,054 हेक्टेयर में बन रही है और इसकी ज्यादातर जमीन लैंड पूलिंग से आई है। जिन किसानों ने जमीन दी, उन्हें लॉटरी से विकसित प्लॉट मिले हैं, और 2026 की तीन लॉटरी में 1,465 किसानों को 2,197 प्लॉट आवंटित हुए हैं।</p>
+   <h3>लॉन्च डेट और रेट</h3>
+   <p>आम लोगों के लिए आईटी सिटी का शुभारंभ 23 नवंबर 2026 को होना था, लेकिन वह कार्यक्रम नहीं हुआ और अब दिसंबर की उम्मीद है, हालांकि नई तारीख घोषित नहीं हुई है। एलडीए की प्रस्तावित दर करीब ₹<?php echo number_format($rateSqft); ?> प्रति वर्गफुट बताई गई है, जो अभी अधिसूचित नहीं है, और इस दर पर 128 वर्ग मीटर का प्लॉट करीब ₹<?php echo $lakh(128); ?> लाख का पड़ता है।</p>
    <h3>किसान का प्लॉट खरीदना</h3>
    <p>हमारे पास <?php echo $list; ?> वर्ग मीटर के प्लॉट हैं। फेज-1 की जमीन अधिसूचित है, इसलिए हर बिक्री में जिलाधिकारी की लिखित अनुमति लगती है, और हम हर प्लॉट की कीमत के साथ उसकी अनुमति की स्थिति भी बताते हैं।</p>
    <h3>लैंड पूलिंग वाली जमीन</h3>
