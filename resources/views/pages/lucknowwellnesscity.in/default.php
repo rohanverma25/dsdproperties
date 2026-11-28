@@ -12,12 +12,6 @@
 $site = 'https://lucknowwellnesscity.in/';
 $phone = '919554102933';        // sales-domain number (main site uses 8595002933)
 $phoneShow = '+91 95541 02933';
-// Who runs this page (named in the footer + schema since 28 Nov 2026)
-$opName = 'DSD Properties';
-$opUrl  = 'https://dsdproperties.in/';
-$opAbout = 'https://dsdproperties.in/about';
-$opStreet = '128/LGE Sanjar Gold Complex, Near Kalindi Park, Vrindavan Sector 2';
-$opPin = '226025';
 $updated = '10 November 2026';
 $updatedIso = '2026-11-10';   // change both dates whenever $sizes changes
 $rate = 54559.17;             // LDA's PROPOSED rate per m² (finance controller's order, 30 June 2026); always call it "proposed"
@@ -89,8 +83,8 @@ echo json_encode(['@context' => 'https://schema.org', '@graph' => [
    'geo' => ['@type' => 'GeoCoordinates', 'latitude' => $geo[0], 'longitude' => $geo[1]],
    'address' => ['@type' => 'PostalAddress', 'streetAddress' => 'Sultanpur Road', 'addressLocality' => 'Lucknow', 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
   ['@type' => 'RealEstateAgent', '@id' => $site . '#agent', 'name' => 'Wellness City Lucknow Plots', 'url' => $site, 'telephone' => '+' . $phone, 'image' => $site . 'og-image.jpg',
-   'areaServed' => ['@id' => $site . '#place'], 'parentOrganization' => ['@type' => 'Organization', 'name' => $opName, 'url' => $opUrl],
-   'address' => ['@type' => 'PostalAddress', 'streetAddress' => $opStreet, 'addressLocality' => 'Lucknow', 'postalCode' => $opPin, 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
+   'areaServed' => ['@id' => $site . '#place'],
+   'address' => ['@type' => 'PostalAddress', 'addressLocality' => 'Lucknow', 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
   ['@type' => 'ItemList', '@id' => $site . '#plots', 'name' => 'Plot sizes for sale in Wellness City Lucknow', 'numberOfItems' => count($open),
    'itemListElement' => array_map(function ($s, $i) use ($site, $sqft, $updatedIso) {
        return ['@type' => 'ListItem', 'position' => $i + 1, 'item' => ['@type' => 'Place',
@@ -361,7 +355,6 @@ section.band{padding:60px 0;border-bottom:1px solid var(--line)}
 
 <footer class="foot"><div class="wrap">
   <p><strong>Wellness City Lucknow Plots</strong> · <?php echo $e($phoneShow); ?></p>
-  <p>Listed and managed by <strong><?php echo $e($opName); ?></strong>, property consultants in Lucknow · <?php echo $e($opStreet); ?>, Lucknow <?php echo $e($opPin); ?> · <a href="<?php echo $e($opAbout); ?>" style="color:var(--navy2)">About us</a></p>
   <p>We help buyers and landowners with resale plots from the Wellness City land-pooling lottery. We do not work for, or speak for, the Lucknow Development Authority; its schemes, rates and notices are published only on <a href="https://ldalucknow.in/" target="_blank" rel="noopener" style="color:var(--navy2)">ldalucknow.in</a>. Rates on this page are LDA's proposed figures and may change. No transfer in phase 1 should be registered without the District Collector's written permission.</p>
 </div></footer>
 

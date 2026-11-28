@@ -6,19 +6,13 @@
  * Independent seller page: never present it as the official LDA site, never mention any other brand.
  * lucknowitcity.in was merged into this site on 28 Nov 2026 (301 redirect via its .htaccess): this is the only IT City sales domain.
  * Keep it on BUYING queries (plots for sale, resale, farmer plot, land pooling land). Launch-date / registration / rate guides
- * belong to dsdproperties.in post 87: do not add them here, so the two sites do not compete (user's first goal, 28 Nov 2026).
- * The operator (DSD Properties) is named in the footer, the FAQ and the schema since 28 Nov 2026.
+ * belong to the main site's IT City guide: do not add them here, so the two sites do not compete (user's first goal, 28 Nov 2026).
+ * No DSD mention and no link to the main site (user decision, 28 Nov 2026).
  * To change stock: edit $sizes ('available' | 'hold' | 'sold'). Change $updated + $updatedIso + sitemap lastmod + llms.txt together.
  */
 $site = 'https://itcitylucknow.com/';
 $phone = '919554102933';        // sales-domain number (main site uses 8595002933)
 $phoneShow = '+91 95541 02933';
-// Who runs this page (named in the footer + schema since 28 Nov 2026)
-$opName = 'DSD Properties';
-$opUrl  = 'https://dsdproperties.in/';
-$opAbout = 'https://dsdproperties.in/about';
-$opStreet = '128/LGE Sanjar Gold Complex, Near Kalindi Park, Vrindavan Sector 2';
-$opPin = '226025';
 $updated = '28 November 2026';
 $updatedIso = '2026-11-28';
 $rateSqft = 4200;              // REPORTED proposed LDA rate per sq ft (Amar Ujala / Bhaskar, 4 Nov 2026; ~4,000 on 27 Oct). Not notified: always say "proposed".
@@ -58,7 +52,7 @@ $faq = [
     ['Should I wait for LDA\'s public lottery instead?',
      'You can apply in LDA\'s public lottery as well; registration for the general public has not opened yet and the launch planned for 23 November 2026 did not take place. A lottery is a chance, not a sure plot, while a farmer\'s allotted plot is a known plot in a known sector that you can buy now. Many buyers do both.'],
     ['Is this the official IT City or LDA website?',
-     'No. This page is run by ' . $opName . ', an independent property consultancy at Vrindavan Sector 2, Lucknow, with no connection to the Lucknow Development Authority. LDA\'s schemes, lotteries and notices are published only on ldalucknow.in.'],
+     'No. This is an independent resale service with no connection to the Lucknow Development Authority. LDA\'s schemes, lotteries and notices are published only on ldalucknow.in.'],
 ];
 $faqHi = [
     ['क्या आईटी सिटी में किसान को मिला प्लॉट खरीदा जा सकता है?', 'हां, लेकिन फेज-1 की जमीन अधिसूचित है, इसलिए बिक्री से पहले जिलाधिकारी की लिखित अनुमति जरूरी है। हर प्लॉट की कीमत के साथ हम उसकी अनुमति की स्थिति भी बताते हैं।'],
@@ -105,10 +99,9 @@ echo json_encode(['@context' => 'https://schema.org', '@graph' => [
    'containsPlace' => array_map(function ($v) { return ['@type' => 'Place', 'name' => $v . ', Lucknow']; }, $villages),
    'address' => ['@type' => 'PostalAddress', 'streetAddress' => 'Sultanpur Road', 'addressLocality' => 'Lucknow', 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
   ['@type' => 'RealEstateAgent', '@id' => $site . '#agent', 'name' => 'IT City Lucknow', 'url' => $site, 'telephone' => '+' . $phone, 'image' => $site . 'og-image.jpg',
-   'description' => 'Independent resale service for IT City Lucknow farmer-allotted plots and land-pooling land, run by ' . $opName . '. Not affiliated with LDA.',
+   'description' => 'Independent resale service for IT City Lucknow farmer-allotted plots and land-pooling land Not affiliated with LDA.',
    'areaServed' => ['@id' => $site . '#place'], 'knowsLanguage' => ['en', 'hi'],
-   'parentOrganization' => ['@type' => 'Organization', 'name' => $opName, 'url' => $opUrl],
-   'address' => ['@type' => 'PostalAddress', 'streetAddress' => $opStreet, 'addressLocality' => 'Lucknow', 'postalCode' => $opPin, 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
+   'address' => ['@type' => 'PostalAddress', 'addressLocality' => 'Lucknow', 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
   ['@type' => 'ItemList', '@id' => $site . '#plots', 'name' => 'Farmer-allotted plot sizes for sale in IT City Lucknow', 'numberOfItems' => count($open),
    'itemListElement' => array_map(function ($s, $i) use ($site, $sqft) {
        return ['@type' => 'ListItem', 'position' => $i + 1, 'item' => ['@type' => 'Place',
@@ -468,7 +461,6 @@ footer p{margin:0 0 8px}
   <p><strong>IT City Lucknow</strong> is an independent property resale service for farmer-allotted plots and land-pooling land in IT City, Sultanpur Road, Lucknow. We are not the Lucknow Development Authority and are not connected to it; LDA's schemes, lotteries and notices are published only on ldalucknow.in.</p>
   <p>Scheme facts on this page come from published newspaper reports of LDA statements (October–November 2026) and may change. Every transfer depends on the District Collector's permission or the land-pooling affidavit, as applicable. Last updated <?php echo $e($updated); ?>.</p>
   <p>Contact: <a href="tel:+<?php echo $phone; ?>"><?php echo $e($phoneShow); ?></a> (call / WhatsApp)</p>
-  <p>Listed and managed by <strong><?php echo $e($opName); ?></strong>, property consultants in Lucknow · <?php echo $e($opStreet); ?>, Lucknow <?php echo $e($opPin); ?> · <a href="<?php echo $e($opAbout); ?>">About us</a></p>
  </div>
 </footer>
 
