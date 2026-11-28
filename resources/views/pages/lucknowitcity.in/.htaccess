@@ -1,6 +1,9 @@
 # lucknowitcity.in merged into itcitylucknow.com (28 Nov 2026).
 # Every URL (with or without www, http or https) goes 301 to the same path on itcitylucknow.com,
 # so Google moves this domain's ranking and links to the one IT City site.
+# The host check keeps this rule from hitting any other domain whose folder sits under this one
+# (lucknowwellnesscity.in was being redirected too).
 # Keep this domain registered for at least a year so the redirect keeps working.
 RewriteEngine On
+RewriteCond %{HTTP_HOST} ^(www\.)?lucknowitcity\.in$ [NC]
 RewriteRule ^ https://itcitylucknow.com%{REQUEST_URI} [L,R=301]
