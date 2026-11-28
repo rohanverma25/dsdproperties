@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# AI search and answer engines are welcome to read and cite this page.
+# Page is noindex (28 Nov 2026) but stays crawlable so search engines can see the noindex tag.
 User-agent: GPTBot
 Allow: /
 User-agent: OAI-SearchBot
@@ -19,4 +19,3 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-Sitemap: https://lucknowwellnesscity.in/sitemap.xml

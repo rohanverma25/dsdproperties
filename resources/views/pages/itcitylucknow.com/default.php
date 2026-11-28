@@ -5,11 +5,20 @@
  * (B) farm land inside the scheme villages that goes into land pooling (buyer files the land-pooling affidavit).
  * Independent seller page: never present it as the official LDA site, never mention any other brand.
  * lucknowitcity.in was merged into this site on 28 Nov 2026 (301 redirect via its .htaccess): this is the only IT City sales domain.
+ * Keep it on BUYING queries (plots for sale, resale, farmer plot, land pooling land). Launch-date / registration / rate guides
+ * belong to dsdproperties.in post 87: do not add them here, so the two sites do not compete (user's first goal, 28 Nov 2026).
+ * The operator (DSD Properties) is named in the footer, the FAQ and the schema since 28 Nov 2026.
  * To change stock: edit $sizes ('available' | 'hold' | 'sold'). Change $updated + $updatedIso + sitemap lastmod + llms.txt together.
  */
 $site = 'https://itcitylucknow.com/';
 $phone = '919554102933';        // sales-domain number (main site uses 8595002933)
 $phoneShow = '+91 95541 02933';
+// Who runs this page (named in the footer + schema since 28 Nov 2026)
+$opName = 'DSD Properties';
+$opUrl  = 'https://dsdproperties.in/';
+$opAbout = 'https://dsdproperties.in/about';
+$opStreet = '128/LGE Sanjar Gold Complex, Near Kalindi Park, Vrindavan Sector 2';
+$opPin = '226025';
 $updated = '28 November 2026';
 $updatedIso = '2026-11-28';
 $rateSqft = 4200;              // REPORTED proposed LDA rate per sq ft (Amar Ujala / Bhaskar, 4 Nov 2026; ~4,000 on 27 Oct). Not notified: always say "proposed".
@@ -36,10 +45,6 @@ $list = implode(', ', array_map(function ($s) { return $s[0]; }, $open));
 $lakh = function ($m) use ($rateSqft) { return number_format($m * 10.7639 * $rateSqft / 100000, 1); };
 
 $faq = [
-    ['What is the IT City Lucknow launch date?',
-     'There is no confirmed date. LDA\'s public launch of IT City, together with Saumitra Vihar and the handing over of allotment letters to farmers, was planned for 23 November 2026 but did not take place. It is now expected in December 2026; LDA has not announced a new date. Registration for the general public opens only after that launch, on ldalucknow.in.'],
-    ['What is the rate of IT City Lucknow plots?',
-     'LDA has not notified a rate yet. On 27 October 2026 the LDA secretary spoke of about ₹4,000 per sq ft, and a 4 November report put the proposed rate at about ₹4,200 per sq ft. At ₹4,200 a 72 m² plot works out to about ₹' . $lakh(72) . ' lakh and a 128 m² plot to about ₹' . $lakh(128) . ' lakh for the land alone. A farmer-allotted plot sold on resale has its own price, which we share for each plot.'],
     ['Can I buy a plot that LDA has allotted to a farmer in IT City?',
      'Yes, a farmer who received a developed plot under land pooling can sell it, but the phase-1 land of IT City is notified, so the sale needs the District Collector\'s prior written permission. We tell you the permission status of each plot along with its price, and the registry is done only after the permission and the farmer\'s allotment letter have been checked.'],
     ['What does buying "land-pooling land" in IT City mean?',
@@ -53,10 +58,9 @@ $faq = [
     ['Should I wait for LDA\'s public lottery instead?',
      'You can apply in LDA\'s public lottery as well; registration for the general public has not opened yet and the launch planned for 23 November 2026 did not take place. A lottery is a chance, not a sure plot, while a farmer\'s allotted plot is a known plot in a known sector that you can buy now. Many buyers do both.'],
     ['Is this the official IT City or LDA website?',
-     'No. This is an independent resale service with no connection to the Lucknow Development Authority. LDA\'s schemes, lotteries and notices are published only on ldalucknow.in.'],
+     'No. This page is run by ' . $opName . ', an independent property consultancy at Vrindavan Sector 2, Lucknow, with no connection to the Lucknow Development Authority. LDA\'s schemes, lotteries and notices are published only on ldalucknow.in.'],
 ];
 $faqHi = [
-    ['आईटी सिटी लखनऊ की लॉन्च डेट और रेट क्या है?', '23 नवंबर 2026 को होने वाला शुभारंभ नहीं हुआ, और अब इसके दिसंबर में होने की उम्मीद है, लेकिन एलडीए ने नई तारीख घोषित नहीं की है। रेट भी अभी अधिसूचित नहीं है; रिपोर्ट के मुताबिक प्रस्तावित दर करीब ₹4,200 प्रति वर्गफुट है, जिस पर 72 वर्ग मीटर का प्लॉट करीब ₹' . $lakh(72) . ' लाख का पड़ता है।'],
     ['क्या आईटी सिटी में किसान को मिला प्लॉट खरीदा जा सकता है?', 'हां, लेकिन फेज-1 की जमीन अधिसूचित है, इसलिए बिक्री से पहले जिलाधिकारी की लिखित अनुमति जरूरी है। हर प्लॉट की कीमत के साथ हम उसकी अनुमति की स्थिति भी बताते हैं।'],
     ['लैंड पूलिंग वाली जमीन खरीदने का क्या मतलब है?', '28 अक्टूबर 2026 के नियम के मुताबिक खरीदार को शपथ पत्र देना होता है कि जमीन लैंड पूलिंग से योजना में जाएगी, और बैनामे में भी यह लिखा जाता है। इसमें आपको आज प्लॉट नहीं, बल्कि आगे चलकर विकसित प्लॉट का हिस्सा मिलता है।'],
 ];
@@ -65,8 +69,8 @@ $faqHi = [
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>IT City Lucknow: Launch Date, Plot Price &amp; Farmer Plots for Sale</title>
-<meta name="description" content="LDA IT City, Sultanpur Road: launch and registration status, proposed rate of about ₹4,200/sq ft with cost by plot size, farmer-allotted plots (35–288 m²) and land-pooling land.">
+<title>IT City Lucknow Plots for Sale: Farmer Plots &amp; Land Pooling Land</title>
+<meta name="description" content="Buy in LDA IT City, Sultanpur Road: plots allotted to land-pooling farmers (35–288 m²) and land under land pooling. Cost by size, DM permission and affidavit explained.">
 <meta name="keywords" content="IT City Lucknow plot for sale, IT City Lucknow land pooling, IT City Lucknow farmer plot, LDA IT City resale plot, IT City Sultanpur Road plot, land pooling Lucknow, आईटी सिटी लखनऊ प्लॉट, आईटी सिटी लैंड पूलिंग">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#0e3b2e">
@@ -101,9 +105,10 @@ echo json_encode(['@context' => 'https://schema.org', '@graph' => [
    'containsPlace' => array_map(function ($v) { return ['@type' => 'Place', 'name' => $v . ', Lucknow']; }, $villages),
    'address' => ['@type' => 'PostalAddress', 'streetAddress' => 'Sultanpur Road', 'addressLocality' => 'Lucknow', 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
   ['@type' => 'RealEstateAgent', '@id' => $site . '#agent', 'name' => 'IT City Lucknow', 'url' => $site, 'telephone' => '+' . $phone, 'image' => $site . 'og-image.jpg',
-   'description' => 'Independent resale service for IT City Lucknow farmer-allotted plots and land-pooling land. Not affiliated with LDA.',
+   'description' => 'Independent resale service for IT City Lucknow farmer-allotted plots and land-pooling land, run by ' . $opName . '. Not affiliated with LDA.',
    'areaServed' => ['@id' => $site . '#place'], 'knowsLanguage' => ['en', 'hi'],
-   'address' => ['@type' => 'PostalAddress', 'addressLocality' => 'Lucknow', 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
+   'parentOrganization' => ['@type' => 'Organization', 'name' => $opName, 'url' => $opUrl],
+   'address' => ['@type' => 'PostalAddress', 'streetAddress' => $opStreet, 'addressLocality' => 'Lucknow', 'postalCode' => $opPin, 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
   ['@type' => 'ItemList', '@id' => $site . '#plots', 'name' => 'Farmer-allotted plot sizes for sale in IT City Lucknow', 'numberOfItems' => count($open),
    'itemListElement' => array_map(function ($s, $i) use ($site, $sqft) {
        return ['@type' => 'ListItem', 'position' => $i + 1, 'item' => ['@type' => 'Place',
@@ -259,7 +264,6 @@ footer p{margin:0 0 8px}
  <div class="wrap">
   <a class="brand" href="<?php echo $site; ?>"><i><svg class="i" viewBox="0 0 24 24" fill="none" stroke="#e8b13a" stroke-width="2.4"><path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/></svg></i><span>IT City Lucknow<small>Farmer plots · Land pooling land</small></span></a>
   <nav>
-   <a class="n" href="#launch">Launch</a>
    <a class="n" href="#plots">Plots</a>
    <a class="n" href="#price">Price</a>
    <a class="n" href="#land-pooling">Land pooling</a>
@@ -311,20 +315,6 @@ footer p{margin:0 0 8px}
    <div class="g"><b>11</b><span>villages of Mohanlalganj tehsil inside the scheme</span></div>
    <div class="g"><b>2,197</b><span>plots allotted to 1,465 land-pooling farmers in three 2026 lotteries</span></div>
    <div class="g"><b>25%</b><span>of pooled land returned as developed plots so far; 50% for 10+ acres (board, 2 Nov)</span></div>
-  </div>
-  <div class="sub" id="launch">
-   <h3>Launch date, registration and rate: where things stand</h3>
-   <p>Most people searching for IT City want to know when LDA opens it to the public and at what rate. As of <?php echo $e($updated); ?>, none of these has been officially announced.</p>
-   <div class="tw"><table>
-    <thead><tr><th>Question</th><th>Position on <?php echo $e($updated); ?></th></tr></thead>
-    <tbody>
-     <tr><td><b>Public launch</b></td><td>Planned for 23 November 2026 with Saumitra Vihar; it did not take place. December 2026 is expected, but LDA has not announced a new date.</td></tr>
-     <tr><td><b>Public registration</b></td><td>Not open. It opens after the launch, only on LDA's website ldalucknow.in.</td></tr>
-     <tr><td><b>Rate</b></td><td>Not notified. About ₹4,000 per sq ft (LDA secretary, 27 Oct) to about ₹<?php echo number_format($rateSqft); ?> per sq ft (report, 4 Nov) has been proposed.</td></tr>
-     <tr><td><b>Farmers' allotment letters</b></td><td>Due on 23 November with the launch; also held up.</td></tr>
-     <tr><td><b>Buying now</b></td><td>Possible only through a farmer-allotted plot (with DM permission) or land-pooling land (with the affidavit), both explained below.</td></tr>
-    </tbody>
-   </table></div>
   </div>
  </div>
 </section>
@@ -442,8 +432,6 @@ footer p{margin:0 0 8px}
    <span class="tag">हिंदी में</span>
    <h2 style="font-size:clamp(24px,3.2vw,34px);color:var(--forest);margin:8px 0 10px">आईटी सिटी लखनऊ: किसानों के प्लॉट और लैंड पूलिंग जमीन</h2>
    <p>एलडीए की आईटी सिटी सुल्तानपुर रोड पर करीब 1,054 हेक्टेयर में बन रही है और इसकी ज्यादातर जमीन लैंड पूलिंग से आई है। जिन किसानों ने जमीन दी, उन्हें लॉटरी से विकसित प्लॉट मिले हैं, और 2026 की तीन लॉटरी में 1,465 किसानों को 2,197 प्लॉट आवंटित हुए हैं।</p>
-   <h3>लॉन्च डेट और रेट</h3>
-   <p>आम लोगों के लिए आईटी सिटी का शुभारंभ 23 नवंबर 2026 को होना था, लेकिन वह कार्यक्रम नहीं हुआ और अब दिसंबर की उम्मीद है, हालांकि नई तारीख घोषित नहीं हुई है। एलडीए की प्रस्तावित दर करीब ₹<?php echo number_format($rateSqft); ?> प्रति वर्गफुट बताई गई है, जो अभी अधिसूचित नहीं है, और इस दर पर 128 वर्ग मीटर का प्लॉट करीब ₹<?php echo $lakh(128); ?> लाख का पड़ता है।</p>
    <h3>किसान का प्लॉट खरीदना</h3>
    <p>हमारे पास <?php echo $list; ?> वर्ग मीटर के प्लॉट हैं। फेज-1 की जमीन अधिसूचित है, इसलिए हर बिक्री में जिलाधिकारी की लिखित अनुमति लगती है, और हम हर प्लॉट की कीमत के साथ उसकी अनुमति की स्थिति भी बताते हैं।</p>
    <h3>लैंड पूलिंग वाली जमीन</h3>
@@ -480,6 +468,7 @@ footer p{margin:0 0 8px}
   <p><strong>IT City Lucknow</strong> is an independent property resale service for farmer-allotted plots and land-pooling land in IT City, Sultanpur Road, Lucknow. We are not the Lucknow Development Authority and are not connected to it; LDA's schemes, lotteries and notices are published only on ldalucknow.in.</p>
   <p>Scheme facts on this page come from published newspaper reports of LDA statements (October–November 2026) and may change. Every transfer depends on the District Collector's permission or the land-pooling affidavit, as applicable. Last updated <?php echo $e($updated); ?>.</p>
   <p>Contact: <a href="tel:+<?php echo $phone; ?>"><?php echo $e($phoneShow); ?></a> (call / WhatsApp)</p>
+  <p>Listed and managed by <strong><?php echo $e($opName); ?></strong>, property consultants in Lucknow · <?php echo $e($opStreet); ?>, Lucknow <?php echo $e($opPin); ?> · <a href="<?php echo $e($opAbout); ?>">About us</a></p>
  </div>
 </footer>
 

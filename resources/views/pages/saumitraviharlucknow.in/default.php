@@ -2,12 +2,20 @@
 /*
  * saumitraviharlucknow.in — standalone resale-plot page (plain PHP, no Laravel). Redesigned 22 Oct 2026.
  * Independent seller page: never present it as the official UPAVP site.
+ * Since 28 Nov 2026 the operator (DSD Properties) is named in the footer, the "Who is selling" FAQ and the schema (user decision,
+ * doorway-risk review). Keep this page a plot inventory, not a scheme guide: scheme news/registration content belongs on dsdproperties.in.
  * To update stock, edit $plots below. 'status' => 'available' | 'hold' | 'sold'. Plot numbers stay private:
  * they go only into the WhatsApp message, so buyers enquire with us first.
  */
 $site  = 'https://saumitraviharlucknow.in/';
-$phone = '918595002933';
-$phoneShow = '+91 85950 02933';
+$phone = '919554102933';        // sales-domain number (main site uses 8595002933)
+$phoneShow = '+91 95541 02933';
+// Who runs this page (shown openly in the footer + schema since 28 Nov 2026, so the page is not an anonymous doorway)
+$opName = 'DSD Properties';
+$opUrl  = 'https://dsdproperties.in/';
+$opAbout = 'https://dsdproperties.in/about';
+$opStreet = '128/LGE Sanjar Gold Complex, Near Kalindi Park, Vrindavan Sector 2';
+$opPin = '226025';
 $updated = '22 October 2026';
 $updatedIso = '2026-10-22';   // change both dates whenever $plots changes
 $geo = [26.7243945, 81.0689648];
@@ -46,7 +54,7 @@ $faq = [
     ['Are these Saumitra Vihar plots available right now?', 'Yes. The ' . count($open) . ' plots listed on this page were on offer for resale on ' . $updated . '. Resale plots sell quickly, so message us on WhatsApp to confirm a plot before you visit.'],
     ['What plot sizes are available in Saumitra Vihar?', 'This page lists resale plots of ' . implode(', ', array_map(function ($s) use ($fmt) { return $fmt($s) . ' m²'; }, $sizes)) . ', in sectors 1A, 1C, 3B, 3C, 4B and 5C. Each listing shows the facing, road width and whether it is park-facing or a corner plot.'],
     ['Why is the price not shown?', 'Each plot has its own asking price, which depends on size, road width, facing and park or corner position. Message us the plot reference and we will share the current price.'],
-    ['Who is selling these plots?', 'These are resale plots from landowners who received developed plots in Saumitra Vihar under the land-pooling arrangement. You buy from the individual owner, and we help you check the papers before you pay.'],
+    ['Who is selling these plots?', 'These are resale plots from landowners who received developed plots in Saumitra Vihar under the land-pooling arrangement. You buy from the individual owner. The listings are managed by ' . $opName . ', a property consultancy at Vrindavan Sector 2, Lucknow, which helps you check the papers before you pay.'],
     ['Is this the official Awas Vikas (UPAVP) website?', 'No. This is an independent resale plot service and is not linked to UP Awas Evam Vikas Parishad. Apply for any new UPAVP scheme only on upavp.in.'],
     ['What should I check before buying a resale plot here?', 'Ask for the allotment letter in the seller\'s name, the plot number on the layout, payment receipts, any dues to the Parishad, and the transfer rules that apply. Keep copies of everything before you pay any money.'],
 ];
@@ -92,7 +100,8 @@ $ld = [
      'address' => ['@type' => 'PostalAddress', 'streetAddress' => 'New Jail Road (NH-230)', 'addressLocality' => 'Lucknow', 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
     ['@type' => 'RealEstateAgent', '@id' => $site . '#agent', 'name' => 'Saumitra Vihar Plots Lucknow', 'url' => $site, 'telephone' => '+' . $phone,
      'image' => $site . 'og-image.jpg', 'areaServed' => ['@id' => $site . '#place'],
-     'address' => ['@type' => 'PostalAddress', 'addressLocality' => 'Lucknow', 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
+     'parentOrganization' => ['@type' => 'Organization', 'name' => $opName, 'url' => $opUrl],
+     'address' => ['@type' => 'PostalAddress', 'streetAddress' => $opStreet, 'addressLocality' => 'Lucknow', 'postalCode' => $opPin, 'addressRegion' => 'Uttar Pradesh', 'addressCountry' => 'IN']],
     ['@type' => 'ItemList', '@id' => $site . '#plots', 'name' => 'Resale plots in Saumitra Vihar, Lucknow', 'numberOfItems' => count($open),
      'itemListElement' => array_values(array_map(function ($p, $i) use ($fmt, $site, $sqft, $updatedIso) {
         return ['@type' => 'ListItem', 'position' => $i + 1, 'item' => ['@type' => 'Place',
@@ -482,6 +491,7 @@ section.band{padding:64px 0;border-bottom:1px solid var(--line)}
 <footer class="foot">
   <div class="wrap">
     <p><strong>Saumitra Vihar Plots · Lucknow</strong> · <?php echo $e($phoneShow); ?></p>
+    <p>Listed and managed by <strong><?php echo $e($opName); ?></strong>, property consultants in Lucknow · <?php echo $e($opStreet); ?>, Lucknow <?php echo $e($opPin); ?> · <a href="<?php echo $e($opAbout); ?>" style="color:var(--leaf)">About us</a></p>
     <p>An independent resale plot service. Not affiliated with, or endorsed by, UP Awas Evam Vikas Parishad (UPAVP). New scheme registration and allotment are handled only by UPAVP on <a href="https://upavp.in/" target="_blank" rel="noopener" style="color:var(--leaf)">upavp.in</a>. Availability and prices change; confirm the plot, seller records and transfer terms before paying.</p>
   </div>
 </footer>
